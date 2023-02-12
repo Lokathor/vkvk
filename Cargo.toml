@@ -1,0 +1,13 @@
+[package]
+name = "vkvk"
+description = "A vulkan library."
+repository = "https://github.com/Lokathor/vkvk"
+version = "0.1.0+vk1.3.240"
+edition = "2021"
+license = "Zlib OR Apache-2.0 OR MIT"
+
+[dependencies]
+tinyvec = { version = "1.6.0", features = ["alloc"] }
+
+[dev-dependencies]
+magnesium = "1.2"
