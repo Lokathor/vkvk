@@ -7,4 +7,8 @@ fn main() {
   let entry = Entry::LINKED;
   println!("get_max_instance_version: {:?}", entry.get_max_instance_version());
   println!("get_instance_layer_properties: {:?}", entry.get_instance_layer_properties());
+  println!(
+    "get_instance_extension_properties(None): {:?}",
+    entry.get_instance_extension_properties(None)
+  );
 }

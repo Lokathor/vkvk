@@ -5,7 +5,11 @@
 extern crate alloc;
 use alloc::vec::Vec;
 
-use core::{ffi::*, num::NonZeroI32, ptr::null_mut};
+use core::{
+  ffi::*,
+  num::NonZeroI32,
+  ptr::{null, null_mut},
+};
 
 use version::VkVersion;
 
@@ -87,6 +91,11 @@ impl<const N: usize> core::fmt::Debug for ArrayZStr<N> {
     core::fmt::Debug::fmt(s, f)
   }
 }
+impl<const N: usize> Default for ArrayZStr<N> {
+  fn default() -> Self {
+    Self([0_u8; N])
+  }
+}
 
 #[derive(Debug, Clone, Copy)]
 #[repr(C)]
@@ -97,8 +106,9 @@ pub struct VkLayerProperties {
   pub description: ArrayZStr<VK_MAX_DESCRIPTION_SIZE>,
 }
 
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
-struct VkExtensionProperties {
+pub struct VkExtensionProperties {
   pub extension_name: ArrayZStr<VK_MAX_EXTENSION_NAME_SIZE>,
   pub spec_version: uint32_t,
 }
@@ -146,6 +156,40 @@ impl Entry {
       Err(err_code)
     } else {
       unsafe { buf.set_len(property_count.try_into().unwrap()) };
+      Ok(buf)
+    }
+  }
+
+  pub fn get_instance_extension_properties(
+    &self, layer: Option<&ArrayZStr<VK_MAX_EXTENSION_NAME_SIZE>>,
+  ) -> Result<Vec<VkExtensionProperties>, VkErrorCode> {
+    let vkGetInstanceProcAddr = self.0;
+    const FN_NAME: &str = "vkEnumerateInstanceExtensionProperties\0";
+    let Some(pfn) =  (unsafe { vkGetInstanceProcAddr(VkInstance::NULL, FN_NAME.as_ptr()) }) else {
+      return Err(VkErrorCode::ERROR_UNKNOWN)
+    };
+    let vkEnumerateInstanceExtensionProperties: vkEnumerateInstanceExtensionProperties_t =
+      unsafe { core::mem::transmute(pfn) };
+    //
+    let layer_z: *const u8 = match layer {
+      Some(l) => l.0.as_ptr(),
+      None => null(),
+    };
+    //
+    let mut extension_count: u32 = 0;
+    let count_ret =
+      unsafe { vkEnumerateInstanceExtensionProperties(layer_z, &mut extension_count, null_mut()) };
+    if let Some(err_code) = count_ret.0 {
+      return Err(err_code);
+    }
+    let mut buf = Vec::with_capacity(extension_count.try_into().unwrap());
+    let write_ret = unsafe {
+      vkEnumerateInstanceExtensionProperties(layer_z, &mut extension_count, buf.as_mut_ptr())
+    };
+    if let Some(err_code) = write_ret.0 {
+      Err(err_code)
+    } else {
+      unsafe { buf.set_len(extension_count.try_into().unwrap()) };
       Ok(buf)
     }
   }
