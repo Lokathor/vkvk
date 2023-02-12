@@ -7,6 +7,7 @@ edition = "2021"
 license = "Zlib OR Apache-2.0 OR MIT"
 
 [dependencies]
+bitfrob = "1.0.0"
 tinyvec = { version = "1.6.0", features = ["alloc"] }
 
 [dev-dependencies]

@@ -3,6 +3,12 @@
 version = 3
 
 [[package]]
+name = "bitfrob"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ea3b14312e54f1705e8e698df639435712d48caeab95933b560bbd20af51e704"
+
+[[package]]
 name = "magnesium"
 version = "1.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -27,6 +33,7 @@ checksum = "1f3ccbac311fea05f86f61904b462b55fb3df8837a366dfc601a0161d0532f20"
 name = "vkvk"
 version = "0.1.0+vk1.3.240"
 dependencies = [
+ "bitfrob",
  "magnesium",
  "tinyvec",
 ]

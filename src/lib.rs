@@ -4,6 +4,10 @@
 
 use core::{ffi::*, num::NonZeroI32};
 
+use version::VkVersion;
+
+pub mod version;
+
 #[cfg_attr(windows, link(name = "vulkan-1"))]
 #[cfg_attr(not(windows), link(name = "vulkan"))]
 extern "system" {
@@ -25,10 +29,6 @@ impl VkInstance {
 pub type PFN_vkVoidFunction = Option<unsafe extern "system" fn()>;
 
 type uint32_t = u32;
-
-#[derive(Debug)]
-#[repr(transparent)]
-pub struct VkVersion(uint32_t);
 
 #[repr(transparent)]
 #[must_use]
