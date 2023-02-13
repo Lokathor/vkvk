@@ -22,3 +22,10 @@ pub type vkEnumerateInstanceExtensionProperties_t = unsafe extern "system" fn(
 ) -> VkResult;
 pub const vkEnumerateInstanceExtensionProperties_NAME: &str =
   "vkEnumerateInstanceExtensionProperties\0";
+/// Khronos: [vkCreateInstance](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateInstance.html)
+pub type vkCreateInstance_t = unsafe extern "system" fn(
+  create_info: *const VkInstanceCreateInfo,
+  allocator: *const VkAllocationCallbacks,
+  instance: *mut VkInstance,
+) -> VkResult;
+pub const vkCreateInstance_NAME: &str = "vkCreateInstance\0";

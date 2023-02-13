@@ -3,7 +3,7 @@
 #![allow(dead_code)]
 
 extern crate alloc;
-use alloc::vec::Vec;
+use alloc::{string::String, vec::Vec};
 
 use core::{
   ffi::*,
@@ -12,7 +12,7 @@ use core::{
 };
 
 mod flag_bits;
-use flag_bits::*;
+pub use flag_bits::*;
 
 mod structs;
 use structs::*;
@@ -27,6 +27,7 @@ mod version;
 pub use version::*;
 
 // TODO: handle
+#[derive(Debug)]
 #[repr(transparent)]
 pub struct VkInstance(*mut c_void);
 impl VkInstance {
@@ -47,9 +48,12 @@ pub struct VkSystemAllocationScope(u32);
 #[repr(transparent)]
 pub struct VkInternalAllocationType(u32);
 
+/// Khronos: [VkStructureType](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkStructureType.html)
 #[derive(Clone, Copy)]
 #[repr(transparent)]
 pub struct VkStructureType(u32);
+pub const VK_STRUCTURE_TYPE_APPLICATION_INFO: VkStructureType = VkStructureType(0);
+pub const VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO: VkStructureType = VkStructureType(1);
 
 pub type PFN_vkVoidFunction = Option<unsafe extern "system" fn()>;
 
@@ -114,6 +118,9 @@ impl<const N: usize> ArrayZStr<N> {
   pub fn as_str(&self) -> &str {
     let zero_point = self.0.iter().copied().position(|b| b == 0).unwrap();
     core::str::from_utf8(&self.0[..zero_point]).unwrap()
+  }
+  pub const fn as_ptr(&self) -> *const u8 {
+    self.0.as_ptr()
   }
 }
 impl<const N: usize> core::fmt::Debug for ArrayZStr<N> {

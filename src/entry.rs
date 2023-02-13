@@ -93,4 +93,56 @@ impl Entry {
       Ok(buf)
     }
   }
+
+  pub fn create_instance(&self, mut request: CreateRequest) -> Result<VkInstance, VkErrorCode> {
+    let vkGetInstanceProcAddr = self.0;
+    let Some(pfn) =  (unsafe { vkGetInstanceProcAddr(VkInstance::NULL, vkCreateInstance_NAME.as_ptr()) }) else {
+      return Err(VkErrorCode::ERROR_UNKNOWN)
+    };
+    let vkCreateInstance: vkCreateInstance_t = unsafe { core::mem::transmute(pfn) };
+    //
+    request.application_name.push('\0');
+    request.engine_name.push('\0');
+    let app_create_info = VkApplicationInfo {
+      ty: VK_STRUCTURE_TYPE_APPLICATION_INFO,
+      next: null(),
+      api_version: request.api_version,
+      application_name: request.application_name.as_ptr(),
+      application_version: request.application_version,
+      engine_name: request.engine_name.as_ptr(),
+      engine_version: request.engine_version,
+    };
+    let layer_ptrs: Vec<*const u8> = request.enabled_layers.iter().map(|l| l.as_ptr()).collect();
+    let extension_ptrs: Vec<*const u8> =
+      request.enabled_extensions.iter().map(|l| l.as_ptr()).collect();
+    let instance_create_info = VkInstanceCreateInfo {
+      application_info: &app_create_info,
+      next: null(),
+      ty: VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
+      flags: request.flags,
+      enabled_layer_count: layer_ptrs.len().try_into().unwrap(),
+      enabled_layer_names: layer_ptrs.as_ptr(),
+      enabled_extension_count: extension_ptrs.len().try_into().unwrap(),
+      enabled_extension_names: extension_ptrs.as_ptr(),
+    };
+    //
+    let mut instance = VkInstance::NULL;
+    let create = unsafe { vkCreateInstance(&instance_create_info, null(), &mut instance) };
+    if let Some(err_code) = create.0 {
+      Err(err_code)
+    } else {
+      Ok(instance)
+    }
+  }
+}
+
+pub struct CreateRequest {
+  pub application_name: String,
+  pub application_version: uint32_t,
+  pub engine_name: String,
+  pub engine_version: uint32_t,
+  pub api_version: VkVersion,
+  pub flags: VkInstanceCreateFlags,
+  pub enabled_layers: Vec<ArrayZStr<VK_MAX_EXTENSION_NAME_SIZE>>,
+  pub enabled_extensions: Vec<ArrayZStr<VK_MAX_EXTENSION_NAME_SIZE>>,
 }

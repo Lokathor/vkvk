@@ -2,7 +2,7 @@ use super::*;
 
 #[derive(Clone, Copy)]
 #[repr(C)]
-struct VkAllocationCallbacks {
+pub struct VkAllocationCallbacks {
   pub user_data: *mut c_void,
   pub allocation: PFN_vkAllocationFunction,
   pub reallocation: PFN_vkReallocationFunction,
