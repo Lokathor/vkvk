@@ -28,6 +28,7 @@ pub struct VkExtensionProperties {
 }
 
 #[derive(Clone, Copy)]
+#[repr(C)]
 pub struct VkApplicationInfo {
   pub ty: VkStructureType,
   pub next: *const c_void,
