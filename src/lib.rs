@@ -11,20 +11,20 @@ use core::{
   ptr::{null, null_mut},
 };
 
-use version::VkVersion;
+mod flag_bits;
+use flag_bits::*;
 
-mod version;
-pub use version::*;
+mod structs;
+use structs::*;
 
 mod fn_types;
 use fn_types::*;
 
-#[cfg_attr(windows, link(name = "vulkan-1"))]
-#[cfg_attr(not(windows), link(name = "vulkan"))]
-extern "system" {
-  /// khronos: [vkGetInstanceProcAddr](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetInstanceProcAddr.html)
-  pub fn vkGetInstanceProcAddr(instance: VkInstance, name: *const u8) -> PFN_vkVoidFunction;
-}
+mod entry;
+pub use entry::*;
+
+mod version;
+pub use version::*;
 
 // TODO: handle
 #[repr(transparent)]
@@ -37,7 +37,54 @@ impl VkInstance {
   }
 }
 
+type size_t = usize;
+
+#[derive(Clone, Copy)]
+#[repr(transparent)]
+pub struct VkSystemAllocationScope(u32);
+
+#[derive(Clone, Copy)]
+#[repr(transparent)]
+pub struct VkInternalAllocationType(u32);
+
+#[derive(Clone, Copy)]
+#[repr(transparent)]
+pub struct VkStructureType(u32);
+
 pub type PFN_vkVoidFunction = Option<unsafe extern "system" fn()>;
+
+pub type vkAllocationFunction_t = unsafe extern "system" fn(
+  user_data: *mut c_void,
+  size: size_t,
+  alignment: size_t,
+  allocation_scope: VkSystemAllocationScope,
+);
+pub type vkReallocationFunction_t = unsafe extern "system" fn(
+  user_data: *mut c_void,
+  original: *mut c_void,
+  size: size_t,
+  alignment: size_t,
+  allocation_scope: VkSystemAllocationScope,
+);
+pub type vkFreeFunction_t = unsafe extern "system" fn(pUserData: *mut c_void, pMemory: *mut c_void);
+pub type vkInternalAllocationNotification_t = unsafe extern "system" fn(
+  user_data: *mut c_void,
+  size: size_t,
+  allocation_type: VkInternalAllocationType,
+  allocation_scope: VkSystemAllocationScope,
+);
+pub type vkInternalFreeNotification_t = unsafe extern "system" fn(
+  user_data: *mut c_void,
+  size: size_t,
+  allocation_type: VkInternalAllocationType,
+  allocation_scope: VkSystemAllocationScope,
+);
+
+pub type PFN_vkAllocationFunction = Option<vkAllocationFunction_t>;
+pub type PFN_vkReallocationFunction = Option<vkReallocationFunction_t>;
+pub type PFN_vkFreeFunction = Option<vkFreeFunction_t>;
+pub type PFN_vkInternalAllocationNotification = Option<vkInternalAllocationNotification_t>;
+pub type PFN_vkInternalFreeNotification = Option<vkInternalFreeNotification_t>;
 
 type uint32_t = u32;
 
@@ -63,122 +110,19 @@ const VK_MAX_DESCRIPTION_SIZE: usize = 256;
 #[derive(Clone, Copy)]
 #[repr(transparent)]
 pub struct ArrayZStr<const N: usize>([u8; N]);
+impl<const N: usize> ArrayZStr<N> {
+  pub fn as_str(&self) -> &str {
+    let zero_point = self.0.iter().copied().position(|b| b == 0).unwrap();
+    core::str::from_utf8(&self.0[..zero_point]).unwrap()
+  }
+}
 impl<const N: usize> core::fmt::Debug for ArrayZStr<N> {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-    let zero_point = self.0.iter().copied().position(|b| b == 0).unwrap();
-    let s = core::str::from_utf8(&self.0[..zero_point]).unwrap();
-    core::fmt::Debug::fmt(s, f)
+    core::fmt::Debug::fmt(self.as_str(), f)
   }
 }
 impl<const N: usize> Default for ArrayZStr<N> {
   fn default() -> Self {
     Self([0_u8; N])
-  }
-}
-
-#[derive(Debug, Clone, Copy)]
-#[repr(C)]
-pub struct VkLayerProperties {
-  pub layer_name: ArrayZStr<VK_MAX_EXTENSION_NAME_SIZE>,
-  pub spec_version: VkVersion,
-  pub implementation_version: uint32_t,
-  pub description: ArrayZStr<VK_MAX_DESCRIPTION_SIZE>,
-}
-
-#[derive(Debug, Clone, Copy)]
-#[repr(C)]
-pub struct VkExtensionProperties {
-  pub extension_name: ArrayZStr<VK_MAX_EXTENSION_NAME_SIZE>,
-  pub spec_version: uint32_t,
-}
-
-#[repr(transparent)]
-pub struct Entry(vkGetInstanceProcAddr_t);
-impl Entry {
-  pub const LINKED: Self = Self(vkGetInstanceProcAddr);
-
-  /// Gets the highest API level Instance that can be created on this system.
-  ///
-  /// Your instance creation request can ask for any API level equal to or less
-  /// than this.
-  pub fn get_max_instance_version(&self) -> Result<VkVersion, VkErrorCode> {
-    let vkGetInstanceProcAddr = self.0;
-    const FN_NAME: &str = "vkEnumerateInstanceVersion\0";
-    let Some(pfn) =  (unsafe { vkGetInstanceProcAddr(VkInstance::NULL, FN_NAME.as_ptr()) }) else {
-      // When vkEnumerateInstanceVersion is missing we assume that it means Vulkan 1.0
-      return Ok(VkVersion::_1_0)
-    };
-    let vkEnumerateInstanceVersion: vkEnumerateInstanceVersion_t =
-      unsafe { core::mem::transmute(pfn) };
-    let mut version = VkVersion(0);
-    let res = unsafe { vkEnumerateInstanceVersion(&mut version) };
-    match res.0 {
-      None => Ok(version),
-      Some(err_code) => Err(err_code),
-    }
-  }
-
-  /// Gets the list of available layers and info about them.
-  pub fn get_available_layers(&self) -> Result<Vec<VkLayerProperties>, VkErrorCode> {
-    let vkGetInstanceProcAddr = self.0;
-    const FN_NAME: &str = "vkEnumerateInstanceLayerProperties\0";
-    let Some(pfn) =  (unsafe { vkGetInstanceProcAddr(VkInstance::NULL, FN_NAME.as_ptr()) }) else {
-      return Err(VkErrorCode::ERROR_UNKNOWN)
-    };
-    let vkEnumerateInstanceLayerProperties: vkEnumerateInstanceLayerProperties_t =
-      unsafe { core::mem::transmute(pfn) };
-    //
-    let mut property_count: u32 = 0;
-    let count_ret = unsafe { vkEnumerateInstanceLayerProperties(&mut property_count, null_mut()) };
-    if let Some(err_code) = count_ret.0 {
-      return Err(err_code);
-    }
-    let mut buf = Vec::with_capacity(property_count.try_into().unwrap());
-    let write_ret =
-      unsafe { vkEnumerateInstanceLayerProperties(&mut property_count, buf.as_mut_ptr()) };
-    if let Some(err_code) = write_ret.0 {
-      Err(err_code)
-    } else {
-      unsafe { buf.set_len(property_count.try_into().unwrap()) };
-      Ok(buf)
-    }
-  }
-
-  /// Gets the possible extensions for a given layer.
-  ///
-  /// When `None` is passed as the layer name you get the extensions available
-  /// on the instance with no layers applied.
-  pub fn get_available_extensions(
-    &self, layer: Option<&ArrayZStr<VK_MAX_EXTENSION_NAME_SIZE>>,
-  ) -> Result<Vec<VkExtensionProperties>, VkErrorCode> {
-    let vkGetInstanceProcAddr = self.0;
-    const FN_NAME: &str = "vkEnumerateInstanceExtensionProperties\0";
-    let Some(pfn) =  (unsafe { vkGetInstanceProcAddr(VkInstance::NULL, FN_NAME.as_ptr()) }) else {
-      return Err(VkErrorCode::ERROR_UNKNOWN)
-    };
-    let vkEnumerateInstanceExtensionProperties: vkEnumerateInstanceExtensionProperties_t =
-      unsafe { core::mem::transmute(pfn) };
-    //
-    let layer_z: *const u8 = match layer {
-      Some(l) => l.0.as_ptr(),
-      None => null(),
-    };
-    //
-    let mut extension_count: u32 = 0;
-    let count_ret =
-      unsafe { vkEnumerateInstanceExtensionProperties(layer_z, &mut extension_count, null_mut()) };
-    if let Some(err_code) = count_ret.0 {
-      return Err(err_code);
-    }
-    let mut buf = Vec::with_capacity(extension_count.try_into().unwrap());
-    let write_ret = unsafe {
-      vkEnumerateInstanceExtensionProperties(layer_z, &mut extension_count, buf.as_mut_ptr())
-    };
-    if let Some(err_code) = write_ret.0 {
-      Err(err_code)
-    } else {
-      unsafe { buf.set_len(extension_count.try_into().unwrap()) };
-      Ok(buf)
-    }
   }
 }

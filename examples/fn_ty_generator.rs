@@ -6,11 +6,13 @@ fn main() {
   fn_type("vkEnumerateInstanceVersion", "(api_version: *mut VkVersion) -> VkResult");
   fn_type("vkEnumerateInstanceLayerProperties", "(property_count: *mut uint32_t, properties: *mut VkLayerProperties) -> VkResult");
   fn_type("vkEnumerateInstanceExtensionProperties", "(layer_name: *const u8, property_count: *mut uint32_t,  properties: *mut VkExtensionProperties) -> VkResult");
+  fn_type("vkCreateInstance", "(create_info: *const VkInstanceCreateInfo, allocator: *const VkAllocationCallbacks, instance: *mut VkInstance) -> VkResult");
 }
 
 fn fn_type(fn_name: &str, sig: &str) {
   println!(
     "/// Khronos: [{fn_name}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{fn_name}.html)
-    pub type {fn_name}_t = unsafe extern \"system\" fn{sig};"
+    pub type {fn_name}_t = unsafe extern \"system\" fn{sig};
+    pub const {fn_name}_NAME: &str = \"{fn_name}\\0\";"
   )
 }
