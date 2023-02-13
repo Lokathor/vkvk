@@ -16,6 +16,9 @@ use version::VkVersion;
 mod version;
 pub use version::*;
 
+mod fn_types;
+use fn_types::*;
+
 #[cfg_attr(windows, link(name = "vulkan-1"))]
 #[cfg_attr(not(windows), link(name = "vulkan"))]
 extern "system" {
@@ -30,7 +33,7 @@ impl VkInstance {
   pub const NULL: Self = Self::null();
 
   pub const fn null() -> Self {
-    Self(core::ptr::null_mut())
+    Self(null_mut())
   }
 }
 
@@ -38,11 +41,12 @@ pub type PFN_vkVoidFunction = Option<unsafe extern "system" fn()>;
 
 type uint32_t = u32;
 
+#[derive(Debug, Clone, Copy)]
 #[repr(transparent)]
 #[must_use]
 pub struct VkResult(Option<VkErrorCode>);
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 #[repr(transparent)]
 pub struct VkErrorCode(NonZeroI32);
 impl VkErrorCode {
@@ -51,31 +55,6 @@ impl VkErrorCode {
     None => panic!(),
   });
 }
-
-macro_rules! fn_type {
-  ( $(#[$ty_meta:meta])* $name:ident ( $($arg_name:ident : $arg_ty:ty),* ) $(-> $ret_ty:ty)? ) => {
-    $(#[$ty_meta])*
-    #[allow(nonstandard_style)]
-    type $name = unsafe extern "system" fn( $( $arg_name: $arg_ty ),* ) $(-> $ret_ty)?;
-  };
-}
-
-fn_type!(
-  /// khronos: [vkGetInstanceProcAddr](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetInstanceProcAddr.html)
-  vkGetInstanceProcAddr_t(instance: VkInstance, name: *const u8) -> PFN_vkVoidFunction
-);
-fn_type!(
-  /// khronos: [vkEnumerateInstanceVersion](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateInstanceVersion.html)
-  vkEnumerateInstanceVersion_t(api_version: *mut VkVersion) -> VkResult
-);
-fn_type!(
-  /// khronos: [vkEnumerateInstanceLayerProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateInstanceLayerProperties.html)
-  vkEnumerateInstanceLayerProperties_t(property_count: *mut uint32_t, properties: *mut VkLayerProperties) -> VkResult
-);
-fn_type!(
-  /// khronos: [vkEnumerateInstanceExtensionProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateInstanceExtensionProperties.html)
-  vkEnumerateInstanceExtensionProperties_t(layer_name: *const u8, property_count: *mut uint32_t,  properties: *mut VkExtensionProperties) -> VkResult
-);
 
 const VK_MAX_EXTENSION_NAME_SIZE: usize = 256;
 const VK_MAX_DESCRIPTION_SIZE: usize = 256;
@@ -118,6 +97,10 @@ pub struct Entry(vkGetInstanceProcAddr_t);
 impl Entry {
   pub const LINKED: Self = Self(vkGetInstanceProcAddr);
 
+  /// Gets the highest API level Instance that can be created on this system.
+  ///
+  /// Your instance creation request can ask for any API level equal to or less
+  /// than this.
   pub fn get_max_instance_version(&self) -> Result<VkVersion, VkErrorCode> {
     let vkGetInstanceProcAddr = self.0;
     const FN_NAME: &str = "vkEnumerateInstanceVersion\0";
@@ -135,7 +118,8 @@ impl Entry {
     }
   }
 
-  pub fn get_instance_layer_properties(&self) -> Result<Vec<VkLayerProperties>, VkErrorCode> {
+  /// Gets the list of available layers and info about them.
+  pub fn get_available_layers(&self) -> Result<Vec<VkLayerProperties>, VkErrorCode> {
     let vkGetInstanceProcAddr = self.0;
     const FN_NAME: &str = "vkEnumerateInstanceLayerProperties\0";
     let Some(pfn) =  (unsafe { vkGetInstanceProcAddr(VkInstance::NULL, FN_NAME.as_ptr()) }) else {
@@ -160,7 +144,11 @@ impl Entry {
     }
   }
 
-  pub fn get_instance_extension_properties(
+  /// Gets the possible extensions for a given layer.
+  ///
+  /// When `None` is passed as the layer name you get the extensions available
+  /// on the instance with no layers applied.
+  pub fn get_available_extensions(
     &self, layer: Option<&ArrayZStr<VK_MAX_EXTENSION_NAME_SIZE>>,
   ) -> Result<Vec<VkExtensionProperties>, VkErrorCode> {
     let vkGetInstanceProcAddr = self.0;
