@@ -89,3 +89,89 @@ pub type vkEnumerateDeviceExtensionProperties_t = unsafe extern "system" fn(
 ) -> VkResult;
 pub const vkEnumerateDeviceExtensionProperties_NAME: &str =
   "vkEnumerateDeviceExtensionProperties\0";
+
+/// Khronos: [vkGetDeviceQueue](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceQueue.html)
+pub type vkGetDeviceQueue_t = unsafe extern "system" fn(
+  device: VkDevice,
+  queueFamilyIndex: uint32_t,
+  queueIndex: uint32_t,
+  pQueue: *mut VkQueue,
+);
+pub const vkGetDeviceQueue_NAME: &str = "vkGetDeviceQueue\0";
+
+/// Khronos: [vkGetPhysicalDeviceSurfaceCapabilitiesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html)
+pub type vkGetPhysicalDeviceSurfaceCapabilitiesKHR_t = unsafe extern "system" fn(
+  physical_device: VkPhysicalDevice,
+  surface: VkSurfaceKHR,
+  surface_capabilities: *mut VkSurfaceCapabilitiesKHR,
+) -> VkResult;
+pub const vkGetPhysicalDeviceSurfaceCapabilitiesKHR_NAME: &str =
+  "vkGetPhysicalDeviceSurfaceCapabilitiesKHR\0";
+
+/// Khronos: [vkGetPhysicalDeviceSurfaceFormatsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceFormatsKHR.html)
+pub type vkGetPhysicalDeviceSurfaceFormatsKHR_t = unsafe extern "system" fn(
+  physical_device: VkPhysicalDevice,
+  surface: VkSurfaceKHR,
+  surface_format_count: *mut uint32_t,
+  surface_formats: *mut VkSurfaceFormatKHR,
+) -> VkResult;
+pub const vkGetPhysicalDeviceSurfaceFormatsKHR_NAME: &str =
+  "vkGetPhysicalDeviceSurfaceFormatsKHR\0";
+
+/// Khronos: [vkGetPhysicalDeviceSurfacePresentModesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfacePresentModesKHR.html)
+pub type vkGetPhysicalDeviceSurfacePresentModesKHR_t = unsafe extern "system" fn(
+  physical_device: VkPhysicalDevice,
+  surface: VkSurfaceKHR,
+  present_mode_count: *mut uint32_t,
+  present_modes: *mut VkPresentModeKHR,
+) -> VkResult;
+pub const vkGetPhysicalDeviceSurfacePresentModesKHR_NAME: &str =
+  "vkGetPhysicalDeviceSurfacePresentModesKHR\0";
+
+/// Khronos: [vkCreateSwapchainKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateSwapchainKHR.html)
+pub type vkCreateSwapchainKHR_t = unsafe extern "system" fn(
+  device: VkDevice,
+  create_info: *const VkSwapchainCreateInfoKHR,
+  allocator: *const VkAllocationCallbacks,
+  swapchain: *mut VkSwapchainKHR,
+) -> VkResult;
+pub const vkCreateSwapchainKHR_NAME: &str = "vkCreateSwapchainKHR\0";
+
+/// Khronos: [vkGetDeviceProcAddr](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceProcAddr.html)
+pub type vkGetDeviceProcAddr_t =
+  unsafe extern "system" fn(device: VkDevice, name: *const u8) -> PFN_vkVoidFunction;
+pub const vkGetDeviceProcAddr_NAME: &str = "vkGetDeviceProcAddr\0";
+
+/// Khronos: [vkGetPhysicalDeviceImageFormatProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceImageFormatProperties.html)
+pub type vkGetPhysicalDeviceImageFormatProperties_t = unsafe extern "system" fn(
+  physicalDevice: VkPhysicalDevice,
+  format: VkFormat,
+  ty: VkImageType,
+  tiling: VkImageTiling,
+  usage: VkImageUsageFlags,
+  flags: VkImageCreateFlags,
+  pImageFormatProperties: *mut VkImageFormatProperties,
+) -> VkResult;
+pub const vkGetPhysicalDeviceImageFormatProperties_NAME: &str =
+  "vkGetPhysicalDeviceImageFormatProperties\0";
+
+/// Khronos: [vkDestroySwapchainKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroySwapchainKHR.html)
+pub type vkDestroySwapchainKHR_t = unsafe extern "system" fn(
+  device: VkDevice,
+  swapchain: VkSwapchainKHR,
+  allocator: *const VkAllocationCallbacks,
+);
+pub const vkDestroySwapchainKHR_NAME: &str = "vkDestroySwapchainKHR\0";
+
+/// Khronos: [vkDestroySurfaceKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroySurfaceKHR.html)
+pub type vkDestroySurfaceKHR_t = unsafe extern "system" fn(
+  instance: VkInstance,
+  surface: VkSurfaceKHR,
+  allocator: *const VkAllocationCallbacks,
+);
+pub const vkDestroySurfaceKHR_NAME: &str = "vkDestroySurfaceKHR\0";
+
+/// Khronos: [vkDestroyDevice](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDevice.html)
+pub type vkDestroyDevice_t =
+  unsafe extern "system" fn(device: VkDevice, allocator: *const VkAllocationCallbacks);
+pub const vkDestroyDevice_NAME: &str = "vkDestroyDevice\0";

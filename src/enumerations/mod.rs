@@ -1,3 +1,26 @@
+#![allow(clippy::missing_inline_in_public_items)]
+
+pub mod vk_structure_type;
+pub use vk_structure_type::*;
+
+pub mod vk_color_space_khr;
+pub use vk_color_space_khr::*;
+
+pub mod vk_format;
+pub use vk_format::*;
+
+pub mod vk_present_mode_khr;
+pub use vk_present_mode_khr::*;
+
+pub mod vk_sharing_mode;
+pub use vk_sharing_mode::*;
+
+pub mod vk_image_type;
+pub use vk_image_type::*;
+
+pub mod vk_image_tiling;
+pub use vk_image_tiling::*;
+
 #[derive(Clone, Copy, Default, PartialEq, Eq)]
 #[repr(transparent)]
 pub struct VkSystemAllocationScope(u32);
@@ -6,21 +29,11 @@ pub struct VkSystemAllocationScope(u32);
 #[repr(transparent)]
 pub struct VkInternalAllocationType(u32);
 
-/// Khronos: [VkStructureType](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkStructureType.html)
-#[derive(Clone, Copy, Default, PartialEq, Eq)]
-#[repr(transparent)]
-pub struct VkStructureType(u32);
-pub const VK_STRUCTURE_TYPE_APPLICATION_INFO: VkStructureType = VkStructureType(0);
-pub const VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO: VkStructureType = VkStructureType(1);
-pub const VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO: VkStructureType = VkStructureType(2);
-pub const VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO: VkStructureType = VkStructureType(3);
-
 /// Khronos: [VkPhysicalDeviceType](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceType.html)
 #[derive(Clone, Copy, Default, PartialEq, Eq)]
 #[repr(transparent)]
 pub struct VkPhysicalDeviceType(u32);
 impl core::fmt::Debug for VkPhysicalDeviceType {
-  #[inline]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     match *self {
       VK_PHYSICAL_DEVICE_TYPE_OTHER => write!(f, "VK_PHYSICAL_DEVICE_TYPE_OTHER"),

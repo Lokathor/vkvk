@@ -1,5 +1,11 @@
 use super::*;
 
+mod vk_device_queue_create_info;
+pub use vk_device_queue_create_info::*;
+
+mod vk_image_format_properties;
+pub use vk_image_format_properties::*;
+
 #[derive(Clone, Copy)]
 #[repr(C)]
 pub struct VkAllocationCallbacks {
@@ -249,6 +255,13 @@ pub struct VkPhysicalDeviceFeatures {
 
 #[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
+pub struct VkExtent2D {
+  pub width: uint32_t,
+  pub height: uint32_t,
+}
+
+#[derive(Debug, Clone, Copy, Default)]
+#[repr(C)]
 pub struct VkExtent3D {
   pub width: uint32_t,
   pub height: uint32_t,
@@ -266,30 +279,6 @@ pub struct VkQueueFamilyProperties {
 
 #[derive(Clone, Copy)]
 #[repr(C)]
-pub struct VkDeviceQueueCreateInfo {
-  pub ty: VkStructureType,
-  pub next: *const c_void,
-  pub flags: VkDeviceQueueCreateFlags,
-  pub queue_family_index: uint32_t,
-  pub queue_count: uint32_t,
-  pub queue_priorities: *const float,
-}
-impl Default for VkDeviceQueueCreateInfo {
-  #[inline]
-  fn default() -> Self {
-    Self {
-      ty: VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO,
-      next: null(),
-      flags: VkDeviceQueueCreateFlags::default(),
-      queue_family_index: 0,
-      queue_count: 0,
-      queue_priorities: null(),
-    }
-  }
-}
-
-#[derive(Clone, Copy)]
-#[repr(C)]
 pub struct VkDeviceCreateInfo {
   pub ty: VkStructureType,
   pub next: *const c_void,
@@ -301,4 +290,49 @@ pub struct VkDeviceCreateInfo {
   pub enabled_extension_count: uint32_t,
   pub enabled_extension_names: *const *const u8,
   pub enabled_features: *const VkPhysicalDeviceFeatures,
+}
+
+#[derive(Debug, Clone, Copy, Default)]
+#[repr(C)]
+pub struct VkSurfaceCapabilitiesKHR {
+  pub min_image_count: uint32_t,
+  pub max_image_count: uint32_t,
+  pub current_extent: VkExtent2D,
+  pub min_image_extent: VkExtent2D,
+  pub max_image_extent: VkExtent2D,
+  pub max_image_array_layers: uint32_t,
+  pub supported_transforms: VkSurfaceTransformFlagsKHR,
+  pub current_transform: VkSurfaceTransformFlagBitsKHR,
+  pub supported_composite_alpha: VkCompositeAlphaFlagsKHR,
+  pub supported_usage_flags: VkImageUsageFlags,
+}
+
+#[derive(Debug, Clone, Copy, Default)]
+#[repr(C)]
+pub struct VkSurfaceFormatKHR {
+  pub format: VkFormat,
+  pub color_space: VkColorSpaceKHR,
+}
+
+#[derive(Clone, Copy)]
+#[repr(C)]
+pub struct VkSwapchainCreateInfoKHR {
+  pub ty: VkStructureType,
+  pub next: *const c_void,
+  pub flags: VkSwapchainCreateFlagsKHR,
+  pub surface: VkSurfaceKHR,
+  pub min_image_count: uint32_t,
+  pub image_format: VkFormat,
+  pub image_color_space: VkColorSpaceKHR,
+  pub image_extent: VkExtent2D,
+  pub image_array_layers: uint32_t,
+  pub image_usage: VkImageUsageFlags,
+  pub image_sharing_mode: VkSharingMode,
+  pub queue_family_index_count: uint32_t,
+  pub queue_family_indices: *const uint32_t,
+  pub pre_transform: VkSurfaceTransformFlagBitsKHR,
+  pub composite_alpha: VkCompositeAlphaFlagBitsKHR,
+  pub present_mode: VkPresentModeKHR,
+  pub clipped: VkBool32,
+  pub old_swapchain: VkSwapchainKHR,
 }

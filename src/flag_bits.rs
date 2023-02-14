@@ -126,3 +126,168 @@ pub type VkDeviceQueueCreateFlags = VkDeviceQueueCreateFlagBits;
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
 #[repr(transparent)]
 pub struct VkDeviceQueueCreateFlagBits(pub u32);
+
+/// Khronos: [VkSurfaceTransformFlagBitsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSurfaceTransformFlagBitsKHR.html)
+pub type VkSurfaceTransformFlagsKHR = VkSurfaceTransformFlagBitsKHR;
+/// Khronos: [VkSurfaceTransformFlagBitsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSurfaceTransformFlagBitsKHR.html)
+#[derive(Clone, Copy, Default, PartialEq, Eq)]
+#[repr(transparent)]
+pub struct VkSurfaceTransformFlagBitsKHR(pub u32);
+impl core::fmt::Debug for VkSurfaceTransformFlagBitsKHR {
+  #[inline]
+  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+    let mut x = f.debug_set();
+    if (self.0 & VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR.0) != 0 {
+      x.entry(&"Identity");
+    }
+    if (self.0 & VK_SURFACE_TRANSFORM_ROTATE_90_BIT_KHR.0) != 0 {
+      x.entry(&"Rotate_90");
+    }
+    if (self.0 & VK_SURFACE_TRANSFORM_ROTATE_180_BIT_KHR.0) != 0 {
+      x.entry(&"Rotate_180");
+    }
+    if (self.0 & VK_SURFACE_TRANSFORM_ROTATE_270_BIT_KHR.0) != 0 {
+      x.entry(&"Rotate_270");
+    }
+    if (self.0 & VK_SURFACE_TRANSFORM_HORIZONTAL_MIRROR_BIT_KHR.0) != 0 {
+      x.entry(&"HorizontalMirror");
+    }
+    if (self.0 & VK_SURFACE_TRANSFORM_HORIZONTAL_MIRROR_ROTATE_90_BIT_KHR.0) != 0 {
+      x.entry(&"HorizontalMirror_90");
+    }
+    if (self.0 & VK_SURFACE_TRANSFORM_HORIZONTAL_MIRROR_ROTATE_180_BIT_KHR.0) != 0 {
+      x.entry(&"HorizontalMirror_180");
+    }
+    if (self.0 & VK_SURFACE_TRANSFORM_HORIZONTAL_MIRROR_ROTATE_270_BIT_KHR.0) != 0 {
+      x.entry(&"HorizontalMirror_270");
+    }
+    if (self.0 & VK_SURFACE_TRANSFORM_INHERIT_BIT_KHR.0) != 0 {
+      x.entry(&"Inherit");
+    }
+    x.finish()
+  }
+}
+pub const VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR: VkSurfaceTransformFlagBitsKHR =
+  VkSurfaceTransformFlagBitsKHR(0x00000001);
+pub const VK_SURFACE_TRANSFORM_ROTATE_90_BIT_KHR: VkSurfaceTransformFlagBitsKHR =
+  VkSurfaceTransformFlagBitsKHR(0x00000002);
+pub const VK_SURFACE_TRANSFORM_ROTATE_180_BIT_KHR: VkSurfaceTransformFlagBitsKHR =
+  VkSurfaceTransformFlagBitsKHR(0x00000004);
+pub const VK_SURFACE_TRANSFORM_ROTATE_270_BIT_KHR: VkSurfaceTransformFlagBitsKHR =
+  VkSurfaceTransformFlagBitsKHR(0x00000008);
+pub const VK_SURFACE_TRANSFORM_HORIZONTAL_MIRROR_BIT_KHR: VkSurfaceTransformFlagBitsKHR =
+  VkSurfaceTransformFlagBitsKHR(0x00000010);
+pub const VK_SURFACE_TRANSFORM_HORIZONTAL_MIRROR_ROTATE_90_BIT_KHR: VkSurfaceTransformFlagBitsKHR =
+  VkSurfaceTransformFlagBitsKHR(0x00000020);
+pub const VK_SURFACE_TRANSFORM_HORIZONTAL_MIRROR_ROTATE_180_BIT_KHR: VkSurfaceTransformFlagBitsKHR =
+  VkSurfaceTransformFlagBitsKHR(0x00000040);
+pub const VK_SURFACE_TRANSFORM_HORIZONTAL_MIRROR_ROTATE_270_BIT_KHR: VkSurfaceTransformFlagBitsKHR =
+  VkSurfaceTransformFlagBitsKHR(0x00000080);
+pub const VK_SURFACE_TRANSFORM_INHERIT_BIT_KHR: VkSurfaceTransformFlagBitsKHR =
+  VkSurfaceTransformFlagBitsKHR(0x00000100);
+
+/// Khronos: [VkCompositeAlphaFlagBitsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkCompositeAlphaFlagBitsKHR.html)
+pub type VkCompositeAlphaFlagsKHR = VkCompositeAlphaFlagBitsKHR;
+/// Khronos: [VkCompositeAlphaFlagBitsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkCompositeAlphaFlagBitsKHR.html)
+#[derive(Clone, Copy, Default, PartialEq, Eq)]
+#[repr(transparent)]
+pub struct VkCompositeAlphaFlagBitsKHR(pub u32);
+impl core::fmt::Debug for VkCompositeAlphaFlagBitsKHR {
+  #[inline]
+  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+    let mut x = f.debug_set();
+    if (self.0 & VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR.0) != 0 {
+      x.entry(&"Opaque");
+    }
+    if (self.0 & VK_COMPOSITE_ALPHA_PRE_MULTIPLIED_BIT_KHR.0) != 0 {
+      x.entry(&"PreMultiplied");
+    }
+    if (self.0 & VK_COMPOSITE_ALPHA_POST_MULTIPLIED_BIT_KHR.0) != 0 {
+      x.entry(&"PostMultiplied");
+    }
+    if (self.0 & VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR.0) != 0 {
+      x.entry(&"Inherit");
+    }
+    x.finish()
+  }
+}
+pub const VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR: VkCompositeAlphaFlagBitsKHR =
+  VkCompositeAlphaFlagBitsKHR(0x00000001);
+pub const VK_COMPOSITE_ALPHA_PRE_MULTIPLIED_BIT_KHR: VkCompositeAlphaFlagBitsKHR =
+  VkCompositeAlphaFlagBitsKHR(0x00000002);
+pub const VK_COMPOSITE_ALPHA_POST_MULTIPLIED_BIT_KHR: VkCompositeAlphaFlagBitsKHR =
+  VkCompositeAlphaFlagBitsKHR(0x00000004);
+pub const VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR: VkCompositeAlphaFlagBitsKHR =
+  VkCompositeAlphaFlagBitsKHR(0x00000008);
+
+/// Khronos: [VkImageUsageFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkImageUsageFlagBits.html)
+pub type VkImageUsageFlags = VkImageUsageFlagBits;
+/// Khronos: [VkImageUsageFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkImageUsageFlagBits.html)
+#[derive(Clone, Copy, Default, PartialEq, Eq)]
+#[repr(transparent)]
+pub struct VkImageUsageFlagBits(pub u32);
+impl core::fmt::Debug for VkImageUsageFlagBits {
+  #[inline]
+  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+    let mut x = f.debug_set();
+    if (self.0 & VK_IMAGE_USAGE_TRANSFER_SRC_BIT.0) != 0 {
+      x.entry(&"TransferSrc");
+    }
+    if (self.0 & VK_IMAGE_USAGE_TRANSFER_DST_BIT.0) != 0 {
+      x.entry(&"TransferDst");
+    }
+    if (self.0 & VK_IMAGE_USAGE_SAMPLED_BIT.0) != 0 {
+      x.entry(&"Sampled");
+    }
+    if (self.0 & VK_IMAGE_USAGE_STORAGE_BIT.0) != 0 {
+      x.entry(&"Storage");
+    }
+    if (self.0 & VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT.0) != 0 {
+      x.entry(&"ColorAttachment");
+    }
+    if (self.0 & VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT.0) != 0 {
+      x.entry(&"DepthStencil");
+    }
+    if (self.0 & VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT.0) != 0 {
+      x.entry(&"TransientAttachment");
+    }
+    if (self.0 & VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT.0) != 0 {
+      x.entry(&"InputAttachment");
+    }
+    x.finish()
+  }
+}
+pub const VK_IMAGE_USAGE_TRANSFER_SRC_BIT: VkImageUsageFlagBits = VkImageUsageFlagBits(0x00000001);
+pub const VK_IMAGE_USAGE_TRANSFER_DST_BIT: VkImageUsageFlagBits = VkImageUsageFlagBits(0x00000002);
+pub const VK_IMAGE_USAGE_SAMPLED_BIT: VkImageUsageFlagBits = VkImageUsageFlagBits(0x00000004);
+pub const VK_IMAGE_USAGE_STORAGE_BIT: VkImageUsageFlagBits = VkImageUsageFlagBits(0x00000008);
+pub const VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT: VkImageUsageFlagBits =
+  VkImageUsageFlagBits(0x00000010);
+pub const VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT: VkImageUsageFlagBits =
+  VkImageUsageFlagBits(0x00000020);
+pub const VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT: VkImageUsageFlagBits =
+  VkImageUsageFlagBits(0x00000040);
+pub const VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT: VkImageUsageFlagBits =
+  VkImageUsageFlagBits(0x00000080);
+
+/// Khronos: [VkSwapchainCreateFlagBitsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSwapchainCreateFlagBitsKHR.html)
+pub type VkSwapchainCreateFlagsKHR = VkSwapchainCreateFlagBitsKHR;
+/// Khronos: [VkSwapchainCreateFlagBitsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSwapchainCreateFlagBitsKHR.html)
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
+#[repr(transparent)]
+pub struct VkSwapchainCreateFlagBitsKHR(pub u32);
+pub const VK_SWAPCHAIN_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT_KHR: VkSwapchainCreateFlagBitsKHR =
+  VkSwapchainCreateFlagBitsKHR(0x00000001);
+pub const VK_SWAPCHAIN_CREATE_PROTECTED_BIT_KHR: VkSwapchainCreateFlagBitsKHR =
+  VkSwapchainCreateFlagBitsKHR(0x00000002);
+pub const VK_SWAPCHAIN_CREATE_MUTABLE_FORMAT_BIT_KHR: VkSwapchainCreateFlagBitsKHR =
+  VkSwapchainCreateFlagBitsKHR(0x00000004);
+pub const VK_SWAPCHAIN_CREATE_DEFERRED_MEMORY_ALLOCATION_BIT_EXT: VkSwapchainCreateFlagBitsKHR =
+  VkSwapchainCreateFlagBitsKHR(0x00000008);
+
+/// Khronos: [VkImageCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkImageCreateFlagBits.html)
+pub type VkImageCreateFlags = VkImageCreateFlagBits;
+/// Khronos: [VkImageCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkImageCreateFlagBits.html)
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
+#[repr(transparent)]
+pub struct VkImageCreateFlagBits(pub u32);

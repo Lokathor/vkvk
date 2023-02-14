@@ -6,6 +6,11 @@ pub struct Device {
   pub(crate) entry: Entry,
   pub(crate) vk_instance: VkInstance,
   pub(crate) vk_device: VkDevice,
+  pub(crate) queues: Vec<(u32, VkQueue)>,
+  //
+  pub(crate) vkGetDeviceProcAddr: vkGetDeviceProcAddr_t,
+  pub(crate) opt_vkCreateSwapchainKHR: Option<vkCreateSwapchainKHR_t>,
+  pub(crate) opt_vkDestroySwapchainKHR: Option<vkDestroySwapchainKHR_t>,
 }
 
 impl Device {
@@ -13,5 +18,97 @@ impl Device {
   #[must_use]
   pub const fn vk_device(&self) -> VkDevice {
     self.vk_device
+  }
+  /// A slice of `(queue_family_index, VkQueue)` pairs
+  #[inline]
+  #[must_use]
+  pub fn queues(&self) -> &[(u32, VkQueue)] {
+    &self.queues
+  }
+  #[inline]
+  pub(crate) fn try_from_primary_parts(
+    entry: Entry, vk_instance: VkInstance, vk_device: VkDevice, queues: Vec<(u32, VkQueue)>,
+  ) -> Result<Self, VkErrorCode> {
+    let vkGetInstanceProcAddr = entry.0;
+    let Some(f) = (unsafe { vkGetInstanceProcAddr(vk_instance, vkGetDeviceProcAddr_NAME.as_ptr()) }) else {
+        // TODO: cleanup the device that exists before returning!
+        return Err(VkErrorCode::ERROR_UNKNOWN);
+      };
+    let vkGetDeviceProcAddr: vkGetDeviceProcAddr_t = unsafe { core::mem::transmute(f) };
+    //
+    let opt_vkCreateSwapchainKHR: Option<vkCreateSwapchainKHR_t> = unsafe {
+      core::mem::transmute(vkGetDeviceProcAddr(vk_device, vkCreateSwapchainKHR_NAME.as_ptr()))
+    };
+    let opt_vkDestroySwapchainKHR: Option<vkDestroySwapchainKHR_t> = unsafe {
+      core::mem::transmute(vkGetDeviceProcAddr(vk_device, vkDestroySwapchainKHR_NAME.as_ptr()))
+    };
+    //
+    Ok(Self {
+      entry,
+      queues,
+      vk_device,
+      vk_instance,
+      vkGetDeviceProcAddr,
+      opt_vkCreateSwapchainKHR,
+      opt_vkDestroySwapchainKHR,
+    })
+  }
+
+  #[inline]
+  pub fn create_swapchain(
+    &self, surface: VkSurfaceKHR, surface_format: VkSurfaceFormatKHR, image_extent: VkExtent2D,
+    present_mode: VkPresentModeKHR, min_image_count: u32, image_usage: VkImageUsageFlags,
+  ) -> Result<VkSwapchainKHR, VkErrorCode> {
+    let Some(vkCreateSwapchainKHR) = self.opt_vkCreateSwapchainKHR else {
+      return Err(VkErrorCode::ERROR_EXTENSION_NOT_PRESENT);
+    };
+    let swapchain_create_info = VkSwapchainCreateInfoKHR {
+      ty: VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR,
+      next: null(),
+      flags: VkSwapchainCreateFlagsKHR::default(),
+      surface,
+      min_image_count,
+      image_format: surface_format.format,
+      image_color_space: surface_format.color_space,
+      image_extent,
+      image_array_layers: 1,
+      image_usage,
+      image_sharing_mode: VK_SHARING_MODE_EXCLUSIVE,
+      queue_family_index_count: 0,
+      queue_family_indices: null(),
+      pre_transform: VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR,
+      composite_alpha: VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR,
+      present_mode,
+      clipped: true.into(),
+      old_swapchain: VkSwapchainKHR::zero(),
+    };
+    let mut vk_swapchain = VkSwapchainKHR::zero();
+    let create_ret = unsafe {
+      vkCreateSwapchainKHR(self.vk_device, &swapchain_create_info, null(), &mut vk_swapchain)
+    };
+    if let Some(err_code) = create_ret.0 {
+      Err(err_code)
+    } else {
+      Ok(vk_swapchain)
+    }
+  }
+
+  #[inline]
+  pub fn destroy_swapchain(&self, swapchain: VkSwapchainKHR) {
+    let Some(vkDestroySwapchainKHR) = self.opt_vkDestroySwapchainKHR else {
+      return;
+    };
+    unsafe { vkDestroySwapchainKHR(self.vk_device, swapchain, null()) }
+  }
+
+  #[inline]
+  pub fn destroy_device(self) {
+    let vkGetDeviceProcAddr = self.vkGetDeviceProcAddr;
+    let Some(f) = (unsafe { vkGetDeviceProcAddr(self.vk_device, vkDestroyDevice_NAME.as_ptr()) }) else {
+      return;
+    };
+    let vkDestroyDevice: vkDestroyDevice_t = unsafe { core::mem::transmute(f) };
+    //
+    unsafe { vkDestroyDevice(self.vk_device, null()) }
   }
 }

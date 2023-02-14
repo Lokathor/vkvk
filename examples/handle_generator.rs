@@ -40,14 +40,14 @@ fn main() {
   nondispatchable_handle("VkOpticalFlowSessionNV", Some("VkDevice"));
   nondispatchable_handle("VkMicromapEXT", Some("VkDevice"));
 
-  /* WSI extensions
-  nondispatchable_handle("VkDisplayKHR");
-  nondispatchable_handle("VkDisplayModeKHR");
-  nondispatchable_handle("VkSurfaceKHR");
-  nondispatchable_handle("VkSwapchainKHR");
-  nondispatchable_handle("VkDebugReportCallbackEXT");
-  nondispatchable_handle("VkDebugUtilsMessengerEXT");
-  */
+  // /* WSI extensions
+  nondispatchable_handle("VkDisplayKHR", Some("VkPhysicalDevice"));
+  nondispatchable_handle("VkDisplayModeKHR", Some("VkDisplayKHR"));
+  nondispatchable_handle("VkSurfaceKHR", Some("VkInstance"));
+  nondispatchable_handle("VkSwapchainKHR", Some("VkDevice"));
+  nondispatchable_handle("VkDebugReportCallbackEXT", Some("VkInstance"));
+  nondispatchable_handle("VkDebugUtilsMessengerEXT", Some("VkInstance"));
+  // */
 
   /* Video extensions
   nondispatchable_handle("VkVideoSessionKHR");

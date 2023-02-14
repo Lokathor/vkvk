@@ -573,3 +573,87 @@ impl VkMicromapEXT {
     Self(0)
   }
 }
+
+/// Khronos: [VkDisplayKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDisplayKHR.html) (non-dispatchable handle)
+/// * Parent: [VkPhysicalDevice]
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[repr(transparent)]
+pub struct VkDisplayKHR(u64);
+impl VkDisplayKHR {
+  pub const ZERO: Self = Self::zero();
+  #[inline]
+  #[must_use]
+  pub const fn zero() -> Self {
+    Self(0)
+  }
+}
+
+/// Khronos: [VkDisplayModeKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDisplayModeKHR.html) (non-dispatchable handle)
+/// * Parent: [VkDisplayKHR]
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[repr(transparent)]
+pub struct VkDisplayModeKHR(u64);
+impl VkDisplayModeKHR {
+  pub const ZERO: Self = Self::zero();
+  #[inline]
+  #[must_use]
+  pub const fn zero() -> Self {
+    Self(0)
+  }
+}
+
+/// Khronos: [VkSurfaceKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSurfaceKHR.html) (non-dispatchable handle)
+/// * Parent: [VkInstance]
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[repr(transparent)]
+pub struct VkSurfaceKHR(u64);
+impl VkSurfaceKHR {
+  pub const ZERO: Self = Self::zero();
+  #[inline]
+  #[must_use]
+  pub const fn zero() -> Self {
+    Self(0)
+  }
+}
+
+/// Khronos: [VkSwapchainKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSwapchainKHR.html) (non-dispatchable handle)
+/// * Parent: [VkDevice]
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[repr(transparent)]
+pub struct VkSwapchainKHR(u64);
+impl VkSwapchainKHR {
+  pub const ZERO: Self = Self::zero();
+  #[inline]
+  #[must_use]
+  pub const fn zero() -> Self {
+    Self(0)
+  }
+}
+
+/// Khronos: [VkDebugReportCallbackEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDebugReportCallbackEXT.html) (non-dispatchable handle)
+/// * Parent: [VkInstance]
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[repr(transparent)]
+pub struct VkDebugReportCallbackEXT(u64);
+impl VkDebugReportCallbackEXT {
+  pub const ZERO: Self = Self::zero();
+  #[inline]
+  #[must_use]
+  pub const fn zero() -> Self {
+    Self(0)
+  }
+}
+
+/// Khronos: [VkDebugUtilsMessengerEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDebugUtilsMessengerEXT.html) (non-dispatchable handle)
+/// * Parent: [VkInstance]
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[repr(transparent)]
+pub struct VkDebugUtilsMessengerEXT(u64);
+impl VkDebugUtilsMessengerEXT {
+  pub const ZERO: Self = Self::zero();
+  #[inline]
+  #[must_use]
+  pub const fn zero() -> Self {
+    Self(0)
+  }
+}

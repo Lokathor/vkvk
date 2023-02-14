@@ -3,7 +3,11 @@
 use beryllium::{events::Event, init::InitFlags, video::CreateWinArgs, Sdl};
 use std::{mem::size_of, num::NonZeroI32};
 use vkvk::{
-  CreateRequest, Entry, VkInstance, VkInstanceCreateFlagBits, VkPhysicalDeviceFeatures, VkVersion,
+  CreateRequest, Entry, VkImageCreateFlagBits, VkImageCreateFlags, VkImageUsageFlags, VkInstance,
+  VkInstanceCreateFlagBits, VkPhysicalDeviceFeatures, VkSurfaceKHR, VkVersion,
+  VK_COLOR_SPACE_SRGB_NONLINEAR_KHR, VK_FORMAT_B8G8R8A8_SRGB, VK_FORMAT_R8G8B8A8_SRGB,
+  VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_TYPE_2D, VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
+  VK_PRESENT_MODE_MAILBOX_KHR,
 };
 
 fn main() {
@@ -67,31 +71,30 @@ fn main() {
     .unwrap();
   println!("create_instance: {:?}", instance.vk_instance());
 
-  let _surface =
-    win.create_surface(unsafe { core::mem::transmute(instance.vk_instance()) }).unwrap();
+  let surface: VkSurfaceKHR = unsafe {
+    // this juggles the beryllium vulkan types and the vkvk vulkan types
+    let u: u64 = win.create_surface(core::mem::transmute(instance.vk_instance())).unwrap().0;
+    core::mem::transmute(u)
+  };
 
-  let physical_devices = instance.get_physical_devices().unwrap();
-  println!("Physical Devices: {physical_devices:?}");
-  let physical_device = physical_devices[0];
+  let mut physical_devices = instance.get_physical_devices().unwrap();
+  println!(
+    "There {are_is} {} physical device{s} on the system.",
+    physical_devices.len(),
+    are_is = if physical_devices.len() != 1 { "are" } else { "is" },
+    s = if physical_devices.len() != 1 { "s" } else { "" },
+  );
+  physical_devices.retain(|&physical_device| {
+    // the device needs to support making a swapchain
+    let extension_properties =
+      instance.get_physical_device_extension_properties(physical_device, None).unwrap();
+    extension_properties.iter().any(|ex| ex.extension_name.as_str() == "VK_KHR_swapchain")
+  });
+  let physical_device =
+    physical_devices.into_iter().next().expect("No physical devices supported our requirements!");
 
-  //let extension_properties =
-  //  instance.get_physical_device_extension_properties(physical_device,
-  // None).unwrap(); for extension_property in &extension_properties {
-  //  println!("Extension Property: {extension_property:?}");
-  //}
-
-  //let physical_device_properties =
-  // instance.get_physical_device_properties(physical_device); println!("==
-  // {physical_device_properties:?}"); let physical_device_features =
-  // instance.get_physical_device_features(physical_device); println!("==
-  // {physical_device_features:?}");
   let physical_device_queue_family_properties =
     instance.get_physical_device_queue_family_properties(physical_device);
-  //println!(
-  //  "== physical_device_queue_family_properties
-  // {physical_device_queue_family_properties:?}"
-  //);
-
   let queue_family_index: u32 = physical_device_queue_family_properties
     .iter()
     .position(|prop| prop.queue_flags.graphics())
@@ -99,11 +102,84 @@ fn main() {
     .try_into()
     .unwrap();
   let features = VkPhysicalDeviceFeatures::default();
+  let device_layers = Vec::new();
+  let device_extensions = vec![String::from("VK_KHR_swapchain")];
+
+  let physical_device_surface_capabilities =
+    instance.get_physical_device_surface_capabilities_khr(physical_device, surface).unwrap();
+  println!("{physical_device_surface_capabilities:?}");
+
+  let physical_device_surface_formats =
+    instance.get_physical_device_surface_formats(physical_device, surface).unwrap();
+  println!("{physical_device_surface_formats:?}");
+  let surface_format = physical_device_surface_formats
+    .iter()
+    .find(|surface_format| {
+      surface_format.color_space == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR
+        && [VK_FORMAT_R8G8B8A8_SRGB, VK_FORMAT_B8G8R8A8_SRGB].contains(&surface_format.format)
+    })
+    .copied()
+    .expect("No compatible surface formats found!");
+
+  let physical_device_surface_present_modes =
+    instance.get_physical_device_surface_present_modes(physical_device, surface).unwrap();
+  println!("{physical_device_surface_present_modes:?}");
+  let (present_mode, min_image_count) =
+    if physical_device_surface_present_modes.contains(&VK_PRESENT_MODE_MAILBOX_KHR) {
+      (
+        VK_PRESENT_MODE_MAILBOX_KHR,
+        physical_device_surface_capabilities
+          .min_image_count
+          .clamp(3, physical_device_surface_capabilities.max_image_count),
+      )
+    } else if let Some(mode) = physical_device_surface_present_modes.get(0).copied() {
+      (mode, physical_device_surface_capabilities.min_image_count)
+    } else {
+      panic!("No presentation modes available!");
+    };
+  println!("present_mode: {present_mode:?}, min_image_count: {min_image_count:?}");
+
+  let image_usage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
+
+  let physical_device_image_format_properties = instance
+    .get_physical_device_image_format_properties(
+      physical_device,
+      surface_format.format,
+      VK_IMAGE_TYPE_2D,
+      VK_IMAGE_TILING_OPTIMAL,
+      image_usage,
+      VkImageCreateFlags::default(),
+    );
+  println!("physical_device_image_format_properties: {physical_device_image_format_properties:?}");
 
   let device = instance
-    .create_device(physical_device, &[queue_family_index], Vec::new(), Vec::new(), features)
+    .create_device(
+      physical_device,
+      &[queue_family_index],
+      device_layers,
+      device_extensions,
+      features,
+    )
     .unwrap();
+  println!("Created our device!");
   println!("{:?}", device.vk_device());
+  println!("{:?}", device.queues());
+
+  let swapchain = device
+    .create_swapchain(
+      surface,
+      surface_format,
+      physical_device_surface_capabilities.current_extent,
+      present_mode,
+      min_image_count,
+      image_usage,
+    )
+    .unwrap();
+  println!("Created our swapchain! {swapchain:?}");
+
+  // TODO: swapchain images
+
+  // TODO: swapchain views
 
   // program "main loop".
   'the_loop: loop {
@@ -119,6 +195,11 @@ fn main() {
 
     // TODO: post-events drawing
 
-    // TODO: swap buffers.
+    // TODO: present an image.
   }
+
+  device.destroy_swapchain(swapchain);
+  device.destroy_device();
+  instance.destroy_surface(surface);
+  instance.destroy_instance();
 }

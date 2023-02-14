@@ -108,11 +108,11 @@ impl Instance {
     &self, physical_device: VkPhysicalDevice, layer: Option<&ArrayZStr<VK_MAX_EXTENSION_NAME_SIZE>>,
   ) -> Result<Vec<VkExtensionProperties>, VkErrorCode> {
     let vkGetInstanceProcAddr = self.entry.0;
-    let Some(r) =  (unsafe { vkGetInstanceProcAddr(self.vk_instance, vkEnumerateDeviceExtensionProperties_NAME.as_ptr()) }) else {
+    let Some(f) =  (unsafe { vkGetInstanceProcAddr(self.vk_instance, vkEnumerateDeviceExtensionProperties_NAME.as_ptr()) }) else {
       return Err(VkErrorCode::ERROR_UNKNOWN)
     };
     let vkEnumerateDeviceExtensionProperties: vkEnumerateDeviceExtensionProperties_t =
-      unsafe { core::mem::transmute(r) };
+      unsafe { core::mem::transmute(f) };
     //
     let layer_z: *const u8 = match layer {
       Some(l) => l.as_ptr(),
@@ -149,6 +149,134 @@ impl Instance {
   }
 
   #[inline]
+  pub fn get_physical_device_surface_capabilities_khr(
+    &self, physical_device: VkPhysicalDevice, surface: VkSurfaceKHR,
+  ) -> Result<VkSurfaceCapabilitiesKHR, VkErrorCode> {
+    let vkGetInstanceProcAddr = self.entry.0;
+    let Some(f) =  (unsafe { vkGetInstanceProcAddr(self.vk_instance, vkGetPhysicalDeviceSurfaceCapabilitiesKHR_NAME.as_ptr()) }) else {
+      return Err(VkErrorCode::ERROR_UNKNOWN)
+    };
+    let vkGetPhysicalDeviceSurfaceCapabilitiesKHR: vkGetPhysicalDeviceSurfaceCapabilitiesKHR_t =
+      unsafe { core::mem::transmute(f) };
+    //
+    let mut capabilities = VkSurfaceCapabilitiesKHR::default();
+    let get_ret = unsafe {
+      vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physical_device, surface, &mut capabilities)
+    };
+    if let Some(err_code) = get_ret.0 {
+      Err(err_code)
+    } else {
+      Ok(capabilities)
+    }
+  }
+
+  #[inline]
+  pub fn get_physical_device_surface_formats(
+    &self, physical_device: VkPhysicalDevice, surface: VkSurfaceKHR,
+  ) -> Result<Vec<VkSurfaceFormatKHR>, VkErrorCode> {
+    let vkGetInstanceProcAddr = self.entry.0;
+    let Some(f) =  (unsafe { vkGetInstanceProcAddr(self.vk_instance, vkGetPhysicalDeviceSurfaceFormatsKHR_NAME.as_ptr()) }) else {
+      return Err(VkErrorCode::ERROR_UNKNOWN)
+    };
+    let vkGetPhysicalDeviceSurfaceFormatsKHR: vkGetPhysicalDeviceSurfaceFormatsKHR_t =
+      unsafe { core::mem::transmute(f) };
+    //
+    let mut format_count: u32 = 0;
+    let count_ret = unsafe {
+      vkGetPhysicalDeviceSurfaceFormatsKHR(physical_device, surface, &mut format_count, null_mut())
+    };
+    if let Some(err_code) = count_ret.0 {
+      return Err(err_code);
+    }
+    let mut buf = Vec::with_capacity(format_count.try_into().unwrap());
+    let write_ret = unsafe {
+      vkGetPhysicalDeviceSurfaceFormatsKHR(
+        physical_device,
+        surface,
+        &mut format_count,
+        buf.as_mut_ptr(),
+      )
+    };
+    if let Some(err_code) = write_ret.0 {
+      Err(err_code)
+    } else {
+      unsafe { buf.set_len(format_count.try_into().unwrap()) };
+      Ok(buf)
+    }
+  }
+
+  #[inline]
+  pub fn get_physical_device_surface_present_modes(
+    &self, physical_device: VkPhysicalDevice, surface: VkSurfaceKHR,
+  ) -> Result<Vec<VkPresentModeKHR>, VkErrorCode> {
+    let vkGetInstanceProcAddr = self.entry.0;
+    let Some(f) =  (unsafe { vkGetInstanceProcAddr(self.vk_instance, vkGetPhysicalDeviceSurfacePresentModesKHR_NAME.as_ptr()) }) else {
+      return Err(VkErrorCode::ERROR_UNKNOWN)
+    };
+    let vkGetPhysicalDeviceSurfacePresentModesKHR: vkGetPhysicalDeviceSurfacePresentModesKHR_t =
+      unsafe { core::mem::transmute(f) };
+    //
+    let mut mode_count: u32 = 0;
+    let count_ret = unsafe {
+      vkGetPhysicalDeviceSurfacePresentModesKHR(
+        physical_device,
+        surface,
+        &mut mode_count,
+        null_mut(),
+      )
+    };
+    if let Some(err_code) = count_ret.0 {
+      return Err(err_code);
+    }
+    let mut buf = Vec::with_capacity(mode_count.try_into().unwrap());
+    let write_ret = unsafe {
+      vkGetPhysicalDeviceSurfacePresentModesKHR(
+        physical_device,
+        surface,
+        &mut mode_count,
+        buf.as_mut_ptr(),
+      )
+    };
+    if let Some(err_code) = write_ret.0 {
+      Err(err_code)
+    } else {
+      unsafe { buf.set_len(mode_count.try_into().unwrap()) };
+      Ok(buf)
+    }
+  }
+
+  #[inline]
+  pub fn get_physical_device_image_format_properties(
+    &self, physical_device: VkPhysicalDevice, format: VkFormat, ty: VkImageType,
+    tiling: VkImageTiling, usage: VkImageUsageFlags, create: VkImageCreateFlags,
+  ) -> Result<VkImageFormatProperties, VkErrorCode> {
+    let vkGetInstanceProcAddr = self.entry.0;
+    let Some(f) =  (unsafe { vkGetInstanceProcAddr(self.vk_instance, vkGetPhysicalDeviceImageFormatProperties_NAME.as_ptr()) }) else {
+      return Err(VkErrorCode::ERROR_UNKNOWN)
+    };
+    let vkGetPhysicalDeviceImageFormatProperties: vkGetPhysicalDeviceImageFormatProperties_t =
+      unsafe { core::mem::transmute(f) };
+    //
+    let mut properties = VkImageFormatProperties::default();
+    let get_ret = unsafe {
+      vkGetPhysicalDeviceImageFormatProperties(
+        physical_device,
+        format,
+        ty,
+        tiling,
+        usage,
+        create,
+        &mut properties,
+      )
+    };
+    if let Some(err_code) = get_ret.0 {
+      Err(err_code)
+    } else {
+      Ok(properties)
+    }
+  }
+
+  #[inline]
   pub fn create_device(
     &self, physical_device: VkPhysicalDevice, queue_family_indexes: &[u32],
     mut device_layers: Vec<String>, mut device_extensions: Vec<String>,
@@ -159,6 +287,11 @@ impl Instance {
       return Err(VkErrorCode::ERROR_UNKNOWN)
     };
     let vkCreateDevice: vkCreateDevice_t = unsafe { core::mem::transmute(f) };
+    //
+    let Some(f) =  (unsafe { vkGetInstanceProcAddr(self.vk_instance, vkGetDeviceQueue_NAME.as_ptr()) }) else {
+      return Err(VkErrorCode::ERROR_UNKNOWN)
+    };
+    let vkGetDeviceQueue: vkGetDeviceQueue_t = unsafe { core::mem::transmute(f) };
     //
     device_layers.iter_mut().for_each(|s| s.push('\0'));
     device_extensions.iter_mut().for_each(|s| s.push('\0'));
@@ -192,9 +325,37 @@ impl Instance {
     if let Some(err_code) = create_ret.0 {
       Err(err_code)
     } else {
-      Ok(Device { entry: Entry(self.entry.0), vk_instance: self.vk_instance, vk_device })
+      // Get the queues that go with our new device
+      let mut queues = Vec::new();
+      for queue_family_index in queue_family_indexes.iter().copied() {
+        let mut queue = VkQueue::NULL;
+        unsafe { vkGetDeviceQueue(vk_device, queue_family_index, 0, &mut queue) };
+        queues.push((queue_family_index, queue));
+      }
+      //
+      Device::try_from_primary_parts(Entry(self.entry.0), self.vk_instance, vk_device, queues)
     }
   }
-}
 
-// TODO: vkEnumerateDeviceExtensionProperties
+  #[inline]
+  pub fn destroy_surface(&self, surface: VkSurfaceKHR) {
+    let vkGetInstanceProcAddr = self.entry.0;
+    let Some(f) =  (unsafe { vkGetInstanceProcAddr(self.vk_instance, vkDestroySurfaceKHR_NAME.as_ptr()) }) else {
+      return;
+    };
+    let vkDestroySurfaceKHR: vkDestroySurfaceKHR_t = unsafe { core::mem::transmute(f) };
+    //
+    unsafe { vkDestroySurfaceKHR(self.vk_instance, surface, null()) }
+  }
+
+  #[inline]
+  pub fn destroy_instance(self) {
+    let vkGetInstanceProcAddr = self.entry.0;
+    let Some(f) =  (unsafe { vkGetInstanceProcAddr(self.vk_instance, vkDestroyInstance_NAME.as_ptr()) }) else {
+      return;
+    };
+    let vkDestroyInstance: vkDestroyInstance_t = unsafe { core::mem::transmute(f) };
+    //
+    unsafe { vkDestroyInstance(self.vk_instance, null()) }
+  }
+}
