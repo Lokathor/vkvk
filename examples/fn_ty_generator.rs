@@ -1,3 +1,4 @@
+/// cargo run --example fn_ty_generator >target/fn_types.rs
 #[rustfmt::skip]
 fn main() {
   println!("#![allow(nonstandard_style)]");
@@ -7,6 +8,10 @@ fn main() {
   fn_type("vkEnumerateInstanceLayerProperties", "(property_count: *mut uint32_t, properties: *mut VkLayerProperties) -> VkResult");
   fn_type("vkEnumerateInstanceExtensionProperties", "(layer_name: *const u8, property_count: *mut uint32_t,  properties: *mut VkExtensionProperties) -> VkResult");
   fn_type("vkCreateInstance", "(create_info: *const VkInstanceCreateInfo, allocator: *const VkAllocationCallbacks, instance: *mut VkInstance) -> VkResult");
+  fn_type("vkDestroyInstance", "(instance: VkInstance, allocator: *const VkAllocationCallbacks)");
+  fn_type("vkEnumeratePhysicalDevices","(instance: VkInstance, physical_device_count: *mut uint32_t, physical_devices: *mut VkPhysicalDevice)");
+  fn_type("vkGetPhysicalDeviceProperties","(physical_device: VkPhysicalDevice, properties: *mut VkPhysicalDeviceProperties)");
+  fn_type("vkGetPhysicalDeviceFeatures","(physical_device: VkPhysicalDevice, features: *mut VkPhysicalDeviceFeatures)");
 }
 
 fn fn_type(fn_name: &str, sig: &str) {

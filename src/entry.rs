@@ -12,10 +12,17 @@ pub struct Entry(vkGetInstanceProcAddr_t);
 impl Entry {
   pub const LINKED: Self = Self(vkGetInstanceProcAddr);
 
+  #[inline]
+  #[must_use]
+  pub const fn from_fn_ptr(vkGetInstanceProcAddr: vkGetInstanceProcAddr_t) -> Self {
+    Self(vkGetInstanceProcAddr)
+  }
+
   /// Gets the highest API level Instance that can be created on this system.
   ///
   /// Your instance creation request can ask for any API level equal to or less
   /// than this.
+  #[inline]
   pub fn get_max_instance_version(&self) -> Result<VkVersion, VkErrorCode> {
     let vkGetInstanceProcAddr = self.0;
     let Some(pfn) =  (unsafe { vkGetInstanceProcAddr(VkInstance::NULL, vkEnumerateInstanceVersion_NAME.as_ptr()) }) else {
@@ -33,6 +40,7 @@ impl Entry {
   }
 
   /// Gets the list of available layers and info about them.
+  #[inline]
   pub fn get_available_layers(&self) -> Result<Vec<VkLayerProperties>, VkErrorCode> {
     let vkGetInstanceProcAddr = self.0;
     let Some(pfn) =  (unsafe { vkGetInstanceProcAddr(VkInstance::NULL, vkEnumerateInstanceLayerProperties_NAME.as_ptr()) }) else {
@@ -61,6 +69,7 @@ impl Entry {
   ///
   /// When `None` is passed as the layer name you get the extensions available
   /// on the instance with no layers applied.
+  #[inline]
   pub fn get_available_extensions(
     &self, layer: Option<&ArrayZStr<VK_MAX_EXTENSION_NAME_SIZE>>,
   ) -> Result<Vec<VkExtensionProperties>, VkErrorCode> {
@@ -94,6 +103,7 @@ impl Entry {
     }
   }
 
+  #[inline]
   pub fn create_instance(&self, mut request: CreateRequest) -> Result<VkInstance, VkErrorCode> {
     let vkGetInstanceProcAddr = self.0;
     let Some(pfn) =  (unsafe { vkGetInstanceProcAddr(VkInstance::NULL, vkCreateInstance_NAME.as_ptr()) }) else {
@@ -103,6 +113,9 @@ impl Entry {
     //
     request.application_name.push('\0');
     request.engine_name.push('\0');
+    request.enabled_layers.iter_mut().for_each(|s| s.push('\0'));
+    request.enabled_extensions.iter_mut().for_each(|s| s.push('\0'));
+    //
     let app_create_info = VkApplicationInfo {
       ty: VK_STRUCTURE_TYPE_APPLICATION_INFO,
       next: null(),
@@ -115,6 +128,8 @@ impl Entry {
     let layer_ptrs: Vec<*const u8> = request.enabled_layers.iter().map(|l| l.as_ptr()).collect();
     let extension_ptrs: Vec<*const u8> =
       request.enabled_extensions.iter().map(|l| l.as_ptr()).collect();
+    // TODO: if we set `next` to be a VkDebugUtilsMessengerCreateInfoEXT we can get
+    // debug messages about the instance creation process itself.
     let instance_create_info = VkInstanceCreateInfo {
       application_info: &app_create_info,
       next: null(),
@@ -143,6 +158,6 @@ pub struct CreateRequest {
   pub engine_version: uint32_t,
   pub api_version: VkVersion,
   pub flags: VkInstanceCreateFlags,
-  pub enabled_layers: Vec<ArrayZStr<VK_MAX_EXTENSION_NAME_SIZE>>,
-  pub enabled_extensions: Vec<ArrayZStr<VK_MAX_EXTENSION_NAME_SIZE>>,
+  pub enabled_layers: Vec<String>,
+  pub enabled_extensions: Vec<String>,
 }

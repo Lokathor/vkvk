@@ -1,5 +1,5 @@
 #![no_std]
-#![allow(nonstandard_style)]
+//#![allow(nonstandard_style)]
 #![allow(dead_code)]
 
 extern crate alloc;
@@ -10,6 +10,9 @@ use core::{
   num::NonZeroI32,
   ptr::{null, null_mut},
 };
+
+mod handles;
+pub use handles::*;
 
 mod flag_bits;
 pub use flag_bits::*;
@@ -26,19 +29,32 @@ pub use entry::*;
 mod version;
 pub use version::*;
 
-// TODO: handle
-#[derive(Debug)]
-#[repr(transparent)]
-pub struct VkInstance(*mut c_void);
-impl VkInstance {
-  pub const NULL: Self = Self::null();
+type uint32_t = u32;
+type uint8_t = u8;
+type size_t = usize;
+type int32_t = i32;
+type float = c_float;
 
-  pub const fn null() -> Self {
-    Self(null_mut())
+#[derive(Debug, Clone, Copy)]
+#[repr(transparent)]
+pub struct VkDeviceSize(pub u64);
+
+#[derive(Clone, Copy)]
+#[repr(transparent)]
+pub struct VkBool32(u32);
+impl From<VkBool32> for bool {
+  #[inline]
+  #[must_use]
+  fn from(value: VkBool32) -> Self {
+    value.0 != 0
   }
 }
-
-type size_t = usize;
+impl core::fmt::Debug for VkBool32 {
+  #[inline]
+  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+    core::fmt::Debug::fmt(&bool::from(*self), f)
+  }
+}
 
 #[derive(Clone, Copy)]
 #[repr(transparent)]
@@ -54,6 +70,10 @@ pub struct VkInternalAllocationType(u32);
 pub struct VkStructureType(u32);
 pub const VK_STRUCTURE_TYPE_APPLICATION_INFO: VkStructureType = VkStructureType(0);
 pub const VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO: VkStructureType = VkStructureType(1);
+
+#[derive(Debug, Clone, Copy)]
+#[repr(transparent)]
+pub struct VkPhysicalDeviceType(u32);
 
 pub type PFN_vkVoidFunction = Option<unsafe extern "system" fn()>;
 
@@ -90,8 +110,6 @@ pub type PFN_vkFreeFunction = Option<vkFreeFunction_t>;
 pub type PFN_vkInternalAllocationNotification = Option<vkInternalAllocationNotification_t>;
 pub type PFN_vkInternalFreeNotification = Option<vkInternalFreeNotification_t>;
 
-type uint32_t = u32;
-
 #[derive(Debug, Clone, Copy)]
 #[repr(transparent)]
 #[must_use]
@@ -109,6 +127,8 @@ impl VkErrorCode {
 
 const VK_MAX_EXTENSION_NAME_SIZE: usize = 256;
 const VK_MAX_DESCRIPTION_SIZE: usize = 256;
+const VK_MAX_PHYSICAL_DEVICE_NAME_SIZE: usize = 256;
+const VK_UUID_SIZE: usize = 16;
 
 /// Array that holds zero-terminated string data.
 #[derive(Clone, Copy)]

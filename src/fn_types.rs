@@ -29,3 +29,14 @@ pub type vkCreateInstance_t = unsafe extern "system" fn(
   instance: *mut VkInstance,
 ) -> VkResult;
 pub const vkCreateInstance_NAME: &str = "vkCreateInstance\0";
+/// Khronos: [vkDestroyInstance](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyInstance.html)
+pub type vkDestroyInstance_t =
+  unsafe extern "system" fn(instance: VkInstance, allocator: *const VkAllocationCallbacks);
+pub const vkDestroyInstance_NAME: &str = "vkDestroyInstance\0";
+/// Khronos: [vkEnumeratePhysicalDevices](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumeratePhysicalDevices.html)
+pub type vkEnumeratePhysicalDevices_t = unsafe extern "system" fn(
+  instance: VkInstance,
+  physical_device_count: *mut uint32_t,
+  physical_devices: *mut VkPhysicalDevice,
+);
+pub const vkEnumeratePhysicalDevices_NAME: &str = "vkEnumeratePhysicalDevices\0";
