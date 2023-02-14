@@ -11,8 +11,8 @@ fn main() {
   let win =
     sdl.create_vk_window(CreateWinArgs { title: "VkVk Example", ..Default::default() }).unwrap();
 
-  let mut enabled_layers: Vec<String> = Vec::new();
-  let enabled_extensions: Vec<String> = win
+  let mut instance_layers: Vec<String> = Vec::new();
+  let instance_extensions: Vec<String> = win
     .get_instance_extensions()
     .unwrap()
     .into_iter()
@@ -39,7 +39,7 @@ fn main() {
     //println!("Available Layer: {layer:?}");
     let layer_name = layer.layer_name.as_str();
     if cfg!(debug_assertions) && layer_name == "VK_LAYER_KHRONOS_validation" {
-      enabled_layers.push(String::from(layer_name));
+      instance_layers.push(String::from(layer_name));
     }
   }
 
@@ -50,8 +50,8 @@ fn main() {
     // validation layers)
   }
 
-  println!("Requesting Layers: {enabled_layers:?}");
-  println!("Requesting Extensions: {enabled_extensions:?}");
+  println!("Instance Layers: {instance_layers:?}");
+  println!("Instance Extensions: {instance_extensions:?}");
 
   let instance = entry
     .create_instance(CreateRequest {
@@ -61,8 +61,8 @@ fn main() {
       flags: VkInstanceCreateFlagBits::default(),
       application_version: 1,
       engine_version: 1,
-      instance_extensions: enabled_extensions.clone(),
-      instance_layers: enabled_layers.clone(),
+      instance_extensions,
+      instance_layers,
     })
     .unwrap();
   println!("create_instance: {:?}", instance.vk_instance());
