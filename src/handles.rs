@@ -1,5 +1,5 @@
 /// Khronos: [VkInstance](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkInstance.html) (handle)
-#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[repr(transparent)]
 pub struct VkInstance(*mut core::ffi::c_void);
 unsafe impl Send for VkInstance {}
@@ -19,22 +19,10 @@ impl VkInstance {
     Self(core::ptr::null_mut())
   }
 }
-impl core::fmt::Debug for VkInstance {
-  #[inline]
-  fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
-    core::fmt::Debug::fmt(&self.0, f)
-  }
-}
-impl core::fmt::Pointer for VkInstance {
-  #[inline]
-  fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
-    core::fmt::Pointer::fmt(&self.0, f)
-  }
-}
 
 /// Khronos: [VkPhysicalDevice](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDevice.html) (handle)
 /// * Parent: [VkInstance]
-#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[repr(transparent)]
 pub struct VkPhysicalDevice(*mut core::ffi::c_void);
 unsafe impl Send for VkPhysicalDevice {}
@@ -54,22 +42,10 @@ impl VkPhysicalDevice {
     Self(core::ptr::null_mut())
   }
 }
-impl core::fmt::Debug for VkPhysicalDevice {
-  #[inline]
-  fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
-    core::fmt::Debug::fmt(&self.0, f)
-  }
-}
-impl core::fmt::Pointer for VkPhysicalDevice {
-  #[inline]
-  fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
-    core::fmt::Pointer::fmt(&self.0, f)
-  }
-}
 
 /// Khronos: [VkDevice](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDevice.html) (handle)
 /// * Parent: [VkPhysicalDevice]
-#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[repr(transparent)]
 pub struct VkDevice(*mut core::ffi::c_void);
 unsafe impl Send for VkDevice {}
@@ -89,22 +65,10 @@ impl VkDevice {
     Self(core::ptr::null_mut())
   }
 }
-impl core::fmt::Debug for VkDevice {
-  #[inline]
-  fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
-    core::fmt::Debug::fmt(&self.0, f)
-  }
-}
-impl core::fmt::Pointer for VkDevice {
-  #[inline]
-  fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
-    core::fmt::Pointer::fmt(&self.0, f)
-  }
-}
 
 /// Khronos: [VkQueue](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkQueue.html) (handle)
 /// * Parent: [VkDevice]
-#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[repr(transparent)]
 pub struct VkQueue(*mut core::ffi::c_void);
 unsafe impl Send for VkQueue {}
@@ -124,22 +88,10 @@ impl VkQueue {
     Self(core::ptr::null_mut())
   }
 }
-impl core::fmt::Debug for VkQueue {
-  #[inline]
-  fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
-    core::fmt::Debug::fmt(&self.0, f)
-  }
-}
-impl core::fmt::Pointer for VkQueue {
-  #[inline]
-  fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
-    core::fmt::Pointer::fmt(&self.0, f)
-  }
-}
 
 /// Khronos: [VkCommandBuffer](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkCommandBuffer.html) (handle)
 /// * Parent: [VkCommandPool]
-#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[repr(transparent)]
 pub struct VkCommandBuffer(*mut core::ffi::c_void);
 unsafe impl Send for VkCommandBuffer {}
@@ -157,18 +109,6 @@ impl VkCommandBuffer {
   #[must_use]
   pub const fn null() -> Self {
     Self(core::ptr::null_mut())
-  }
-}
-impl core::fmt::Debug for VkCommandBuffer {
-  #[inline]
-  fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
-    core::fmt::Debug::fmt(&self.0, f)
-  }
-}
-impl core::fmt::Pointer for VkCommandBuffer {
-  #[inline]
-  fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
-    core::fmt::Pointer::fmt(&self.0, f)
   }
 }
 

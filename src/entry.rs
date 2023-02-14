@@ -1,3 +1,5 @@
+#![allow(non_snake_case)]
+
 use super::*;
 
 #[cfg_attr(windows, link(name = "vulkan-1"))]
@@ -8,13 +10,18 @@ extern "system" {
 }
 
 #[repr(transparent)]
-pub struct Entry(vkGetInstanceProcAddr_t);
+pub struct Entry(pub(crate) vkGetInstanceProcAddr_t);
 impl Entry {
   pub const LINKED: Self = Self(vkGetInstanceProcAddr);
 
+  /// ## Safety
+  /// The fn pointer passed must be a genuine [vkGetInstanceProcAddr][k]
+  /// function, not just have the correct signature.
+  ///
+  /// [k]: https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetInstanceProcAddr.html
   #[inline]
   #[must_use]
-  pub const fn from_fn_ptr(vkGetInstanceProcAddr: vkGetInstanceProcAddr_t) -> Self {
+  pub const unsafe fn from_fn_ptr(vkGetInstanceProcAddr: vkGetInstanceProcAddr_t) -> Self {
     Self(vkGetInstanceProcAddr)
   }
 
@@ -25,12 +32,12 @@ impl Entry {
   #[inline]
   pub fn get_max_instance_version(&self) -> Result<VkVersion, VkErrorCode> {
     let vkGetInstanceProcAddr = self.0;
-    let Some(pfn) =  (unsafe { vkGetInstanceProcAddr(VkInstance::NULL, vkEnumerateInstanceVersion_NAME.as_ptr()) }) else {
+    let Some(f) =  (unsafe { vkGetInstanceProcAddr(VkInstance::NULL, vkEnumerateInstanceVersion_NAME.as_ptr()) }) else {
       // When vkEnumerateInstanceVersion is missing we assume that it means Vulkan 1.0
       return Ok(VkVersion::_1_0)
     };
     let vkEnumerateInstanceVersion: vkEnumerateInstanceVersion_t =
-      unsafe { core::mem::transmute(pfn) };
+      unsafe { core::mem::transmute(f) };
     let mut version = VkVersion(0);
     let res = unsafe { vkEnumerateInstanceVersion(&mut version) };
     match res.0 {
@@ -43,11 +50,11 @@ impl Entry {
   #[inline]
   pub fn get_available_layers(&self) -> Result<Vec<VkLayerProperties>, VkErrorCode> {
     let vkGetInstanceProcAddr = self.0;
-    let Some(pfn) =  (unsafe { vkGetInstanceProcAddr(VkInstance::NULL, vkEnumerateInstanceLayerProperties_NAME.as_ptr()) }) else {
+    let Some(f) =  (unsafe { vkGetInstanceProcAddr(VkInstance::NULL, vkEnumerateInstanceLayerProperties_NAME.as_ptr()) }) else {
       return Err(VkErrorCode::ERROR_UNKNOWN)
     };
     let vkEnumerateInstanceLayerProperties: vkEnumerateInstanceLayerProperties_t =
-      unsafe { core::mem::transmute(pfn) };
+      unsafe { core::mem::transmute(f) };
     //
     let mut property_count: u32 = 0;
     let count_ret = unsafe { vkEnumerateInstanceLayerProperties(&mut property_count, null_mut()) };
@@ -74,14 +81,14 @@ impl Entry {
     &self, layer: Option<&ArrayZStr<VK_MAX_EXTENSION_NAME_SIZE>>,
   ) -> Result<Vec<VkExtensionProperties>, VkErrorCode> {
     let vkGetInstanceProcAddr = self.0;
-    let Some(pfn) =  (unsafe { vkGetInstanceProcAddr(VkInstance::NULL, vkEnumerateInstanceExtensionProperties_NAME.as_ptr()) }) else {
+    let Some(r) =  (unsafe { vkGetInstanceProcAddr(VkInstance::NULL, vkEnumerateInstanceExtensionProperties_NAME.as_ptr()) }) else {
       return Err(VkErrorCode::ERROR_UNKNOWN)
     };
     let vkEnumerateInstanceExtensionProperties: vkEnumerateInstanceExtensionProperties_t =
-      unsafe { core::mem::transmute(pfn) };
+      unsafe { core::mem::transmute(r) };
     //
     let layer_z: *const u8 = match layer {
-      Some(l) => l.0.as_ptr(),
+      Some(l) => l.as_ptr(),
       None => null(),
     };
     //
@@ -104,12 +111,12 @@ impl Entry {
   }
 
   #[inline]
-  pub fn create_instance(&self, mut request: CreateRequest) -> Result<VkInstance, VkErrorCode> {
+  pub fn create_instance(&self, mut request: CreateRequest) -> Result<Instance, VkErrorCode> {
     let vkGetInstanceProcAddr = self.0;
-    let Some(pfn) =  (unsafe { vkGetInstanceProcAddr(VkInstance::NULL, vkCreateInstance_NAME.as_ptr()) }) else {
+    let Some(r) =  (unsafe { vkGetInstanceProcAddr(VkInstance::NULL, vkCreateInstance_NAME.as_ptr()) }) else {
       return Err(VkErrorCode::ERROR_UNKNOWN)
     };
-    let vkCreateInstance: vkCreateInstance_t = unsafe { core::mem::transmute(pfn) };
+    let vkCreateInstance: vkCreateInstance_t = unsafe { core::mem::transmute(r) };
     //
     request.application_name.push('\0');
     request.engine_name.push('\0');
@@ -141,12 +148,12 @@ impl Entry {
       enabled_extension_names: extension_ptrs.as_ptr(),
     };
     //
-    let mut instance = VkInstance::NULL;
-    let create = unsafe { vkCreateInstance(&instance_create_info, null(), &mut instance) };
+    let mut vk_instance = VkInstance::NULL;
+    let create = unsafe { vkCreateInstance(&instance_create_info, null(), &mut vk_instance) };
     if let Some(err_code) = create.0 {
       Err(err_code)
     } else {
-      Ok(instance)
+      Ok(Instance { entry: Entry(self.0), vk_instance })
     }
   }
 }

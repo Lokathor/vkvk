@@ -1,18 +1,15 @@
 #![warn(missing_docs)]
-#![warn(clippy::missing_inline_in_public_items)]
 
 use bitfrob::{u32_get_value, u32_with_value};
-
-use crate::uint32_t;
 
 /// A vulkan version value.
 ///
 /// Vulkan uses a semver-like version system, with the addition that an
 /// implementation can have a non-zero "variant" value to indicate that it is
 /// non-standard in some way.
-#[derive(Clone, Copy, PartialEq, Eq)]
+#[derive(Clone, Copy, Default, PartialEq, Eq)]
 #[repr(transparent)]
-pub struct VkVersion(pub uint32_t);
+pub struct VkVersion(pub u32);
 #[allow(missing_docs)]
 impl VkVersion {
   pub const _1_0: Self = Self::major_minor_patch(1, 0, 0);

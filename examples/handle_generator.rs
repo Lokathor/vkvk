@@ -1,3 +1,4 @@
+/// cargo run --example handle_generator >target/handles.rs
 fn main() {
   handle("VkInstance", None);
   handle("VkPhysicalDevice", Some("VkInstance"));
@@ -60,7 +61,7 @@ fn handle(name: &str, parent: Option<&str>) {
     println!("/// * Parent: [{parent}]");
   }
   println!(
-    "#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    "#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
     #[repr(transparent)]
     pub struct {name}(*mut core::ffi::c_void);
     unsafe impl Send for {name} {{ }}
@@ -78,18 +79,6 @@ fn handle(name: &str, parent: Option<&str>) {
       #[must_use]
       pub const fn null() -> Self {{
         Self(core::ptr::null_mut())
-      }}
-    }}
-    impl core::fmt::Debug for {name} {{
-      #[inline]
-      fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {{
-        core::fmt::Debug::fmt(&self.0, f)
-      }}
-    }}
-    impl core::fmt::Pointer for {name} {{
-      #[inline]
-      fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {{
-        core::fmt::Pointer::fmt(&self.0, f)
       }}
     }}
     "
