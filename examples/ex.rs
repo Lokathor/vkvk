@@ -61,8 +61,8 @@ fn main() {
       flags: VkInstanceCreateFlagBits::default(),
       application_version: 1,
       engine_version: 1,
-      enabled_extensions: enabled_extensions.clone(),
-      enabled_layers: enabled_layers.clone(),
+      instance_extensions: enabled_extensions.clone(),
+      instance_layers: enabled_layers.clone(),
     })
     .unwrap();
   println!("create_instance: {:?}", instance.vk_instance());
@@ -73,6 +73,12 @@ fn main() {
   let physical_devices = instance.get_physical_devices().unwrap();
   println!("Physical Devices: {physical_devices:?}");
   let physical_device = physical_devices[0];
+
+  //let extension_properties =
+  //  instance.get_physical_device_extension_properties(physical_device,
+  // None).unwrap(); for extension_property in &extension_properties {
+  //  println!("Extension Property: {extension_property:?}");
+  //}
 
   //let physical_device_properties =
   // instance.get_physical_device_properties(physical_device); println!("==
@@ -95,13 +101,7 @@ fn main() {
   let features = VkPhysicalDeviceFeatures::default();
 
   let device = instance
-    .create_device(
-      physical_device,
-      &[queue_family_index],
-      enabled_layers,
-      enabled_extensions,
-      features,
-    )
+    .create_device(physical_device, &[queue_family_index], Vec::new(), Vec::new(), features)
     .unwrap();
   println!("{:?}", device.vk_device());
 

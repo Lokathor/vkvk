@@ -79,3 +79,13 @@ pub type vkCreateDevice_t = unsafe extern "system" fn(
   device: *mut VkDevice,
 ) -> VkResult;
 pub const vkCreateDevice_NAME: &str = "vkCreateDevice\0";
+
+/// Khronos: [vkEnumerateDeviceExtensionProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateDeviceExtensionProperties.html)
+pub type vkEnumerateDeviceExtensionProperties_t = unsafe extern "system" fn(
+  physical_device: VkPhysicalDevice,
+  layer_name: *const u8,
+  property_count: *mut uint32_t,
+  properties: *mut VkExtensionProperties,
+) -> VkResult;
+pub const vkEnumerateDeviceExtensionProperties_NAME: &str =
+  "vkEnumerateDeviceExtensionProperties\0";

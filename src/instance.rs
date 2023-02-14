@@ -104,9 +104,55 @@ impl Instance {
   }
 
   #[inline]
+  pub fn get_physical_device_extension_properties(
+    &self, physical_device: VkPhysicalDevice, layer: Option<&ArrayZStr<VK_MAX_EXTENSION_NAME_SIZE>>,
+  ) -> Result<Vec<VkExtensionProperties>, VkErrorCode> {
+    let vkGetInstanceProcAddr = self.entry.0;
+    let Some(r) =  (unsafe { vkGetInstanceProcAddr(self.vk_instance, vkEnumerateDeviceExtensionProperties_NAME.as_ptr()) }) else {
+      return Err(VkErrorCode::ERROR_UNKNOWN)
+    };
+    let vkEnumerateDeviceExtensionProperties: vkEnumerateDeviceExtensionProperties_t =
+      unsafe { core::mem::transmute(r) };
+    //
+    let layer_z: *const u8 = match layer {
+      Some(l) => l.as_ptr(),
+      None => null(),
+    };
+    //
+    let mut property_count: u32 = 0;
+    let count_ret = unsafe {
+      vkEnumerateDeviceExtensionProperties(
+        physical_device,
+        layer_z,
+        &mut property_count,
+        null_mut(),
+      )
+    };
+    if let Some(err_code) = count_ret.0 {
+      return Err(err_code);
+    }
+    let mut buf = Vec::with_capacity(property_count.try_into().unwrap());
+    let write_ret = unsafe {
+      vkEnumerateDeviceExtensionProperties(
+        physical_device,
+        layer_z,
+        &mut property_count,
+        buf.as_mut_ptr(),
+      )
+    };
+    if let Some(err_code) = write_ret.0 {
+      Err(err_code)
+    } else {
+      unsafe { buf.set_len(property_count.try_into().unwrap()) };
+      Ok(buf)
+    }
+  }
+
+  #[inline]
   pub fn create_device(
     &self, physical_device: VkPhysicalDevice, queue_family_indexes: &[u32],
-    mut layers: Vec<String>, mut extensions: Vec<String>, features: VkPhysicalDeviceFeatures,
+    mut device_layers: Vec<String>, mut device_extensions: Vec<String>,
+    features: VkPhysicalDeviceFeatures,
   ) -> Result<Device, VkErrorCode> {
     let vkGetInstanceProcAddr = self.entry.0;
     let Some(f) =  (unsafe { vkGetInstanceProcAddr(self.vk_instance, vkCreateDevice_NAME.as_ptr()) }) else {
@@ -114,10 +160,10 @@ impl Instance {
     };
     let vkCreateDevice: vkCreateDevice_t = unsafe { core::mem::transmute(f) };
     //
-    layers.iter_mut().for_each(|s| s.push('\0'));
-    extensions.iter_mut().for_each(|s| s.push('\0'));
-    let layers_z: Vec<*const u8> = layers.iter().map(|s| s.as_ptr()).collect();
-    let extensions_z: Vec<*const u8> = extensions.iter().map(|s| s.as_ptr()).collect();
+    device_layers.iter_mut().for_each(|s| s.push('\0'));
+    device_extensions.iter_mut().for_each(|s| s.push('\0'));
+    let layers_z: Vec<*const u8> = device_layers.iter().map(|s| s.as_ptr()).collect();
+    let extensions_z: Vec<*const u8> = device_extensions.iter().map(|s| s.as_ptr()).collect();
     let priorities = &[1.0];
     let queue_infos: Vec<VkDeviceQueueCreateInfo> = queue_family_indexes
       .iter()

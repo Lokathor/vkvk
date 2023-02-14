@@ -1,11 +1,11 @@
 /// cargo run --example fn_ty_generator >target/fn_types.rs
 #[rustfmt::skip]
 fn main() {
-  fn_type("vkCreateDevice", "(
+  fn_type("vkEnumerateDeviceExtensionProperties", "(
     physical_device: VkPhysicalDevice                            ,
-    create_info: *const VkDeviceCreateInfo                   ,
-    allocator: *const VkAllocationCallbacks                ,
-    device: *mut VkDevice                                   ,) -> VkResult ");
+    layer_name: *const u8                                 ,
+    property_count: *mut uint32_t                                   ,
+    properties: *mut VkExtensionProperties                      ) -> VkResult ");
 }
 
 fn fn_type(fn_name: &str, sig: &str) {

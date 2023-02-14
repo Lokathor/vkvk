@@ -78,7 +78,7 @@ impl Entry {
   /// on the instance with no layers applied.
   #[inline]
   pub fn get_available_extensions(
-    &self, layer: Option<&ArrayZStr<VK_MAX_EXTENSION_NAME_SIZE>>,
+    &self, instance_layer: Option<&ArrayZStr<VK_MAX_EXTENSION_NAME_SIZE>>,
   ) -> Result<Vec<VkExtensionProperties>, VkErrorCode> {
     let vkGetInstanceProcAddr = self.0;
     let Some(r) =  (unsafe { vkGetInstanceProcAddr(VkInstance::NULL, vkEnumerateInstanceExtensionProperties_NAME.as_ptr()) }) else {
@@ -87,7 +87,7 @@ impl Entry {
     let vkEnumerateInstanceExtensionProperties: vkEnumerateInstanceExtensionProperties_t =
       unsafe { core::mem::transmute(r) };
     //
-    let layer_z: *const u8 = match layer {
+    let layer_z: *const u8 = match instance_layer {
       Some(l) => l.as_ptr(),
       None => null(),
     };
@@ -120,8 +120,8 @@ impl Entry {
     //
     request.application_name.push('\0');
     request.engine_name.push('\0');
-    request.enabled_layers.iter_mut().for_each(|s| s.push('\0'));
-    request.enabled_extensions.iter_mut().for_each(|s| s.push('\0'));
+    request.instance_layers.iter_mut().for_each(|s| s.push('\0'));
+    request.instance_extensions.iter_mut().for_each(|s| s.push('\0'));
     //
     let app_create_info = VkApplicationInfo {
       ty: VK_STRUCTURE_TYPE_APPLICATION_INFO,
@@ -132,9 +132,9 @@ impl Entry {
       engine_name: request.engine_name.as_ptr(),
       engine_version: request.engine_version,
     };
-    let layer_ptrs: Vec<*const u8> = request.enabled_layers.iter().map(|l| l.as_ptr()).collect();
+    let layer_ptrs: Vec<*const u8> = request.instance_layers.iter().map(|l| l.as_ptr()).collect();
     let extension_ptrs: Vec<*const u8> =
-      request.enabled_extensions.iter().map(|l| l.as_ptr()).collect();
+      request.instance_extensions.iter().map(|l| l.as_ptr()).collect();
     // TODO: if we set `next` to be a VkDebugUtilsMessengerCreateInfoEXT we can get
     // debug messages about the instance creation process itself.
     let instance_create_info = VkInstanceCreateInfo {
@@ -165,6 +165,6 @@ pub struct CreateRequest {
   pub engine_version: uint32_t,
   pub api_version: VkVersion,
   pub flags: VkInstanceCreateFlags,
-  pub enabled_layers: Vec<String>,
-  pub enabled_extensions: Vec<String>,
+  pub instance_layers: Vec<String>,
+  pub instance_extensions: Vec<String>,
 }
