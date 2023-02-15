@@ -141,7 +141,7 @@ impl Entry {
       application_info: &app_create_info,
       next: null(),
       ty: VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
-      flags: request.flags,
+      flags: request.instance_create_flags,
       enabled_layer_count: layer_ptrs.len().try_into().unwrap(),
       enabled_layer_names: layer_ptrs.as_ptr(),
       enabled_extension_count: extension_ptrs.len().try_into().unwrap(),
@@ -164,7 +164,7 @@ pub struct CreateRequest {
   pub engine_name: String,
   pub engine_version: uint32_t,
   pub api_version: VkVersion,
-  pub flags: VkInstanceCreateFlags,
+  pub instance_create_flags: VkInstanceCreateFlags,
   pub instance_layers: Vec<String>,
   pub instance_extensions: Vec<String>,
 }

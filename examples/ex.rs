@@ -7,7 +7,7 @@ use vkvk::{
   VkInstanceCreateFlagBits, VkPhysicalDeviceFeatures, VkSurfaceKHR, VkVersion,
   VK_COLOR_SPACE_SRGB_NONLINEAR_KHR, VK_FORMAT_B8G8R8A8_SRGB, VK_FORMAT_R8G8B8A8_SRGB,
   VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_TYPE_2D, VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
-  VK_PRESENT_MODE_MAILBOX_KHR,
+  VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR, VK_PRESENT_MODE_MAILBOX_KHR,
 };
 
 fn main() {
@@ -16,7 +16,7 @@ fn main() {
     sdl.create_vk_window(CreateWinArgs { title: "VkVk Example", ..Default::default() }).unwrap();
 
   let mut instance_layers: Vec<String> = Vec::new();
-  let instance_extensions: Vec<String> = win
+  let mut instance_extensions: Vec<String> = win
     .get_instance_extensions()
     .unwrap()
     .into_iter()
@@ -47,29 +47,36 @@ fn main() {
     }
   }
 
-  for _extension in entry.get_available_extensions(None).unwrap().into_iter() {
+  for extension in entry.get_available_extensions(None).unwrap().into_iter() {
     //println!("Available Extension: {extension:?}");
-
-    // TODO: set up VK_EXT_debug_utils when available? (and when using
-    // validation layers)
+    let extension_name = extension.extension_name.as_str();
+    if cfg!(target_os = "macos") && extension_name == "VK_KHR_portability_enumeration" {
+      instance_extensions.push(String::from(extension_name))
+    }
   }
 
-  println!("Instance Layers: {instance_layers:?}");
-  println!("Instance Extensions: {instance_extensions:?}");
+  println!("Requesting Instance Layers: {instance_layers:?}");
+  println!("Requesting Instance Extensions: {instance_extensions:?}");
+
+  let instance_create_flags = if cfg!(target_os = "macos") {
+    VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR
+  } else {
+    VkInstanceCreateFlagBits::default()
+  };
 
   let instance = entry
     .create_instance(CreateRequest {
       api_version: VkVersion::major_minor_patch(1, 1, 0),
       application_name: String::from("demo"),
       engine_name: String::from("demo engine"),
-      flags: VkInstanceCreateFlagBits::default(),
+      instance_create_flags,
       application_version: 1,
       engine_version: 1,
       instance_extensions,
       instance_layers,
     })
     .unwrap();
-  println!("create_instance: {:?}", instance.vk_instance());
+  //println!("create_instance: {:?}", instance.vk_instance());
 
   let surface: VkSurfaceKHR = unsafe {
     // this juggles the beryllium vulkan types and the vkvk vulkan types
@@ -78,14 +85,23 @@ fn main() {
   };
 
   let mut physical_devices = instance.get_physical_devices().unwrap();
-  println!(
-    "There {are_is} {} physical device{s} on the system.",
+  print!(
+    "There {are_is} {} physical device{s} on the system: ",
     physical_devices.len(),
     are_is = if physical_devices.len() != 1 { "are" } else { "is" },
     s = if physical_devices.len() != 1 { "s" } else { "" },
   );
+  for physical_device in physical_devices.iter() {
+    let properties = instance.get_physical_device_properties(*physical_device);
+    let name = properties.device_name.as_str();
+    let version = properties.api_version;
+    print!("{name} ({version}),")
+  }
+  println!();
   physical_devices.retain(|&physical_device| {
     // the device needs to support making a swapchain
+    //let x = instance.get_physical_device_properties(physical_device);
+    //println!("=== {x:?}");
     let extension_properties =
       instance.get_physical_device_extension_properties(physical_device, None).unwrap();
     extension_properties.iter().any(|ex| ex.extension_name.as_str() == "VK_KHR_swapchain")
@@ -103,15 +119,18 @@ fn main() {
     .unwrap();
   let features = VkPhysicalDeviceFeatures::default();
   let device_layers = Vec::new();
-  let device_extensions = vec![String::from("VK_KHR_swapchain")];
+  let mut device_extensions = vec![String::from("VK_KHR_swapchain")];
+  if cfg!(target_os = "macos") {
+    device_extensions.push(String::from("VK_KHR_portability_subset"));
+  }
 
   let physical_device_surface_capabilities =
     instance.get_physical_device_surface_capabilities_khr(physical_device, surface).unwrap();
-  println!("{physical_device_surface_capabilities:?}");
+  //println!("{physical_device_surface_capabilities:?}");
 
   let physical_device_surface_formats =
     instance.get_physical_device_surface_formats(physical_device, surface).unwrap();
-  println!("{physical_device_surface_formats:?}");
+  //println!("{physical_device_surface_formats:?}");
   let surface_format = physical_device_surface_formats
     .iter()
     .find(|surface_format| {
@@ -123,7 +142,7 @@ fn main() {
 
   let physical_device_surface_present_modes =
     instance.get_physical_device_surface_present_modes(physical_device, surface).unwrap();
-  println!("{physical_device_surface_present_modes:?}");
+  //println!("{physical_device_surface_present_modes:?}");
   let (present_mode, min_image_count) =
     if physical_device_surface_present_modes.contains(&VK_PRESENT_MODE_MAILBOX_KHR) {
       (
@@ -137,11 +156,12 @@ fn main() {
     } else {
       panic!("No presentation modes available!");
     };
-  println!("present_mode: {present_mode:?}, min_image_count: {min_image_count:?}");
+  //println!("present_mode: {present_mode:?}, min_image_count:
+  // {min_image_count:?}");
 
   let image_usage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
 
-  let physical_device_image_format_properties = instance
+  let _physical_device_image_format_properties = instance
     .get_physical_device_image_format_properties(
       physical_device,
       surface_format.format,
@@ -150,7 +170,8 @@ fn main() {
       image_usage,
       VkImageCreateFlags::default(),
     );
-  println!("physical_device_image_format_properties: {physical_device_image_format_properties:?}");
+  //println!("physical_device_image_format_properties:
+  // {physical_device_image_format_properties:?}");
 
   let device = instance
     .create_device(
@@ -161,9 +182,9 @@ fn main() {
       features,
     )
     .unwrap();
-  println!("Created our device!");
-  println!("{:?}", device.vk_device());
-  println!("{:?}", device.queues());
+  //println!("Created our device!");
+  //println!("{:?}", device.vk_device());
+  //println!("{:?}", device.queues());
 
   let swapchain = device
     .create_swapchain(
@@ -175,7 +196,7 @@ fn main() {
       image_usage,
     )
     .unwrap();
-  println!("Created our swapchain! {swapchain:?}");
+  //println!("Created our swapchain! {swapchain:?}");
 
   // TODO: swapchain images
 

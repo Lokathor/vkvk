@@ -65,3 +65,19 @@ impl core::fmt::Display for VkVersion {
     core::fmt::Debug::fmt(self, f)
   }
 }
+impl core::cmp::PartialOrd for VkVersion {
+  #[inline]
+  fn partial_cmp(&self, other: &Self) -> Option<core::cmp::Ordering> {
+    use core::cmp::Ordering;
+    if self.variant() != other.variant() {
+      return None;
+    }
+    Some(match self.major().cmp(&other.major()) {
+      Ordering::Equal => match self.minor().cmp(&other.minor()) {
+        Ordering::Equal => self.patch().cmp(&other.patch()),
+        otherwise => otherwise,
+      },
+      otherwise => otherwise,
+    })
+  }
+}

@@ -182,15 +182,15 @@ pub struct VkPhysicalDeviceSparseProperties {
 #[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkPhysicalDeviceProperties {
-  api_version: VkVersion,
-  driver_version: uint32_t,
-  vendor_id: uint32_t,
-  device_id: uint32_t,
-  device_type: VkPhysicalDeviceType,
-  device_name: ArrayZStr<VK_MAX_PHYSICAL_DEVICE_NAME_SIZE>,
-  pipeline_cache_uuid: [uint8_t; VK_UUID_SIZE],
-  limits: VkPhysicalDeviceLimits,
-  sparse_properties: VkPhysicalDeviceSparseProperties,
+  pub api_version: VkVersion,
+  pub driver_version: uint32_t,
+  pub vendor_id: uint32_t,
+  pub device_id: uint32_t,
+  pub device_type: VkPhysicalDeviceType,
+  pub device_name: ArrayZStr<VK_MAX_PHYSICAL_DEVICE_NAME_SIZE>,
+  pub pipeline_cache_uuid: [uint8_t; VK_UUID_SIZE],
+  pub limits: VkPhysicalDeviceLimits,
+  pub sparse_properties: VkPhysicalDeviceSparseProperties,
 }
 
 #[derive(Debug, Clone, Copy, Default)]
