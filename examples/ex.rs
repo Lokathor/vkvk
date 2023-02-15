@@ -145,12 +145,17 @@ fn main() {
   //println!("{physical_device_surface_present_modes:?}");
   let (present_mode, min_image_count) =
     if physical_device_surface_present_modes.contains(&VK_PRESENT_MODE_MAILBOX_KHR) {
-      (
-        VK_PRESENT_MODE_MAILBOX_KHR,
-        physical_device_surface_capabilities
-          .min_image_count
-          .clamp(3, physical_device_surface_capabilities.max_image_count),
-      )
+      let min = physical_device_surface_capabilities.min_image_count;
+      let max = physical_device_surface_capabilities.max_image_count;
+      let mut count = min;
+      if count < 3 {
+        count = 3;
+      }
+      // max of 0 means "no max"
+      if max != 0 && count > max {
+        count = max;
+      }
+      (VK_PRESENT_MODE_MAILBOX_KHR, count)
     } else if let Some(mode) = physical_device_surface_present_modes.get(0).copied() {
       (mode, physical_device_surface_capabilities.min_image_count)
     } else {
