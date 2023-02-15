@@ -11,6 +11,7 @@ pub struct Device {
   pub(crate) vkGetDeviceProcAddr: vkGetDeviceProcAddr_t,
   pub(crate) opt_vkCreateSwapchainKHR: Option<vkCreateSwapchainKHR_t>,
   pub(crate) opt_vkDestroySwapchainKHR: Option<vkDestroySwapchainKHR_t>,
+  pub(crate) opt_vkGetSwapchainImagesKHR: Option<vkGetSwapchainImagesKHR_t>,
 }
 
 impl Device {
@@ -42,6 +43,9 @@ impl Device {
     let opt_vkDestroySwapchainKHR: Option<vkDestroySwapchainKHR_t> = unsafe {
       core::mem::transmute(vkGetDeviceProcAddr(vk_device, vkDestroySwapchainKHR_NAME.as_ptr()))
     };
+    let opt_vkGetSwapchainImagesKHR: Option<vkGetSwapchainImagesKHR_t> = unsafe {
+      core::mem::transmute(vkGetDeviceProcAddr(vk_device, vkGetSwapchainImagesKHR_NAME.as_ptr()))
+    };
     //
     Ok(Self {
       entry,
@@ -51,6 +55,7 @@ impl Device {
       vkGetDeviceProcAddr,
       opt_vkCreateSwapchainKHR,
       opt_vkDestroySwapchainKHR,
+      opt_vkGetSwapchainImagesKHR,
     })
   }
 
@@ -90,6 +95,32 @@ impl Device {
       Err(err_code)
     } else {
       Ok(vk_swapchain)
+    }
+  }
+
+  #[inline]
+  pub fn get_swapchain_images(
+    &self, swapchain: VkSwapchainKHR,
+  ) -> Result<Vec<VkImage>, VkErrorCode> {
+    let Some(vkGetSwapchainImagesKHR) = self.opt_vkGetSwapchainImagesKHR else {
+      return Err(VkErrorCode::ERROR_EXTENSION_NOT_PRESENT)
+    };
+    //
+    let mut image_count: u32 = 0;
+    let count_ret =
+      unsafe { vkGetSwapchainImagesKHR(self.vk_device, swapchain, &mut image_count, null_mut()) };
+    if let Some(err_code) = count_ret.0 {
+      return Err(err_code);
+    }
+    let mut buf = Vec::with_capacity(image_count.try_into().unwrap());
+    let write_ret = unsafe {
+      vkGetSwapchainImagesKHR(self.vk_device, swapchain, &mut image_count, buf.as_mut_ptr())
+    };
+    if let Some(err_code) = write_ret.0 {
+      Err(err_code)
+    } else {
+      unsafe { buf.set_len(image_count.try_into().unwrap()) };
+      Ok(buf)
     }
   }
 

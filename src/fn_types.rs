@@ -175,3 +175,12 @@ pub const vkDestroySurfaceKHR_NAME: &str = "vkDestroySurfaceKHR\0";
 pub type vkDestroyDevice_t =
   unsafe extern "system" fn(device: VkDevice, allocator: *const VkAllocationCallbacks);
 pub const vkDestroyDevice_NAME: &str = "vkDestroyDevice\0";
+
+/// Khronos: [vkGetSwapchainImagesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSwapchainImagesKHR.html)
+pub type vkGetSwapchainImagesKHR_t = unsafe extern "system" fn(
+  device: VkDevice,
+  swapchain: VkSwapchainKHR,
+  swapchain_image_count: *mut uint32_t,
+  swapchain_images: *mut VkImage,
+) -> VkResult;
+pub const vkGetSwapchainImagesKHR_NAME: &str = "vkGetSwapchainImagesKHR\0";

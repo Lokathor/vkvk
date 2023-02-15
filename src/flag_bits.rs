@@ -291,3 +291,10 @@ pub type VkImageCreateFlags = VkImageCreateFlagBits;
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
 #[repr(transparent)]
 pub struct VkImageCreateFlagBits(pub u32);
+
+/// Khronos: [VkImageViewCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkImageViewCreateFlagBits.html)
+pub type VkImageViewCreateFlags = VkImageViewCreateFlagBits;
+/// Khronos: [VkImageViewCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkImageViewCreateFlagBits.html)
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
+#[repr(transparent)]
+pub struct VkImageViewCreateFlagBits(pub u32);

@@ -1,7 +1,7 @@
 /// cargo run --example flag_bits_generator >target/flag_bits.rs
 fn main() {
   //flag_bits("VkImageCreate", Some("KHR"));
-  flag_bits("VkImageCreate", None);
+  flag_bits("VkImageViewCreate", None);
 }
 
 fn flag_bits(name: &str, opt_ext: Option<&str>) {

@@ -198,7 +198,7 @@ fn main() {
     .unwrap();
   //println!("Created our swapchain! {swapchain:?}");
 
-  // TODO: swapchain images
+  let _images = device.get_swapchain_images(swapchain).unwrap();
 
   // TODO: swapchain views
 

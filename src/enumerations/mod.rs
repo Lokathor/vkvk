@@ -21,6 +21,9 @@ pub use vk_image_type::*;
 pub mod vk_image_tiling;
 pub use vk_image_tiling::*;
 
+pub mod vk_image_view_type;
+pub use vk_image_view_type::*;
+
 #[derive(Clone, Copy, Default, PartialEq, Eq)]
 #[repr(transparent)]
 pub struct VkSystemAllocationScope(u32);

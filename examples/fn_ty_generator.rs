@@ -1,9 +1,11 @@
 /// cargo run --example fn_ty_generator >target/fn_types.rs
 #[rustfmt::skip]
 fn main() {
-  fn_type("vkDestroyDevice", "(
-    device: VkDevice                                    ,
-    allocator: *const VkAllocationCallbacks                )");
+  fn_type("vkGetSwapchainImagesKHR", "(
+    device:VkDevice                                    device,
+    swapchain:VkSwapchainKHR                              swapchain,
+    swapchain_image_count: *mut uint32_t,
+    swapchain_images: *mut VkImage) -> VkResult");
 }
 
 fn fn_type(fn_name: &str, sig: &str) {

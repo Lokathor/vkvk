@@ -6,6 +6,9 @@ pub use vk_device_queue_create_info::*;
 mod vk_image_format_properties;
 pub use vk_image_format_properties::*;
 
+mod vk_image_view_create_info;
+pub use vk_image_view_create_info::*;
+
 #[derive(Clone, Copy)]
 #[repr(C)]
 pub struct VkAllocationCallbacks {
