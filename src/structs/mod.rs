@@ -9,6 +9,12 @@ pub use vk_image_format_properties::*;
 mod vk_image_view_create_info;
 pub use vk_image_view_create_info::*;
 
+mod vk_component_mapping;
+pub use vk_component_mapping::*;
+
+mod vk_image_subresource_range;
+pub use vk_image_subresource_range::*;
+
 #[derive(Clone, Copy)]
 #[repr(C)]
 pub struct VkAllocationCallbacks {
@@ -295,11 +301,13 @@ pub struct VkDeviceCreateInfo {
   pub enabled_features: *const VkPhysicalDeviceFeatures,
 }
 
+/// Khronos: [VkSurfaceCapabilitiesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSurfaceCapabilitiesKHR.html)
 #[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkSurfaceCapabilitiesKHR {
   pub min_image_count: uint32_t,
-  pub max_image_count: uint32_t,
+  /// A value of `None` means that there's no limit to the number of images.
+  pub max_image_count: Option<core::num::NonZeroU32>,
   pub current_extent: VkExtent2D,
   pub min_image_extent: VkExtent2D,
   pub max_image_extent: VkExtent2D,

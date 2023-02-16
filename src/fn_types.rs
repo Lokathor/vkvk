@@ -184,3 +184,20 @@ pub type vkGetSwapchainImagesKHR_t = unsafe extern "system" fn(
   swapchain_images: *mut VkImage,
 ) -> VkResult;
 pub const vkGetSwapchainImagesKHR_NAME: &str = "vkGetSwapchainImagesKHR\0";
+
+/// Khronos: [vkCreateImageView](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateImageView.html)
+pub type vkCreateImageView_t = unsafe extern "system" fn(
+  device: VkDevice,
+  create_info: *const VkImageViewCreateInfo,
+  allocator: *const VkAllocationCallbacks,
+  view: *mut VkImageView,
+) -> VkResult;
+pub const vkCreateImageView_NAME: &str = "vkCreateImageView\0";
+
+/// Khronos: [vkDestroyImageView](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyImageView.html)
+pub type vkDestroyImageView_t = unsafe extern "system" fn(
+  device: VkDevice,
+  image_view: VkImageView,
+  allocator: *const VkAllocationCallbacks,
+);
+pub const vkDestroyImageView_NAME: &str = "vkDestroyImageView\0";

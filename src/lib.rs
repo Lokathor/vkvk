@@ -46,8 +46,8 @@ pub use entry::*;
 mod device;
 pub use device::*;
 
-const VK_MAX_EXTENSION_NAME_SIZE: usize = 256;
 const VK_MAX_DESCRIPTION_SIZE: usize = 256;
+const VK_MAX_EXTENSION_NAME_SIZE: usize = 256;
 const VK_MAX_PHYSICAL_DEVICE_NAME_SIZE: usize = 256;
 const VK_UUID_SIZE: usize = 16;
 

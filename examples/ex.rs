@@ -1,14 +1,9 @@
 #![allow(unused_imports)]
 
 use beryllium::{events::Event, init::InitFlags, video::CreateWinArgs, Sdl};
+use core::num::NonZeroU32;
 use std::{mem::size_of, num::NonZeroI32};
-use vkvk::{
-  CreateRequest, Entry, VkImageCreateFlagBits, VkImageCreateFlags, VkImageUsageFlags, VkInstance,
-  VkInstanceCreateFlagBits, VkPhysicalDeviceFeatures, VkSurfaceKHR, VkVersion,
-  VK_COLOR_SPACE_SRGB_NONLINEAR_KHR, VK_FORMAT_B8G8R8A8_SRGB, VK_FORMAT_R8G8B8A8_SRGB,
-  VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_TYPE_2D, VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
-  VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR, VK_PRESENT_MODE_MAILBOX_KHR,
-};
+use vkvk::*;
 
 fn main() {
   let sdl = Sdl::init(InitFlags::VIDEO);
@@ -143,24 +138,19 @@ fn main() {
   let physical_device_surface_present_modes =
     instance.get_physical_device_surface_present_modes(physical_device, surface).unwrap();
   //println!("{physical_device_surface_present_modes:?}");
-  let (present_mode, min_image_count) =
-    if physical_device_surface_present_modes.contains(&VK_PRESENT_MODE_MAILBOX_KHR) {
-      let min = physical_device_surface_capabilities.min_image_count;
-      let max = physical_device_surface_capabilities.max_image_count;
-      let mut count = min;
-      if count < 3 {
-        count = 3;
-      }
-      // max of 0 means "no max"
-      if max != 0 && count > max {
-        count = max;
-      }
-      (VK_PRESENT_MODE_MAILBOX_KHR, count)
-    } else if let Some(mode) = physical_device_surface_present_modes.get(0).copied() {
-      (mode, physical_device_surface_capabilities.min_image_count)
-    } else {
-      panic!("No presentation modes available!");
-    };
+  let (present_mode, min_image_count) = if physical_device_surface_present_modes
+    .contains(&VK_PRESENT_MODE_MAILBOX_KHR)
+  {
+    let min = physical_device_surface_capabilities.min_image_count;
+    let max =
+      physical_device_surface_capabilities.max_image_count.map(NonZeroU32::get).unwrap_or(u32::MAX);
+    let count = min.clamp(3, max);
+    (VK_PRESENT_MODE_MAILBOX_KHR, count)
+  } else if let Some(mode) = physical_device_surface_present_modes.get(0).copied() {
+    (mode, physical_device_surface_capabilities.min_image_count)
+  } else {
+    panic!("No presentation modes available!");
+  };
   //println!("present_mode: {present_mode:?}, min_image_count:
   // {min_image_count:?}");
 
@@ -203,9 +193,30 @@ fn main() {
     .unwrap();
   //println!("Created our swapchain! {swapchain:?}");
 
-  let _images = device.get_swapchain_images(swapchain).unwrap();
-
-  // TODO: swapchain views
+  let images = device.get_swapchain_images(swapchain).unwrap();
+  let image_views: Vec<VkImageView> = images
+    .iter()
+    .copied()
+    .map(|image| {
+      device
+        .create_image_view(
+          image,
+          VkImageViewCreateFlags::default(),
+          VK_IMAGE_VIEW_TYPE_2D,
+          surface_format.format,
+          VkComponentMapping::IDENTITY,
+          VkImageSubresourceRange {
+            aspect_mask: VK_IMAGE_ASPECT_COLOR_BIT,
+            base_mip_level: 0,
+            level_count: 1,
+            base_array_layer: 0,
+            layer_count: 1,
+          },
+        )
+        .unwrap()
+    })
+    .collect();
+  println!("Created {} images, and their image views.", image_views.len());
 
   // program "main loop".
   'the_loop: loop {
@@ -224,8 +235,11 @@ fn main() {
     // TODO: present an image.
   }
 
-  device.destroy_swapchain(swapchain);
-  device.destroy_device();
-  instance.destroy_surface(surface);
-  instance.destroy_instance();
+  unsafe {
+    image_views.into_iter().for_each(|image_view| device.destroy_image_view(image_view));
+    device.destroy_swapchain(swapchain);
+    device.destroy_device();
+    instance.destroy_surface(surface);
+    instance.destroy_instance();
+  }
 }

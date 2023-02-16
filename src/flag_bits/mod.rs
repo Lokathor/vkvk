@@ -1,3 +1,6 @@
+pub mod vk_image_aspect_flag_bits;
+pub use vk_image_aspect_flag_bits::*;
+
 /// Khronos: [VkInstanceCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkInstanceCreateFlagBits.html)
 pub type VkInstanceCreateFlags = VkInstanceCreateFlagBits;
 /// Khronos: [VkInstanceCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkInstanceCreateFlagBits.html)

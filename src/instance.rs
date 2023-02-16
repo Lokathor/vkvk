@@ -337,8 +337,10 @@ impl Instance {
     }
   }
 
+  /// ## Safety
+  /// You must not destroy this while it has any live children.
   #[inline]
-  pub fn destroy_surface(&self, surface: VkSurfaceKHR) {
+  pub unsafe fn destroy_surface(&self, surface: VkSurfaceKHR) {
     let vkGetInstanceProcAddr = self.entry.0;
     let Some(f) =  (unsafe { vkGetInstanceProcAddr(self.vk_instance, vkDestroySurfaceKHR_NAME.as_ptr()) }) else {
       return;
@@ -348,8 +350,10 @@ impl Instance {
     unsafe { vkDestroySurfaceKHR(self.vk_instance, surface, null()) }
   }
 
+  /// ## Safety
+  /// You must not destroy this while it has any live children.
   #[inline]
-  pub fn destroy_instance(self) {
+  pub unsafe fn destroy_instance(self) {
     let vkGetInstanceProcAddr = self.entry.0;
     let Some(f) =  (unsafe { vkGetInstanceProcAddr(self.vk_instance, vkDestroyInstance_NAME.as_ptr()) }) else {
       return;
