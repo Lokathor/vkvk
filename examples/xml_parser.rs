@@ -1,8 +1,7 @@
 #![allow(unused_mut)]
+#![allow(unused_imports)]
 #![allow(clippy::single_match)]
 #![allow(clippy::field_reassign_with_default)]
-
-use std::collections::HashMap;
 
 use magnesium::{XmlElement::*, *};
 
@@ -20,16 +19,9 @@ fn main() {
   println!("{registry:#?}");
 }
 
-fn attr_hashmap(attrs: StaticStr) -> HashMap<StaticStr, StaticStr> {
-  let mut hashmap = HashMap::new();
-  for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
-    hashmap.insert(key, value);
-  }
-  hashmap
-}
-
 #[derive(Debug, Clone, Default)]
 pub struct Registry {
+  pub commands: Vec<Command>,
   pub features: Vec<Feature>,
   pub extensions: Vec<Extension>,
   pub formats: Vec<Format>,
@@ -74,8 +66,7 @@ impl Registry {
           }
         },
         StartTag { name: "feature", attrs } => {
-          let attr_map = attr_hashmap(attrs);
-          let mut feature = Feature { name: attr_map["name"] };
+          let mut feature = Feature::from_attrs(attrs);
           'feature: loop {
             match iter.next().unwrap() {
               EndTag { name: "feature" } => {
@@ -107,8 +98,7 @@ impl Registry {
           match iter.next().unwrap() {
             EndTag { name: "extensions" } => break,
             StartTag { name: "extension", attrs } => {
-              let attr_map = attr_hashmap(attrs);
-              let mut extension = Extension { name: attr_map["name"] };
+              let mut extension = Extension::from_attrs(attrs);
               loop {
                 match iter.next().unwrap() {
                   EndTag { name: "extension" } => {
@@ -142,8 +132,7 @@ impl Registry {
           match iter.next().unwrap() {
             EndTag { name: "formats" } => break,
             StartTag { name: "format", attrs } => {
-              let attr_map = attr_hashmap(attrs);
-              let mut format = Format { name: attr_map["name"] };
+              let mut format = Format::from_attrs(attrs);
               loop {
                 match iter.next().unwrap() {
                   EndTag { name: "format" } => {
@@ -164,8 +153,7 @@ impl Registry {
           match iter.next().unwrap() {
             EndTag { name: "spirvextensions" } => break,
             StartTag { name: "spirvextension", attrs } => {
-              let attr_map = attr_hashmap(attrs);
-              let mut spirv_extension = SpirvExtension { name: attr_map["name"] };
+              let mut spirv_extension = SpirvExtension::from_attrs(attrs);
               loop {
                 match iter.next().unwrap() {
                   EndTag { name: "spirvextension" } => {
@@ -184,8 +172,7 @@ impl Registry {
           match iter.next().unwrap() {
             EndTag { name: "spirvcapabilities" } => break,
             StartTag { name: "spirvcapability", attrs } => {
-              let attr_map = attr_hashmap(attrs);
-              let mut spirv_capability = SpirvCapability { name: attr_map["name"] };
+              let mut spirv_capability = SpirvCapability::from_attrs(attrs);
               loop {
                 match iter.next().unwrap() {
                   EndTag { name: "spirvcapability" } => {
@@ -207,26 +194,107 @@ impl Registry {
 }
 
 #[derive(Debug, Clone, Default)]
+pub struct Command {
+  pub successcodes: StaticStr,
+  pub errorcodes: StaticStr,
+  pub return_ty: StaticStr,
+  pub name: StaticStr,
+}
+impl Command {
+  pub fn from_attrs(attrs: StaticStr) -> Self {
+    let mut s = Self::default();
+    for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
+      match key {
+        "successcodes" => s.successcodes = value,
+        "errorcodes" => s.errorcodes = value,
+        _ => panic!("{key:?} = {value:?}"),
+      }
+    }
+    s
+  }
+}
+
+#[derive(Debug, Clone, Default)]
 pub struct Feature {
   pub name: StaticStr,
+}
+impl Feature {
+  pub fn from_attrs(attrs: StaticStr) -> Self {
+    let mut s = Self::default();
+    for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
+      match key {
+        "name" => s.name = value,
+        _ => (/* TODO */),
+      }
+    }
+    s
+  }
 }
 
 #[derive(Debug, Clone, Default)]
 pub struct Extension {
   pub name: StaticStr,
 }
+impl Extension {
+  pub fn from_attrs(attrs: StaticStr) -> Self {
+    let mut s = Self::default();
+    for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
+      match key {
+        "name" => s.name = value,
+        _ => (/* TODO */),
+      }
+    }
+    s
+  }
+}
 
 #[derive(Debug, Clone, Default)]
 pub struct Format {
   pub name: StaticStr,
+}
+impl Format {
+  pub fn from_attrs(attrs: StaticStr) -> Self {
+    let mut s = Self::default();
+    for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
+      match key {
+        "name" => s.name = value,
+        _ => (/* TODO */),
+      }
+    }
+    s
+  }
 }
 
 #[derive(Debug, Clone, Default)]
 pub struct SpirvExtension {
   pub name: StaticStr,
 }
+impl SpirvExtension {
+  pub fn from_attrs(attrs: StaticStr) -> Self {
+    let mut s = Self::default();
+    for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
+      match key {
+        "name" => s.name = value,
+        _ => (/* TODO */),
+      }
+    }
+    s
+  }
+}
 
 #[derive(Debug, Clone, Default)]
 pub struct SpirvCapability {
   pub name: StaticStr,
+}
+impl SpirvCapability {
+  pub fn from_attrs(attrs: StaticStr) -> Self {
+    let mut s = Self::default();
+    for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
+      match key {
+        "name" => s.name = value,
+        _ => (/* TODO */),
+      }
+    }
+    s
+  }
 }
