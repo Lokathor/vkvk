@@ -61,8 +61,133 @@ impl Registry {
           }
         },
         StartTag { name: "commands", attrs: _ } => loop {
-          if let EndTag { name: "commands" } = iter.next().unwrap() {
-            break;
+          match iter.next().unwrap() {
+            EndTag { name: "commands" } => break,
+            StartTag { name: "command", attrs } => {
+              let mut command = Command::from_attrs(attrs);
+              loop {
+                match iter.next().unwrap() {
+                  EndTag { name: "command" } => {
+                    registry.commands.push(command);
+                    break;
+                  }
+                  StartTag { name: "proto", attrs: _ } => {
+                    match iter.next().unwrap() {
+                      StartTag { name: "type", attrs: "" } => (),
+                      other => panic!("{other:?}"),
+                    }
+                    match iter.next().unwrap() {
+                      Text(return_ty) => command.return_ty = return_ty,
+                      other => panic!("{other:?}"),
+                    }
+                    match iter.next().unwrap() {
+                      EndTag { name: "type" } => (),
+                      other => panic!("{other:?}"),
+                    }
+                    match iter.next().unwrap() {
+                      StartTag { name: "name", attrs: "" } => (),
+                      other => panic!("{other:?}"),
+                    }
+                    match iter.next().unwrap() {
+                      Text(name) => command.name = name,
+                      other => panic!("{other:?}"),
+                    }
+                    match iter.next().unwrap() {
+                      EndTag { name: "name" } => (),
+                      other => panic!("{other:?}"),
+                    }
+                    match iter.next().unwrap() {
+                      EndTag { name: "proto" } => (),
+                      other => panic!("{other:?}"),
+                    }
+                  }
+                  StartTag { name: "param", attrs: _ } => {
+                    let ty = {
+                      match iter.next().unwrap() {
+                        Text("const") => match iter.next().unwrap() {
+                          StartTag { name: "type", attrs: "" } => (/* TODO */),
+                          other => panic!("{other:?}"),
+                        },
+                        Text("struct") => match iter.next().unwrap() {
+                          StartTag { name: "type", attrs: "" } => (/* TODO */),
+                          other => panic!("{other:?}"),
+                        },
+                        Text("const struct") => match iter.next().unwrap() {
+                          StartTag { name: "type", attrs: "" } => (/* TODO */),
+                          other => panic!("{other:?}"),
+                        },
+                        StartTag { name: "type", attrs: "" } => (/* TODO */),
+                        other => panic!("{other:?}"),
+                      }
+                      match iter.next().unwrap() {
+                        Text(param_ty) => {
+                          match iter.next().unwrap() {
+                            EndTag { name: "type" } => (),
+                            other => panic!("{other:?}"),
+                          };
+                          param_ty
+                        }
+                        other => panic!("{other:?}"),
+                      }
+                    };
+                    let name = {
+                      match iter.next().unwrap() {
+                        Text("*") | Text("**") | Text("* const*") => match iter.next().unwrap() {
+                          StartTag { name: "name", attrs: "" } => (/* TODO */),
+                          other => panic!("{other:?}"),
+                        },
+                        StartTag { name: "name", attrs: "" } => (/* TODO */),
+                        other => panic!("{other:?}"),
+                      };
+                      match iter.next().unwrap() {
+                        Text(param_name) => {
+                          match iter.next().unwrap() {
+                            EndTag { name: "name" } => (),
+                            other => panic!("{other:?}"),
+                          };
+                          match iter.next().unwrap() {
+                            Text("[2]") | Text("[4]") => {
+                              match iter.next().unwrap() {
+                                EndTag { name: "param" } => (),
+                                other => panic!("{other:?}"),
+                              };
+                              /* TODO */
+                            }
+                            EndTag { name: "param" } => (),
+                            other => panic!("{other:?}"),
+                          };
+                          param_name
+                        }
+                        other => panic!("{other:?}"),
+                      }
+                    };
+                    command.params.push(CommandParam { name, ty });
+                  }
+                  StartTag { name: "implicitexternsyncparams", attrs: _ } => loop {
+                    match iter.next().unwrap() {
+                      EndTag { name: "implicitexternsyncparams" } => break,
+                      StartTag { name: "param", attrs: _ } => {
+                        match iter.next().unwrap() {
+                          Text(t) => command.implicitexternsyncparams.push(t),
+                          other => panic!("{other:?}"),
+                        }
+                        match iter.next().unwrap() {
+                          EndTag { name: "param" } => (),
+                          other => panic!("{other:?}"),
+                        }
+                      }
+                      other => panic!("{other:?}"),
+                    }
+                  },
+                  other => panic!("{other:?}"),
+                }
+              }
+            }
+            EmptyTag { name: "command", attrs } => {
+              let command = Command::from_attrs(attrs);
+              registry.commands.push(command);
+            }
+            other => panic!("{other:?}"),
           }
         },
         StartTag { name: "feature", attrs } => {
@@ -194,11 +319,27 @@ impl Registry {
 }
 
 #[derive(Debug, Clone, Default)]
+pub struct CommandParam {
+  pub name: StaticStr,
+  pub ty: StaticStr,
+}
+
+#[derive(Debug, Clone, Default)]
 pub struct Command {
   pub successcodes: StaticStr,
   pub errorcodes: StaticStr,
+  pub queues: StaticStr,
+  pub alias: StaticStr,
+  pub renderpass: StaticStr,
+  pub cmdbufferlevel: StaticStr,
+  pub tasks: StaticStr,
+  pub comment: StaticStr,
+  pub videocoding: StaticStr,
+  //
   pub return_ty: StaticStr,
   pub name: StaticStr,
+  pub params: Vec<CommandParam>,
+  pub implicitexternsyncparams: Vec<StaticStr>,
 }
 impl Command {
   pub fn from_attrs(attrs: StaticStr) -> Self {
@@ -207,6 +348,14 @@ impl Command {
       match key {
         "successcodes" => s.successcodes = value,
         "errorcodes" => s.errorcodes = value,
+        "queues" => s.queues = value,
+        "alias" => s.alias = value,
+        "renderpass" => s.renderpass = value,
+        "cmdbufferlevel" => s.cmdbufferlevel = value,
+        "tasks" => s.tasks = value,
+        "comment" => s.comment = value,
+        "videocoding" => s.videocoding = value,
+        "name" => s.name = value,
         _ => panic!("{key:?} = {value:?}"),
       }
     }
