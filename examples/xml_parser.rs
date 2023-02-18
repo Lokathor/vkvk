@@ -19,8 +19,14 @@ fn main() {
   println!("{registry:#?}");
 }
 
+// TODO: all of the `attrs: _` must be removed.
+
 #[derive(Debug, Clone, Default)]
 pub struct Registry {
+  // TODO: platforms?
+  // TODO: tags
+  // TODO: types
+  pub enums: Vec<Enumeration>,
   pub commands: Vec<Command>,
   pub features: Vec<Feature>,
   pub extensions: Vec<Extension>,
@@ -55,11 +61,21 @@ impl Registry {
             break;
           }
         },
-        StartTag { name: "enums", attrs: _ } => loop {
-          if let EndTag { name: "enums" } = iter.next().unwrap() {
-            break;
+        StartTag { name: "enums", attrs } => {
+          let mut enumeration = Enumeration::from_attrs(attrs);
+          'enums: loop {
+            match iter.next().unwrap() {
+              EndTag { name: "enums" } => {
+                break 'enums;
+              }
+              EmptyTag { name: "enum", attrs } => {
+                enumeration.entries.push(EnumerationEntry::from_attrs(attrs))
+              }
+              _ => (),
+            }
           }
-        },
+          registry.enums.push(enumeration);
+        }
         StartTag { name: "commands", attrs: _ } => loop {
           match iter.next().unwrap() {
             EndTag { name: "commands" } => break,
@@ -72,96 +88,113 @@ impl Registry {
                     break;
                   }
                   StartTag { name: "proto", attrs: _ } => {
+                    assert_eq!(iter.next().unwrap().unwrap_start_tag(), ("type", ""));
+                    command.return_ty = iter.next().unwrap().unwrap_text();
+                    if command.return_ty == "void" {
+                      command.return_ty = "()";
+                    }
+                    assert_eq!(iter.next().unwrap().unwrap_end_tag(), "type");
+                    //
+                    assert_eq!(iter.next().unwrap().unwrap_start_tag(), ("name", ""));
+                    command.name = iter.next().unwrap().unwrap_text();
+                    assert_eq!(iter.next().unwrap().unwrap_end_tag(), "name");
+                    //
+                    assert_eq!(iter.next().unwrap().unwrap_end_tag(), "proto");
+                  }
+                  StartTag { name: "param", attrs } => {
+                    let mut command_param = CommandParam::from_attrs(attrs);
                     match iter.next().unwrap() {
+                      // If we see the keyword `struct` as part of the type's
+                      // prefix we ignore it. That's a C way to declare an
+                      // opaque type inline with the function signature, which
+                      // we don't do in Rust anyway.
+                      Text("const") | Text("const struct") => {
+                        command_param.ty_variant = TypeVariant::ConstPtr;
+                        match iter.next().unwrap() {
+                          StartTag { name: "type", attrs: "" } => (),
+                          other => panic!("{other:?}"),
+                        }
+                      }
+                      Text("struct") => match iter.next().unwrap() {
+                        StartTag { name: "type", attrs: "" } => (),
+                        other => panic!("{other:?}"),
+                      },
                       StartTag { name: "type", attrs: "" } => (),
                       other => panic!("{other:?}"),
                     }
+                    command_param.ty = match iter.next().unwrap().unwrap_text() {
+                      "char" => "u8",
+                      "uint32_t" => "u32",
+                      other => other,
+                    };
+                    assert_eq!(iter.next().unwrap().unwrap_end_tag(), "type");
+
                     match iter.next().unwrap() {
-                      Text(return_ty) => command.return_ty = return_ty,
-                      other => panic!("{other:?}"),
-                    }
-                    match iter.next().unwrap() {
-                      EndTag { name: "type" } => (),
-                      other => panic!("{other:?}"),
-                    }
-                    match iter.next().unwrap() {
+                      Text("*") => {
+                        match command_param.ty_variant {
+                          TypeVariant::Normal => command_param.ty_variant = TypeVariant::MutPtr,
+                          TypeVariant::ConstPtr => (/* nothing */),
+                          other => panic!("{other:?}"),
+                        }
+                        match iter.next().unwrap() {
+                          StartTag { name: "name", attrs: "" } => (),
+                          other => panic!("{other:?}"),
+                        }
+                      }
+                      Text("**") => {
+                        match command_param.ty_variant {
+                          TypeVariant::Normal => {
+                            command_param.ty_variant = TypeVariant::MutPtrMutPtr
+                          }
+                          TypeVariant::ConstPtr => {
+                            command_param.ty_variant = TypeVariant::MutPtrConstPtr
+                          }
+                          other => panic!("{other:?}"),
+                        }
+                        match iter.next().unwrap() {
+                          StartTag { name: "name", attrs: "" } => (),
+                          other => panic!("{other:?}"),
+                        }
+                      }
+                      Text("* const*") => {
+                        match command_param.ty_variant {
+                          TypeVariant::ConstPtr => {
+                            command_param.ty_variant = TypeVariant::ConstPtrConstPtr
+                          }
+                          other => panic!("{other:?}"),
+                        }
+                        match iter.next().unwrap() {
+                          StartTag { name: "name", attrs: "" } => (),
+                          other => panic!("{other:?}"),
+                        }
+                      }
                       StartTag { name: "name", attrs: "" } => (),
                       other => panic!("{other:?}"),
-                    }
-                    match iter.next().unwrap() {
-                      Text(name) => command.name = name,
-                      other => panic!("{other:?}"),
-                    }
-                    match iter.next().unwrap() {
-                      EndTag { name: "name" } => (),
-                      other => panic!("{other:?}"),
-                    }
-                    match iter.next().unwrap() {
-                      EndTag { name: "proto" } => (),
-                      other => panic!("{other:?}"),
-                    }
-                  }
-                  StartTag { name: "param", attrs: _ } => {
-                    let ty = {
-                      match iter.next().unwrap() {
-                        Text("const") => match iter.next().unwrap() {
-                          StartTag { name: "type", attrs: "" } => (/* TODO */),
-                          other => panic!("{other:?}"),
-                        },
-                        Text("struct") => match iter.next().unwrap() {
-                          StartTag { name: "type", attrs: "" } => (/* TODO */),
-                          other => panic!("{other:?}"),
-                        },
-                        Text("const struct") => match iter.next().unwrap() {
-                          StartTag { name: "type", attrs: "" } => (/* TODO */),
-                          other => panic!("{other:?}"),
-                        },
-                        StartTag { name: "type", attrs: "" } => (/* TODO */),
-                        other => panic!("{other:?}"),
-                      }
-                      match iter.next().unwrap() {
-                        Text(param_ty) => {
-                          match iter.next().unwrap() {
-                            EndTag { name: "type" } => (),
-                            other => panic!("{other:?}"),
-                          };
-                          param_ty
-                        }
-                        other => panic!("{other:?}"),
-                      }
                     };
-                    let name = {
-                      match iter.next().unwrap() {
-                        Text("*") | Text("**") | Text("* const*") => match iter.next().unwrap() {
-                          StartTag { name: "name", attrs: "" } => (/* TODO */),
-                          other => panic!("{other:?}"),
-                        },
-                        StartTag { name: "name", attrs: "" } => (/* TODO */),
-                        other => panic!("{other:?}"),
-                      };
-                      match iter.next().unwrap() {
-                        Text(param_name) => {
-                          match iter.next().unwrap() {
-                            EndTag { name: "name" } => (),
-                            other => panic!("{other:?}"),
-                          };
-                          match iter.next().unwrap() {
-                            Text("[2]") | Text("[4]") => {
-                              match iter.next().unwrap() {
-                                EndTag { name: "param" } => (),
-                                other => panic!("{other:?}"),
-                              };
-                              /* TODO */
+                    match iter.next().unwrap() {
+                      Text(param_name) => {
+                        command_param.name = param_name;
+                        assert_eq!(iter.next().unwrap().unwrap_end_tag(), "name");
+                        match iter.next().unwrap() {
+                          Text(t) => {
+                            match (t, command_param.ty_variant) {
+                              ("[2]", TypeVariant::ConstPtr) => {
+                                command_param.ty_variant = TypeVariant::ConstArrayPtr(2)
+                              }
+                              ("[4]", TypeVariant::ConstPtr) => {
+                                command_param.ty_variant = TypeVariant::ConstArrayPtr(4)
+                              }
+                              other => panic!("{other:?}"),
                             }
-                            EndTag { name: "param" } => (),
-                            other => panic!("{other:?}"),
-                          };
-                          param_name
-                        }
-                        other => panic!("{other:?}"),
+                            assert_eq!(iter.next().unwrap().unwrap_end_tag(), "param");
+                          }
+                          EndTag { name: "param" } => (),
+                          other => panic!("{other:?}"),
+                        };
                       }
-                    };
-                    command.params.push(CommandParam { name, ty });
+                      other => panic!("{other:?}"),
+                    }
+                    command.params.push(command_param);
                   }
                   StartTag { name: "implicitexternsyncparams", attrs: _ } => loop {
                     match iter.next().unwrap() {
@@ -319,13 +352,163 @@ impl Registry {
 }
 
 #[derive(Debug, Clone, Default)]
-pub struct CommandParam {
+pub struct EnumerationEntry {
+  pub name: StaticStr,
+  pub value: StaticStr,
+  pub comment: StaticStr,
+  pub ty: StaticStr,
+  pub alias: StaticStr,
+  pub bitpos: StaticStr,
+}
+impl EnumerationEntry {
+  pub fn from_attrs(attrs: StaticStr) -> Self {
+    let mut s = Self::default();
+    for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
+      match key {
+        "name" => s.name = value,
+        "value" => s.value = value,
+        "comment" => s.comment = value,
+        "type" => s.ty = value,
+        "alias" => s.alias = value,
+        "bitpos" => s.bitpos = value,
+        _ => panic!("{key:?} = {value:?}"),
+      }
+    }
+    s
+  }
+}
+
+#[derive(Debug, Clone, Default)]
+pub struct Enumeration {
   pub name: StaticStr,
   pub ty: StaticStr,
+  pub comment: StaticStr,
+  pub bitwidth: StaticStr,
+  pub entries: Vec<EnumerationEntry>,
+}
+impl Enumeration {
+  pub fn from_attrs(attrs: StaticStr) -> Self {
+    let mut s = Self::default();
+    for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
+      match key {
+        "name" => s.name = value,
+        "type" => s.ty = value,
+        "comment" => s.comment = value,
+        "bitwidth" => s.bitwidth = value,
+        _ => panic!("{key:?} = {value:?}"),
+      }
+    }
+    s
+  }
+}
+
+#[derive(Debug, Clone, Default)]
+pub enum TypeVariant {
+  /// `T`
+  #[default]
+  Normal,
+  /// `*const T`
+  ConstPtr,
+  /// `*mut T`
+  MutPtr,
+  /// `*mut *mut T`
+  MutPtrMutPtr,
+  /// `*const [T; N]`
+  ConstArrayPtr(usize),
+  /// `*mut *const T`
+  MutPtrConstPtr,
+  /// `*const *const T`
+  ConstPtrConstPtr,
+}
+
+#[derive(Clone, Default)]
+pub struct CommandParam {
+  pub name: StaticStr,
+  pub ty_variant: TypeVariant,
+  pub ty: StaticStr,
+  //
+  pub optional: StaticStr,
+  pub extern_sync: StaticStr,
+  pub len: StaticStr,
+  pub alt_len: StaticStr,
+  pub no_auto_validity: StaticStr,
+  pub stride: StaticStr,
+  pub object_type: StaticStr,
+  pub valid_structs: StaticStr,
+}
+impl core::fmt::Debug for CommandParam {
+  fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    let name = self.name;
+    let ty = self.ty;
+    match self.ty_variant {
+      TypeVariant::Normal => write!(f, "{name}: {ty}"),
+      TypeVariant::ConstPtr => write!(f, "{name}: *const {ty}"),
+      TypeVariant::MutPtr => write!(f, "{name}: *mut {ty}"),
+      TypeVariant::MutPtrMutPtr => write!(f, "{name}: *mut *mut {ty}"),
+      TypeVariant::ConstArrayPtr(n) => write!(f, "{name}: *const [{ty}; {n}]"),
+      TypeVariant::MutPtrConstPtr => write!(f, "{name}: *mut *const {ty}"),
+      TypeVariant::ConstPtrConstPtr => write!(f, "{name}: *const *const {ty}"),
+    }?;
+    match self.optional {
+      "" => (),
+      "true" => write!(f, " /* optional */")?,
+      other => write!(f, " /* optional={other:?} */")?,
+    }
+    match self.extern_sync {
+      "" => (),
+      "true" => write!(f, " /* extern_sync */")?,
+      other => write!(f, " /* extern_sync={other:?} */")?,
+    }
+    if !self.len.is_empty() {
+      write!(f, " /* len={} */", self.len)?;
+    }
+    if !self.alt_len.is_empty() {
+      write!(f, " /* alt_len={} */", self.alt_len)?;
+    }
+    match self.no_auto_validity {
+      "" => (),
+      "true" => write!(f, " /* no_auto_validity */")?,
+      other => write!(f, " /* no_auto_validity={other:?} */")?,
+    }
+    if !self.stride.is_empty() {
+      write!(f, " /* stride={} */", self.stride)?;
+    }
+    if !self.object_type.is_empty() {
+      write!(f, " /* object_type={} */", self.object_type)?;
+    }
+    if !self.valid_structs.is_empty() {
+      write!(f, " /* valid_structs={} */", self.valid_structs)?;
+    }
+    Ok(())
+  }
+}
+impl CommandParam {
+  pub fn from_attrs(attrs: StaticStr) -> Self {
+    let mut s = Self::default();
+    for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
+      match key {
+        "len" => s.len = value,
+        "altlen" => s.alt_len = value,
+        "stride" => s.stride = value,
+        "optional" => s.optional = value,
+        "externsync" => s.extern_sync = value,
+        "objecttype" => s.object_type = value,
+        "noautovalidity" => s.no_auto_validity = value,
+        "validstructs" => s.valid_structs = value,
+        _ => panic!("{key:?} = {value:?}"),
+      }
+    }
+    s
+  }
 }
 
 #[derive(Debug, Clone, Default)]
 pub struct Command {
+  pub name: StaticStr,
+  pub params: Vec<CommandParam>,
+  pub return_ty: StaticStr,
+  //
+  pub comment: StaticStr,
   pub successcodes: StaticStr,
   pub errorcodes: StaticStr,
   pub queues: StaticStr,
@@ -333,12 +516,7 @@ pub struct Command {
   pub renderpass: StaticStr,
   pub cmdbufferlevel: StaticStr,
   pub tasks: StaticStr,
-  pub comment: StaticStr,
   pub videocoding: StaticStr,
-  //
-  pub return_ty: StaticStr,
-  pub name: StaticStr,
-  pub params: Vec<CommandParam>,
   pub implicitexternsyncparams: Vec<StaticStr>,
 }
 impl Command {
@@ -366,6 +544,9 @@ impl Command {
 #[derive(Debug, Clone, Default)]
 pub struct Feature {
   pub name: StaticStr,
+  pub api: StaticStr,
+  pub number: StaticStr,
+  pub comment: StaticStr,
 }
 impl Feature {
   pub fn from_attrs(attrs: StaticStr) -> Self {
@@ -373,7 +554,10 @@ impl Feature {
     for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
       match key {
         "name" => s.name = value,
-        _ => (/* TODO */),
+        "api" => s.api = value,
+        "number" => s.number = value,
+        "comment" => s.comment = value,
+        _ => panic!("{key:?} = {value:?}"),
       }
     }
     s
@@ -383,6 +567,21 @@ impl Feature {
 #[derive(Debug, Clone, Default)]
 pub struct Extension {
   pub name: StaticStr,
+  pub requires: StaticStr,
+  pub comment: StaticStr,
+  pub number: StaticStr,
+  pub ty: StaticStr,
+  pub author: StaticStr,
+  pub contact: StaticStr,
+  pub supported: StaticStr,
+  pub platform: StaticStr,
+  pub special_use: StaticStr,
+  pub deprecated_by: StaticStr,
+  pub promoted_to: StaticStr,
+  pub requires_core: StaticStr,
+  pub obsoleted_by: StaticStr,
+  pub provisional: StaticStr,
+  pub sort_order: StaticStr,
 }
 impl Extension {
   pub fn from_attrs(attrs: StaticStr) -> Self {
@@ -390,7 +589,22 @@ impl Extension {
     for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
       match key {
         "name" => s.name = value,
-        _ => (/* TODO */),
+        "type" => s.ty = value,
+        "number" => s.number = value,
+        "author" => s.author = value,
+        "contact" => s.contact = value,
+        "comment" => s.comment = value,
+        "requires" => s.requires = value,
+        "platform" => s.platform = value,
+        "sortorder" => s.sort_order = value,
+        "supported" => s.supported = value,
+        "specialuse" => s.special_use = value,
+        "promotedto" => s.promoted_to = value,
+        "provisional" => s.provisional = value,
+        "obsoletedby" => s.obsoleted_by = value,
+        "deprecatedby" => s.deprecated_by = value,
+        "requiresCore" => s.requires_core = value,
+        _ => panic!("{key:?} = {value:?}"),
       }
     }
     s
@@ -400,6 +614,13 @@ impl Extension {
 #[derive(Debug, Clone, Default)]
 pub struct Format {
   pub name: StaticStr,
+  pub class: StaticStr,
+  pub block_size: StaticStr,
+  pub texels_per_block: StaticStr,
+  pub packed: StaticStr,
+  pub block_extent: StaticStr,
+  pub compressed: StaticStr,
+  pub chroma: StaticStr,
 }
 impl Format {
   pub fn from_attrs(attrs: StaticStr) -> Self {
@@ -407,7 +628,14 @@ impl Format {
     for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
       match key {
         "name" => s.name = value,
-        _ => (/* TODO */),
+        "class" => s.class = value,
+        "blockSize" => s.block_size = value,
+        "texelsPerBlock" => s.texels_per_block = value,
+        "packed" => s.packed = value,
+        "blockExtent" => s.block_extent = value,
+        "compressed" => s.compressed = value,
+        "chroma" => s.chroma = value,
+        _ => panic!("{key:?} = {value:?}"),
       }
     }
     s
@@ -424,7 +652,7 @@ impl SpirvExtension {
     for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
       match key {
         "name" => s.name = value,
-        _ => (/* TODO */),
+        _ => panic!("{key:?} = {value:?}"),
       }
     }
     s
@@ -441,7 +669,7 @@ impl SpirvCapability {
     for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
       match key {
         "name" => s.name = value,
-        _ => (/* TODO */),
+        _ => panic!("{key:?} = {value:?}"),
       }
     }
     s
