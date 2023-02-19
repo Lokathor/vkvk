@@ -65,152 +65,14 @@ impl Registry {
         StartTag { name: "commands", attrs } => do_commands(attrs, &mut registry.commands, iter),
         StartTag { name: "feature", attrs } => do_feature(attrs, &mut registry.features, iter),
         StartTag { name: "extensions", attrs } => {
-          for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
-            match key {
-              "comment" => (),
-              _ => panic!("{key:?} = {value:?}"),
-            }
-          }
-          //
-          loop {
-            match iter.next().unwrap() {
-              EndTag { name: "extensions" } => break,
-              StartTag { name: "extension", attrs } => {
-                let mut extension = Extension::from_attrs(attrs);
-                loop {
-                  match iter.next().unwrap() {
-                    EndTag { name: "extension" } => {
-                      registry.extensions.push(extension);
-                      break;
-                    }
-                    StartTag { name: "require", attrs: _ } => {
-                      //
-                      loop {
-                        match iter.next().unwrap() {
-                          EndTag { name: "require" } => {
-                            break;
-                          }
-                          StartTag { name: "comment", attrs: "" } => loop {
-                            if let EndTag { name: "comment" } = iter.next().unwrap() {
-                              break;
-                            }
-                          },
-                          EmptyTag { name: "enum", attrs: _ } => (/* TODO */),
-                          EmptyTag { name: "type", attrs } => {
-                            for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
-                              match key {
-                                "name" => extension.types.push(value),
-                                "comment" => (),
-                                _ => panic!("{key:?} = {value:?}"),
-                              }
-                            }
-                          }
-                          EmptyTag { name: "command", attrs } => {
-                            for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
-                              match key {
-                                "name" => extension.commands.push(value),
-                                "comment" => (),
-                                _ => panic!("{key:?} = {value:?}"),
-                              }
-                            }
-                          }
-                          other => panic!("{other:?}"),
-                        }
-                      }
-                    }
-                    other => panic!("{other:?}"),
-                  }
-                }
-              }
-              other => panic!("{other:?}"),
-            }
-          }
+          do_extensions(attrs, &mut registry.extensions, iter)
         }
-        StartTag { name: "formats", attrs } => {
-          assert_attrs_comment_only!(attrs);
-          loop {
-            match iter.next().unwrap() {
-              EndTag { name: "formats" } => break,
-              StartTag { name: "format", attrs } => {
-                let mut format = Format::from_attrs(attrs);
-                loop {
-                  match iter.next().unwrap() {
-                    EndTag { name: "format" } => {
-                      registry.formats.push(format);
-                      break;
-                    }
-                    EmptyTag { name: "component", attrs } => {
-                      format.components.push(FormatComponent::from_attrs(attrs));
-                    }
-                    EmptyTag { name: "plane", attrs } => {
-                      format.planes.push(FormatPlane::from_attrs(attrs));
-                    }
-                    EmptyTag { name: "spirvimageformat", attrs } => {
-                      for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
-                        match key {
-                          "name" => {
-                            assert!(format.spirv_image_format.is_empty());
-                            format.spirv_image_format = value;
-                          }
-                          _ => panic!("{key:?} = {value:?}"),
-                        }
-                      }
-                    }
-                    other => panic!("{other:?}"),
-                  }
-                }
-              }
-              other => panic!("{other:?}"),
-            }
-          }
-        }
+        StartTag { name: "formats", attrs } => do_formats(attrs, &mut registry.formats, iter),
         StartTag { name: "spirvextensions", attrs } => {
-          assert_attrs_comment_only!(attrs);
-          loop {
-            match iter.next().unwrap() {
-              EndTag { name: "spirvextensions" } => break,
-              StartTag { name: "spirvextension", attrs } => {
-                let mut spirv_extension = SpirvExtension::from_attrs(attrs);
-                loop {
-                  match iter.next().unwrap() {
-                    EndTag { name: "spirvextension" } => {
-                      registry.spirv_extensions.push(spirv_extension);
-                      break;
-                    }
-                    EmptyTag { name: "enable", attrs } => {
-                      spirv_extension.enables.push(SpirvExtensionEnable::from_attrs(attrs));
-                    }
-                    other => panic!("{other:?}"),
-                  }
-                }
-              }
-              other => panic!("{other:?}"),
-            }
-          }
+          do_spirv_extensions(attrs, &mut registry.spirv_extensions, iter)
         }
         StartTag { name: "spirvcapabilities", attrs } => {
-          assert_attrs_comment_only!(attrs);
-          loop {
-            match iter.next().unwrap() {
-              EndTag { name: "spirvcapabilities" } => break,
-              StartTag { name: "spirvcapability", attrs } => {
-                let mut spirv_capability = SpirvCapability::from_attrs(attrs);
-                loop {
-                  match iter.next().unwrap() {
-                    EndTag { name: "spirvcapability" } => {
-                      registry.spirv_capabilities.push(spirv_capability);
-                      break;
-                    }
-                    EmptyTag { name: "enable", attrs } => {
-                      spirv_capability.enables.push(SpirvCapabilityEnable::from_attrs(attrs))
-                    }
-                    other => panic!("{other:?}"),
-                  }
-                }
-              }
-              other => panic!("{other:?}"),
-            }
-          }
+          do_spirv_capabilities(attrs, &mut registry.spirv_capabilities, iter)
         }
         other => panic!("{other:?}"),
       }
@@ -622,6 +484,163 @@ fn do_feature(
         }
       },
       EmptyTag { name: "require", attrs: _ } => (/* TODO */),
+      other => panic!("{other:?}"),
+    }
+  }
+}
+
+fn do_extensions(
+  attrs: StaticStr, extensions: &mut Vec<Extension>,
+  iter: &mut impl Iterator<Item = XmlElement<'static>>,
+) {
+  assert_attrs_comment_only!(attrs);
+  loop {
+    match iter.next().unwrap() {
+      EndTag { name: "extensions" } => return,
+      StartTag { name: "extension", attrs } => {
+        let mut extension = Extension::from_attrs(attrs);
+        loop {
+          match iter.next().unwrap() {
+            EndTag { name: "extension" } => {
+              extensions.push(extension);
+              break;
+            }
+            StartTag { name: "require", attrs: _ } => {
+              //
+              loop {
+                match iter.next().unwrap() {
+                  EndTag { name: "require" } => {
+                    break;
+                  }
+                  StartTag { name: "comment", attrs: "" } => loop {
+                    if let EndTag { name: "comment" } = iter.next().unwrap() {
+                      break;
+                    }
+                  },
+                  EmptyTag { name: "enum", attrs: _ } => (/* TODO */),
+                  EmptyTag { name: "type", attrs } => {
+                    for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
+                      match key {
+                        "name" => extension.types.push(value),
+                        "comment" => (),
+                        _ => panic!("{key:?} = {value:?}"),
+                      }
+                    }
+                  }
+                  EmptyTag { name: "command", attrs } => {
+                    for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
+                      match key {
+                        "name" => extension.commands.push(value),
+                        "comment" => (),
+                        _ => panic!("{key:?} = {value:?}"),
+                      }
+                    }
+                  }
+                  other => panic!("{other:?}"),
+                }
+              }
+            }
+            other => panic!("{other:?}"),
+          }
+        }
+      }
+      other => panic!("{other:?}"),
+    }
+  }
+}
+
+fn do_formats(
+  attrs: StaticStr, formats: &mut Vec<Format>, iter: &mut impl Iterator<Item = XmlElement<'static>>,
+) {
+  assert_attrs_comment_only!(attrs);
+  loop {
+    match iter.next().unwrap() {
+      EndTag { name: "formats" } => return,
+      StartTag { name: "format", attrs } => {
+        let mut format = Format::from_attrs(attrs);
+        loop {
+          match iter.next().unwrap() {
+            EndTag { name: "format" } => {
+              formats.push(format);
+              break;
+            }
+            EmptyTag { name: "component", attrs } => {
+              format.components.push(FormatComponent::from_attrs(attrs));
+            }
+            EmptyTag { name: "plane", attrs } => {
+              format.planes.push(FormatPlane::from_attrs(attrs));
+            }
+            EmptyTag { name: "spirvimageformat", attrs } => {
+              for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
+                match key {
+                  "name" => {
+                    assert!(format.spirv_image_format.is_empty());
+                    format.spirv_image_format = value;
+                  }
+                  _ => panic!("{key:?} = {value:?}"),
+                }
+              }
+            }
+            other => panic!("{other:?}"),
+          }
+        }
+      }
+      other => panic!("{other:?}"),
+    }
+  }
+}
+
+fn do_spirv_extensions(
+  attrs: StaticStr, spirv_extensions: &mut Vec<SpirvExtension>,
+  iter: &mut impl Iterator<Item = XmlElement<'static>>,
+) {
+  assert_attrs_comment_only!(attrs);
+  loop {
+    match iter.next().unwrap() {
+      EndTag { name: "spirvextensions" } => return,
+      StartTag { name: "spirvextension", attrs } => {
+        let mut spirv_extension = SpirvExtension::from_attrs(attrs);
+        'spirvextension: loop {
+          match iter.next().unwrap() {
+            EndTag { name: "spirvextension" } => {
+              spirv_extensions.push(spirv_extension);
+              break 'spirvextension;
+            }
+            EmptyTag { name: "enable", attrs } => {
+              spirv_extension.enables.push(SpirvExtensionEnable::from_attrs(attrs));
+            }
+            other => panic!("{other:?}"),
+          }
+        }
+      }
+      other => panic!("{other:?}"),
+    }
+  }
+}
+
+fn do_spirv_capabilities(
+  attrs: StaticStr, spirv_capabilities: &mut Vec<SpirvCapability>,
+  iter: &mut impl Iterator<Item = XmlElement<'static>>,
+) {
+  assert_attrs_comment_only!(attrs);
+  loop {
+    match iter.next().unwrap() {
+      EndTag { name: "spirvcapabilities" } => return,
+      StartTag { name: "spirvcapability", attrs } => {
+        let mut spirv_capability = SpirvCapability::from_attrs(attrs);
+        'spirvcapability: loop {
+          match iter.next().unwrap() {
+            EndTag { name: "spirvcapability" } => {
+              spirv_capabilities.push(spirv_capability);
+              break 'spirvcapability;
+            }
+            EmptyTag { name: "enable", attrs } => {
+              spirv_capability.enables.push(SpirvCapabilityEnable::from_attrs(attrs))
+            }
+            other => panic!("{other:?}"),
+          }
+        }
+      }
       other => panic!("{other:?}"),
     }
   }
