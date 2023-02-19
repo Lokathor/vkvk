@@ -20,6 +20,17 @@ fn main() {
   println!("{registry:#?}");
 }
 
+macro_rules! assert_attrs_comment_only {
+  ($attrs:expr) => {
+    for TagAttribute { key, value } in TagAttributeIterator::new($attrs) {
+      match key {
+        "comment" => (),
+        _ => panic!("{key:?} = {value:?}"),
+      }
+    }
+  };
+}
+
 // TODO: all of the `attrs: _` must be removed.
 
 #[derive(Debug, Clone, Default)]
@@ -42,70 +53,51 @@ impl Registry {
     loop {
       match iter.next().unwrap() {
         EndTag { name: "registry" } => return registry,
-        StartTag { name: "comment", attrs: _ } => loop {
+        StartTag { name: "comment", attrs: "" } => loop {
           if let EndTag { name: "comment" } = iter.next().unwrap() {
             break;
           }
         },
-        StartTag { name: "platforms", attrs: _ } => 'platforms: loop {
-          match iter.next().unwrap() {
-            EndTag { name: "platforms" } => break 'platforms,
-            EmptyTag { name: "platform", attrs } => {
-              registry.platforms.push(Platform::from_attrs(attrs));
-            }
-            _ => (),
-          }
-        },
-        StartTag { name: "tags", attrs: _ } => 'tags: loop {
-          match iter.next().unwrap() {
-            EndTag { name: "tags" } => break 'tags,
-            EmptyTag { name: "tag", attrs } => {
-              registry.org_tags.push(OrgTag::from_attrs(attrs));
-            }
-            _ => (),
-          }
-        },
-        StartTag { name: "types", attrs } => {
-          for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
-            match key {
-              "comment" => (),
-              _ => panic!("{key:?} = {value:?}"),
-            }
-          }
-          //
-          'types: loop {
+        StartTag { name: "platforms", attrs } => do_platforms(attrs, &mut registry.platforms, iter),
+        StartTag { name: "tags", attrs } => do_tags(attrs, &mut registry.org_tags, iter),
+        StartTag { name: "types", attrs } => do_types(attrs, &mut registry.types, iter),
+        StartTag { name: "enums", attrs } => do_enums(attrs, &mut registry.enums, iter),
+        StartTag { name: "commands", attrs } => {
+          assert_attrs_comment_only!(attrs);
+          loop {
             match iter.next().unwrap() {
-              EndTag { name: "types" } => break 'types,
-              StartTag { name: "type", attrs } => {
-                let mut ty_entry = TypeEntry::from_attrs(attrs);
-                'ty: loop {
+              EndTag { name: "commands" } => break,
+              StartTag { name: "command", attrs } => {
+                let mut command = Command::from_attrs(attrs);
+                loop {
                   match iter.next().unwrap() {
-                    EndTag { name: "type" } => break 'ty,
-                    Text(t) => ty_entry.texts.push(t),
-                    StartTag { name: "comment", attrs: "" } => {
-                      ty_entry.comment = iter.next().unwrap().unwrap_text();
-                      assert_eq!(iter.next().unwrap().unwrap_end_tag(), "comment");
+                    EndTag { name: "command" } => {
+                      registry.commands.push(command);
+                      break;
                     }
-                    StartTag { name: "name", attrs: "" } => {
-                      assert!(ty_entry.name.is_empty());
-                      ty_entry.name = iter.next().unwrap().unwrap_text();
-                      assert_eq!(iter.next().unwrap().unwrap_end_tag(), "name");
-                      ty_entry.texts.push(ty_entry.name);
-                    }
-                    StartTag { name: "type", attrs: "" } => {
-                      ty_entry.ty_src = iter.next().unwrap().unwrap_text();
+                    StartTag { name: "proto", attrs: _ } => {
+                      assert_eq!(iter.next().unwrap().unwrap_start_tag(), ("type", ""));
+                      command.return_ty = iter.next().unwrap().unwrap_text();
+                      if command.return_ty == "void" {
+                        command.return_ty = "()";
+                      }
                       assert_eq!(iter.next().unwrap().unwrap_end_tag(), "type");
-                      ty_entry.texts.push(ty_entry.ty_src);
+                      //
+                      assert_eq!(iter.next().unwrap().unwrap_start_tag(), ("name", ""));
+                      command.name = iter.next().unwrap().unwrap_text();
+                      assert_eq!(iter.next().unwrap().unwrap_end_tag(), "name");
+                      //
+                      assert_eq!(iter.next().unwrap().unwrap_end_tag(), "proto");
                     }
-                    StartTag { name: "member", attrs } => {
-                      let mut member = Member::from_attrs(attrs);
+                    StartTag { name: "param", attrs } => {
+                      let mut command_param = CommandParam::from_attrs(attrs);
                       match iter.next().unwrap() {
                         // If we see the keyword `struct` as part of the type's
                         // prefix we ignore it. That's a C way to declare an
                         // opaque type inline with the function signature, which
                         // we don't do in Rust anyway.
                         Text("const") | Text("const struct") => {
-                          member.ty_variant = TypeVariant::ConstPtr;
+                          command_param.ty_variant = TypeVariant::ConstPtr;
                           match iter.next().unwrap() {
                             StartTag { name: "type", attrs: "" } => (),
                             other => panic!("{other:?}"),
@@ -118,7 +110,7 @@ impl Registry {
                         StartTag { name: "type", attrs: "" } => (),
                         other => panic!("{other:?}"),
                       }
-                      member.ty = match iter.next().unwrap().unwrap_text() {
+                      command_param.ty = match iter.next().unwrap().unwrap_text() {
                         "char" => "u8",
                         "uint32_t" => "u32",
                         other => other,
@@ -127,8 +119,8 @@ impl Registry {
 
                       match iter.next().unwrap() {
                         Text("*") => {
-                          match member.ty_variant {
-                            TypeVariant::Normal => member.ty_variant = TypeVariant::MutPtr,
+                          match command_param.ty_variant {
+                            TypeVariant::Normal => command_param.ty_variant = TypeVariant::MutPtr,
                             TypeVariant::ConstPtr => (/* nothing */),
                             other => panic!("{other:?}"),
                           }
@@ -138,10 +130,12 @@ impl Registry {
                           }
                         }
                         Text("**") => {
-                          match member.ty_variant {
-                            TypeVariant::Normal => member.ty_variant = TypeVariant::MutPtrMutPtr,
+                          match command_param.ty_variant {
+                            TypeVariant::Normal => {
+                              command_param.ty_variant = TypeVariant::MutPtrMutPtr
+                            }
                             TypeVariant::ConstPtr => {
-                              member.ty_variant = TypeVariant::MutPtrConstPtr
+                              command_param.ty_variant = TypeVariant::MutPtrConstPtr
                             }
                             other => panic!("{other:?}"),
                           }
@@ -150,10 +144,10 @@ impl Registry {
                             other => panic!("{other:?}"),
                           }
                         }
-                        Text("* const*") | Text("* const *") => {
-                          match member.ty_variant {
+                        Text("* const*") => {
+                          match command_param.ty_variant {
                             TypeVariant::ConstPtr => {
-                              member.ty_variant = TypeVariant::ConstPtrConstPtr
+                              command_param.ty_variant = TypeVariant::ConstPtrConstPtr
                             }
                             other => panic!("{other:?}"),
                           }
@@ -165,239 +159,59 @@ impl Registry {
                         StartTag { name: "name", attrs: "" } => (),
                         other => panic!("{other:?}"),
                       };
-                      member.name = iter.next().unwrap().unwrap_text();
-                      assert_eq!(iter.next().unwrap().unwrap_end_tag(), "name");
-                      loop {
-                        match iter.next().unwrap() {
-                          EndTag { name: "member" } => break,
-                          Text("[") => {
-                            assert_eq!(iter.next().unwrap().unwrap_start_tag(), ("enum", ""));
-                            let arr_len = iter.next().unwrap().unwrap_text();
-                            match member.ty_variant {
-                              TypeVariant::Normal => {
-                                member.ty_variant = TypeVariant::ConstArrayPtrNamed(arr_len)
+                      match iter.next().unwrap() {
+                        Text(param_name) => {
+                          command_param.name = param_name;
+                          assert_eq!(iter.next().unwrap().unwrap_end_tag(), "name");
+                          match iter.next().unwrap() {
+                            Text(t) => {
+                              match (t, command_param.ty_variant) {
+                                ("[2]", TypeVariant::ConstPtr) => {
+                                  command_param.ty_variant = TypeVariant::ConstArrayPtrLit(2)
+                                }
+                                ("[4]", TypeVariant::ConstPtr) => {
+                                  command_param.ty_variant = TypeVariant::ConstArrayPtrLit(4)
+                                }
+                                other => panic!("{other:?}"),
                               }
-                              other => panic!("{other:?}"),
+                              assert_eq!(iter.next().unwrap().unwrap_end_tag(), "param");
                             }
-                            assert_eq!(iter.next().unwrap().unwrap_end_tag(), "enum");
-                            assert_eq!(iter.next().unwrap().unwrap_text(), "]");
-                          }
-                          Text("[2]") => match member.ty_variant {
-                            TypeVariant::Normal => member.ty_variant = TypeVariant::ArrayLit(2),
+                            EndTag { name: "param" } => (),
                             other => panic!("{other:?}"),
-                          },
-                          Text("[3]") => match member.ty_variant {
-                            TypeVariant::Normal => member.ty_variant = TypeVariant::ArrayLit(3),
-                            other => panic!("{other:?}"),
-                          },
-                          Text("[4]") => match member.ty_variant {
-                            TypeVariant::Normal => member.ty_variant = TypeVariant::ArrayLit(4),
-                            other => panic!("{other:?}"),
-                          },
-                          Text("[3][4]") => match member.ty_variant {
-                            TypeVariant::Normal => {
-                              member.ty_variant = TypeVariant::ArrayOfArrayLit(3, 4)
-                            }
-                            other => panic!("{other:?}"),
-                          },
-                          Text(":8") => match member.ty_variant {
-                            TypeVariant::Normal => member.ty_variant = TypeVariant::BitfieldsLit(8),
-                            other => panic!("{other:?}"),
-                          },
-                          Text(":24") => match member.ty_variant {
-                            TypeVariant::Normal => {
-                              member.ty_variant = TypeVariant::BitfieldsLit(24)
-                            }
-                            other => panic!("{other:?}"),
-                          },
-                          StartTag { name: "comment", attrs: "" } => {
-                            assert!(member.comment.is_empty());
-                            member.comment = iter.next().unwrap().unwrap_text();
-                            assert_eq!(iter.next().unwrap().unwrap_end_tag(), "comment");
-                          }
-                          other => panic!("{other:?}"),
+                          };
                         }
+                        other => panic!("{other:?}"),
                       }
-                      ty_entry.members.push(member);
+                      command.params.push(command_param);
                     }
+                    StartTag { name: "implicitexternsyncparams", attrs: "" } => loop {
+                      match iter.next().unwrap() {
+                        EndTag { name: "implicitexternsyncparams" } => break,
+                        StartTag { name: "param", attrs: "" } => {
+                          match iter.next().unwrap() {
+                            Text(t) => command.implicitexternsyncparams.push(t),
+                            other => panic!("{other:?}"),
+                          }
+                          match iter.next().unwrap() {
+                            EndTag { name: "param" } => (),
+                            other => panic!("{other:?}"),
+                          }
+                        }
+                        other => panic!("{other:?}"),
+                      }
+                    },
                     other => panic!("{other:?}"),
                   }
                 }
-                registry.types.push(ty_entry);
               }
-              EmptyTag { name: "type", attrs } => {
-                registry.types.push(TypeEntry::from_attrs(attrs));
-              }
-              StartTag { name: "comment", attrs: "" } => {
-                iter.next().unwrap().unwrap_text();
-                assert_eq!(iter.next().unwrap().unwrap_end_tag(), "comment");
+              EmptyTag { name: "command", attrs } => {
+                let command = Command::from_attrs(attrs);
+                registry.commands.push(command);
               }
               other => panic!("{other:?}"),
             }
           }
         }
-        StartTag { name: "enums", attrs } => {
-          let mut enumeration = Enumeration::from_attrs(attrs);
-          'enums: loop {
-            match iter.next().unwrap() {
-              EndTag { name: "enums" } => {
-                break 'enums;
-              }
-              EmptyTag { name: "enum", attrs } => {
-                enumeration.entries.push(EnumerationEntry::from_attrs(attrs))
-              }
-              _ => (),
-            }
-          }
-          registry.enums.push(enumeration);
-        }
-        StartTag { name: "commands", attrs: _ } => loop {
-          match iter.next().unwrap() {
-            EndTag { name: "commands" } => break,
-            StartTag { name: "command", attrs } => {
-              let mut command = Command::from_attrs(attrs);
-              loop {
-                match iter.next().unwrap() {
-                  EndTag { name: "command" } => {
-                    registry.commands.push(command);
-                    break;
-                  }
-                  StartTag { name: "proto", attrs: _ } => {
-                    assert_eq!(iter.next().unwrap().unwrap_start_tag(), ("type", ""));
-                    command.return_ty = iter.next().unwrap().unwrap_text();
-                    if command.return_ty == "void" {
-                      command.return_ty = "()";
-                    }
-                    assert_eq!(iter.next().unwrap().unwrap_end_tag(), "type");
-                    //
-                    assert_eq!(iter.next().unwrap().unwrap_start_tag(), ("name", ""));
-                    command.name = iter.next().unwrap().unwrap_text();
-                    assert_eq!(iter.next().unwrap().unwrap_end_tag(), "name");
-                    //
-                    assert_eq!(iter.next().unwrap().unwrap_end_tag(), "proto");
-                  }
-                  StartTag { name: "param", attrs } => {
-                    let mut command_param = CommandParam::from_attrs(attrs);
-                    match iter.next().unwrap() {
-                      // If we see the keyword `struct` as part of the type's
-                      // prefix we ignore it. That's a C way to declare an
-                      // opaque type inline with the function signature, which
-                      // we don't do in Rust anyway.
-                      Text("const") | Text("const struct") => {
-                        command_param.ty_variant = TypeVariant::ConstPtr;
-                        match iter.next().unwrap() {
-                          StartTag { name: "type", attrs: "" } => (),
-                          other => panic!("{other:?}"),
-                        }
-                      }
-                      Text("struct") => match iter.next().unwrap() {
-                        StartTag { name: "type", attrs: "" } => (),
-                        other => panic!("{other:?}"),
-                      },
-                      StartTag { name: "type", attrs: "" } => (),
-                      other => panic!("{other:?}"),
-                    }
-                    command_param.ty = match iter.next().unwrap().unwrap_text() {
-                      "char" => "u8",
-                      "uint32_t" => "u32",
-                      other => other,
-                    };
-                    assert_eq!(iter.next().unwrap().unwrap_end_tag(), "type");
-
-                    match iter.next().unwrap() {
-                      Text("*") => {
-                        match command_param.ty_variant {
-                          TypeVariant::Normal => command_param.ty_variant = TypeVariant::MutPtr,
-                          TypeVariant::ConstPtr => (/* nothing */),
-                          other => panic!("{other:?}"),
-                        }
-                        match iter.next().unwrap() {
-                          StartTag { name: "name", attrs: "" } => (),
-                          other => panic!("{other:?}"),
-                        }
-                      }
-                      Text("**") => {
-                        match command_param.ty_variant {
-                          TypeVariant::Normal => {
-                            command_param.ty_variant = TypeVariant::MutPtrMutPtr
-                          }
-                          TypeVariant::ConstPtr => {
-                            command_param.ty_variant = TypeVariant::MutPtrConstPtr
-                          }
-                          other => panic!("{other:?}"),
-                        }
-                        match iter.next().unwrap() {
-                          StartTag { name: "name", attrs: "" } => (),
-                          other => panic!("{other:?}"),
-                        }
-                      }
-                      Text("* const*") => {
-                        match command_param.ty_variant {
-                          TypeVariant::ConstPtr => {
-                            command_param.ty_variant = TypeVariant::ConstPtrConstPtr
-                          }
-                          other => panic!("{other:?}"),
-                        }
-                        match iter.next().unwrap() {
-                          StartTag { name: "name", attrs: "" } => (),
-                          other => panic!("{other:?}"),
-                        }
-                      }
-                      StartTag { name: "name", attrs: "" } => (),
-                      other => panic!("{other:?}"),
-                    };
-                    match iter.next().unwrap() {
-                      Text(param_name) => {
-                        command_param.name = param_name;
-                        assert_eq!(iter.next().unwrap().unwrap_end_tag(), "name");
-                        match iter.next().unwrap() {
-                          Text(t) => {
-                            match (t, command_param.ty_variant) {
-                              ("[2]", TypeVariant::ConstPtr) => {
-                                command_param.ty_variant = TypeVariant::ConstArrayPtrLit(2)
-                              }
-                              ("[4]", TypeVariant::ConstPtr) => {
-                                command_param.ty_variant = TypeVariant::ConstArrayPtrLit(4)
-                              }
-                              other => panic!("{other:?}"),
-                            }
-                            assert_eq!(iter.next().unwrap().unwrap_end_tag(), "param");
-                          }
-                          EndTag { name: "param" } => (),
-                          other => panic!("{other:?}"),
-                        };
-                      }
-                      other => panic!("{other:?}"),
-                    }
-                    command.params.push(command_param);
-                  }
-                  StartTag { name: "implicitexternsyncparams", attrs: "" } => loop {
-                    match iter.next().unwrap() {
-                      EndTag { name: "implicitexternsyncparams" } => break,
-                      StartTag { name: "param", attrs: "" } => {
-                        match iter.next().unwrap() {
-                          Text(t) => command.implicitexternsyncparams.push(t),
-                          other => panic!("{other:?}"),
-                        }
-                        match iter.next().unwrap() {
-                          EndTag { name: "param" } => (),
-                          other => panic!("{other:?}"),
-                        }
-                      }
-                      other => panic!("{other:?}"),
-                    }
-                  },
-                  other => panic!("{other:?}"),
-                }
-              }
-            }
-            EmptyTag { name: "command", attrs } => {
-              let command = Command::from_attrs(attrs);
-              registry.commands.push(command);
-            }
-            other => panic!("{other:?}"),
-          }
-        },
         StartTag { name: "feature", attrs } => {
           let mut feature = Feature::from_attrs(attrs);
           'feature: loop {
@@ -506,13 +320,7 @@ impl Registry {
           }
         }
         StartTag { name: "formats", attrs } => {
-          for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
-            match key {
-              "comment" => (),
-              _ => panic!("{key:?} = {value:?}"),
-            }
-          }
-          //
+          assert_attrs_comment_only!(attrs);
           loop {
             match iter.next().unwrap() {
               EndTag { name: "formats" } => break,
@@ -550,13 +358,7 @@ impl Registry {
           }
         }
         StartTag { name: "spirvextensions", attrs } => {
-          for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
-            match key {
-              "comment" => (),
-              _ => panic!("{key:?} = {value:?}"),
-            }
-          }
-          //
+          assert_attrs_comment_only!(attrs);
           loop {
             match iter.next().unwrap() {
               EndTag { name: "spirvextensions" } => break,
@@ -580,13 +382,7 @@ impl Registry {
           }
         }
         StartTag { name: "spirvcapabilities", attrs } => {
-          for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
-            match key {
-              "comment" => (),
-              _ => panic!("{key:?} = {value:?}"),
-            }
-          }
-          //
+          assert_attrs_comment_only!(attrs);
           loop {
             match iter.next().unwrap() {
               EndTag { name: "spirvcapabilities" } => break,
@@ -611,6 +407,218 @@ impl Registry {
         }
         other => panic!("{other:?}"),
       }
+    }
+  }
+}
+
+fn do_platforms(
+  attrs: StaticStr, platforms: &mut Vec<Platform>,
+  iter: &mut impl Iterator<Item = XmlElement<'static>>,
+) {
+  assert_attrs_comment_only!(attrs);
+  loop {
+    match iter.next().unwrap() {
+      EndTag { name: "platforms" } => return,
+      EmptyTag { name: "platform", attrs } => {
+        platforms.push(Platform::from_attrs(attrs));
+      }
+      other => panic!("{other:?}"),
+    }
+  }
+}
+
+fn do_tags(
+  attrs: StaticStr, org_tags: &mut Vec<OrgTag>,
+  iter: &mut impl Iterator<Item = XmlElement<'static>>,
+) {
+  assert_attrs_comment_only!(attrs);
+  loop {
+    match iter.next().unwrap() {
+      EndTag { name: "tags" } => return,
+      EmptyTag { name: "tag", attrs } => {
+        org_tags.push(OrgTag::from_attrs(attrs));
+      }
+      other => panic!("{other:?}"),
+    }
+  }
+}
+
+fn do_types(
+  attrs: StaticStr, types: &mut Vec<TypeEntry>,
+  iter: &mut impl Iterator<Item = XmlElement<'static>>,
+) {
+  assert_attrs_comment_only!(attrs);
+  loop {
+    match iter.next().unwrap() {
+      EndTag { name: "types" } => return,
+      StartTag { name: "type", attrs } => {
+        let mut ty_entry = TypeEntry::from_attrs(attrs);
+        'ty: loop {
+          match iter.next().unwrap() {
+            EndTag { name: "type" } => break 'ty,
+            Text(t) => ty_entry.texts.push(t),
+            StartTag { name: "comment", attrs: "" } => {
+              ty_entry.comment = iter.next().unwrap().unwrap_text();
+              assert_eq!(iter.next().unwrap().unwrap_end_tag(), "comment");
+            }
+            StartTag { name: "name", attrs: "" } => {
+              assert!(ty_entry.name.is_empty());
+              ty_entry.name = iter.next().unwrap().unwrap_text();
+              assert_eq!(iter.next().unwrap().unwrap_end_tag(), "name");
+              ty_entry.texts.push(ty_entry.name);
+            }
+            StartTag { name: "type", attrs: "" } => {
+              ty_entry.ty_src = iter.next().unwrap().unwrap_text();
+              assert_eq!(iter.next().unwrap().unwrap_end_tag(), "type");
+              ty_entry.texts.push(ty_entry.ty_src);
+            }
+            StartTag { name: "member", attrs } => {
+              let mut member = Member::from_attrs(attrs);
+              match iter.next().unwrap() {
+                // If we see the keyword `struct` as part of the type's
+                // prefix we ignore it. That's a C way to declare an
+                // opaque type inline with the function signature, which
+                // we don't do in Rust anyway.
+                Text("const") | Text("const struct") => {
+                  member.ty_variant = TypeVariant::ConstPtr;
+                  match iter.next().unwrap() {
+                    StartTag { name: "type", attrs: "" } => (),
+                    other => panic!("{other:?}"),
+                  }
+                }
+                Text("struct") => match iter.next().unwrap() {
+                  StartTag { name: "type", attrs: "" } => (),
+                  other => panic!("{other:?}"),
+                },
+                StartTag { name: "type", attrs: "" } => (),
+                other => panic!("{other:?}"),
+              }
+              member.ty = match iter.next().unwrap().unwrap_text() {
+                "char" => "u8",
+                "uint32_t" => "u32",
+                other => other,
+              };
+              assert_eq!(iter.next().unwrap().unwrap_end_tag(), "type");
+
+              match iter.next().unwrap() {
+                Text("*") => {
+                  match member.ty_variant {
+                    TypeVariant::Normal => member.ty_variant = TypeVariant::MutPtr,
+                    TypeVariant::ConstPtr => (/* nothing */),
+                    other => panic!("{other:?}"),
+                  }
+                  match iter.next().unwrap() {
+                    StartTag { name: "name", attrs: "" } => (),
+                    other => panic!("{other:?}"),
+                  }
+                }
+                Text("**") => {
+                  match member.ty_variant {
+                    TypeVariant::Normal => member.ty_variant = TypeVariant::MutPtrMutPtr,
+                    TypeVariant::ConstPtr => member.ty_variant = TypeVariant::MutPtrConstPtr,
+                    other => panic!("{other:?}"),
+                  }
+                  match iter.next().unwrap() {
+                    StartTag { name: "name", attrs: "" } => (),
+                    other => panic!("{other:?}"),
+                  }
+                }
+                Text("* const*") | Text("* const *") => {
+                  match member.ty_variant {
+                    TypeVariant::ConstPtr => member.ty_variant = TypeVariant::ConstPtrConstPtr,
+                    other => panic!("{other:?}"),
+                  }
+                  match iter.next().unwrap() {
+                    StartTag { name: "name", attrs: "" } => (),
+                    other => panic!("{other:?}"),
+                  }
+                }
+                StartTag { name: "name", attrs: "" } => (),
+                other => panic!("{other:?}"),
+              };
+              member.name = iter.next().unwrap().unwrap_text();
+              assert_eq!(iter.next().unwrap().unwrap_end_tag(), "name");
+              loop {
+                match iter.next().unwrap() {
+                  EndTag { name: "member" } => break,
+                  Text("[") => {
+                    assert_eq!(iter.next().unwrap().unwrap_start_tag(), ("enum", ""));
+                    let arr_len = iter.next().unwrap().unwrap_text();
+                    match member.ty_variant {
+                      TypeVariant::Normal => {
+                        member.ty_variant = TypeVariant::ConstArrayPtrNamed(arr_len)
+                      }
+                      other => panic!("{other:?}"),
+                    }
+                    assert_eq!(iter.next().unwrap().unwrap_end_tag(), "enum");
+                    assert_eq!(iter.next().unwrap().unwrap_text(), "]");
+                  }
+                  Text("[2]") => match member.ty_variant {
+                    TypeVariant::Normal => member.ty_variant = TypeVariant::ArrayLit(2),
+                    other => panic!("{other:?}"),
+                  },
+                  Text("[3]") => match member.ty_variant {
+                    TypeVariant::Normal => member.ty_variant = TypeVariant::ArrayLit(3),
+                    other => panic!("{other:?}"),
+                  },
+                  Text("[4]") => match member.ty_variant {
+                    TypeVariant::Normal => member.ty_variant = TypeVariant::ArrayLit(4),
+                    other => panic!("{other:?}"),
+                  },
+                  Text("[3][4]") => match member.ty_variant {
+                    TypeVariant::Normal => member.ty_variant = TypeVariant::ArrayOfArrayLit(3, 4),
+                    other => panic!("{other:?}"),
+                  },
+                  Text(":8") => match member.ty_variant {
+                    TypeVariant::Normal => member.ty_variant = TypeVariant::BitfieldsLit(8),
+                    other => panic!("{other:?}"),
+                  },
+                  Text(":24") => match member.ty_variant {
+                    TypeVariant::Normal => member.ty_variant = TypeVariant::BitfieldsLit(24),
+                    other => panic!("{other:?}"),
+                  },
+                  StartTag { name: "comment", attrs: "" } => {
+                    assert!(member.comment.is_empty());
+                    member.comment = iter.next().unwrap().unwrap_text();
+                    assert_eq!(iter.next().unwrap().unwrap_end_tag(), "comment");
+                  }
+                  other => panic!("{other:?}"),
+                }
+              }
+              ty_entry.members.push(member);
+            }
+            other => panic!("{other:?}"),
+          }
+        }
+        types.push(ty_entry);
+      }
+      EmptyTag { name: "type", attrs } => {
+        types.push(TypeEntry::from_attrs(attrs));
+      }
+      StartTag { name: "comment", attrs: "" } => {
+        iter.next().unwrap().unwrap_text();
+        assert_eq!(iter.next().unwrap().unwrap_end_tag(), "comment");
+      }
+      other => panic!("{other:?}"),
+    }
+  }
+}
+
+fn do_enums(
+  attrs: StaticStr, enums: &mut Vec<Enumeration>,
+  iter: &mut impl Iterator<Item = XmlElement<'static>>,
+) {
+  let mut enumeration = Enumeration::from_attrs(attrs);
+  loop {
+    match iter.next().unwrap() {
+      EndTag { name: "enums" } => {
+        enums.push(enumeration);
+        return;
+      }
+      EmptyTag { name: "enum", attrs } => {
+        enumeration.entries.push(EnumerationEntry::from_attrs(attrs))
+      }
+      _ => (),
     }
   }
 }
