@@ -414,6 +414,22 @@ impl Registry {
                   other => panic!("{other:?}"),
                 }
               },
+              StartTag { name: "remove", attrs: _ } => 'require: loop {
+                match iter.next().unwrap() {
+                  EndTag { name: "remove" } => {
+                    break 'require;
+                  }
+                  StartTag { name: "comment", attrs: "" } => loop {
+                    if let EndTag { name: "comment" } = iter.next().unwrap() {
+                      break;
+                    }
+                  },
+                  EmptyTag { name: "enum", attrs: _ } => (/* TODO */),
+                  EmptyTag { name: "type", attrs: _ } => (/* TODO */),
+                  EmptyTag { name: "command", attrs: _ } => (/* TODO */),
+                  other => panic!("{other:?}"),
+                }
+              },
               EmptyTag { name: "require", attrs: _ } => (/* TODO */),
               other => panic!("{other:?}"),
             }
@@ -573,6 +589,8 @@ pub struct Member {
   pub extern_sync: StaticStr,
   pub selection: StaticStr,
   pub selector: StaticStr,
+  pub deprecated: StaticStr,
+  pub api: StaticStr,
 }
 impl Member {
   pub fn from_attrs(attrs: StaticStr) -> Self {
@@ -589,6 +607,8 @@ impl Member {
         "externsync" => s.extern_sync = value,
         "selection" => s.selection = value,
         "selector" => s.selector = value,
+        "deprecated" => s.deprecated = value,
+        "api" => s.api = value,
         _ => panic!("{key:?} = {value:?}"),
       }
     }
@@ -612,6 +632,8 @@ pub struct TypeEntry {
   pub members: Vec<Member>,
   pub struct_extends: StaticStr,
   pub allow_duplicate: StaticStr,
+  pub deprecated: StaticStr,
+  pub api: StaticStr,
 }
 impl TypeEntry {
   pub fn from_attrs(attrs: StaticStr) -> Self {
@@ -629,6 +651,8 @@ impl TypeEntry {
         "structextends" => s.struct_extends = value,
         "comment" => s.comment = value,
         "allowduplicate" => s.allow_duplicate = value,
+        "deprecated" => s.deprecated = value,
+        "api" => s.api = value,
         _ => panic!("{key:?} = {value:?}"),
       }
     }
@@ -644,6 +668,8 @@ pub struct EnumerationEntry {
   pub ty: StaticStr,
   pub alias: StaticStr,
   pub bitpos: StaticStr,
+  pub api: StaticStr,
+  pub deprecated: StaticStr,
 }
 impl EnumerationEntry {
   pub fn from_attrs(attrs: StaticStr) -> Self {
@@ -656,6 +682,8 @@ impl EnumerationEntry {
         "type" => s.ty = value,
         "alias" => s.alias = value,
         "bitpos" => s.bitpos = value,
+        "api" => s.api = value,
+        "deprecated" => s.deprecated = value,
         _ => panic!("{key:?} = {value:?}"),
       }
     }
@@ -728,6 +756,7 @@ pub struct CommandParam {
   pub stride: StaticStr,
   pub object_type: StaticStr,
   pub valid_structs: StaticStr,
+  pub api: StaticStr,
 }
 impl core::fmt::Debug for CommandParam {
   fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -792,6 +821,7 @@ impl CommandParam {
         "objecttype" => s.object_type = value,
         "noautovalidity" => s.no_auto_validity = value,
         "validstructs" => s.valid_structs = value,
+        "api" => s.api = value,
         _ => panic!("{key:?} = {value:?}"),
       }
     }
@@ -815,6 +845,7 @@ pub struct Command {
   pub tasks: StaticStr,
   pub video_coding: StaticStr,
   pub implicitexternsyncparams: Vec<StaticStr>,
+  pub api: StaticStr,
 }
 impl Command {
   pub fn from_attrs(attrs: StaticStr) -> Self {
@@ -831,6 +862,7 @@ impl Command {
         "comment" => s.comment = value,
         "videocoding" => s.video_coding = value,
         "name" => s.name = value,
+        "api" => s.api = value,
         _ => panic!("{key:?} = {value:?}"),
       }
     }
@@ -879,6 +911,7 @@ pub struct Extension {
   pub obsoleted_by: StaticStr,
   pub provisional: StaticStr,
   pub sort_order: StaticStr,
+  pub depends: StaticStr,
 }
 impl Extension {
   pub fn from_attrs(attrs: StaticStr) -> Self {
@@ -901,6 +934,7 @@ impl Extension {
         "obsoletedby" => s.obsoleted_by = value,
         "deprecatedby" => s.deprecated_by = value,
         "requiresCore" => s.requires_core = value,
+        "depends" => s.depends = value,
         _ => panic!("{key:?} = {value:?}"),
       }
     }
