@@ -31,8 +31,6 @@ macro_rules! assert_attrs_comment_only {
   };
 }
 
-// TODO: all of the `attrs: _` must be removed.
-
 #[derive(Debug, Clone, Default)]
 pub struct Registry {
   pub platforms: Vec<Platform>,
@@ -451,39 +449,89 @@ fn do_feature(
         features.push(feature);
         return;
       }
-      StartTag { name: "require", attrs: _ } => 'require: loop {
-        match iter.next().unwrap() {
-          EndTag { name: "require" } => {
-            break 'require;
-          }
-          StartTag { name: "comment", attrs: "" } => loop {
-            if let EndTag { name: "comment" } = iter.next().unwrap() {
-              break;
+      StartTag { name: "require", attrs } => {
+        assert_attrs_comment_only!(attrs);
+        'require: loop {
+          match iter.next().unwrap() {
+            EndTag { name: "require" } => {
+              break 'require;
             }
-          },
-          EmptyTag { name: "enum", attrs: _ } => (/* TODO */),
-          EmptyTag { name: "type", attrs: _ } => (/* TODO */),
-          EmptyTag { name: "command", attrs: _ } => (/* TODO */),
-          other => panic!("{other:?}"),
-        }
-      },
-      StartTag { name: "remove", attrs: _ } => 'require: loop {
-        match iter.next().unwrap() {
-          EndTag { name: "remove" } => {
-            break 'require;
-          }
-          StartTag { name: "comment", attrs: "" } => loop {
-            if let EndTag { name: "comment" } = iter.next().unwrap() {
-              break;
+            StartTag { name: "comment", attrs: "" } => loop {
+              if let EndTag { name: "comment" } = iter.next().unwrap() {
+                break;
+              }
+            },
+            EmptyTag { name: "enum", attrs } => {
+              feature.required_enums.push(RequiredEnum::from_attrs(attrs));
             }
-          },
-          EmptyTag { name: "enum", attrs: _ } => (/* TODO */),
-          EmptyTag { name: "type", attrs: _ } => (/* TODO */),
-          EmptyTag { name: "command", attrs: _ } => (/* TODO */),
-          other => panic!("{other:?}"),
+            EmptyTag { name: "type", attrs } => {
+              for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
+                match key {
+                  "name" => feature.required_types.push(value),
+                  "comment" => (),
+                  _ => panic!("{key:?} = {value:?}"),
+                }
+              }
+            }
+            EmptyTag { name: "command", attrs } => {
+              for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
+                match key {
+                  "name" => feature.required_commands.push(value),
+                  "comment" => (),
+                  _ => panic!("{key:?} = {value:?}"),
+                }
+              }
+            }
+            other => panic!("{other:?}"),
+          }
         }
-      },
-      EmptyTag { name: "require", attrs: _ } => (/* TODO */),
+      }
+      StartTag { name: "remove", attrs } => {
+        assert_attrs_comment_only!(attrs);
+        'require: loop {
+          match iter.next().unwrap() {
+            EndTag { name: "remove" } => {
+              break 'require;
+            }
+            StartTag { name: "comment", attrs: "" } => loop {
+              if let EndTag { name: "comment" } = iter.next().unwrap() {
+                break;
+              }
+            },
+            EmptyTag { name: "enum", attrs } => {
+              for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
+                match key {
+                  "name" => feature.removed_enums.push(value),
+                  "comment" => (),
+                  _ => panic!("{key:?} = {value:?}"),
+                }
+              }
+            }
+            EmptyTag { name: "type", attrs } => {
+              for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
+                match key {
+                  "name" => feature.removed_types.push(value),
+                  "comment" => (),
+                  _ => panic!("{key:?} = {value:?}"),
+                }
+              }
+            }
+            EmptyTag { name: "command", attrs } => {
+              for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
+                match key {
+                  "name" => feature.removed_commands.push(value),
+                  "comment" => (),
+                  _ => panic!("{key:?} = {value:?}"),
+                }
+              }
+            }
+            other => panic!("{other:?}"),
+          }
+        }
+      }
+      EmptyTag { name: "require", attrs } => {
+        assert_attrs_comment_only!(attrs)
+      }
       other => panic!("{other:?}"),
     }
   }
@@ -505,23 +553,26 @@ fn do_extensions(
               extensions.push(extension);
               break;
             }
-            StartTag { name: "require", attrs: _ } => {
-              //
-              loop {
+            StartTag { name: "require", attrs } => {
+              let mut require_list = RequireListEntry::from_attrs(attrs);
+              'require: loop {
                 match iter.next().unwrap() {
                   EndTag { name: "require" } => {
-                    break;
+                    extension.require_lists.push(require_list);
+                    break 'require;
                   }
                   StartTag { name: "comment", attrs: "" } => loop {
                     if let EndTag { name: "comment" } = iter.next().unwrap() {
                       break;
                     }
                   },
-                  EmptyTag { name: "enum", attrs: _ } => (/* TODO */),
+                  EmptyTag { name: "enum", attrs } => {
+                    require_list.enums.push(RequiredEnum::from_attrs(attrs));
+                  }
                   EmptyTag { name: "type", attrs } => {
                     for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
                       match key {
-                        "name" => extension.types.push(value),
+                        "name" => require_list.types.push(value),
                         "comment" => (),
                         _ => panic!("{key:?} = {value:?}"),
                       }
@@ -530,7 +581,7 @@ fn do_extensions(
                   EmptyTag { name: "command", attrs } => {
                     for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
                       match key {
-                        "name" => extension.commands.push(value),
+                        "name" => require_list.commands.push(value),
                         "comment" => (),
                         _ => panic!("{key:?} = {value:?}"),
                       }
@@ -993,6 +1044,12 @@ pub struct Feature {
   pub api: StaticStr,
   pub number: StaticStr,
   pub comment: StaticStr,
+  pub required_commands: Vec<StaticStr>,
+  pub required_types: Vec<StaticStr>,
+  pub required_enums: Vec<RequiredEnum>,
+  pub removed_commands: Vec<StaticStr>,
+  pub removed_types: Vec<StaticStr>,
+  pub removed_enums: Vec<StaticStr>,
 }
 impl Feature {
   pub fn from_attrs(attrs: StaticStr) -> Self {
@@ -1002,6 +1059,69 @@ impl Feature {
         "name" => s.name = value,
         "api" => s.api = value,
         "number" => s.number = value,
+        "comment" => s.comment = value,
+        _ => panic!("{key:?} = {value:?}"),
+      }
+    }
+    s
+  }
+}
+
+#[derive(Debug, Clone, Default)]
+pub struct RequiredEnum {
+  pub name: StaticStr,
+  pub value: StaticStr,
+  pub offset: StaticStr,
+  pub extends: StaticStr,
+  pub dir: StaticStr,
+  pub extnumber: StaticStr,
+  pub bitpos: StaticStr,
+  pub comment: StaticStr,
+  pub alias: StaticStr,
+  pub deprecated: StaticStr,
+  pub api: StaticStr,
+  pub protect: StaticStr,
+}
+impl RequiredEnum {
+  pub fn from_attrs(attrs: StaticStr) -> Self {
+    let mut s = Self::default();
+    for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
+      match key {
+        "name" => s.name = value,
+        "dir" => s.dir = value,
+        "value" => s.value = value,
+        "alias" => s.alias = value,
+        "bitpos" => s.bitpos = value,
+        "offset" => s.offset = value,
+        "extends" => s.extends = value,
+        "comment" => s.comment = value,
+        "extnumber" => s.extnumber = value,
+        "deprecated" => s.deprecated = value,
+        "api" => s.api = value,
+        "protect" => s.protect = value,
+        _ => panic!("{key:?} = {value:?}"),
+      }
+    }
+    s
+  }
+}
+
+#[derive(Debug, Clone, Default)]
+pub struct RequireListEntry {
+  pub enums: Vec<RequiredEnum>,
+  pub types: Vec<StaticStr>,
+  pub commands: Vec<StaticStr>,
+  pub depends: StaticStr,
+  pub api: StaticStr,
+  pub comment: StaticStr,
+}
+impl RequireListEntry {
+  pub fn from_attrs(attrs: StaticStr) -> Self {
+    let mut s = Self::default();
+    for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
+      match key {
+        "depends" => s.depends = value,
+        "api" => s.api = value,
         "comment" => s.comment = value,
         _ => panic!("{key:?} = {value:?}"),
       }
@@ -1029,8 +1149,7 @@ pub struct Extension {
   pub provisional: StaticStr,
   pub sort_order: StaticStr,
   pub depends: StaticStr,
-  pub commands: Vec<StaticStr>,
-  pub types: Vec<StaticStr>,
+  pub require_lists: Vec<RequireListEntry>,
 }
 impl Extension {
   pub fn from_attrs(attrs: StaticStr) -> Self {
