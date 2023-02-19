@@ -24,8 +24,8 @@ fn main() {
 
 #[derive(Debug, Clone, Default)]
 pub struct Registry {
-  // TODO: platforms?
-  // TODO: tags
+  pub platforms: Vec<Platform>,
+  pub org_tags: Vec<OrgTag>,
   pub types: Vec<TypeEntry>,
   pub enums: Vec<Enumeration>,
   pub commands: Vec<Command>,
@@ -47,14 +47,22 @@ impl Registry {
             break;
           }
         },
-        StartTag { name: "platforms", attrs: _ } => loop {
-          if let EndTag { name: "platforms" } = iter.next().unwrap() {
-            break;
+        StartTag { name: "platforms", attrs: _ } => 'platforms: loop {
+          match iter.next().unwrap() {
+            EndTag { name: "platforms" } => break 'platforms,
+            EmptyTag { name: "platform", attrs } => {
+              registry.platforms.push(Platform::from_attrs(attrs));
+            }
+            _ => (),
           }
         },
-        StartTag { name: "tags", attrs: _ } => loop {
-          if let EndTag { name: "tags" } = iter.next().unwrap() {
-            break;
+        StartTag { name: "tags", attrs: _ } => 'tags: loop {
+          match iter.next().unwrap() {
+            EndTag { name: "tags" } => break 'tags,
+            EmptyTag { name: "tag", attrs } => {
+              registry.org_tags.push(OrgTag::from_attrs(attrs));
+            }
+            _ => (),
           }
         },
         StartTag { name: "types", attrs } => {
@@ -454,22 +462,41 @@ impl Registry {
                       registry.extensions.push(extension);
                       break;
                     }
-                    StartTag { name: "require", attrs: _ } => loop {
-                      match iter.next().unwrap() {
-                        EndTag { name: "require" } => {
-                          break;
-                        }
-                        StartTag { name: "comment", attrs: "" } => loop {
-                          if let EndTag { name: "comment" } = iter.next().unwrap() {
+                    StartTag { name: "require", attrs: _ } => {
+                      //
+                      loop {
+                        match iter.next().unwrap() {
+                          EndTag { name: "require" } => {
                             break;
                           }
-                        },
-                        EmptyTag { name: "enum", attrs: _ } => (/* TODO */),
-                        EmptyTag { name: "type", attrs: _ } => (/* TODO */),
-                        EmptyTag { name: "command", attrs: _ } => (/* TODO */),
-                        other => panic!("{other:?}"),
+                          StartTag { name: "comment", attrs: "" } => loop {
+                            if let EndTag { name: "comment" } = iter.next().unwrap() {
+                              break;
+                            }
+                          },
+                          EmptyTag { name: "enum", attrs: _ } => (/* TODO */),
+                          EmptyTag { name: "type", attrs } => {
+                            for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
+                              match key {
+                                "name" => extension.types.push(value),
+                                "comment" => (),
+                                _ => panic!("{key:?} = {value:?}"),
+                              }
+                            }
+                          }
+                          EmptyTag { name: "command", attrs } => {
+                            for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
+                              match key {
+                                "name" => extension.commands.push(value),
+                                "comment" => (),
+                                _ => panic!("{key:?} = {value:?}"),
+                              }
+                            }
+                          }
+                          other => panic!("{other:?}"),
+                        }
                       }
-                    },
+                    }
                     other => panic!("{other:?}"),
                   }
                 }
@@ -497,9 +524,23 @@ impl Registry {
                       registry.formats.push(format);
                       break;
                     }
-                    EmptyTag { name: "component", attrs: _ } => (/*TODO*/),
-                    EmptyTag { name: "plane", attrs: _ } => (/*TODO*/),
-                    EmptyTag { name: "spirvimageformat", attrs: _ } => (/*TODO*/),
+                    EmptyTag { name: "component", attrs } => {
+                      format.components.push(FormatComponent::from_attrs(attrs));
+                    }
+                    EmptyTag { name: "plane", attrs } => {
+                      format.planes.push(FormatPlane::from_attrs(attrs));
+                    }
+                    EmptyTag { name: "spirvimageformat", attrs } => {
+                      for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
+                        match key {
+                          "name" => {
+                            assert!(format.spirv_image_format.is_empty());
+                            format.spirv_image_format = value;
+                          }
+                          _ => panic!("{key:?} = {value:?}"),
+                        }
+                      }
+                    }
                     other => panic!("{other:?}"),
                   }
                 }
@@ -527,7 +568,9 @@ impl Registry {
                       registry.spirv_extensions.push(spirv_extension);
                       break;
                     }
-                    EmptyTag { name: "enable", attrs: _ } => (/*TODO*/),
+                    EmptyTag { name: "enable", attrs } => {
+                      spirv_extension.enables.push(SpirvExtensionEnable::from_attrs(attrs));
+                    }
                     other => panic!("{other:?}"),
                   }
                 }
@@ -569,6 +612,49 @@ impl Registry {
         other => panic!("{other:?}"),
       }
     }
+  }
+}
+
+#[derive(Debug, Clone, Default)]
+pub struct Platform {
+  pub name: StaticStr,
+  pub protect: StaticStr,
+  pub comment: StaticStr,
+}
+impl Platform {
+  pub fn from_attrs(attrs: StaticStr) -> Self {
+    let mut s = Self::default();
+    for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
+      match key {
+        "name" => s.name = value,
+        "protect" => s.protect = value,
+        "comment" => s.comment = value,
+        _ => panic!("{key:?} = {value:?}"),
+      }
+    }
+    s
+  }
+}
+
+/// Organization Tag
+#[derive(Debug, Clone, Default)]
+pub struct OrgTag {
+  pub name: StaticStr,
+  pub author: StaticStr,
+  pub contact: StaticStr,
+}
+impl OrgTag {
+  pub fn from_attrs(attrs: StaticStr) -> Self {
+    let mut s = Self::default();
+    for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
+      match key {
+        "name" => s.name = value,
+        "author" => s.author = value,
+        "contact" => s.contact = value,
+        _ => panic!("{key:?} = {value:?}"),
+      }
+    }
+    s
   }
 }
 
@@ -912,6 +998,8 @@ pub struct Extension {
   pub provisional: StaticStr,
   pub sort_order: StaticStr,
   pub depends: StaticStr,
+  pub commands: Vec<StaticStr>,
+  pub types: Vec<StaticStr>,
 }
 impl Extension {
   pub fn from_attrs(attrs: StaticStr) -> Self {
@@ -943,6 +1031,52 @@ impl Extension {
 }
 
 #[derive(Debug, Clone, Default)]
+pub struct FormatComponent {
+  pub name: StaticStr,
+  pub plane_index: StaticStr,
+  pub bits: StaticStr,
+  pub numeric_format: StaticStr,
+}
+impl FormatComponent {
+  pub fn from_attrs(attrs: StaticStr) -> Self {
+    let mut s = Self::default();
+    for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
+      match key {
+        "name" => s.name = value,
+        "planeIndex" => s.plane_index = value,
+        "bits" => s.bits = value,
+        "numericFormat" => s.numeric_format = value,
+        _ => panic!("{key:?} = {value:?}"),
+      }
+    }
+    s
+  }
+}
+
+#[derive(Debug, Clone, Default)]
+pub struct FormatPlane {
+  pub index: StaticStr,
+  pub width_divisor: StaticStr,
+  pub height_divisor: StaticStr,
+  pub compatible: StaticStr,
+}
+impl FormatPlane {
+  pub fn from_attrs(attrs: StaticStr) -> Self {
+    let mut s = Self::default();
+    for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
+      match key {
+        "index" => s.index = value,
+        "widthDivisor" => s.width_divisor = value,
+        "heightDivisor" => s.height_divisor = value,
+        "compatible" => s.compatible = value,
+        _ => panic!("{key:?} = {value:?}"),
+      }
+    }
+    s
+  }
+}
+
+#[derive(Debug, Clone, Default)]
 pub struct Format {
   pub name: StaticStr,
   pub class: StaticStr,
@@ -952,6 +1086,9 @@ pub struct Format {
   pub block_extent: StaticStr,
   pub compressed: StaticStr,
   pub chroma: StaticStr,
+  pub spirv_image_format: StaticStr,
+  pub components: Vec<FormatComponent>,
+  pub planes: Vec<FormatPlane>,
 }
 impl Format {
   pub fn from_attrs(attrs: StaticStr) -> Self {
@@ -974,8 +1111,28 @@ impl Format {
 }
 
 #[derive(Debug, Clone, Default)]
+pub struct SpirvExtensionEnable {
+  pub version: StaticStr,
+  pub extension: StaticStr,
+}
+impl SpirvExtensionEnable {
+  pub fn from_attrs(attrs: StaticStr) -> Self {
+    let mut s = Self::default();
+    for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
+      match key {
+        "version" => s.version = value,
+        "extension" => s.extension = value,
+        _ => panic!("{key:?} = {value:?}"),
+      }
+    }
+    s
+  }
+}
+
+#[derive(Debug, Clone, Default)]
 pub struct SpirvExtension {
   pub name: StaticStr,
+  pub enables: Vec<SpirvExtensionEnable>,
 }
 impl SpirvExtension {
   pub fn from_attrs(attrs: StaticStr) -> Self {
