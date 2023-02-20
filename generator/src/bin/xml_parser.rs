@@ -6,7 +6,7 @@
 
 use magnesium::{XmlElement::*, *};
 
-const XML: &str = include_str!("../vk.xml");
+const XML: &str = include_str!("../../vk.xml");
 
 type StaticStr = &'static str;
 
