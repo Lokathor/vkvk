@@ -18,7 +18,7 @@ fn main() {
   assert_eq!(iter.next().unwrap().unwrap_start_tag().0, "registry");
   let registry = Registry::from_iter(&mut iter);
   println!("# platforms: {}", registry.platforms.len());
-  println!("# org_tags: {}", registry.org_tags.len());
+  println!("# org_tags: {}", registry.vendor_tags.len());
   println!("# types: {}", registry.types.len());
   {
     let mut include = 0;
@@ -80,7 +80,7 @@ macro_rules! assert_attrs_comment_only {
 #[derive(Debug, Clone, Default)]
 pub struct Registry {
   pub platforms: Vec<Platform>,
-  pub org_tags: Vec<OrgTag>,
+  pub vendor_tags: Vec<VendorTag>,
   pub types: Vec<TypeEntry>,
   pub enums: Vec<Enumeration>,
   pub commands: Vec<Command>,
@@ -103,7 +103,7 @@ impl Registry {
           }
         },
         StartTag { name: "platforms", attrs } => do_platforms(attrs, &mut registry.platforms, iter),
-        StartTag { name: "tags", attrs } => do_tags(attrs, &mut registry.org_tags, iter),
+        StartTag { name: "tags", attrs } => do_tags(attrs, &mut registry.vendor_tags, iter),
         StartTag { name: "types", attrs } => do_types(attrs, &mut registry.types, iter),
         StartTag { name: "enums", attrs } => do_enums(attrs, &mut registry.enums, iter),
         StartTag { name: "commands", attrs } => do_commands(attrs, &mut registry.commands, iter),
@@ -141,7 +141,7 @@ fn do_platforms(
 }
 
 fn do_tags(
-  attrs: StaticStr, org_tags: &mut Vec<OrgTag>,
+  attrs: StaticStr, org_tags: &mut Vec<VendorTag>,
   iter: &mut impl Iterator<Item = XmlElement<'static>>,
 ) {
   assert_attrs_comment_only!(attrs);
@@ -149,7 +149,7 @@ fn do_tags(
     match iter.next().unwrap() {
       EndTag { name: "tags" } => return,
       EmptyTag { name: "tag", attrs } => {
-        org_tags.push(OrgTag::from_attrs(attrs));
+        org_tags.push(VendorTag::from_attrs(attrs));
       }
       other => panic!("{other:?}"),
     }
@@ -767,12 +767,12 @@ impl Platform {
 
 /// Organization Tag
 #[derive(Debug, Clone, Default)]
-pub struct OrgTag {
+pub struct VendorTag {
   pub name: StaticStr,
   pub author: StaticStr,
   pub contact: StaticStr,
 }
-impl OrgTag {
+impl VendorTag {
   pub fn from_attrs(attrs: StaticStr) -> Self {
     let mut s = Self::default();
     for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
