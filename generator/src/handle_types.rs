@@ -60,14 +60,14 @@ pub fn define_non_dispatchable_handle(
   name: &str, parent: Option<&str>, obj_type_enum: &str,
 ) -> String {
   let mut f = String::new();
-  write!(f,"/// Khronos: [{name}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{name}.html) (non-dispatchable handle)").ok();
+  writeln!(f,"/// Khronos: [{name}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{name}.html) (non-dispatchable handle)").ok();
   if let Some(parent) = parent {
-    write!(f, "/// * Parent: [{parent}]").ok();
+    writeln!(f, "/// * Parent: [{parent}]").ok();
   }
-  write!(f, "/// * Object Type Enum: [`{obj_type_enum}`]").ok();
+  writeln!(f, "/// * Object Type Enum: [`{obj_type_enum}`]").ok();
   write!(
     f,
-    "#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    "#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
     #[repr(transparent)]
     pub struct {name}(
       #[cfg(target_pointer_width=\"64\")]
@@ -86,6 +86,13 @@ pub fn define_non_dispatchable_handle(
         return Self(core::ptr::null_mut());
         #[cfg(not(target_pointer_width=\"64\"))]
         return Self(0);
+      }}
+    }}
+    impl Default for {name} {{
+      #[inline]
+      #[must_use]
+      fn default() -> Self {{
+        Self::NULL
       }}
     }}
     "

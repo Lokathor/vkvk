@@ -41,6 +41,7 @@ pub fn define_structure(
   } else {
     writeln!(f, "/// Khronos: [{name}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{name}.html)").ok();
     if let Some(comment) = comment {
+      writeln!(f, "  ///").ok();
       writeln!(f, "/// {comment}").ok();
     }
     if let Some(struct_extends) = struct_extends {
@@ -96,7 +97,7 @@ pub fn define_structure(
         other => panic!("{other:?}"),
       }
       //
-      let field = name; // TODO: fix field name
+      let field = name; // TODO: fix field names to snake case?
       let field_ty = format_type_and_variant(ty, *ty_variant); // TODO: fix field type
       if let Some(comment) = comment {
         writeln!(f, "  /// {comment}").ok();

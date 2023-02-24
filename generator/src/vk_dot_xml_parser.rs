@@ -160,7 +160,6 @@ fn do_types(
               }
               member.ty = match iter.next().unwrap().unwrap_text() {
                 "char" => "u8",
-                "uint32_t" => "u32",
                 other => other,
               };
               assert_eq!(iter.next().unwrap().unwrap_end_tag(), "type");
