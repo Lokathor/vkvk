@@ -70,9 +70,9 @@ pub fn define_non_dispatchable_handle(
     "#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
     #[repr(transparent)]
     pub struct {name}(
-      #[cfg(feature=\"VK_USE_64_BIT_PTR_DEFINES\")]
+      #[cfg(target_pointer_width=\"64\")]
       *mut core::ffi::c_void,
-      #[cfg(not(feature=\"VK_USE_64_BIT_PTR_DEFINES\"))]
+      #[cfg(not(target_pointer_width=\"64\"))]
       u64
     );
     unsafe impl Send for {name} {{ }}
@@ -82,9 +82,9 @@ pub fn define_non_dispatchable_handle(
       #[inline]
       #[must_use]
       pub const fn null() -> Self {{
-        #[cfg(feature=\"VK_USE_64_BIT_PTR_DEFINES\")]
+        #[cfg(target_pointer_width=\"64\")]
         return Self(core::ptr::null_mut());
-        #[cfg(not(feature=\"VK_USE_64_BIT_PTR_DEFINES\"))]
+        #[cfg(not(target_pointer_width=\"64\"))]
         return Self(0);
       }}
     }}

@@ -1,3 +1,5 @@
+#![allow(clippy::drop_ref)]
+
 pub mod base_types;
 pub mod bitmasks;
 pub mod enumeration_types;
@@ -5,6 +7,7 @@ pub mod handle_types;
 pub mod structures;
 pub mod vk_dot_xml_parser;
 pub mod vk_version;
+// TODO: API Constants module
 
 /// Strips the vendor tag off of the end of an item name, if there is one.
 ///
