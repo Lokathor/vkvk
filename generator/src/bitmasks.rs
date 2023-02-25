@@ -62,7 +62,7 @@ pub fn define_bitmask(TypeEntry { name, api:_, category, texts:_, comment, requi
       #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
       #[repr(transparent)] pub struct {name}FlagBits{num}{ext}(pub u32);
       impl {name}FlagBits{num}{ext} {{ #[inline] #[must_use] pub const fn none() -> Self {{ Self(0) }} }}
-      impl_bitops_for!({name}FlagBits{num}{ext});
+      // {name}FlagBits{num}{ext});
 
       /// Khronos: [{name}FlagBits{num}{ext}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{name}FlagBits{num}{ext}.html)
       pub type {name}Flags{num}{ext} = {name}FlagBits{num}{ext};"

@@ -1,12 +1,9 @@
 #![no_std]
 #![allow(unused_imports)]
+#![allow(unused_macros)]
 
-macro_rules! impl_bitops_for {
-  ($name:ident) => {
-    // TODO
-  };
-}
-pub(crate) use impl_bitops_for;
+#[macro_use]
+mod macros;
 
 mod vk_version_1_0;
 pub use vk_version_1_0::*;

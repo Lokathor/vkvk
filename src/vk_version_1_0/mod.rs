@@ -1,7 +1,5 @@
 //! Vulkan core API interface definitions
 
-use super::impl_bitops_for;
-
 #[allow(non_camel_case_types)]
 pub(crate) type uint8_t = u8;
 
@@ -119,10 +117,11 @@ pub const VK_MAX_MEMORY_TYPES: usize = 32;
 pub const VK_MAX_PHYSICAL_DEVICE_NAME_SIZE: usize = 256;
 pub const VK_UUID_SIZE: usize = 16;
 
-/// Khronos: [VkPipelineCacheHeaderVersion](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineCacheHeaderVersion.html)
-#[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
-#[repr(transparent)]
-pub struct VkPipelineCacheHeaderVersion(pub u32);
+define_enumeration!(
+  /// Khronos: [VkPipelineCacheHeaderVersion](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineCacheHeaderVersion.html)
+  #[derive(Debug)]
+  VkPipelineCacheHeaderVersion
+);
 
 /// Khronos: [VkBaseInStructure](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkBaseInStructure.html)
 #[derive(Clone, Copy)]
@@ -142,21 +141,11 @@ pub struct VkBaseOutStructure {
   pub next: *mut VkBaseOutStructure,
 }
 
-/// Khronos: [VkAccessFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkAccessFlagBits.html)
-#[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
-#[repr(transparent)]
-pub struct VkAccessFlagBits(pub u32);
-impl VkAccessFlagBits {
-  #[inline]
-  #[must_use]
-  pub const fn none() -> Self {
-    Self(0)
-  }
-}
-impl_bitops_for!(VkAccessFlagBits);
-
-/// Khronos: [VkAccessFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkAccessFlagBits.html)
-pub type VkAccessFlags = VkAccessFlagBits;
+define_bitmask!(
+  /// Khronos: [VkAccessFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkAccessFlagBits.html)
+  VkAccessFlagBits,
+  VkAccessFlags
+);
 
 /// Khronos: [VkBuffer](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkBuffer.html) (non-dispatchable handle)
 /// * Parent: [VkDevice]
@@ -296,7 +285,6 @@ impl VkImageAspectFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkImageAspectFlagBits);
 
 /// Khronos: [VkImageAspectFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkImageAspectFlagBits.html)
 pub type VkImageAspectFlags = VkImageAspectFlagBits;
@@ -618,7 +606,6 @@ impl VkFormatFeatureFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkFormatFeatureFlagBits);
 
 /// Khronos: [VkFormatFeatureFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkFormatFeatureFlagBits.html)
 pub type VkFormatFeatureFlags = VkFormatFeatureFlagBits;
@@ -653,7 +640,6 @@ impl VkImageCreateFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkImageCreateFlagBits);
 
 /// Khronos: [VkImageCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkImageCreateFlagBits.html)
 pub type VkImageCreateFlags = VkImageCreateFlagBits;
@@ -687,7 +673,6 @@ impl VkSampleCountFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkSampleCountFlagBits);
 
 /// Khronos: [VkSampleCountFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSampleCountFlagBits.html)
 pub type VkSampleCountFlags = VkSampleCountFlagBits;
@@ -713,7 +698,6 @@ impl VkImageUsageFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkImageUsageFlagBits);
 
 /// Khronos: [VkImageUsageFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkImageUsageFlagBits.html)
 pub type VkImageUsageFlags = VkImageUsageFlagBits;
@@ -753,7 +737,6 @@ impl VkInstanceCreateFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkInstanceCreateFlagBits);
 
 /// Khronos: [VkInstanceCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkInstanceCreateFlagBits.html)
 pub type VkInstanceCreateFlags = VkInstanceCreateFlagBits;
@@ -794,7 +777,7 @@ impl VkMemoryHeapFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkMemoryHeapFlagBits);
+// VkMemoryHeapFlagBits);
 
 /// Khronos: [VkMemoryHeapFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkMemoryHeapFlagBits.html)
 pub type VkMemoryHeapFlags = VkMemoryHeapFlagBits;
@@ -822,7 +805,7 @@ impl VkMemoryPropertyFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkMemoryPropertyFlagBits);
+// VkMemoryPropertyFlagBits);
 
 /// Khronos: [VkMemoryPropertyFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkMemoryPropertyFlagBits.html)
 pub type VkMemoryPropertyFlags = VkMemoryPropertyFlagBits;
@@ -839,29 +822,12 @@ pub struct VkMemoryType {
   pub heap_index: uint32_t,
 }
 
-/// Khronos: [VkPhysicalDevice](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDevice.html) (handle)
-/// * Parent: [VkInstance]
-/// * Object Type Enum: [`VK_OBJECT_TYPE_PHYSICAL_DEVICE`]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[repr(transparent)]
-pub struct VkPhysicalDevice(*mut core::ffi::c_void);
-unsafe impl Send for VkPhysicalDevice {}
-unsafe impl Sync for VkPhysicalDevice {}
-impl Default for VkPhysicalDevice {
-  #[inline]
-  #[must_use]
-  fn default() -> Self {
-    Self::NULL
-  }
-}
-impl VkPhysicalDevice {
-  pub const NULL: Self = Self::null();
-  #[inline]
-  #[must_use]
-  pub const fn null() -> Self {
-    Self(core::ptr::null_mut())
-  }
-}
+define_handle!(
+  /// Khronos: [VkPhysicalDevice](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDevice.html) (handle)
+  /// * Parent: [VkInstance]
+  /// * Object Type Enum: [`VK_OBJECT_TYPE_PHYSICAL_DEVICE`]
+  VkPhysicalDevice
+);
 pub const VK_OBJECT_TYPE_PHYSICAL_DEVICE: VkObjectType = VkObjectType(2);
 
 /// Khronos: [VkPhysicalDeviceFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceFeatures.html)
@@ -1407,7 +1373,7 @@ impl VkQueueFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkQueueFlagBits);
+// VkQueueFlagBits);
 
 /// Khronos: [VkQueueFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkQueueFlagBits.html)
 pub type VkQueueFlags = VkQueueFlagBits;
@@ -1444,7 +1410,7 @@ impl VkDeviceCreateFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkDeviceCreateFlagBits);
+// VkDeviceCreateFlagBits);
 
 /// Khronos: [VkDeviceCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDeviceCreateFlagBits.html)
 pub type VkDeviceCreateFlags = VkDeviceCreateFlagBits;
@@ -1460,7 +1426,7 @@ impl VkDeviceQueueCreateFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkDeviceQueueCreateFlagBits);
+// VkDeviceQueueCreateFlagBits);
 
 /// Khronos: [VkDeviceQueueCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDeviceQueueCreateFlagBits.html)
 pub type VkDeviceQueueCreateFlags = VkDeviceQueueCreateFlagBits;
@@ -1548,7 +1514,7 @@ impl VkPipelineStageFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkPipelineStageFlagBits);
+// VkPipelineStageFlagBits);
 
 /// Khronos: [VkPipelineStageFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineStageFlagBits.html)
 pub type VkPipelineStageFlags = VkPipelineStageFlagBits;
@@ -1584,7 +1550,7 @@ impl VkDependencyFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkDependencyFlagBits);
+// VkDependencyFlagBits);
 
 /// Khronos: [VkDependencyFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDependencyFlagBits.html)
 pub type VkDependencyFlags = VkDependencyFlagBits;
@@ -1614,35 +1580,12 @@ impl VkQueue {
 }
 pub const VK_OBJECT_TYPE_QUEUE: VkObjectType = VkObjectType(4);
 
-/// Khronos: [VkSemaphore](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSemaphore.html) (non-dispatchable handle)
-/// * Parent: [VkDevice]
-/// * Object Type Enum: [`VK_OBJECT_TYPE_SEMAPHORE`]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[repr(transparent)]
-pub struct VkSemaphore(
-  #[cfg(target_pointer_width = "64")] *mut core::ffi::c_void,
-  #[cfg(not(target_pointer_width = "64"))] u64,
+define_non_dispatchable_handle!(
+  /// Khronos: [VkSemaphore](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSemaphore.html) (non-dispatchable handle)
+  /// * Parent: [VkDevice]
+  /// * Object Type Enum: [`VK_OBJECT_TYPE_SEMAPHORE`]
+  VkSemaphore
 );
-unsafe impl Send for VkSemaphore {}
-unsafe impl Sync for VkSemaphore {}
-impl VkSemaphore {
-  pub const NULL: Self = Self::null();
-  #[inline]
-  #[must_use]
-  pub const fn null() -> Self {
-    #[cfg(target_pointer_width = "64")]
-    return Self(core::ptr::null_mut());
-    #[cfg(not(target_pointer_width = "64"))]
-    return Self(0);
-  }
-}
-impl Default for VkSemaphore {
-  #[inline]
-  #[must_use]
-  fn default() -> Self {
-    Self::NULL
-  }
-}
 pub const VK_OBJECT_TYPE_SEMAPHORE: VkObjectType = VkObjectType(5);
 
 /// Khronos: [VkCommandBuffer](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkCommandBuffer.html) (handle)
@@ -1770,7 +1713,7 @@ impl VkMemoryMapFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkMemoryMapFlagBits);
+// VkMemoryMapFlagBits);
 
 /// Khronos: [VkMemoryMapFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkMemoryMapFlagBits.html)
 pub type VkMemoryMapFlags = VkMemoryMapFlagBits;
@@ -1800,7 +1743,7 @@ impl VkSparseMemoryBindFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkSparseMemoryBindFlagBits);
+// VkSparseMemoryBindFlagBits);
 
 /// Khronos: [VkSparseMemoryBindFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSparseMemoryBindFlagBits.html)
 pub type VkSparseMemoryBindFlags = VkSparseMemoryBindFlagBits;
@@ -1917,7 +1860,7 @@ impl VkSparseImageFormatFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkSparseImageFormatFlagBits);
+// VkSparseImageFormatFlagBits);
 
 /// Khronos: [VkSparseImageFormatFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSparseImageFormatFlagBits.html)
 pub type VkSparseImageFormatFlags = VkSparseImageFormatFlagBits;
@@ -1997,7 +1940,7 @@ impl VkFenceCreateFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkFenceCreateFlagBits);
+// VkFenceCreateFlagBits);
 
 /// Khronos: [VkFenceCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkFenceCreateFlagBits.html)
 pub type VkFenceCreateFlags = VkFenceCreateFlagBits;
@@ -2027,7 +1970,7 @@ impl VkSemaphoreCreateFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkSemaphoreCreateFlagBits);
+// VkSemaphoreCreateFlagBits);
 
 /// Khronos: [VkSemaphoreCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSemaphoreCreateFlagBits.html)
 pub type VkSemaphoreCreateFlags = VkSemaphoreCreateFlagBits;
@@ -2088,7 +2031,7 @@ impl VkEventCreateFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkEventCreateFlagBits);
+// VkEventCreateFlagBits);
 
 /// Khronos: [VkEventCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkEventCreateFlagBits.html)
 pub type VkEventCreateFlags = VkEventCreateFlagBits;
@@ -2118,7 +2061,7 @@ impl VkQueryPipelineStatisticFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkQueryPipelineStatisticFlagBits);
+// VkQueryPipelineStatisticFlagBits);
 
 /// Khronos: [VkQueryPipelineStatisticFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkQueryPipelineStatisticFlagBits.html)
 pub type VkQueryPipelineStatisticFlags = VkQueryPipelineStatisticFlagBits;
@@ -2165,7 +2108,7 @@ impl VkQueryPoolCreateFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkQueryPoolCreateFlagBits);
+// VkQueryPoolCreateFlagBits);
 
 /// Khronos: [VkQueryPoolCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkQueryPoolCreateFlagBits.html)
 pub type VkQueryPoolCreateFlags = VkQueryPoolCreateFlagBits;
@@ -2205,7 +2148,7 @@ impl VkQueryResultFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkQueryResultFlagBits);
+// VkQueryResultFlagBits);
 
 /// Khronos: [VkQueryResultFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkQueryResultFlagBits.html)
 pub type VkQueryResultFlags = VkQueryResultFlagBits;
@@ -2221,7 +2164,7 @@ impl VkBufferCreateFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkBufferCreateFlagBits);
+// VkBufferCreateFlagBits);
 
 /// Khronos: [VkBufferCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkBufferCreateFlagBits.html)
 pub type VkBufferCreateFlags = VkBufferCreateFlagBits;
@@ -2237,7 +2180,7 @@ impl VkBufferUsageFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkBufferUsageFlagBits);
+// VkBufferUsageFlagBits);
 
 /// Khronos: [VkBufferUsageFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkBufferUsageFlagBits.html)
 pub type VkBufferUsageFlags = VkBufferUsageFlagBits;
@@ -2312,7 +2255,7 @@ impl VkBufferViewCreateFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkBufferViewCreateFlagBits);
+// VkBufferViewCreateFlagBits);
 
 /// Khronos: [VkBufferViewCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkBufferViewCreateFlagBits.html)
 pub type VkBufferViewCreateFlags = VkBufferViewCreateFlagBits;
@@ -2444,7 +2387,7 @@ impl VkImageViewCreateFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkImageViewCreateFlagBits);
+// VkImageViewCreateFlagBits);
 
 /// Khronos: [VkImageViewCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkImageViewCreateFlagBits.html)
 pub type VkImageViewCreateFlags = VkImageViewCreateFlagBits;
@@ -2514,7 +2457,7 @@ impl VkShaderModuleCreateFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkShaderModuleCreateFlagBits);
+// VkShaderModuleCreateFlagBits);
 
 /// Khronos: [VkShaderModuleCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkShaderModuleCreateFlagBits.html)
 pub type VkShaderModuleCreateFlags = VkShaderModuleCreateFlagBits;
@@ -2582,7 +2525,7 @@ impl VkPipelineCacheCreateFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkPipelineCacheCreateFlagBits);
+// VkPipelineCacheCreateFlagBits);
 
 /// Khronos: [VkPipelineCacheCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineCacheCreateFlagBits.html)
 pub type VkPipelineCacheCreateFlags = VkPipelineCacheCreateFlagBits;
@@ -2627,7 +2570,7 @@ impl VkColorComponentFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkColorComponentFlagBits);
+// VkColorComponentFlagBits);
 
 /// Khronos: [VkColorComponentFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkColorComponentFlagBits.html)
 pub type VkColorComponentFlags = VkColorComponentFlagBits;
@@ -2648,7 +2591,7 @@ impl VkPipelineCreateFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkPipelineCreateFlagBits);
+// VkPipelineCreateFlagBits);
 
 /// Khronos: [VkPipelineCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineCreateFlagBits.html)
 pub type VkPipelineCreateFlags = VkPipelineCreateFlagBits;
@@ -2664,7 +2607,7 @@ impl VkPipelineShaderStageCreateFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkPipelineShaderStageCreateFlagBits);
+// VkPipelineShaderStageCreateFlagBits);
 
 /// Khronos: [VkPipelineShaderStageCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineShaderStageCreateFlagBits.html)
 pub type VkPipelineShaderStageCreateFlags = VkPipelineShaderStageCreateFlagBits;
@@ -2680,7 +2623,7 @@ impl VkShaderStageFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkShaderStageFlagBits);
+// VkShaderStageFlagBits);
 
 /// Khronos: [VkShaderStageFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkShaderStageFlagBits.html)
 pub type VkShaderStageFlags = VkShaderStageFlagBits;
@@ -2749,7 +2692,7 @@ impl VkPipelineLayoutCreateFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkPipelineLayoutCreateFlagBits);
+// VkPipelineLayoutCreateFlagBits);
 
 /// Khronos: [VkPipelineLayoutCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineLayoutCreateFlagBits.html)
 pub type VkPipelineLayoutCreateFlags = VkPipelineLayoutCreateFlagBits;
@@ -2853,7 +2796,7 @@ impl VkCullModeFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkCullModeFlagBits);
+// VkCullModeFlagBits);
 
 /// Khronos: [VkCullModeFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkCullModeFlagBits.html)
 pub type VkCullModeFlags = VkCullModeFlagBits;
@@ -2879,7 +2822,7 @@ impl VkPipelineVertexInputStateCreateFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkPipelineVertexInputStateCreateFlagBits);
+// VkPipelineVertexInputStateCreateFlagBits);
 
 /// Khronos: [VkPipelineVertexInputStateCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineVertexInputStateCreateFlagBits.html)
 pub type VkPipelineVertexInputStateCreateFlags = VkPipelineVertexInputStateCreateFlagBits;
@@ -2950,7 +2893,7 @@ impl VkPipelineInputAssemblyStateCreateFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkPipelineInputAssemblyStateCreateFlagBits);
+// VkPipelineInputAssemblyStateCreateFlagBits);
 
 /// Khronos: [VkPipelineInputAssemblyStateCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineInputAssemblyStateCreateFlagBits.html)
 pub type VkPipelineInputAssemblyStateCreateFlags = VkPipelineInputAssemblyStateCreateFlagBits;
@@ -2987,7 +2930,7 @@ impl VkPipelineTessellationStateCreateFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkPipelineTessellationStateCreateFlagBits);
+// VkPipelineTessellationStateCreateFlagBits);
 
 /// Khronos: [VkPipelineTessellationStateCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineTessellationStateCreateFlagBits.html)
 pub type VkPipelineTessellationStateCreateFlags = VkPipelineTessellationStateCreateFlagBits;
@@ -3018,7 +2961,7 @@ impl VkPipelineViewportStateCreateFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkPipelineViewportStateCreateFlagBits);
+// VkPipelineViewportStateCreateFlagBits);
 
 /// Khronos: [VkPipelineViewportStateCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineViewportStateCreateFlagBits.html)
 pub type VkPipelineViewportStateCreateFlags = VkPipelineViewportStateCreateFlagBits;
@@ -3076,7 +3019,7 @@ impl VkPipelineRasterizationStateCreateFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkPipelineRasterizationStateCreateFlagBits);
+// VkPipelineRasterizationStateCreateFlagBits);
 
 /// Khronos: [VkPipelineRasterizationStateCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineRasterizationStateCreateFlagBits.html)
 pub type VkPipelineRasterizationStateCreateFlags = VkPipelineRasterizationStateCreateFlagBits;
@@ -3123,7 +3066,7 @@ impl VkPipelineMultisampleStateCreateFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkPipelineMultisampleStateCreateFlagBits);
+// VkPipelineMultisampleStateCreateFlagBits);
 
 /// Khronos: [VkPipelineMultisampleStateCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineMultisampleStateCreateFlagBits.html)
 pub type VkPipelineMultisampleStateCreateFlags = VkPipelineMultisampleStateCreateFlagBits;
@@ -3170,7 +3113,7 @@ impl VkPipelineDepthStencilStateCreateFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkPipelineDepthStencilStateCreateFlagBits);
+// VkPipelineDepthStencilStateCreateFlagBits);
 
 /// Khronos: [VkPipelineDepthStencilStateCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineDepthStencilStateCreateFlagBits.html)
 pub type VkPipelineDepthStencilStateCreateFlags = VkPipelineDepthStencilStateCreateFlagBits;
@@ -3228,7 +3171,7 @@ impl VkPipelineColorBlendStateCreateFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkPipelineColorBlendStateCreateFlagBits);
+// VkPipelineColorBlendStateCreateFlagBits);
 
 /// Khronos: [VkPipelineColorBlendStateCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineColorBlendStateCreateFlagBits.html)
 pub type VkPipelineColorBlendStateCreateFlags = VkPipelineColorBlendStateCreateFlagBits;
@@ -3288,7 +3231,7 @@ impl VkPipelineDynamicStateCreateFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkPipelineDynamicStateCreateFlagBits);
+// VkPipelineDynamicStateCreateFlagBits);
 
 /// Khronos: [VkPipelineDynamicStateCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineDynamicStateCreateFlagBits.html)
 pub type VkPipelineDynamicStateCreateFlags = VkPipelineDynamicStateCreateFlagBits;
@@ -3530,7 +3473,7 @@ impl VkSamplerCreateFlagBits {
     Self(0)
   }
 }
-impl_bitops_for!(VkSamplerCreateFlagBits);
+// VkSamplerCreateFlagBits);
 
 /// Khronos: [VkSamplerCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSamplerCreateFlagBits.html)
 pub type VkSamplerCreateFlags = VkSamplerCreateFlagBits;

@@ -44,7 +44,6 @@ impl VkSurfaceTransformFlagBitsKHR {
     Self(0)
   }
 }
-impl_bitops_for!(VkSurfaceTransformFlagBitsKHR);
 
 /// Khronos: [VkSurfaceTransformFlagBitsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSurfaceTransformFlagBitsKHR.html)
 pub type VkSurfaceTransformFlagsKHR = VkSurfaceTransformFlagBitsKHR;
@@ -70,7 +69,6 @@ impl VkCompositeAlphaFlagBitsKHR {
     Self(0)
   }
 }
-impl_bitops_for!(VkCompositeAlphaFlagBitsKHR);
 
 /// Khronos: [VkCompositeAlphaFlagBitsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkCompositeAlphaFlagBitsKHR.html)
 pub type VkCompositeAlphaFlagsKHR = VkCompositeAlphaFlagBitsKHR;
