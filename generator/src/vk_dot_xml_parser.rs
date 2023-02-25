@@ -261,7 +261,7 @@ fn do_types(
         types.push(TypeEntry::from_attrs(attrs));
       }
       StartTag { name: "comment", attrs: "" } => {
-        iter.next().unwrap().unwrap_text();
+        let _ = iter.next().unwrap().unwrap_text();
         assert_eq!(iter.next().unwrap().unwrap_end_tag(), "comment");
       }
       other => panic!("{other:?}"),
