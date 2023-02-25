@@ -1,10 +1,6 @@
 //! Vulkan core API interface definitions
 
-macro_rules! impl_bitops_for {
-  ($name:ident) => {
-    // TODO
-  };
-}
+use super::impl_bitops_for;
 
 #[allow(non_camel_case_types)]
 pub(crate) type uint8_t = u8;
