@@ -10,7 +10,7 @@ use vkvk_generator::{
   handle_types::{define_handle, define_non_dispatchable_handle},
   strip_number, strip_vendor,
   structs_unions::{define_structure, define_union},
-  vk_dot_xml_parser::{Registry, StaticStr, TypeEntry, VendorTag},
+  vk_dot_xml_parser::{Command, Registry, StaticStr, TypeEntry, VendorTag},
   FUNC_PTR_DECLS,
 };
 
@@ -24,26 +24,7 @@ fn main() {
   assert_eq!(iter.next().unwrap().unwrap_start_tag().0, "registry");
   let registry = Registry::from_iter(&mut iter);
   //
-  let vendors: Vec<StaticStr> = registry.vendor_tags.iter().map(|v| v.name).collect();
-  //
-  let vk_1_0 = determine_vulkan_1_0(&registry);
-  let data_type_strings: Vec<String> = vk_1_0
-    .data
-    .iter()
-    .map(|ty_name| {
-      let ty = registry.types.iter().find(|ty_entry| ty_entry.name == *ty_name).unwrap();
-      format_ty(ty, &vendors)
-    })
-    .collect();
-  println!("use crate::api_constants::*;");
-  println!("use crate::base_types::*;");
-  println!("use crate::vk_version::*;");
-  println!();
-  for data_type_string in data_type_strings.iter() {
-    println!("{data_type_string}");
-  }
-  println!();
-  println!("{FUNC_PTR_DECLS}");
+  print_v1_0_fns(&registry);
 }
 
 #[derive(Debug, Clone, Default)]
@@ -133,5 +114,45 @@ fn format_ty(ty: &TypeEntry, vendors: &[&str]) -> String {
     Some("union") => define_union(ty),
     Some("basetype") => String::new(),
     other => panic!("{}: {other:?}", ty.name),
+  }
+}
+
+fn print_v1_0_data(registry: &Registry) {
+  let vk_1_0 = determine_vulkan_1_0(registry);
+  let vendors: Vec<StaticStr> = registry.vendor_tags.iter().map(|v| v.name).collect();
+  let data_type_strings: Vec<String> = vk_1_0
+    .data
+    .iter()
+    .map(|ty_name| {
+      let ty = registry.types.iter().find(|ty_entry| ty_entry.name == *ty_name).unwrap();
+      format_ty(ty, &vendors)
+    })
+    .collect();
+  println!("use crate::api_constants::*;");
+  println!("use crate::base_types::*;");
+  println!("use crate::vk_version::*;");
+  println!();
+  for data_type_string in data_type_strings.iter() {
+    println!("{data_type_string}");
+  }
+  println!();
+  println!("{FUNC_PTR_DECLS}");
+}
+
+fn print_v1_0_fns(registry: &Registry) {
+  let vk_1_0 = determine_vulkan_1_0(registry);
+  let commands: Vec<Command> = vk_1_0
+    .commands
+    .iter()
+    .map(|c| registry.commands.iter().find(|rc| rc.name == *c).unwrap().clone())
+    .collect();
+  for command in commands.iter() {
+    let name = command.name;
+    print!("pub(crate) type {name}_t = unsafe extern \"system\" fn(");
+    for param in command.params.iter() {
+      print!("{param:?}");
+    }
+    println!(");");
+    println!("pub(crate) type PFN_{name} = Option<{name}_t>;");
   }
 }
