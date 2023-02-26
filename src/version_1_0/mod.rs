@@ -1,9 +1,10 @@
-//! Data types for the 1.0 version of the API.
+//! Data types and constants for the 1.0 version of Vulkan.
 
-mod data_types;
-pub use data_types::*;
+use crate::prelude::*;
 
-pub(crate) mod fn_types;
+pub mod constants;
+pub mod data_types;
+pub mod fn_types;
 
 #[cfg_attr(windows, link(name = "vulkan-1"))]
 #[cfg_attr(not(windows), link(name = "vulkan"))]

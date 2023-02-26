@@ -7,4 +7,9 @@
 //! use vkvk::prelude::*;
 //! ```
 
-pub use crate::{api_constants::*, base_types::*, version_1_0::*, vk_version::*};
+pub use crate::{
+  api_constants::*,
+  base_types::*,
+  version_1_0::{constants::*, data_types::*, *},
+  vk_version::*,
+};

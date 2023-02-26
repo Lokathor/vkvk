@@ -11,7 +11,7 @@ pub mod vk_version;
 
 pub mod version_1_0;
 
-/*
+/* VK_KHR_surface
 
 pub const VK_KHR_SURFACE_SPEC_VERSION: u32 = 25;
 pub const VK_KHR_SURFACE_EXTENSION_NAME: &str = "VK_KHR_surface\0";
@@ -67,5 +67,39 @@ pub struct VkSurfaceFormatKHR {
     <command name="vkGetPhysicalDeviceSurfacePresentModesKHR"/>
   </require>
 </extension>
+
+*/
+
+/* VK_KHR_swapchain
+
+pub const VK_KHR_SWAPCHAIN_SPEC_VERSION: u32 = 70;
+pub const VK_KHR_SWAPCHAIN_EXTENSION_NAME: &str = "VK_KHR_swapchain\0";
+pub const VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR: VkStructureType = VkStructureType(1000001000);
+pub const VK_STRUCTURE_TYPE_PRESENT_INFO_KHR: VkStructureType = VkStructureType(1000001001);
+pub const VK_IMAGE_LAYOUT_PRESENT_SRC_KHR: VkImageLayout = VkImageLayout(1000001002);
+pub const VK_SUBOPTIMAL_KHR: VkResult = VkResult(1000001003);
+pub const VK_ERROR_OUT_OF_DATE_KHR: VkResult = VkResult(-1000001004);
+pub const VK_OBJECT_TYPE_SWAPCHAIN_KHR: VkObjectType = VkObjectType(1000001000);
+
+define_bitmask!(VkSwapchainCreateFlagBitsKHR);
+pub type VkSwapchainCreateFlagsKHR = VkSwapchainCreateFlagBitsKHR;
+
+pub struct VkSwapchainCreateInfoKHR {
+  // TODO
+}
+
+define_non_dispatchable_handle!(VkSwapchainKHR);
+
+pub struct VkPresentInfoKHR {
+  // TODO
+}
+
+// vkCreateSwapchainKHR (device)
+// vkDestroySwapchainKHR (device)
+// vkGetSwapchainImagesKHR (device)
+// vkAcquireNextImageKHR (device)
+// vkQueuePresentKHR (queue)
+
+// Adds more in 1.1!
 
 */

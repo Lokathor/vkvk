@@ -13,7 +13,9 @@ use vkvk_generator::{
   strip_number, strip_vendor,
   structs_unions::{define_structure, define_union},
   var_name,
-  vk_dot_xml_parser::{Command, CommandParam, Registry, StaticStr, TypeEntry, VendorTag},
+  vk_dot_xml_parser::{
+    Command, CommandParam, Enumeration, EnumerationEntry, Registry, StaticStr, TypeEntry, VendorTag,
+  },
   FUNC_PTR_DECLS,
 };
 
@@ -27,17 +29,17 @@ fn main() {
   assert_eq!(iter.next().unwrap().unwrap_start_tag().0, "registry");
   let registry = Registry::from_iter(&mut iter);
   //
-  print_v1_0_fn_types(&registry);
+  print_v1_0_constants(&registry);
 }
 
 #[derive(Debug, Clone, Default)]
-struct ApiCapability {
-  data: BTreeSet<StaticStr>,
-  commands: BTreeSet<StaticStr>,
-  constants: BTreeSet<StaticStr>,
+pub struct ApiCapability {
+  pub data: BTreeSet<StaticStr>,
+  pub commands: BTreeSet<StaticStr>,
+  pub constants: BTreeSet<StaticStr>,
 }
 
-fn determine_vulkan_1_0(registry: &Registry) -> ApiCapability {
+pub fn determine_vulkan_1_0(registry: &Registry) -> ApiCapability {
   let vendors: Vec<StaticStr> = registry.vendor_tags.iter().map(|v| v.name).collect();
   //
   let feat = registry.features.iter().find(|feat| feat.name == "VK_VERSION_1_0").unwrap();
@@ -142,7 +144,7 @@ pub fn print_v1_0_data(registry: &Registry) {
   println!("{FUNC_PTR_DECLS}");
 }
 
-fn print_v1_0_fn_types(registry: &Registry) {
+pub fn print_v1_0_fn_types(registry: &Registry) {
   use core::fmt::Write;
   let vk_1_0 = determine_vulkan_1_0(registry);
   let commands: Vec<Command> = vk_1_0
@@ -212,4 +214,96 @@ pub fn format_pfn_command(name: &str) -> String {
   writeln!(pfn,"/// Khronos: [{name}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{name}.html)").ok();
   writeln!(pfn, "pub(crate) type PFN_{name} = Option<{name}_t>;").ok();
   pfn
+}
+
+pub fn print_v1_0_constants(registry: &Registry) {
+  let vk_1_0 = determine_vulkan_1_0(registry);
+  let mut constant_strings = Vec::new();
+  'name_loop: for name in vk_1_0.constants.iter() {
+    for enumeration in registry.enums.iter() {
+      for entry in enumeration.entries.iter() {
+        if entry.name == *name && (entry.api.is_none() || entry.api == Some("vulkan")) {
+          if enumeration.name == "API Constants" {
+            continue 'name_loop;
+          }
+          constant_strings.push(format_enum_entry(enumeration, entry));
+          continue 'name_loop;
+        }
+      }
+    }
+    panic!("Constant Definition Not Found: {name:?}");
+  }
+  println!("#![allow(nonstandard_style)]");
+  println!();
+  println!("use crate::prelude::*;");
+  println!();
+  for s in constant_strings.iter() {
+    println!("{s}");
+  }
+}
+
+fn format_enum_entry(
+  Enumeration { name: rust_ty, ty: _, comment: _, bitwidth, entries: _ }: &Enumeration,
+  entry @ EnumerationEntry {
+    name: symbol_name,
+    value,
+    comment,
+    ty: entry_ty,
+    alias,
+    bitpos,
+    api,
+    deprecated,
+  }: &EnumerationEntry,
+) -> String {
+  let mut f = String::new();
+  match api {
+    None | Some("vulkan") => (),
+    _ => panic!("illegal: {entry:?}"),
+  }
+  if let Some(comment) = comment {
+    writeln!(f, "/// {comment}").ok();
+  }
+  match (value, bitpos) {
+    (Some(value), None) => {
+      assert!(entry_ty.is_none(), "{entry:?}");
+      if let Some(alias) = alias {
+        writeln!(f, "/// * Alias For [`{alias}`]").ok();
+        if let Some(deprecated) = deprecated {
+          writeln!(f, "#[deprecated = \"{deprecated}\"]").ok();
+        }
+        writeln!(f, "pub const {symbol_name}: {rust_ty} = {alias};").ok();
+      } else if let Some(abs) = value.strip_prefix('-') {
+        if let Some(deprecated) = deprecated {
+          writeln!(f, "#[deprecated = \"{deprecated}\"]").ok();
+        }
+        writeln!(f, "pub const {symbol_name}: {rust_ty} = {rust_ty}({abs}_u32.wrapping_neg());")
+          .ok();
+      } else {
+        if let Some(deprecated) = deprecated {
+          writeln!(f, "#[deprecated = \"{deprecated}\"]").ok();
+        }
+        writeln!(f, "pub const {symbol_name}: {rust_ty} = {rust_ty}({value});").ok();
+      };
+    }
+    (None, Some(bitpos)) => {
+      assert!(entry_ty.is_none(), "{entry:?}");
+      assert!(value.is_none(), "{entry:?}");
+      let bitwidth = bitwidth.unwrap_or("32");
+      if let Some(deprecated) = deprecated {
+        writeln!(f, "#[deprecated = \"{deprecated}\"]").ok();
+      }
+      writeln!(f, "pub const {symbol_name}: {rust_ty} = {rust_ty}(1_u{bitwidth} << {bitpos});")
+        .ok();
+    }
+    (None, None) => {
+      let alias = alias.unwrap();
+      writeln!(f, "/// * Alias For [`{alias}`]").ok();
+      if let Some(deprecated) = deprecated {
+        writeln!(f, "#[deprecated = \"{deprecated}\"]").ok();
+      }
+      writeln!(f, "pub const {symbol_name}: {rust_ty} = {alias};").ok();
+    }
+    _ => panic!("{entry:?}"),
+  }
+  f
 }
