@@ -1,3 +1,10 @@
+//! Various constants defined as part of Vulkan
+//!
+//! Some of the constants here are meant to be used as the length of an array.
+//! In the C API they're typed as `uint32_t`. In this module they've been
+//! declared as `usize` instead, so they can be used as a Rust array length
+//! without any extra conversion.
+
 use crate::base_types::VkBool32;
 
 /// The maximum number of unique memory heaps, each of which support 1 or more

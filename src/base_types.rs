@@ -1,5 +1,7 @@
 #![allow(nonstandard_style)]
 
+//! Various base types which don't fit elsewhere.
+
 pub use core::ffi::c_void;
 
 pub use core::ffi::c_float;
