@@ -19,6 +19,32 @@ pub const VK_ERROR_SURFACE_LOST_KHR: VkResult = VkResult(NonZeroI32::new(-100000
 pub const VK_ERROR_NATIVE_WINDOW_IN_USE_KHR: VkResult = VkResult(NonZeroI32::new(-1000000001));
 pub const VK_OBJECT_TYPE_SURFACE_KHR: VkObjectType = VkObjectType(NonZeroI32::new(1000000000));
 
+define_non_dispatchable_handle!(VkSurfaceKHR);
+
+define_bitmask!(VkSurfaceTransformFlagBitsKHR);
+pub type VkSurfaceTransformFlagsKHR = VkSurfaceTransformFlagBitsKHR;
+
+define_enumeration!(VkPresentModeKHR);
+
+define_enumeration!(VkColorSpaceKHR);
+
+define_bitmask!(VkCompositeAlphaFlagBitsKHR);
+pub type VkCompositeAlphaFlagsKHR = VkCompositeAlphaFlagBitsKHR;
+
+pub struct VkSurfaceCapabilitiesKHR {
+  // TODO
+}
+
+pub struct VkSurfaceFormatKHR {
+  // TODO
+}
+
+// vkDestroySurfaceKHR (?)
+// vkGetPhysicalDeviceSurfaceSupportKHR (?)
+// vkGetPhysicalDeviceSurfaceCapabilitiesKHR (?)
+// vkGetPhysicalDeviceSurfaceFormatsKHR (?)
+// vkGetPhysicalDeviceSurfacePresentModesKHR (?)
+
 <extension name="VK_KHR_surface" number="1" type="instance" author="KHR" contact="" supported="vulkan,vulkansc">
   <require>
     <enum value="25" name="VK_KHR_SURFACE_SPEC_VERSION"/>
