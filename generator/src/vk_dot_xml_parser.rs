@@ -1079,7 +1079,7 @@ impl Command {
         "comment" => s.comment = Some(value),
         "videocoding" => s.video_coding = Some(value),
         "name" => s.name = value,
-        //"api" => s.api = Some(value),
+        "api" => s.api = Some(value),
         _ => panic!("{key:?} = {value:?} ({attrs})"),
       }
     }
