@@ -1425,7 +1425,7 @@ pub struct VkMemoryRequirements {
   pub size: VkDeviceSize,
   /// Specified in bytes
   pub alignment: VkDeviceSize,
-  /// Bitmask of the allowed memory type indices into memoryTypes[] for this
+  /// Bitmask of the allowed memory type indices into memoryTypes\[\] for this
   /// object
   pub memory_type_bits: u32,
 }
@@ -3087,7 +3087,7 @@ pub struct VkWriteDescriptorSet {
   /// * Len: `descriptorCount`
   /// * No Auto Validity
   pub image_info: *const VkDescriptorImageInfo,
-  /// Raw buffer, size, and offset for {UNIFORM,STORAGE}_BUFFER[_DYNAMIC]
+  /// Raw buffer, size, and offset for {UNIFORM,STORAGE}_BUFFER\[_DYNAMIC\]
   /// descriptor types.
   /// * Len: `descriptorCount`
   /// * No Auto Validity

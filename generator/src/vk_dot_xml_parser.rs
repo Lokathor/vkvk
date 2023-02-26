@@ -65,6 +65,9 @@ impl Registry {
         EndTag { name: "registry" } => {
           // POST PROCESSING
           let mut extra_types = Vec::new();
+          // If we see FooFlags or FooFlagBits without the matching other side of the
+          // pairing then we add a dummy entry for the other side so that registry lookup
+          // (ideally) won't ever fail.
           for ty in registry.types.iter() {
             if let Some(n) = ty.name.strip_suffix("Flags") {
               let s = format!("{n}FlagBits");
@@ -85,6 +88,7 @@ impl Registry {
             }
           }
           registry.types.extend(extra_types.into_iter());
+          // We're going to change a specific field into our custom newtype.
           if let Some(te) =
             registry.types.iter_mut().find(|t| t.name == "VkPhysicalDeviceProperties")
           {

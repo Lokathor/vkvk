@@ -121,6 +121,7 @@ pub fn define_structure(
       let field: String = field_name(name);
       let field_ty = format_type_and_variant(ty, *ty_variant);
       if let Some(comment) = comment {
+        let comment = comment.replace('[', "\\[").replace(']', "\\]");
         writeln!(f, "  /// {comment}").ok();
       }
       if let Some(deprecated) = deprecated {
