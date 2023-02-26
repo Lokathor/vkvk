@@ -3,12 +3,15 @@
 //! Used as "scratch space" binary to check output stuff.
 
 use magnesium::*;
+use std::collections::{BTreeSet, HashSet};
 use vkvk_generator::{
   bitmasks::define_bitmask,
   enumeration_types::{define_enumeration, define_enums},
   handle_types::{define_handle, define_non_dispatchable_handle},
-  structures::define_structure,
-  vk_dot_xml_parser::{Registry, StaticStr},
+  strip_number, strip_vendor,
+  structs_unions::{define_structure, define_union},
+  vk_dot_xml_parser::{Registry, StaticStr, TypeEntry, VendorTag},
+  FUNC_PTR_DECLS,
 };
 
 const XML: &str = include_str!("../../vk.xml");
@@ -20,115 +23,114 @@ fn main() {
     .filter_map(skip_empty_text_elements);
   assert_eq!(iter.next().unwrap().unwrap_start_tag().0, "registry");
   let registry = Registry::from_iter(&mut iter);
-  if false {
-    println!(
-      "Registry {{
-      platforms: {platforms_len},
-      vendor_tags: {vendor_tags_len},
-      types: {types_len},
-      enums: {enums_len},
-      commands: {commands_len},
-      features: {features_len},
-      extensions: {extensions_len},
-      formats: {formats_len},
-      spirv_extensions: {spirv_extensions_len},
-      spirv_capabilities: {spirv_capabilities_len},
-    }}
-    ",
-      platforms_len = registry.platforms.len(),
-      vendor_tags_len = registry.vendor_tags.len(),
-      types_len = registry.types.len(),
-      enums_len = registry.enums.len(),
-      commands_len = registry.commands.len(),
-      features_len = registry.features.len(),
-      extensions_len = registry.extensions.len(),
-      formats_len = registry.formats.len(),
-      spirv_extensions_len = registry.spirv_extensions.len(),
-      spirv_capabilities_len = registry.spirv_capabilities.len(),
-    );
-  }
   //
   let vendors: Vec<StaticStr> = registry.vendor_tags.iter().map(|v| v.name).collect();
   //
-  if true {
-    let mut handle = 0;
-    let mut bitmask = 0;
-    let mut enumeration = 0;
-    let mut structure = 0;
-    for ty in registry.types.iter() {
-      match ty.api {
-        None | Some("vulkan") => (),
-        _ => continue,
-      }
-      //
-      match ty.category {
-        Some("handle") => {
-          handle += 1;
-          let out = match ty.ty_src {
-            Some("VK_DEFINE_HANDLE") => {
-              define_handle(ty.name, ty.parent, ty.obj_type_enum.unwrap())
-            }
-            Some("VK_DEFINE_NON_DISPATCHABLE_HANDLE") => {
-              define_non_dispatchable_handle(ty.name, ty.parent, ty.obj_type_enum.unwrap())
-            }
-            None if ty.is_alias_for.is_some() => {
-              let name = ty.name;
-              let alias = ty.is_alias_for.unwrap();
-              format!("pub type {name} = {alias};")
-            }
-            _ => panic!("{ty:?}"),
-          };
-          println!("{out}");
-          println!();
-        }
-        Some("bitmask") => {
-          bitmask += 1;
-          println!("{}", define_bitmask(ty, &vendors));
-          println!();
-        }
-        Some("enum") => {
-          enumeration += 1;
-          println!("{}", define_enumeration(ty));
-          println!();
-        }
-        Some("struct") => {
-          structure += 1;
-          println!("{}", define_structure(ty));
-          println!();
-        }
-        _ => (),
-      }
-    }
-    println!("//bitmask count: {bitmask}");
-    println!("//enumeration count: {enumeration}");
-    println!("//structure count: {structure}");
-    println!();
+  let vk_1_0 = determine_vulkan_1_0(&registry);
+  let data_type_strings: Vec<String> = vk_1_0
+    .data
+    .iter()
+    .map(|ty_name| {
+      let ty = registry.types.iter().find(|ty_entry| ty_entry.name == *ty_name).unwrap();
+      format_ty(ty, &vendors)
+    })
+    .collect();
+  println!("use crate::api_constants::*;");
+  println!("use crate::base_types::*;");
+  println!("use crate::vk_version::*;");
+  for data_type_string in data_type_strings.iter() {
+    println!("{data_type_string}");
   }
-
-  if true {
-    for enums in registry.enums.iter() {
-      if enums.name == "API Constants" {
-        continue;
-      }
-      println!("{}", define_enums(enums));
-    }
-  }
-
-  if false {
-    for command in registry.commands.iter() {
-      if let Some(param) = command.params.get(0) {
-        println!("{} // {}", param.ty, command.name);
-      } else {
-        println!("// {}", command.name);
-      }
-    }
-  }
+  println!();
+  println!("{FUNC_PTR_DECLS}");
 }
 
-// TODO: define the structs
+#[derive(Debug, Clone, Default)]
+struct ApiCapability {
+  data: BTreeSet<StaticStr>,
+  commands: BTreeSet<StaticStr>,
+  constants: BTreeSet<StaticStr>,
+}
 
-// TODO: define the fns
+fn determine_vulkan_1_0(registry: &Registry) -> ApiCapability {
+  let vendors: Vec<StaticStr> = registry.vendor_tags.iter().map(|v| v.name).collect();
+  //
+  let feat = registry.features.iter().find(|feat| feat.name == "VK_VERSION_1_0").unwrap();
+  //
+  let mut out = ApiCapability::default();
+  //
+  for required_ty in feat.required_types.iter() {
+    let type_entry = registry.types.iter().find(|t| t.name == *required_ty).unwrap();
+    match type_entry.category {
+      Some("handle") | Some("bitmask") | Some("enum") | Some("struct") | Some("union") => (),
+      _ => continue,
+    }
+    for member_ty in type_entry.members.iter().map(|member| member.ty).chain(Some(*required_ty)) {
+      let ts: Vec<String> = if member_ty.ends_with("Flags") | member_ty.ends_with("FlagBits") {
+        let x = member_ty.strip_suffix("Flags").or(member_ty.strip_suffix("FlagBits")).unwrap();
+        vec![format!("{x}Flags"), format!("{x}FlagBits")]
+      } else {
+        vec![String::from(member_ty)]
+      };
+      for t in ts.into_iter() {
+        if out.data.insert(match t.as_str() {
+          "u8" | "u32" | "i32" | "u64" | "usize" | "c_void" | "c_float" => continue,
+          other if other.starts_with("PFN_") => continue,
+          other => {
+            if out.data.contains(other) {
+              continue;
+            } else {
+              Box::leak(t.clone().into_boxed_str())
+            }
+          }
+        }) {
+          for enumeration in registry.enums.iter().filter(|e| e.name == t) {
+            for entry in enumeration.entries.iter() {
+              out.constants.insert(entry.name);
+            }
+          }
+        }
+      }
+    }
+  }
+  for required_command in feat.required_commands.iter() {
+    let command_entry = registry.commands.iter().find(|c| c.name == *required_command).unwrap();
+    for param in command_entry.params.iter() {
+      out.data.insert(match param.ty {
+        "u8" | "u32" | "i32" | "u64" | "usize" | "c_void" | "c_float" => continue,
+        other if other.starts_with("PFN_") => continue,
+        other => other,
+      });
+    }
+    out.commands.insert(command_entry.name);
+  }
+  out.data.retain(|d| !strip_number(strip_vendor(d, &vendors).0).0.ends_with("Flags"));
+  for required_enums in feat.required_enums.iter() {
+    out.constants.insert(required_enums.name);
+  }
+  //
+  out
+}
 
-// TODO: use feature/extension info to apply cfgs?
-
-// TODO: make more of the info be Optional!
+fn format_ty(ty: &TypeEntry, vendors: &[&str]) -> String {
+  match ty.category {
+    Some("handle") => match ty.ty_src {
+      Some("VK_DEFINE_HANDLE") => define_handle(ty.name, ty.parent, ty.obj_type_enum.unwrap()),
+      Some("VK_DEFINE_NON_DISPATCHABLE_HANDLE") => {
+        define_non_dispatchable_handle(ty.name, ty.parent, ty.obj_type_enum.unwrap())
+      }
+      None if ty.is_alias_for.is_some() => {
+        let name = ty.name;
+        let alias = ty.is_alias_for.unwrap();
+        format!("pub type {name} = {alias};")
+      }
+      _ => panic!("{ty:?}"),
+    },
+    Some("bitmask") => define_bitmask(ty, vendors),
+    Some("enum") => define_enumeration(ty),
+    Some("struct") => define_structure(ty),
+    Some("union") => define_union(ty),
+    Some("basetype") => String::new(),
+    other => panic!("{}: {other:?}", ty.name),
+  }
+}

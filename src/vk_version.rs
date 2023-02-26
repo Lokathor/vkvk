@@ -1,11 +1,17 @@
 #![warn(missing_docs)]
+
+//! This is a newtype over a `u32` that encodes a Vulkan version value.
 //!
+//! This type isn't directly defined within Vulkan. The C version of the API
+//! uses raw `uint32_t` values and various C macros to get/set the bitpacked
+//! fields. In Rust, we can use a proper newtype with methods to have a much
+//! easier time.
 
 /// A vulkan version value.
 ///
 /// Vulkan uses an `x.y.z` version system, with the addition that an
 /// implementation can have a non-zero "variant" value to indicate that it is
-/// non-standard in some way.
+/// non-standard in some way (eg: [Vulkan SC](https://www.khronos.org/vulkansc/)).
 #[derive(Clone, Copy, Default, PartialEq, Eq)]
 #[repr(transparent)]
 pub struct VkVersion(pub u32);

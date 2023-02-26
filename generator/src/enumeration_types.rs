@@ -20,21 +20,19 @@ pub fn define_enumeration(TypeEntry { name, api:_, category, texts:_, comment, r
   //
   let mut f = String::new();
   if let Some(alias) = is_alias_for {
-    write!(f, 
-      "/// Khronos: [{alias}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{alias}.html)
+    writeln!(f, 
+      "/// Khronos: [{alias}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{alias}.html) (enumeration)
       pub type {name} = {alias};"
     ).ok();
   } else {
-    write!(f, 
-      "/// Khronos: [{name}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{name}.html)
-      #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
-      #[repr(transparent)] pub struct {name}(pub u32);"
-    ).ok();
+    writeln!(f, "define_enumeration!(").ok();
+    writeln!(f, "  /// Khronos: [{name}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{name}.html) (enumeration)").ok();
+    writeln!(f, "  {name}").ok();
+    writeln!(f, ");").ok();
   }
   f
 }
 
-// TODO: if the ty said "bitmask" then we should emit impls for bitwise ops on this type.
 pub fn define_enums(Enumeration { name: rust_ty, ty:_, comment: _, bitwidth, entries }: &Enumeration) -> String {
   let mut f = String::new();
   for entry @ EnumerationEntry { name: symbol_name, value, comment, ty: entry_ty, alias, bitpos, api, deprecated } in entries.iter() {

@@ -15,6 +15,20 @@ macro_rules! assert_attrs_comment_only {
   };
 }
 
+fn fix_ty(ty: StaticStr) -> StaticStr {
+  match ty {
+    "char" => "u8",
+    "uint8_t" => "u8",
+    "int32_t" => "i32",
+    "uint32_t" => "u32",
+    "uint64_t" => "u64",
+    "size_t" => "usize",
+    "float" => "c_float",
+    "void" => "c_void", // command return void is fixed to () elsewhere.
+    other => other,
+  }
+}
+
 /// Registry of all useful data out of a `vk.xml` file.
 ///
 /// ```rust,no_run
@@ -43,11 +57,47 @@ pub struct Registry {
 }
 
 impl Registry {
+  #[allow(clippy::field_reassign_with_default)]
   pub fn from_iter(iter: &mut impl Iterator<Item = XmlElement<'static>>) -> Self {
     let mut registry = Self::default();
     loop {
       match iter.next().unwrap() {
-        EndTag { name: "registry" } => return registry,
+        EndTag { name: "registry" } => {
+          // POST PROCESSING
+          let mut extra_types = Vec::new();
+          for ty in registry.types.iter() {
+            if let Some(n) = ty.name.strip_suffix("Flags") {
+              let s = format!("{n}FlagBits");
+              if !registry.types.iter().any(|ty| ty.name == s) {
+                let mut te = TypeEntry::default();
+                te.category = Some("bitmask");
+                te.name = Box::leak(s.into_boxed_str());
+                extra_types.push(te);
+              }
+            } else if let Some(n) = ty.name.strip_suffix("FlagBits") {
+              let s = format!("{n}Flags");
+              if !registry.types.iter().any(|ty| ty.name == s) {
+                let mut te = TypeEntry::default();
+                te.category = Some("bitmask");
+                te.name = Box::leak(s.into_boxed_str());
+                extra_types.push(te);
+              }
+            }
+          }
+          registry.types.extend(extra_types.into_iter());
+          if let Some(te) =
+            registry.types.iter_mut().find(|t| t.name == "VkPhysicalDeviceProperties")
+          {
+            if let Some(m) = te.members.iter_mut().find(|m| m.name == "apiVersion") {
+              m.ty = "VkVersion";
+              let mut te = TypeEntry::default();
+              te.name = "VkVersion";
+              te.category = Some("basetype");
+              registry.types.push(te);
+            }
+          }
+          return registry;
+        }
         StartTag { name: "comment", attrs: "" } => loop {
           if let EndTag { name: "comment" } = iter.next().unwrap() {
             break;
@@ -158,10 +208,7 @@ fn do_types(
                 StartTag { name: "type", attrs: "" } => (),
                 other => panic!("{other:?}"),
               }
-              member.ty = match iter.next().unwrap().unwrap_text() {
-                "char" => "u8",
-                other => other,
-              };
+              member.ty = fix_ty(iter.next().unwrap().unwrap_text());
               assert_eq!(iter.next().unwrap().unwrap_end_tag(), "type");
 
               match iter.next().unwrap() {
@@ -257,7 +304,11 @@ fn do_types(
         types.push(ty_entry);
       }
       EmptyTag { name: "type", attrs } => {
-        types.push(TypeEntry::from_attrs(attrs));
+        let mut te = TypeEntry::from_attrs(attrs);
+        if te.name.ends_with("FlagBits") {
+          te.category = Some("bitmask");
+        }
+        types.push(te);
       }
       StartTag { name: "comment", attrs: "" } => {
         let _ = iter.next().unwrap().unwrap_text();
@@ -305,10 +356,10 @@ fn do_commands(
             }
             StartTag { name: "proto", attrs: "" } => {
               assert_eq!(iter.next().unwrap().unwrap_start_tag(), ("type", ""));
-              command.return_ty = iter.next().unwrap().unwrap_text();
-              if command.return_ty == "void" {
-                command.return_ty = "()";
-              }
+              command.return_ty = match iter.next().unwrap().unwrap_text() {
+                "void" => "()",
+                other => fix_ty(other),
+              };
               assert_eq!(iter.next().unwrap().unwrap_end_tag(), "type");
               //
               assert_eq!(iter.next().unwrap().unwrap_start_tag(), ("name", ""));
@@ -338,11 +389,7 @@ fn do_commands(
                 StartTag { name: "type", attrs: "" } => (),
                 other => panic!("{other:?}"),
               }
-              command_param.ty = match iter.next().unwrap().unwrap_text() {
-                "char" => "u8",
-                "uint32_t" => "u32",
-                other => other,
-              };
+              command_param.ty = fix_ty(iter.next().unwrap().unwrap_text());
               assert_eq!(iter.next().unwrap().unwrap_end_tag(), "type");
               match iter.next().unwrap() {
                 Text("*") => {

@@ -11,36 +11,14 @@ use core::fmt::Write;
 /// it's on you.
 pub fn define_handle(name: &str, parent: Option<&str>, obj_type_enum: &str) -> String {
   let mut f = String::new();
-  write!(f, "/// Khronos: [{name}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{name}.html) (handle)").ok();
+  writeln!(f, "define_handle!(").ok();
+  writeln!(f, "  /// Khronos: [{name}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{name}.html) (handle)").ok();
   if let Some(parent) = parent {
-    write!(f, "/// * Parent: [{parent}]").ok();
+    writeln!(f, "  /// * Parent: [{parent}]").ok();
   }
-  write!(f, "/// * Object Type Enum: [`{obj_type_enum}`]").ok();
-  write!(
-    f,
-    "#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    #[repr(transparent)]
-    pub struct {name}(*mut core::ffi::c_void);
-    unsafe impl Send for {name} {{ }}
-    unsafe impl Sync for {name} {{ }}
-    impl Default for {name} {{
-      #[inline]
-      #[must_use]
-      fn default() -> Self {{
-        Self::NULL
-      }}
-    }}
-    impl {name} {{
-      pub const NULL: Self = Self::null();
-      #[inline]
-      #[must_use]
-      pub const fn null() -> Self {{
-        Self(core::ptr::null_mut())
-      }}
-    }}
-    "
-  )
-  .ok();
+  writeln!(f, "  /// * Object Type Enum: [`{obj_type_enum}`]").ok();
+  writeln!(f, "  {name}").ok();
+  writeln!(f, ");").ok();
   f
 }
 
@@ -60,43 +38,13 @@ pub fn define_non_dispatchable_handle(
   name: &str, parent: Option<&str>, obj_type_enum: &str,
 ) -> String {
   let mut f = String::new();
-  writeln!(f,"/// Khronos: [{name}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{name}.html) (non-dispatchable handle)").ok();
+  writeln!(f, "define_non_dispatchable_handle!(").ok();
+  writeln!(f,"  /// Khronos: [{name}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{name}.html) (non-dispatchable handle)").ok();
   if let Some(parent) = parent {
-    writeln!(f, "/// * Parent: [{parent}]").ok();
+    writeln!(f, "  /// * Parent: [{parent}]").ok();
   }
-  writeln!(f, "/// * Object Type Enum: [`{obj_type_enum}`]").ok();
-  write!(
-    f,
-    "#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    #[repr(transparent)]
-    pub struct {name}(
-      #[cfg(target_pointer_width=\"64\")]
-      *mut core::ffi::c_void,
-      #[cfg(not(target_pointer_width=\"64\"))]
-      u64
-    );
-    unsafe impl Send for {name} {{ }}
-    unsafe impl Sync for {name} {{ }}
-    impl {name} {{
-      pub const NULL: Self = Self::null();
-      #[inline]
-      #[must_use]
-      pub const fn null() -> Self {{
-        #[cfg(target_pointer_width=\"64\")]
-        return Self(core::ptr::null_mut());
-        #[cfg(not(target_pointer_width=\"64\"))]
-        return Self(0);
-      }}
-    }}
-    impl Default for {name} {{
-      #[inline]
-      #[must_use]
-      fn default() -> Self {{
-        Self::NULL
-      }}
-    }}
-    "
-  )
-  .ok();
+  writeln!(f, "  /// * Object Type Enum: [`{obj_type_enum}`]").ok();
+  writeln!(f, "  {name}").ok();
+  writeln!(f, ");").ok();
   f
 }

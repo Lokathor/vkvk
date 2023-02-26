@@ -9,4 +9,5 @@ license = "Zlib OR Apache-2.0 OR MIT"
 publish = false
 
 [dependencies]
+convert_case = "0.6.0"
 magnesium = "1.2"

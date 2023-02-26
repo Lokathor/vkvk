@@ -1,3 +1,6 @@
+#![allow(unused_macros)]
+
+/// Makes a (dispatchable) handle.
 macro_rules! define_handle {
   (
     $(#[$name_meta:meta])*
@@ -27,6 +30,7 @@ macro_rules! define_handle {
   };
 }
 
+/// Makes a non-dispatchable handle.
 macro_rules! define_non_dispatchable_handle {
   (
     $(#[$name_meta:meta])*
@@ -62,6 +66,9 @@ macro_rules! define_non_dispatchable_handle {
   };
 }
 
+/// Makes an enumeration newtype.
+///
+/// * If you want a derived Debug you have to declare that yourself.
 macro_rules! define_enumeration {
   (
     $(#[$name_meta:meta])*
@@ -74,11 +81,14 @@ macro_rules! define_enumeration {
   };
 }
 
+/// Makes a bitmask newtype (including bitwise ops impls).
+///
+/// * If you want a derived Debug you have to declare that yourself.
+/// * This doesn't declare any type aliases, add those outside this macro.
 macro_rules! define_bitmask {
   (
     $(#[$flag_bits_meta:meta])*
-    $flag_bits_name:ident,
-    $flags_name:ident
+    $flag_bits_name:ident
   ) => {
     $(#[$flag_bits_meta])*
     #[derive(Clone, Copy, Default, PartialEq, Eq)]
@@ -91,20 +101,13 @@ macro_rules! define_bitmask {
         Self(0)
       }
     }
-    pub type $flags_name = $flag_bits_name;
-
-    impl core::ops::BitAnd for $flag_bits_name{
+    //
+    impl core::ops::BitAnd for $flag_bits_name {
       type Output = Self;
       #[inline]
       #[must_use]
       fn bitand(self, rhs: Self) -> Self::Output {
-        Self(self.0 & rhs.0)
-      }
-    }
-    impl core::ops::BitAndAssign for $flag_bits_name {
-      #[inline]
-      fn bitand_assign(&mut self, rhs: Self) {
-        self.0 &= rhs.0
+        Self(self.0.bitand(rhs.0))
       }
     }
     impl core::ops::BitOr for $flag_bits_name {
@@ -112,13 +115,7 @@ macro_rules! define_bitmask {
       #[inline]
       #[must_use]
       fn bitor(self, rhs: Self) -> Self::Output {
-        Self(self.0 | rhs.0)
-      }
-    }
-    impl core::ops::BitOrAssign for $flag_bits_name {
-      #[inline]
-      fn bitor_assign(&mut self, rhs: Self) {
-        self.0 |= rhs.0
+        Self(self.0.bitor(rhs.0))
       }
     }
     impl core::ops::BitXor for $flag_bits_name {
@@ -126,13 +123,25 @@ macro_rules! define_bitmask {
       #[inline]
       #[must_use]
       fn bitxor(self, rhs: Self) -> Self::Output {
-        Self(self.0 ^ rhs.0)
+        Self(self.0.bitxor(rhs.0))
+      }
+    }
+    impl core::ops::BitAndAssign for $flag_bits_name {
+      #[inline]
+      fn bitand_assign(&mut self, rhs: Self) {
+        self.0.bitand_assign(rhs.0)
+      }
+    }
+    impl core::ops::BitOrAssign for $flag_bits_name {
+      #[inline]
+      fn bitor_assign(&mut self, rhs: Self) {
+        self.0.bitor_assign(rhs.0)
       }
     }
     impl core::ops::BitXorAssign for $flag_bits_name {
       #[inline]
       fn bitxor_assign(&mut self, rhs: Self) {
-        self.0 ^= rhs.0
+        self.0.bitxor_assign(rhs.0)
       }
     }
     impl core::ops::Not for $flag_bits_name {
@@ -140,7 +149,7 @@ macro_rules! define_bitmask {
       #[inline]
       #[must_use]
       fn not(self) -> Self::Output {
-        Self(!self.0)
+        Self(self.0.not())
       }
     }
   };

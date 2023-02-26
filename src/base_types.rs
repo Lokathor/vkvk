@@ -1,10 +1,32 @@
+#![allow(nonstandard_style)]
+
+pub use core::ffi::c_void;
+
+pub use core::ffi::c_float;
+
+/// Android Native Window
+pub type ANativeWindow = c_void;
+/// Android Hardware Buffer
+pub type AHardwareBuffer = c_void;
+
+pub type CAMetalLayer = c_void;
+pub type MTLDevice_id = *mut c_void;
+pub type MTLCommandQueue_id = *mut c_void;
+pub type MTLBuffer_id = *mut c_void;
+pub type MTLTexture_id = *mut c_void;
+pub type MTLSharedEvent_id = *mut c_void;
+
+pub type IOSurfaceRef = *mut c_void;
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[repr(transparent)]
+pub struct VkSampleMask(pub u32);
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[repr(transparent)]
 pub struct VkBool32(u32);
 impl VkBool32 {
-  #[doc(alias = "VK_FALSE")]
   pub const FALSE: Self = Self(0);
-  #[doc(alias = "VK_TRUE")]
   pub const TRUE: Self = Self(1);
 }
 impl From<bool> for VkBool32 {
@@ -29,19 +51,3 @@ pub struct VkDeviceSize(pub u64);
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[repr(transparent)]
 pub struct VkDeviceAddress(pub u64);
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[repr(transparent)]
-pub struct VkSampleMask(pub u32);
-
-/*
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[repr(transparent)]
-pub struct VkFlags(u32);
-*/
-
-/*
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[repr(transparent)]
-pub struct VkFlags64(u64);
-*/
