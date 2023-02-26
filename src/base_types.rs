@@ -49,6 +49,9 @@ impl From<VkBool32> for bool {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[repr(transparent)]
 pub struct VkDeviceSize(pub u64);
+// TODO: it would be neat if the debug printing here could automatically shift
+// from showing bytes up to kilobytes, megabytes, or gigabytes, depending on how
+// big the value is.
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[repr(transparent)]
