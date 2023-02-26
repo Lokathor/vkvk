@@ -215,7 +215,8 @@ pub fn define_union(
   } else {
     writeln!(f, "/// Khronos: [{name}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{name}.html)").ok();
     if let Some(comment) = comment {
-      writeln!(f, "///").ok();
+      writeln!(f, "/// ").ok();
+      let comment = comment.strip_prefix("// ").unwrap_or(comment);
       writeln!(f, "/// {comment}").ok();
     }
     if let Some(struct_extends) = struct_extends {

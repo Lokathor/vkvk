@@ -38,6 +38,7 @@ fn main() {
   println!("use crate::api_constants::*;");
   println!("use crate::base_types::*;");
   println!("use crate::vk_version::*;");
+  println!();
   for data_type_string in data_type_strings.iter() {
     println!("{data_type_string}");
   }

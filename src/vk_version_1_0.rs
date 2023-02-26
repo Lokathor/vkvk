@@ -1,4 +1,5 @@
 use crate::{api_constants::*, base_types::*, vk_version::*};
+
 define_bitmask!(
   /// Khronos: [VkAccessFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkAccessFlagBits.html) (bitmask)
   VkAccessFlagBits
@@ -297,8 +298,8 @@ pub struct VkClearAttachment {
 
 /// Khronos: [VkClearColorValue](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkClearColorValue.html)
 ///
-/// // Union allowing specification of floating point, integer, or unsigned
-/// integer color data. Actual value selected is based on image/attachment being
+/// Union allowing specification of floating point, integer, or unsigned integer
+/// color data. Actual value selected is based on image/attachment being
 /// cleared.
 #[derive(Clone, Copy)]
 #[repr(C)]
@@ -327,7 +328,7 @@ pub struct VkClearRect {
 
 /// Khronos: [VkClearValue](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkClearValue.html)
 ///
-/// // Union allowing specification of color or depth and stencil values. Actual
+/// Union allowing specification of color or depth and stencil values. Actual
 /// value selected is based on attachment being cleared.
 #[derive(Clone, Copy)]
 #[repr(C)]
