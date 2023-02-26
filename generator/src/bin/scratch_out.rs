@@ -1,4 +1,4 @@
-#![allow(unused)]
+#![allow(unused_imports)]
 
 //! Used as "scratch space" binary to check output stuff.
 
@@ -7,10 +7,12 @@ use std::collections::{BTreeSet, HashSet};
 use vkvk_generator::{
   bitmasks::define_bitmask,
   enumeration_types::{define_enumeration, define_enums},
+  format_type_and_variant,
   handle_types::{define_handle, define_non_dispatchable_handle},
   strip_number, strip_vendor,
   structs_unions::{define_structure, define_union},
-  vk_dot_xml_parser::{Command, Registry, StaticStr, TypeEntry, VendorTag},
+  var_name,
+  vk_dot_xml_parser::{Command, CommandParam, Registry, StaticStr, TypeEntry, VendorTag},
   FUNC_PTR_DECLS,
 };
 
@@ -94,7 +96,7 @@ fn determine_vulkan_1_0(registry: &Registry) -> ApiCapability {
   out
 }
 
-fn format_ty(ty: &TypeEntry, vendors: &[&str]) -> String {
+pub fn format_ty(ty: &TypeEntry, vendors: &[&str]) -> String {
   match ty.category {
     Some("handle") => match ty.ty_src {
       Some("VK_DEFINE_HANDLE") => define_handle(ty.name, ty.parent, ty.obj_type_enum.unwrap()),
@@ -117,7 +119,7 @@ fn format_ty(ty: &TypeEntry, vendors: &[&str]) -> String {
   }
 }
 
-fn print_v1_0_data(registry: &Registry) {
+pub fn print_v1_0_data(registry: &Registry) {
   let vk_1_0 = determine_vulkan_1_0(registry);
   let vendors: Vec<StaticStr> = registry.vendor_tags.iter().map(|v| v.name).collect();
   let data_type_strings: Vec<String> = vk_1_0
@@ -140,19 +142,93 @@ fn print_v1_0_data(registry: &Registry) {
 }
 
 fn print_v1_0_fns(registry: &Registry) {
+  use core::fmt::Write;
   let vk_1_0 = determine_vulkan_1_0(registry);
   let commands: Vec<Command> = vk_1_0
     .commands
     .iter()
     .map(|c| registry.commands.iter().find(|rc| rc.name == *c).unwrap().clone())
     .collect();
-  for command in commands.iter() {
-    let name = command.name;
-    print!("pub(crate) type {name}_t = unsafe extern \"system\" fn(");
-    for param in command.params.iter() {
-      print!("{param:?}");
+  let mut global_commands = vec![];
+  let mut instance_commands = vec![];
+  let mut device_commands = vec![];
+  for command in commands {
+    if ["VkDevice", "VkQueue", "VkCommandBuffer"].contains(&command.params[0].ty) {
+      device_commands.push(command.clone());
+    } else if ["VkInstance", "VkPhysicalDevice"].contains(&command.params[0].ty) {
+      instance_commands.push(command.clone());
+    } else {
+      global_commands.push(command.clone());
     }
-    println!(");");
-    println!("pub(crate) type PFN_{name} = Option<{name}_t>;");
   }
+  println!("/* global commands: {} */", global_commands.len());
+  println!("/* instance commands: {} */", instance_commands.len());
+  println!("/* device commands: {} */", device_commands.len());
+  println!();
+  for command_list in [global_commands, instance_commands, device_commands] {
+    let mut t = String::new();
+    let mut pfn = String::new();
+    for command in command_list.iter() {
+      let name = command.name;
+      writeln!(t, "/// Khronos: [{name}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{name}.html)").ok();
+      let mut notes = String::new();
+      for CommandParam {
+        name,
+        ty_variant: _,
+        ty: _,
+        optional,
+        extern_sync,
+        len,
+        alt_len,
+        no_auto_validity,
+        stride,
+        object_type,
+        valid_structs,
+        api,
+      } in command.params.iter()
+      {
+        let mut inner_notes: Vec<String> = Vec::new();
+        match optional {
+          None => (),
+          Some("true") => inner_notes.push(String::from("Optional")),
+          Some("false") => inner_notes.push(String::from("Required")),
+          Some("false,true") => {
+            inner_notes.push(String::from("Non-null pointer (but can point at 0)"))
+          }
+          other => panic!("{other:?}"),
+        }
+        if !inner_notes.is_empty() {
+          let arg = var_name(name);
+          write!(notes, "/// * `{arg}`: ").ok();
+          for (i, inner) in inner_notes.iter().enumerate() {
+            if i > 0 {
+              write!(notes, ", ").ok();
+            }
+            write!(notes, "{inner}").ok();
+          }
+          writeln!(notes).ok();
+        }
+      }
+      if !notes.is_empty() {
+        writeln!(t, "/// ").ok();
+        writeln!(t, "/// # Parameter Notes").ok();
+        write!(t, "{notes}").ok();
+      }
+      writeln!(t, "#[rustfmt::skip]").ok();
+      writeln!(t, "pub(crate) type {name}_t = unsafe extern \"system\" fn(").ok();
+      for param in command.params.iter() {
+        let arg = var_name(param.name);
+        let arg_ty = format_type_and_variant(param.ty, param.ty_variant);
+        writeln!(t, "  {arg}: {arg_ty},").ok();
+      }
+      writeln!(t, ");").ok();
+      //
+      writeln!(pfn,"/// Khronos: [{name}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{name}.html)").ok();
+      writeln!(pfn, "pub(crate) type PFN_{name} = Option<{name}_t>;").ok();
+    }
+    println!("{t}");
+    //println!();
+    println!("{pfn}");
+  }
+  //
 }

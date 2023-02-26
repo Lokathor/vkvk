@@ -1,5 +1,7 @@
 #![allow(clippy::drop_ref)]
 
+use vk_dot_xml_parser::TypeVariant;
+
 pub mod bitmasks;
 pub mod enumeration_types;
 pub mod handle_types;
@@ -37,6 +39,43 @@ pub fn strip_number(name: &str) -> (&str, Option<&str>) {
     return (&name[..stripped_len], Some(&name[stripped_len..]));
   }
   (name, None)
+}
+
+pub fn var_name(name: &str) -> String {
+  use convert_case::{Case, Casing};
+  match name {
+    "type" => String::from("ty"),
+    "sType" => String::from("ty"),
+    _ => {
+      let mut s = name.to_case(Case::Snake);
+      s = s.replace("2_d", "2d");
+      s = s.replace("3_d", "3d");
+      if let Some(shorter) = s.strip_prefix("p_") {
+        s = String::from(shorter);
+      }
+      if let Some(shorter) = s.strip_prefix("pfn_") {
+        s = String::from(shorter);
+      }
+      s
+    }
+  }
+}
+
+pub fn format_type_and_variant(ty: &str, ty_variant: TypeVariant) -> String {
+  #[allow(clippy::useless_format)]
+  match ty_variant {
+    TypeVariant::Normal => format!("{ty}"),
+    TypeVariant::ConstPtr => format!("*const {ty}"),
+    TypeVariant::MutPtr => format!("*mut {ty}"),
+    TypeVariant::MutPtrMutPtr => format!("*mut *mut {ty}"),
+    TypeVariant::ConstArrayPtrLit(n) => format!("*const [{ty}; {n}]"),
+    TypeVariant::ConstArrayPtrNamed(n) => format!("*const [{ty}; {n}]"),
+    TypeVariant::MutPtrConstPtr => format!("*mut *const {ty}"),
+    TypeVariant::ConstPtrConstPtr => format!("*const *const {ty}"),
+    TypeVariant::ArrayLit(n) => format!("[{ty}; {n}]"),
+    TypeVariant::ArrayOfArrayLit(a, b) => format!("[[{ty}; {a}]; {b}]"),
+    TypeVariant::BitfieldsLit(n) => format!("{ty}{{:{n}}}"),
+  }
 }
 
 pub const FUNC_PTR_DECLS: &str = r#"

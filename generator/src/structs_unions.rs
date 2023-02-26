@@ -1,26 +1,8 @@
-use crate::vk_dot_xml_parser::{Member, TypeEntry, TypeVariant};
+use crate::{
+  format_type_and_variant, var_name,
+  vk_dot_xml_parser::{Member, TypeEntry},
+};
 use core::fmt::Write;
-
-use convert_case::{Case, Casing};
-
-fn field_name(name: &str) -> String {
-  match name {
-    "type" => String::from("ty"),
-    "sType" => String::from("ty"),
-    _ => {
-      let mut s = name.to_case(Case::Snake);
-      s = s.replace("2_d", "2d");
-      s = s.replace("3_d", "3d");
-      if let Some(shorter) = s.strip_prefix("p_") {
-        s = String::from(shorter);
-      }
-      if let Some(shorter) = s.strip_prefix("pfn_") {
-        s = String::from(shorter);
-      }
-      s
-    }
-  }
-}
 
 pub fn define_structure(
   TypeEntry {
@@ -118,7 +100,7 @@ pub fn define_structure(
         other => panic!("{other:?}"),
       }
       //
-      let field: String = field_name(name);
+      let field: String = var_name(name);
       let field_ty = format_type_and_variant(ty, *ty_variant);
       if let Some(comment) = comment {
         let comment = comment.replace('[', "\\[").replace(']', "\\]");
@@ -273,7 +255,7 @@ pub fn define_union(
         other => panic!("{other:?}"),
       }
       //
-      let field: String = field_name(name);
+      let field: String = var_name(name);
       let field_ty = format_type_and_variant(ty, *ty_variant);
       if let Some(comment) = comment {
         writeln!(f, "  /// {comment}").ok();
@@ -328,21 +310,4 @@ pub fn define_union(
     writeln!(f, "}}").ok();
   }
   f
-}
-
-pub fn format_type_and_variant(ty: &str, ty_variant: TypeVariant) -> String {
-  #[allow(clippy::useless_format)]
-  match ty_variant {
-    TypeVariant::Normal => format!("{ty}"),
-    TypeVariant::ConstPtr => format!("*const {ty}"),
-    TypeVariant::MutPtr => format!("*mut {ty}"),
-    TypeVariant::MutPtrMutPtr => format!("*mut *mut {ty}"),
-    TypeVariant::ConstArrayPtrLit(n) => format!("*const [{ty}; {n}]"),
-    TypeVariant::ConstArrayPtrNamed(n) => format!("*const [{ty}; {n}]"),
-    TypeVariant::MutPtrConstPtr => format!("*mut *const {ty}"),
-    TypeVariant::ConstPtrConstPtr => format!("*const *const {ty}"),
-    TypeVariant::ArrayLit(n) => format!("[{ty}; {n}]"),
-    TypeVariant::ArrayOfArrayLit(a, b) => format!("[[{ty}; {a}]; {b}]"),
-    TypeVariant::BitfieldsLit(n) => format!("{ty}{{:{n}}}"),
-  }
 }
