@@ -88,27 +88,23 @@ impl Registry {
             }
           }
           registry.types.extend(extra_types.into_iter());
-          // We're going to change a specific field into our custom newtype.
-          if let Some(te) =
-            registry.types.iter_mut().find(|t| t.name == "VkPhysicalDeviceProperties")
-          {
-            if let Some(m) = te.members.iter_mut().find(|m| m.name == "apiVersion") {
-              m.ty = "VkVersion";
-              let mut te = TypeEntry::default();
-              te.name = "VkVersion";
-              te.category = Some("basetype");
-              registry.types.push(te);
+          // We're going to change sone specific fields into our custom newtype.
+          for (s, f) in [
+            ("VkPhysicalDeviceProperties", "apiVersion"),
+            ("VkLayerProperties", "specVersion"),
+            ("VkApplicationInfo", "apiVersion"),
+          ] {
+            if let Some(te) = registry.types.iter_mut().find(|t| t.name == s) {
+              if let Some(m) = te.members.iter_mut().find(|m| m.name == f) {
+                m.ty = "VkVersion";
+              }
             }
           }
-          if let Some(te) = registry.types.iter_mut().find(|t| t.name == "VkLayerProperties") {
-            if let Some(m) = te.members.iter_mut().find(|m| m.name == "specVersion") {
-              m.ty = "VkVersion";
-              let mut te = TypeEntry::default();
-              te.name = "VkVersion";
-              te.category = Some("basetype");
-              registry.types.push(te);
-            }
-          }
+          // add VkVersion as a fake base type
+          let mut te = TypeEntry::default();
+          te.name = "VkVersion";
+          te.category = Some("basetype");
+          registry.types.push(te);
           return registry;
         }
         StartTag { name: "comment", attrs: "" } => loop {

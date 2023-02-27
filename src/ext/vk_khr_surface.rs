@@ -38,12 +38,12 @@ pub const VK_SURFACE_TRANSFORM_ROTATE_270_BIT_KHR: VkSurfaceTransformFlagBitsKHR
   VkSurfaceTransformFlagBitsKHR(1_u32 << 3);
 pub const VK_SURFACE_TRANSFORM_HORIZONTAL_MIRROR_BIT_KHR: VkSurfaceTransformFlagBitsKHR =
   VkSurfaceTransformFlagBitsKHR(1_u32 << 4);
-pub const VK_SURFACE_TRANSFORM_HORIZONTAL_MIRROR_ROTATE_90_BIT_KHR: VkSurfaceTransformFlagBitsKHR =
-  VkSurfaceTransformFlagBitsKHR(1_u32 << 5);
-pub const VK_SURFACE_TRANSFORM_HORIZONTAL_MIRROR_ROTATE_180_BIT_KHR: VkSurfaceTransformFlagBitsKHR =
-  VkSurfaceTransformFlagBitsKHR(1_u32 << 6);
-pub const VK_SURFACE_TRANSFORM_HORIZONTAL_MIRROR_ROTATE_270_BIT_KHR: VkSurfaceTransformFlagBitsKHR =
-  VkSurfaceTransformFlagBitsKHR(1_u32 << 7);
+pub const VK_SURFACE_TRANSFORM_HORIZONTAL_MIRROR_ROTATE_90_BIT_KHR:
+  VkSurfaceTransformFlagBitsKHR = VkSurfaceTransformFlagBitsKHR(1_u32 << 5);
+pub const VK_SURFACE_TRANSFORM_HORIZONTAL_MIRROR_ROTATE_180_BIT_KHR:
+  VkSurfaceTransformFlagBitsKHR = VkSurfaceTransformFlagBitsKHR(1_u32 << 6);
+pub const VK_SURFACE_TRANSFORM_HORIZONTAL_MIRROR_ROTATE_270_BIT_KHR:
+  VkSurfaceTransformFlagBitsKHR = VkSurfaceTransformFlagBitsKHR(1_u32 << 7);
 pub const VK_SURFACE_TRANSFORM_INHERIT_BIT_KHR: VkSurfaceTransformFlagBitsKHR =
   VkSurfaceTransformFlagBitsKHR(1_u32 << 8);
 
@@ -65,7 +65,8 @@ define_enumeration!(
 pub const VK_COLOR_SPACE_SRGB_NONLINEAR_KHR: VkColorSpaceKHR = VkColorSpaceKHR(0);
 /// * Alias For [`VK_COLOR_SPACE_SRGB_NONLINEAR_KHR`]
 #[deprecated = "aliased"]
-pub const VK_COLORSPACE_SRGB_NONLINEAR_KHR: VkColorSpaceKHR = VK_COLOR_SPACE_SRGB_NONLINEAR_KHR;
+pub const VK_COLORSPACE_SRGB_NONLINEAR_KHR: VkColorSpaceKHR =
+  VK_COLOR_SPACE_SRGB_NONLINEAR_KHR;
 
 define_bitmask!(
   /// Khronos: [VkCompositeAlphaFlagBitsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkCompositeAlphaFlagBitsKHR.html) (bitmask)
@@ -128,7 +129,7 @@ pub(crate) type vkDestroySurfaceKHR_t = unsafe extern "system" fn(
   instance: VkInstance,
   surface: VkSurfaceKHR,
   allocator: *const VkAllocationCallbacks,
-);
+) -> ();
 /// Khronos: [vkGetPhysicalDeviceSurfaceSupportKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceSupportKHR.html)
 #[rustfmt::skip]
 pub(crate) type vkGetPhysicalDeviceSurfaceSupportKHR_t = unsafe extern "system" fn(
@@ -136,14 +137,14 @@ pub(crate) type vkGetPhysicalDeviceSurfaceSupportKHR_t = unsafe extern "system" 
   queue_family_index: u32,
   surface: VkSurfaceKHR,
   supported: *mut VkBool32,
-);
+) -> VkResult;
 /// Khronos: [vkGetPhysicalDeviceSurfaceCapabilitiesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html)
 #[rustfmt::skip]
 pub(crate) type vkGetPhysicalDeviceSurfaceCapabilitiesKHR_t = unsafe extern "system" fn(
   physical_device: VkPhysicalDevice,
   surface: VkSurfaceKHR,
   surface_capabilities: *mut VkSurfaceCapabilitiesKHR,
-);
+) -> VkResult;
 /// Khronos: [vkGetPhysicalDeviceSurfaceFormatsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceFormatsKHR.html)
 #[rustfmt::skip]
 pub(crate) type vkGetPhysicalDeviceSurfaceFormatsKHR_t = unsafe extern "system" fn(
@@ -151,7 +152,7 @@ pub(crate) type vkGetPhysicalDeviceSurfaceFormatsKHR_t = unsafe extern "system" 
   surface: VkSurfaceKHR,
   surface_format_count: *mut u32,
   surface_formats: *mut VkSurfaceFormatKHR,
-);
+) -> VkResult;
 /// Khronos: [vkGetPhysicalDeviceSurfacePresentModesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfacePresentModesKHR.html)
 #[rustfmt::skip]
 pub(crate) type vkGetPhysicalDeviceSurfacePresentModesKHR_t = unsafe extern "system" fn(
@@ -159,7 +160,7 @@ pub(crate) type vkGetPhysicalDeviceSurfacePresentModesKHR_t = unsafe extern "sys
   surface: VkSurfaceKHR,
   present_mode_count: *mut u32,
   present_modes: *mut VkPresentModeKHR,
-);
+) -> VkResult;
 
 /// Khronos: [vkDestroySurfaceKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroySurfaceKHR.html)
 pub(crate) type PFN_vkDestroySurfaceKHR = Option<vkDestroySurfaceKHR_t>;
@@ -175,3 +176,12 @@ pub(crate) type PFN_vkGetPhysicalDeviceSurfaceFormatsKHR =
 /// Khronos: [vkGetPhysicalDeviceSurfacePresentModesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfacePresentModesKHR.html)
 pub(crate) type PFN_vkGetPhysicalDeviceSurfacePresentModesKHR =
   Option<vkGetPhysicalDeviceSurfacePresentModesKHR_t>;
+pub const vkDestroySurfaceKHR_NAME: &str = "vkDestroySurfaceKHR\0";
+pub const vkGetPhysicalDeviceSurfaceSupportKHR_NAME: &str =
+  "vkGetPhysicalDeviceSurfaceSupportKHR\0";
+pub const vkGetPhysicalDeviceSurfaceCapabilitiesKHR_NAME: &str =
+  "vkGetPhysicalDeviceSurfaceCapabilitiesKHR\0";
+pub const vkGetPhysicalDeviceSurfaceFormatsKHR_NAME: &str =
+  "vkGetPhysicalDeviceSurfaceFormatsKHR\0";
+pub const vkGetPhysicalDeviceSurfacePresentModesKHR_NAME: &str =
+  "vkGetPhysicalDeviceSurfacePresentModesKHR\0";

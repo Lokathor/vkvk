@@ -53,6 +53,9 @@ pub fn var_name(name: &str) -> String {
       if let Some(shorter) = s.strip_prefix("p_") {
         s = String::from(shorter);
       }
+      if let Some(shorter) = s.strip_prefix("pp_") {
+        s = String::from(shorter);
+      }
       if let Some(shorter) = s.strip_prefix("pfn_") {
         s = String::from(shorter);
       }
@@ -72,6 +75,9 @@ pub fn format_type_and_variant(ty: &str, ty_variant: TypeVariant) -> String {
     TypeVariant::MutPtrConstPtr => format!("*mut *const {ty}"),
     TypeVariant::ConstPtrConstPtr => format!("*const *const {ty}"),
     TypeVariant::ArrayLit(n) => format!("[{ty}; {n}]"),
+    TypeVariant::ArrayNamed(n) if ty == "u8" && !n.contains("UUID") => {
+      format!("ArrayZString<{n}>")
+    }
     TypeVariant::ArrayNamed(n) => format!("[{ty}; {n}]"),
     TypeVariant::ArrayOfArrayLit(a, b) => format!("[[{ty}; {a}]; {b}]"),
     TypeVariant::BitfieldsLit(n) => format!("{ty}{{:{n}}}"),

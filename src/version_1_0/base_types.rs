@@ -2,10 +2,7 @@
 
 //! Various base types which don't fit elsewhere.
 
-pub use core::ffi::c_void;
-
-pub use core::ffi::c_float;
-use core::num::NonZeroI32;
+use crate::prelude::*;
 
 /// Android Native Window
 pub type ANativeWindow = c_void;
@@ -110,7 +107,9 @@ impl VkVersion {
   }
   #[inline]
   #[must_use]
-  pub const fn variant_major_minor_patch(variant: u32, major: u32, minor: u32, patch: u32) -> Self {
+  pub const fn variant_major_minor_patch(
+    variant: u32, major: u32, minor: u32, patch: u32,
+  ) -> Self {
     let patch_and_minor = u32_with_value(12, 21, patch, minor);
     let major_and_minor_and_patch = u32_with_value(22, 28, patch_and_minor, major);
     Self(u32_with_value(29, 31, major_and_minor_and_patch, variant))
@@ -184,4 +183,141 @@ const fn u32_region_mask(low: u32, high: u32) -> u32 {
   assert!(high < <u32>::BITS);
   assert!(low < high);
   (<u32>::MAX >> ((<u32>::BITS - 1) - (high - low))) << low
+}
+
+#[derive(Clone, PartialEq, Eq)]
+#[repr(transparent)]
+pub struct ZString {
+  ptr: *mut u8,
+}
+impl TryFrom<String> for ZString {
+  type Error = ();
+  fn try_from(mut s: String) -> Result<Self, ()> {
+    if s.chars().any(|ch| ch == '\0') {
+      Err(())
+    } else {
+      s.push('\0');
+      Ok(Self { ptr: Box::leak(s.into_boxed_str()).as_mut_ptr() })
+    }
+  }
+}
+impl TryFrom<&str> for ZString {
+  type Error = ();
+  /// The input must not have any *internal* zero bytes, but *trailing* zero
+  /// bytes are allowed and ignored.
+  fn try_from(s: &str) -> Result<Self, ()> {
+    let s = s.trim_end_matches('\0');
+    if s.chars().any(|ch| ch == '\0') {
+      Err(())
+    } else {
+      let s: String = s.chars().chain(Some('\0')).collect();
+      Ok(Self { ptr: Box::leak(s.into_boxed_str()).as_mut_ptr() })
+    }
+  }
+}
+impl Drop for ZString {
+  fn drop(&mut self) {
+    let len = self.len();
+    let slice_ptr: *mut [u8] = core::ptr::slice_from_raw_parts_mut(self.ptr, len);
+    drop(unsafe { Box::from_raw(slice_ptr) })
+  }
+}
+impl ZString {
+  /// The length in bytes.
+  #[inline]
+  #[must_use]
+  pub const fn len(&self) -> usize {
+    let mut len = 0;
+    // Note(Lokathor): this cast from mut to const lets us make it a const fn.
+    let mut p = self.ptr as *const u8;
+    unsafe {
+      while *p != 0 {
+        len += 1;
+        p = p.add(1);
+      }
+    }
+    len
+  }
+  #[inline]
+  #[must_use]
+  pub fn is_empty(&self) -> bool {
+    self.len() == 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn as_zstr(&self) -> ZStr<'_> {
+    ZStr { ptr: self.ptr, life: core::marker::PhantomData }
+  }
+}
+
+#[derive(Clone, Copy, PartialEq, Eq)]
+#[repr(transparent)]
+pub struct ZStr<'b> {
+  ptr: *const u8,
+  life: core::marker::PhantomData<&'b [u8]>,
+}
+impl<'b> TryFrom<&'b str> for ZStr<'b> {
+  type Error = ();
+  /// The input must not contain internal zero bytes, and must end with one or
+  /// more zero bytes.
+  fn try_from(value: &'b str) -> Result<Self, Self::Error> {
+    let stripped = value.trim_end_matches('\0');
+    if stripped.as_bytes().iter().copied().any(|b| b == 0) {
+      Err(())
+    } else if value.ends_with('\0') {
+      Ok(Self { ptr: value.as_ptr(), life: core::marker::PhantomData })
+    } else {
+      Err(())
+    }
+  }
+}
+impl ZStr<'_> {
+  #[inline]
+  #[must_use]
+  pub const fn as_ptr(self) -> *const u8 {
+    self.ptr
+  }
+}
+
+/// Holds a zero-terminated string within an array.
+#[derive(Clone, Copy, PartialEq, Eq)]
+#[repr(transparent)]
+pub struct ArrayZString<const N: usize>([u8; N]);
+impl<const N: usize> ArrayZString<N> {
+  #[inline]
+  #[must_use]
+  pub const fn as_ptr(&self) -> *const u8 {
+    self.0.as_ptr()
+  }
+  #[inline]
+  #[must_use]
+  pub const fn as_zstr(&self) -> ZStr<'_> {
+    ZStr { ptr: self.0.as_ptr(), life: core::marker::PhantomData }
+  }
+  #[inline]
+  #[must_use]
+  pub fn as_str(&self) -> &str {
+    let zero_point = self.0.iter().copied().position(|b| b == 0).unwrap();
+    core::str::from_utf8(&self.0[..zero_point]).unwrap()
+  }
+}
+// Note(Lokathor): At the time of writing this, you still can't derive default
+// for const-generics.
+impl<const N: usize> Default for ArrayZString<N> {
+  #[inline]
+  fn default() -> Self {
+    Self([0_u8; N])
+  }
+}
+impl<const N: usize> core::fmt::Debug for ArrayZString<N> {
+  #[inline]
+  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+    core::fmt::Debug::fmt(self.as_str(), f)
+  }
+}
+impl<const N: usize> core::fmt::Display for ArrayZString<N> {
+  #[inline]
+  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+    core::fmt::Display::fmt(self.as_str(), f)
+  }
 }

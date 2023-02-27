@@ -14,8 +14,8 @@ use vkvk_generator::{
   structs_unions::{define_structure, define_union},
   var_name,
   vk_dot_xml_parser::{
-    Command, CommandParam, Enumeration, EnumerationEntry, Extension, Registry, RequireListEntry,
-    RequiredEnum, StaticStr, TypeEntry, TypeVariant, VendorTag,
+    Command, CommandParam, Enumeration, EnumerationEntry, Extension, Registry,
+    RequireListEntry, RequiredEnum, StaticStr, TypeEntry, TypeVariant, VendorTag,
   },
   FUNC_PTR_DECLS,
 };
@@ -32,8 +32,8 @@ fn main() {
   let registry = Registry::from_iter(&mut iter);
   //
 
-  print_v1_0_data(&registry);
-  //print_v1_0_constants(&registry);
+  //print_v1_0_data(&registry);
+  print_v1_0_constants(&registry);
   //print_v1_0_fn_types(&registry);
 
   //print_extension(&registry, "VK_KHR_surface");
@@ -57,12 +57,18 @@ pub fn determine_vulkan_1_0(registry: &Registry) -> ApiCapability {
   for required_ty in feat.required_types.iter() {
     let type_entry = registry.types.iter().find(|t| t.name == *required_ty).unwrap();
     match type_entry.category {
-      Some("handle") | Some("bitmask") | Some("enum") | Some("struct") | Some("union") => (),
+      Some("handle") | Some("bitmask") | Some("enum") | Some("struct")
+      | Some("union") => (),
       _ => continue,
     }
-    for member_ty in type_entry.members.iter().map(|member| member.ty).chain(Some(*required_ty)) {
-      let ts: Vec<String> = if member_ty.ends_with("Flags") | member_ty.ends_with("FlagBits") {
-        let x = member_ty.strip_suffix("Flags").or(member_ty.strip_suffix("FlagBits")).unwrap();
+    for member_ty in
+      type_entry.members.iter().map(|member| member.ty).chain(Some(*required_ty))
+    {
+      let ts: Vec<String> = if member_ty.ends_with("Flags")
+        | member_ty.ends_with("FlagBits")
+      {
+        let x =
+          member_ty.strip_suffix("Flags").or(member_ty.strip_suffix("FlagBits")).unwrap();
         vec![format!("{x}Flags"), format!("{x}FlagBits")]
       } else {
         vec![String::from(member_ty)]
@@ -89,7 +95,8 @@ pub fn determine_vulkan_1_0(registry: &Registry) -> ApiCapability {
     }
   }
   for required_command in feat.required_commands.iter() {
-    let command_entry = registry.commands.iter().find(|c| c.name == *required_command).unwrap();
+    let command_entry =
+      registry.commands.iter().find(|c| c.name == *required_command).unwrap();
     for param in command_entry.params.iter() {
       out.data.insert(match param.ty {
         "u8" | "u32" | "i32" | "u64" | "usize" | "c_void" | "c_float" => continue,
@@ -110,7 +117,9 @@ pub fn determine_vulkan_1_0(registry: &Registry) -> ApiCapability {
 pub fn format_ty(ty: &TypeEntry, vendors: &[&str]) -> String {
   match ty.category {
     Some("handle") => match ty.ty_src {
-      Some("VK_DEFINE_HANDLE") => define_handle(ty.name, ty.parent, ty.obj_type_enum.unwrap()),
+      Some("VK_DEFINE_HANDLE") => {
+        define_handle(ty.name, ty.parent, ty.obj_type_enum.unwrap())
+      }
       Some("VK_DEFINE_NON_DISPATCHABLE_HANDLE") => {
         define_non_dispatchable_handle(ty.name, ty.parent, ty.obj_type_enum.unwrap())
       }
@@ -288,7 +297,7 @@ fn format_enum_entry(
         }
         writeln!(
           f,
-          "pub const {symbol_name}: {rust_ty} = {rust_ty}(core::num::NonZeroI32::new({value}));"
+          "pub const {symbol_name}: {rust_ty} = {rust_ty}(NonZeroI32::new({value}));"
         )
         .ok();
       } else {
@@ -305,8 +314,11 @@ fn format_enum_entry(
       if let Some(deprecated) = deprecated {
         writeln!(f, "#[deprecated = \"{deprecated}\"]").ok();
       }
-      writeln!(f, "pub const {symbol_name}: {rust_ty} = {rust_ty}(1_u{bitwidth} << {bitpos});")
-        .ok();
+      writeln!(
+        f,
+        "pub const {symbol_name}: {rust_ty} = {rust_ty}(1_u{bitwidth} << {bitpos});"
+      )
+      .ok();
     }
     (None, None) => {
       let alias = alias.unwrap();
@@ -352,7 +364,8 @@ pub fn print_extension(registry: &Registry, name: &str) {
   println!();
   println!("use crate::prelude::*;");
   println!();
-  for RequireListEntry { enums, types, commands, depends, api, comment: _ } in require_lists.iter()
+  for RequireListEntry { enums, types, commands, depends, api, comment: _ } in
+    require_lists.iter()
   {
     match api {
       None | Some("vulkan") => (),
@@ -445,6 +458,9 @@ pub fn print_extension(registry: &Registry, name: &str) {
     println!();
     for command_str in commands.iter() {
       print!("{}", format_pfn_command(command_str));
+    }
+    for command_str in commands.iter() {
+      println!("pub const {command_str}_NAME: &str = \"{command_str}\\0\";");
     }
     println!();
   }

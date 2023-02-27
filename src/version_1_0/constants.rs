@@ -3,10 +3,12 @@
 use crate::prelude::*;
 
 /// Controls coherency of color attachment reads
-pub const VK_ACCESS_COLOR_ATTACHMENT_READ_BIT: VkAccessFlagBits = VkAccessFlagBits(1_u32 << 7);
+pub const VK_ACCESS_COLOR_ATTACHMENT_READ_BIT: VkAccessFlagBits =
+  VkAccessFlagBits(1_u32 << 7);
 
 /// Controls coherency of color attachment writes
-pub const VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT: VkAccessFlagBits = VkAccessFlagBits(1_u32 << 8);
+pub const VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT: VkAccessFlagBits =
+  VkAccessFlagBits(1_u32 << 8);
 
 /// Controls coherency of depth/stencil attachment reads
 pub const VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_READ_BIT: VkAccessFlagBits =
@@ -26,10 +28,12 @@ pub const VK_ACCESS_HOST_WRITE_BIT: VkAccessFlagBits = VkAccessFlagBits(1_u32 <<
 pub const VK_ACCESS_INDEX_READ_BIT: VkAccessFlagBits = VkAccessFlagBits(1_u32 << 1);
 
 /// Controls coherency of indirect command reads
-pub const VK_ACCESS_INDIRECT_COMMAND_READ_BIT: VkAccessFlagBits = VkAccessFlagBits(1_u32 << 0);
+pub const VK_ACCESS_INDIRECT_COMMAND_READ_BIT: VkAccessFlagBits =
+  VkAccessFlagBits(1_u32 << 0);
 
 /// Controls coherency of input attachment reads
-pub const VK_ACCESS_INPUT_ATTACHMENT_READ_BIT: VkAccessFlagBits = VkAccessFlagBits(1_u32 << 4);
+pub const VK_ACCESS_INPUT_ATTACHMENT_READ_BIT: VkAccessFlagBits =
+  VkAccessFlagBits(1_u32 << 4);
 
 /// Controls coherency of memory reads
 pub const VK_ACCESS_MEMORY_READ_BIT: VkAccessFlagBits = VkAccessFlagBits(1_u32 << 15);
@@ -53,7 +57,8 @@ pub const VK_ACCESS_TRANSFER_WRITE_BIT: VkAccessFlagBits = VkAccessFlagBits(1_u3
 pub const VK_ACCESS_UNIFORM_READ_BIT: VkAccessFlagBits = VkAccessFlagBits(1_u32 << 3);
 
 /// Controls coherency of vertex attribute reads
-pub const VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT: VkAccessFlagBits = VkAccessFlagBits(1_u32 << 2);
+pub const VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT: VkAccessFlagBits =
+  VkAccessFlagBits(1_u32 << 2);
 
 /// The attachment may alias physical memory of another attachment in the same
 /// render pass
@@ -180,17 +185,22 @@ pub const VK_BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT: VkBufferUsageFlagBits =
 pub const VK_BUFFER_USAGE_VERTEX_BUFFER_BIT: VkBufferUsageFlagBits =
   VkBufferUsageFlagBits(1_u32 << 7);
 
-pub const VK_COLOR_COMPONENT_A_BIT: VkColorComponentFlagBits = VkColorComponentFlagBits(1_u32 << 3);
+pub const VK_COLOR_COMPONENT_A_BIT: VkColorComponentFlagBits =
+  VkColorComponentFlagBits(1_u32 << 3);
 
-pub const VK_COLOR_COMPONENT_B_BIT: VkColorComponentFlagBits = VkColorComponentFlagBits(1_u32 << 2);
+pub const VK_COLOR_COMPONENT_B_BIT: VkColorComponentFlagBits =
+  VkColorComponentFlagBits(1_u32 << 2);
 
-pub const VK_COLOR_COMPONENT_G_BIT: VkColorComponentFlagBits = VkColorComponentFlagBits(1_u32 << 1);
+pub const VK_COLOR_COMPONENT_G_BIT: VkColorComponentFlagBits =
+  VkColorComponentFlagBits(1_u32 << 1);
 
-pub const VK_COLOR_COMPONENT_R_BIT: VkColorComponentFlagBits = VkColorComponentFlagBits(1_u32 << 0);
+pub const VK_COLOR_COMPONENT_R_BIT: VkColorComponentFlagBits =
+  VkColorComponentFlagBits(1_u32 << 0);
 
 pub const VK_COMMAND_BUFFER_LEVEL_PRIMARY: VkCommandBufferLevel = VkCommandBufferLevel(0);
 
-pub const VK_COMMAND_BUFFER_LEVEL_SECONDARY: VkCommandBufferLevel = VkCommandBufferLevel(1);
+pub const VK_COMMAND_BUFFER_LEVEL_SECONDARY: VkCommandBufferLevel =
+  VkCommandBufferLevel(1);
 
 /// Release resources owned by the buffer
 pub const VK_COMMAND_BUFFER_RESET_RELEASE_RESOURCES_BIT: VkCommandBufferResetFlagBits =
@@ -250,20 +260,23 @@ pub const VK_COMPONENT_SWIZZLE_ZERO: VkComponentSwizzle = VkComponentSwizzle(1);
 
 pub const VK_CULL_MODE_BACK_BIT: VkCullModeFlagBits = VkCullModeFlagBits(1_u32 << 1);
 
-pub const VK_CULL_MODE_FRONT_AND_BACK: VkCullModeFlagBits = VkCullModeFlagBits(0x00000003);
+pub const VK_CULL_MODE_FRONT_AND_BACK: VkCullModeFlagBits =
+  VkCullModeFlagBits(0x00000003);
 
 pub const VK_CULL_MODE_FRONT_BIT: VkCullModeFlagBits = VkCullModeFlagBits(1_u32 << 0);
 
 pub const VK_CULL_MODE_NONE: VkCullModeFlagBits = VkCullModeFlagBits(0);
 
 /// Dependency is per pixel region
-pub const VK_DEPENDENCY_BY_REGION_BIT: VkDependencyFlagBits = VkDependencyFlagBits(1_u32 << 0);
+pub const VK_DEPENDENCY_BY_REGION_BIT: VkDependencyFlagBits =
+  VkDependencyFlagBits(1_u32 << 0);
 
 /// Descriptor sets may be freed individually
-pub const VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT: VkDescriptorPoolCreateFlagBits =
-  VkDescriptorPoolCreateFlagBits(1_u32 << 0);
+pub const VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT:
+  VkDescriptorPoolCreateFlagBits = VkDescriptorPoolCreateFlagBits(1_u32 << 0);
 
-pub const VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER: VkDescriptorType = VkDescriptorType(1);
+pub const VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER: VkDescriptorType =
+  VkDescriptorType(1);
 
 pub const VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT: VkDescriptorType = VkDescriptorType(10);
 
@@ -273,7 +286,8 @@ pub const VK_DESCRIPTOR_TYPE_SAMPLER: VkDescriptorType = VkDescriptorType(0);
 
 pub const VK_DESCRIPTOR_TYPE_STORAGE_BUFFER: VkDescriptorType = VkDescriptorType(7);
 
-pub const VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC: VkDescriptorType = VkDescriptorType(9);
+pub const VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC: VkDescriptorType =
+  VkDescriptorType(9);
 
 pub const VK_DESCRIPTOR_TYPE_STORAGE_IMAGE: VkDescriptorType = VkDescriptorType(3);
 
@@ -281,7 +295,8 @@ pub const VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER: VkDescriptorType = VkDescript
 
 pub const VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER: VkDescriptorType = VkDescriptorType(6);
 
-pub const VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC: VkDescriptorType = VkDescriptorType(8);
+pub const VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC: VkDescriptorType =
+  VkDescriptorType(8);
 
 pub const VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER: VkDescriptorType = VkDescriptorType(4);
 
@@ -305,52 +320,53 @@ pub const VK_DYNAMIC_STATE_VIEWPORT: VkDynamicState = VkDynamicState(0);
 
 /// The logical device has been lost. See
 /// &lt;&lt;devsandqueues-lost-device&gt;&gt;
-pub const VK_ERROR_DEVICE_LOST: VkResult = VkResult(core::num::NonZeroI32::new(-4));
+pub const VK_ERROR_DEVICE_LOST: VkResult = VkResult(NonZeroI32::new(-4));
 
 /// Extension specified does not exist
-pub const VK_ERROR_EXTENSION_NOT_PRESENT: VkResult = VkResult(core::num::NonZeroI32::new(-7));
+pub const VK_ERROR_EXTENSION_NOT_PRESENT: VkResult = VkResult(NonZeroI32::new(-7));
 
 /// Requested feature is not available on this device
-pub const VK_ERROR_FEATURE_NOT_PRESENT: VkResult = VkResult(core::num::NonZeroI32::new(-8));
+pub const VK_ERROR_FEATURE_NOT_PRESENT: VkResult = VkResult(NonZeroI32::new(-8));
 
 /// Requested format is not supported on this device
-pub const VK_ERROR_FORMAT_NOT_SUPPORTED: VkResult = VkResult(core::num::NonZeroI32::new(-11));
+pub const VK_ERROR_FORMAT_NOT_SUPPORTED: VkResult = VkResult(NonZeroI32::new(-11));
 
 /// A requested pool allocation has failed due to fragmentation of the pool's
 /// memory
-pub const VK_ERROR_FRAGMENTED_POOL: VkResult = VkResult(core::num::NonZeroI32::new(-12));
+pub const VK_ERROR_FRAGMENTED_POOL: VkResult = VkResult(NonZeroI32::new(-12));
 
 /// Unable to find a Vulkan driver
-pub const VK_ERROR_INCOMPATIBLE_DRIVER: VkResult = VkResult(core::num::NonZeroI32::new(-9));
+pub const VK_ERROR_INCOMPATIBLE_DRIVER: VkResult = VkResult(NonZeroI32::new(-9));
 
 /// Initialization of an object has failed
-pub const VK_ERROR_INITIALIZATION_FAILED: VkResult = VkResult(core::num::NonZeroI32::new(-3));
+pub const VK_ERROR_INITIALIZATION_FAILED: VkResult = VkResult(NonZeroI32::new(-3));
 
 /// Layer specified does not exist
-pub const VK_ERROR_LAYER_NOT_PRESENT: VkResult = VkResult(core::num::NonZeroI32::new(-6));
+pub const VK_ERROR_LAYER_NOT_PRESENT: VkResult = VkResult(NonZeroI32::new(-6));
 
 /// Mapping of a memory object has failed
-pub const VK_ERROR_MEMORY_MAP_FAILED: VkResult = VkResult(core::num::NonZeroI32::new(-5));
+pub const VK_ERROR_MEMORY_MAP_FAILED: VkResult = VkResult(NonZeroI32::new(-5));
 
 /// A device memory allocation has failed
-pub const VK_ERROR_OUT_OF_DEVICE_MEMORY: VkResult = VkResult(core::num::NonZeroI32::new(-2));
+pub const VK_ERROR_OUT_OF_DEVICE_MEMORY: VkResult = VkResult(NonZeroI32::new(-2));
 
 /// A host memory allocation has failed
-pub const VK_ERROR_OUT_OF_HOST_MEMORY: VkResult = VkResult(core::num::NonZeroI32::new(-1));
+pub const VK_ERROR_OUT_OF_HOST_MEMORY: VkResult = VkResult(NonZeroI32::new(-1));
 
 /// Too many objects of the type have already been created
-pub const VK_ERROR_TOO_MANY_OBJECTS: VkResult = VkResult(core::num::NonZeroI32::new(-10));
+pub const VK_ERROR_TOO_MANY_OBJECTS: VkResult = VkResult(NonZeroI32::new(-10));
 
 /// An unknown error has occurred, due to an implementation or application bug
-pub const VK_ERROR_UNKNOWN: VkResult = VkResult(core::num::NonZeroI32::new(-13));
+pub const VK_ERROR_UNKNOWN: VkResult = VkResult(NonZeroI32::new(-13));
 
 /// An event is unsignaled
-pub const VK_EVENT_RESET: VkResult = VkResult(core::num::NonZeroI32::new(4));
+pub const VK_EVENT_RESET: VkResult = VkResult(NonZeroI32::new(4));
 
 /// An event is signaled
-pub const VK_EVENT_SET: VkResult = VkResult(core::num::NonZeroI32::new(3));
+pub const VK_EVENT_SET: VkResult = VkResult(NonZeroI32::new(3));
 
-pub const VK_FENCE_CREATE_SIGNALED_BIT: VkFenceCreateFlagBits = VkFenceCreateFlagBits(1_u32 << 0);
+pub const VK_FENCE_CREATE_SIGNALED_BIT: VkFenceCreateFlagBits =
+  VkFenceCreateFlagBits(1_u32 << 0);
 
 pub const VK_FILTER_LINEAR: VkFilter = VkFilter(1);
 
@@ -784,13 +800,17 @@ pub const VK_FRONT_FACE_CLOCKWISE: VkFrontFace = VkFrontFace(1);
 
 pub const VK_FRONT_FACE_COUNTER_CLOCKWISE: VkFrontFace = VkFrontFace(0);
 
-pub const VK_IMAGE_ASPECT_COLOR_BIT: VkImageAspectFlagBits = VkImageAspectFlagBits(1_u32 << 0);
+pub const VK_IMAGE_ASPECT_COLOR_BIT: VkImageAspectFlagBits =
+  VkImageAspectFlagBits(1_u32 << 0);
 
-pub const VK_IMAGE_ASPECT_DEPTH_BIT: VkImageAspectFlagBits = VkImageAspectFlagBits(1_u32 << 1);
+pub const VK_IMAGE_ASPECT_DEPTH_BIT: VkImageAspectFlagBits =
+  VkImageAspectFlagBits(1_u32 << 1);
 
-pub const VK_IMAGE_ASPECT_METADATA_BIT: VkImageAspectFlagBits = VkImageAspectFlagBits(1_u32 << 3);
+pub const VK_IMAGE_ASPECT_METADATA_BIT: VkImageAspectFlagBits =
+  VkImageAspectFlagBits(1_u32 << 3);
 
-pub const VK_IMAGE_ASPECT_STENCIL_BIT: VkImageAspectFlagBits = VkImageAspectFlagBits(1_u32 << 2);
+pub const VK_IMAGE_ASPECT_STENCIL_BIT: VkImageAspectFlagBits =
+  VkImageAspectFlagBits(1_u32 << 2);
 
 /// Allows creating image views with cube type from the created image
 pub const VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT: VkImageCreateFlagBits =
@@ -818,11 +838,13 @@ pub const VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL: VkImageLayout = VkImageLayou
 
 /// Optimal layout when image is only used for depth/stencil attachment
 /// read/write
-pub const VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL: VkImageLayout = VkImageLayout(3);
+pub const VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL: VkImageLayout =
+  VkImageLayout(3);
 
 /// Optimal layout when image is used for read only depth/stencil attachment and
 /// shader access
-pub const VK_IMAGE_LAYOUT_DEPTH_STENCIL_READ_ONLY_OPTIMAL: VkImageLayout = VkImageLayout(4);
+pub const VK_IMAGE_LAYOUT_DEPTH_STENCIL_READ_ONLY_OPTIMAL: VkImageLayout =
+  VkImageLayout(4);
 
 /// General layout when image can be used for any kind of access
 pub const VK_IMAGE_LAYOUT_GENERAL: VkImageLayout = VkImageLayout(1);
@@ -867,16 +889,20 @@ pub const VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT: VkImageUsageFlagBits =
 
 /// Can be sampled from (SAMPLED_IMAGE and COMBINED_IMAGE_SAMPLER descriptor
 /// types)
-pub const VK_IMAGE_USAGE_SAMPLED_BIT: VkImageUsageFlagBits = VkImageUsageFlagBits(1_u32 << 2);
+pub const VK_IMAGE_USAGE_SAMPLED_BIT: VkImageUsageFlagBits =
+  VkImageUsageFlagBits(1_u32 << 2);
 
 /// Can be used as storage image (STORAGE_IMAGE descriptor type)
-pub const VK_IMAGE_USAGE_STORAGE_BIT: VkImageUsageFlagBits = VkImageUsageFlagBits(1_u32 << 3);
+pub const VK_IMAGE_USAGE_STORAGE_BIT: VkImageUsageFlagBits =
+  VkImageUsageFlagBits(1_u32 << 3);
 
 /// Can be used as a destination of transfer operations
-pub const VK_IMAGE_USAGE_TRANSFER_DST_BIT: VkImageUsageFlagBits = VkImageUsageFlagBits(1_u32 << 1);
+pub const VK_IMAGE_USAGE_TRANSFER_DST_BIT: VkImageUsageFlagBits =
+  VkImageUsageFlagBits(1_u32 << 1);
 
 /// Can be used as a source of transfer operations
-pub const VK_IMAGE_USAGE_TRANSFER_SRC_BIT: VkImageUsageFlagBits = VkImageUsageFlagBits(1_u32 << 0);
+pub const VK_IMAGE_USAGE_TRANSFER_SRC_BIT: VkImageUsageFlagBits =
+  VkImageUsageFlagBits(1_u32 << 0);
 
 /// Image data not needed outside of rendering
 pub const VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT: VkImageUsageFlagBits =
@@ -897,7 +923,7 @@ pub const VK_IMAGE_VIEW_TYPE_CUBE: VkImageViewType = VkImageViewType(3);
 pub const VK_IMAGE_VIEW_TYPE_CUBE_ARRAY: VkImageViewType = VkImageViewType(6);
 
 /// A return array was too small for the result
-pub const VK_INCOMPLETE: VkResult = VkResult(core::num::NonZeroI32::new(5));
+pub const VK_INCOMPLETE: VkResult = VkResult(NonZeroI32::new(5));
 
 pub const VK_INDEX_TYPE_UINT16: VkIndexType = VkIndexType(0);
 
@@ -939,7 +965,8 @@ pub const VK_LOGIC_OP_SET: VkLogicOp = VkLogicOp(15);
 pub const VK_LOGIC_OP_XOR: VkLogicOp = VkLogicOp(6);
 
 /// If set, heap represents device memory
-pub const VK_MEMORY_HEAP_DEVICE_LOCAL_BIT: VkMemoryHeapFlagBits = VkMemoryHeapFlagBits(1_u32 << 0);
+pub const VK_MEMORY_HEAP_DEVICE_LOCAL_BIT: VkMemoryHeapFlagBits =
+  VkMemoryHeapFlagBits(1_u32 << 0);
 
 /// If otherwise stated, then allocate memory on device
 pub const VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT: VkMemoryPropertyFlagBits =
@@ -964,7 +991,7 @@ pub const VK_MEMORY_PROPERTY_LAZILY_ALLOCATED_BIT: VkMemoryPropertyFlagBits =
   VkMemoryPropertyFlagBits(1_u32 << 4);
 
 /// A fence or query has not yet completed
-pub const VK_NOT_READY: VkResult = VkResult(core::num::NonZeroI32::new(1));
+pub const VK_NOT_READY: VkResult = VkResult(NonZeroI32::new(1));
 
 pub const VK_OBJECT_TYPE_BUFFER: VkObjectType = VkObjectType(9);
 
@@ -1020,13 +1047,16 @@ pub const VK_OBJECT_TYPE_UNKNOWN: VkObjectType = VkObjectType(0);
 
 pub const VK_PHYSICAL_DEVICE_TYPE_CPU: VkPhysicalDeviceType = VkPhysicalDeviceType(4);
 
-pub const VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU: VkPhysicalDeviceType = VkPhysicalDeviceType(2);
+pub const VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU: VkPhysicalDeviceType =
+  VkPhysicalDeviceType(2);
 
-pub const VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU: VkPhysicalDeviceType = VkPhysicalDeviceType(1);
+pub const VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU: VkPhysicalDeviceType =
+  VkPhysicalDeviceType(1);
 
 pub const VK_PHYSICAL_DEVICE_TYPE_OTHER: VkPhysicalDeviceType = VkPhysicalDeviceType(0);
 
-pub const VK_PHYSICAL_DEVICE_TYPE_VIRTUAL_GPU: VkPhysicalDeviceType = VkPhysicalDeviceType(3);
+pub const VK_PHYSICAL_DEVICE_TYPE_VIRTUAL_GPU: VkPhysicalDeviceType =
+  VkPhysicalDeviceType(3);
 
 pub const VK_PIPELINE_BIND_POINT_COMPUTE: VkPipelineBindPoint = VkPipelineBindPoint(1);
 
@@ -1132,28 +1162,32 @@ pub const VK_PRIMITIVE_TOPOLOGY_PATCH_LIST: VkPrimitiveTopology = VkPrimitiveTop
 
 pub const VK_PRIMITIVE_TOPOLOGY_POINT_LIST: VkPrimitiveTopology = VkPrimitiveTopology(0);
 
-pub const VK_PRIMITIVE_TOPOLOGY_TRIANGLE_FAN: VkPrimitiveTopology = VkPrimitiveTopology(5);
+pub const VK_PRIMITIVE_TOPOLOGY_TRIANGLE_FAN: VkPrimitiveTopology =
+  VkPrimitiveTopology(5);
 
-pub const VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST: VkPrimitiveTopology = VkPrimitiveTopology(3);
+pub const VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST: VkPrimitiveTopology =
+  VkPrimitiveTopology(3);
 
 pub const VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST_WITH_ADJACENCY: VkPrimitiveTopology =
   VkPrimitiveTopology(8);
 
-pub const VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP: VkPrimitiveTopology = VkPrimitiveTopology(4);
+pub const VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP: VkPrimitiveTopology =
+  VkPrimitiveTopology(4);
 
 pub const VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP_WITH_ADJACENCY: VkPrimitiveTopology =
   VkPrimitiveTopology(9);
 
 /// Require precise results to be collected by the query
-pub const VK_QUERY_CONTROL_PRECISE_BIT: VkQueryControlFlagBits = VkQueryControlFlagBits(1_u32 << 0);
+pub const VK_QUERY_CONTROL_PRECISE_BIT: VkQueryControlFlagBits =
+  VkQueryControlFlagBits(1_u32 << 0);
 
 /// Optional
-pub const VK_QUERY_PIPELINE_STATISTIC_CLIPPING_INVOCATIONS_BIT: VkQueryPipelineStatisticFlagBits =
-  VkQueryPipelineStatisticFlagBits(1_u32 << 5);
+pub const VK_QUERY_PIPELINE_STATISTIC_CLIPPING_INVOCATIONS_BIT:
+  VkQueryPipelineStatisticFlagBits = VkQueryPipelineStatisticFlagBits(1_u32 << 5);
 
 /// Optional
-pub const VK_QUERY_PIPELINE_STATISTIC_CLIPPING_PRIMITIVES_BIT: VkQueryPipelineStatisticFlagBits =
-  VkQueryPipelineStatisticFlagBits(1_u32 << 6);
+pub const VK_QUERY_PIPELINE_STATISTIC_CLIPPING_PRIMITIVES_BIT:
+  VkQueryPipelineStatisticFlagBits = VkQueryPipelineStatisticFlagBits(1_u32 << 6);
 
 /// Optional
 pub const VK_QUERY_PIPELINE_STATISTIC_COMPUTE_SHADER_INVOCATIONS_BIT:
@@ -1193,14 +1227,17 @@ pub const VK_QUERY_PIPELINE_STATISTIC_VERTEX_SHADER_INVOCATIONS_BIT:
 
 /// Results of the queries are written to the destination buffer as 64-bit
 /// values
-pub const VK_QUERY_RESULT_64_BIT: VkQueryResultFlagBits = VkQueryResultFlagBits(1_u32 << 0);
+pub const VK_QUERY_RESULT_64_BIT: VkQueryResultFlagBits =
+  VkQueryResultFlagBits(1_u32 << 0);
 
 /// Copy the partial results of the query even if the final results are not
 /// available
-pub const VK_QUERY_RESULT_PARTIAL_BIT: VkQueryResultFlagBits = VkQueryResultFlagBits(1_u32 << 3);
+pub const VK_QUERY_RESULT_PARTIAL_BIT: VkQueryResultFlagBits =
+  VkQueryResultFlagBits(1_u32 << 3);
 
 /// Results of the queries are waited on before proceeding with the result copy
-pub const VK_QUERY_RESULT_WAIT_BIT: VkQueryResultFlagBits = VkQueryResultFlagBits(1_u32 << 1);
+pub const VK_QUERY_RESULT_WAIT_BIT: VkQueryResultFlagBits =
+  VkQueryResultFlagBits(1_u32 << 1);
 
 /// Besides the results of the query, the availability of the results is also
 /// written
@@ -1226,11 +1263,14 @@ pub const VK_QUEUE_SPARSE_BINDING_BIT: VkQueueFlagBits = VkQueueFlagBits(1_u32 <
 /// Queue supports transfer operations
 pub const VK_QUEUE_TRANSFER_BIT: VkQueueFlagBits = VkQueueFlagBits(1_u32 << 2);
 
-pub const VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER: VkSamplerAddressMode = VkSamplerAddressMode(3);
+pub const VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER: VkSamplerAddressMode =
+  VkSamplerAddressMode(3);
 
-pub const VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE: VkSamplerAddressMode = VkSamplerAddressMode(2);
+pub const VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE: VkSamplerAddressMode =
+  VkSamplerAddressMode(2);
 
-pub const VK_SAMPLER_ADDRESS_MODE_MIRRORED_REPEAT: VkSamplerAddressMode = VkSamplerAddressMode(1);
+pub const VK_SAMPLER_ADDRESS_MODE_MIRRORED_REPEAT: VkSamplerAddressMode =
+  VkSamplerAddressMode(1);
 
 pub const VK_SAMPLER_ADDRESS_MODE_REPEAT: VkSamplerAddressMode = VkSamplerAddressMode(0);
 
@@ -1241,35 +1281,46 @@ pub const VK_SAMPLER_MIPMAP_MODE_LINEAR: VkSamplerMipmapMode = VkSamplerMipmapMo
 pub const VK_SAMPLER_MIPMAP_MODE_NEAREST: VkSamplerMipmapMode = VkSamplerMipmapMode(0);
 
 /// Sample count 16 supported
-pub const VK_SAMPLE_COUNT_16_BIT: VkSampleCountFlagBits = VkSampleCountFlagBits(1_u32 << 4);
+pub const VK_SAMPLE_COUNT_16_BIT: VkSampleCountFlagBits =
+  VkSampleCountFlagBits(1_u32 << 4);
 
 /// Sample count 1 supported
-pub const VK_SAMPLE_COUNT_1_BIT: VkSampleCountFlagBits = VkSampleCountFlagBits(1_u32 << 0);
+pub const VK_SAMPLE_COUNT_1_BIT: VkSampleCountFlagBits =
+  VkSampleCountFlagBits(1_u32 << 0);
 
 /// Sample count 2 supported
-pub const VK_SAMPLE_COUNT_2_BIT: VkSampleCountFlagBits = VkSampleCountFlagBits(1_u32 << 1);
+pub const VK_SAMPLE_COUNT_2_BIT: VkSampleCountFlagBits =
+  VkSampleCountFlagBits(1_u32 << 1);
 
 /// Sample count 32 supported
-pub const VK_SAMPLE_COUNT_32_BIT: VkSampleCountFlagBits = VkSampleCountFlagBits(1_u32 << 5);
+pub const VK_SAMPLE_COUNT_32_BIT: VkSampleCountFlagBits =
+  VkSampleCountFlagBits(1_u32 << 5);
 
 /// Sample count 4 supported
-pub const VK_SAMPLE_COUNT_4_BIT: VkSampleCountFlagBits = VkSampleCountFlagBits(1_u32 << 2);
+pub const VK_SAMPLE_COUNT_4_BIT: VkSampleCountFlagBits =
+  VkSampleCountFlagBits(1_u32 << 2);
 
 /// Sample count 64 supported
-pub const VK_SAMPLE_COUNT_64_BIT: VkSampleCountFlagBits = VkSampleCountFlagBits(1_u32 << 6);
+pub const VK_SAMPLE_COUNT_64_BIT: VkSampleCountFlagBits =
+  VkSampleCountFlagBits(1_u32 << 6);
 
 /// Sample count 8 supported
-pub const VK_SAMPLE_COUNT_8_BIT: VkSampleCountFlagBits = VkSampleCountFlagBits(1_u32 << 3);
+pub const VK_SAMPLE_COUNT_8_BIT: VkSampleCountFlagBits =
+  VkSampleCountFlagBits(1_u32 << 3);
 
 pub const VK_SHADER_STAGE_ALL: VkShaderStageFlagBits = VkShaderStageFlagBits(0x7FFFFFFF);
 
-pub const VK_SHADER_STAGE_ALL_GRAPHICS: VkShaderStageFlagBits = VkShaderStageFlagBits(0x0000001F);
+pub const VK_SHADER_STAGE_ALL_GRAPHICS: VkShaderStageFlagBits =
+  VkShaderStageFlagBits(0x0000001F);
 
-pub const VK_SHADER_STAGE_COMPUTE_BIT: VkShaderStageFlagBits = VkShaderStageFlagBits(1_u32 << 5);
+pub const VK_SHADER_STAGE_COMPUTE_BIT: VkShaderStageFlagBits =
+  VkShaderStageFlagBits(1_u32 << 5);
 
-pub const VK_SHADER_STAGE_FRAGMENT_BIT: VkShaderStageFlagBits = VkShaderStageFlagBits(1_u32 << 4);
+pub const VK_SHADER_STAGE_FRAGMENT_BIT: VkShaderStageFlagBits =
+  VkShaderStageFlagBits(1_u32 << 4);
 
-pub const VK_SHADER_STAGE_GEOMETRY_BIT: VkShaderStageFlagBits = VkShaderStageFlagBits(1_u32 << 3);
+pub const VK_SHADER_STAGE_GEOMETRY_BIT: VkShaderStageFlagBits =
+  VkShaderStageFlagBits(1_u32 << 3);
 
 pub const VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT: VkShaderStageFlagBits =
   VkShaderStageFlagBits(1_u32 << 1);
@@ -1277,7 +1328,8 @@ pub const VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT: VkShaderStageFlagBits =
 pub const VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT: VkShaderStageFlagBits =
   VkShaderStageFlagBits(1_u32 << 2);
 
-pub const VK_SHADER_STAGE_VERTEX_BIT: VkShaderStageFlagBits = VkShaderStageFlagBits(1_u32 << 0);
+pub const VK_SHADER_STAGE_VERTEX_BIT: VkShaderStageFlagBits =
+  VkShaderStageFlagBits(1_u32 << 0);
 
 pub const VK_SHARING_MODE_CONCURRENT: VkSharingMode = VkSharingMode(1);
 
@@ -1301,17 +1353,21 @@ pub const VK_SPARSE_MEMORY_BIND_METADATA_BIT: VkSparseMemoryBindFlagBits =
   VkSparseMemoryBindFlagBits(1_u32 << 0);
 
 /// Back face
-pub const VK_STENCIL_FACE_BACK_BIT: VkStencilFaceFlagBits = VkStencilFaceFlagBits(1_u32 << 1);
+pub const VK_STENCIL_FACE_BACK_BIT: VkStencilFaceFlagBits =
+  VkStencilFaceFlagBits(1_u32 << 1);
 
 /// Front and back faces
-pub const VK_STENCIL_FACE_FRONT_AND_BACK: VkStencilFaceFlagBits = VkStencilFaceFlagBits(0x00000003);
+pub const VK_STENCIL_FACE_FRONT_AND_BACK: VkStencilFaceFlagBits =
+  VkStencilFaceFlagBits(0x00000003);
 
 /// Front face
-pub const VK_STENCIL_FACE_FRONT_BIT: VkStencilFaceFlagBits = VkStencilFaceFlagBits(1_u32 << 0);
+pub const VK_STENCIL_FACE_FRONT_BIT: VkStencilFaceFlagBits =
+  VkStencilFaceFlagBits(1_u32 << 0);
 
 /// * Alias For [`VK_STENCIL_FACE_FRONT_AND_BACK`]
 #[deprecated = "aliased"]
-pub const VK_STENCIL_FRONT_AND_BACK: VkStencilFaceFlagBits = VK_STENCIL_FACE_FRONT_AND_BACK;
+pub const VK_STENCIL_FRONT_AND_BACK: VkStencilFaceFlagBits =
+  VK_STENCIL_FACE_FRONT_AND_BACK;
 
 pub const VK_STENCIL_OP_DECREMENT_AND_CLAMP: VkStencilOp = VkStencilOp(4);
 
@@ -1337,38 +1393,49 @@ pub const VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO: VkStructureType = VkStructureTyp
 
 pub const VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER: VkStructureType = VkStructureType(44);
 
-pub const VK_STRUCTURE_TYPE_BUFFER_VIEW_CREATE_INFO: VkStructureType = VkStructureType(13);
+pub const VK_STRUCTURE_TYPE_BUFFER_VIEW_CREATE_INFO: VkStructureType =
+  VkStructureType(13);
 
-pub const VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO: VkStructureType = VkStructureType(40);
+pub const VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO: VkStructureType =
+  VkStructureType(40);
 
-pub const VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO: VkStructureType = VkStructureType(42);
+pub const VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO: VkStructureType =
+  VkStructureType(42);
 
-pub const VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_INFO: VkStructureType = VkStructureType(41);
+pub const VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_INFO: VkStructureType =
+  VkStructureType(41);
 
-pub const VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO: VkStructureType = VkStructureType(39);
+pub const VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO: VkStructureType =
+  VkStructureType(39);
 
-pub const VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_CREATE_INFO: VkStructureType = VkStructureType(29);
+pub const VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_CREATE_INFO: VkStructureType =
+  VkStructureType(29);
 
 pub const VK_STRUCTURE_TYPE_COPY_DESCRIPTOR_SET: VkStructureType = VkStructureType(36);
 
-pub const VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO: VkStructureType = VkStructureType(33);
+pub const VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO: VkStructureType =
+  VkStructureType(33);
 
-pub const VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO: VkStructureType = VkStructureType(34);
+pub const VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO: VkStructureType =
+  VkStructureType(34);
 
 pub const VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO: VkStructureType =
   VkStructureType(32);
 
 pub const VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO: VkStructureType = VkStructureType(3);
 
-pub const VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO: VkStructureType = VkStructureType(2);
+pub const VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO: VkStructureType =
+  VkStructureType(2);
 
 pub const VK_STRUCTURE_TYPE_EVENT_CREATE_INFO: VkStructureType = VkStructureType(10);
 
 pub const VK_STRUCTURE_TYPE_FENCE_CREATE_INFO: VkStructureType = VkStructureType(8);
 
-pub const VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO: VkStructureType = VkStructureType(37);
+pub const VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO: VkStructureType =
+  VkStructureType(37);
 
-pub const VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO: VkStructureType = VkStructureType(28);
+pub const VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO: VkStructureType =
+  VkStructureType(28);
 
 pub const VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO: VkStructureType = VkStructureType(14);
 
@@ -1379,10 +1446,12 @@ pub const VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO: VkStructureType = VkStructur
 pub const VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO: VkStructureType = VkStructureType(1);
 
 /// Reserved for internal use by the loader, layers, and ICDs
-pub const VK_STRUCTURE_TYPE_LOADER_DEVICE_CREATE_INFO: VkStructureType = VkStructureType(48);
+pub const VK_STRUCTURE_TYPE_LOADER_DEVICE_CREATE_INFO: VkStructureType =
+  VkStructureType(48);
 
 /// Reserved for internal use by the loader, layers, and ICDs
-pub const VK_STRUCTURE_TYPE_LOADER_INSTANCE_CREATE_INFO: VkStructureType = VkStructureType(47);
+pub const VK_STRUCTURE_TYPE_LOADER_INSTANCE_CREATE_INFO: VkStructureType =
+  VkStructureType(47);
 
 pub const VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE: VkStructureType = VkStructureType(6);
 
@@ -1390,7 +1459,8 @@ pub const VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO: VkStructureType = VkStructureT
 
 pub const VK_STRUCTURE_TYPE_MEMORY_BARRIER: VkStructureType = VkStructureType(46);
 
-pub const VK_STRUCTURE_TYPE_PIPELINE_CACHE_CREATE_INFO: VkStructureType = VkStructureType(17);
+pub const VK_STRUCTURE_TYPE_PIPELINE_CACHE_CREATE_INFO: VkStructureType =
+  VkStructureType(17);
 
 pub const VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO: VkStructureType =
   VkStructureType(26);
@@ -1404,7 +1474,8 @@ pub const VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO: VkStructureType 
 pub const VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO: VkStructureType =
   VkStructureType(20);
 
-pub const VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO: VkStructureType = VkStructureType(30);
+pub const VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO: VkStructureType =
+  VkStructureType(30);
 
 pub const VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO: VkStructureType =
   VkStructureType(24);
@@ -1428,13 +1499,15 @@ pub const VK_STRUCTURE_TYPE_QUERY_POOL_CREATE_INFO: VkStructureType = VkStructur
 
 pub const VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO: VkStructureType = VkStructureType(43);
 
-pub const VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO: VkStructureType = VkStructureType(38);
+pub const VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO: VkStructureType =
+  VkStructureType(38);
 
 pub const VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO: VkStructureType = VkStructureType(31);
 
 pub const VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO: VkStructureType = VkStructureType(9);
 
-pub const VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO: VkStructureType = VkStructureType(16);
+pub const VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO: VkStructureType =
+  VkStructureType(16);
 
 pub const VK_STRUCTURE_TYPE_SUBMIT_INFO: VkStructureType = VkStructureType(4);
 
@@ -1442,23 +1515,29 @@ pub const VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET: VkStructureType = VkStructureT
 
 pub const VK_SUBPASS_CONTENTS_INLINE: VkSubpassContents = VkSubpassContents(0);
 
-pub const VK_SUBPASS_CONTENTS_SECONDARY_COMMAND_BUFFERS: VkSubpassContents = VkSubpassContents(1);
+pub const VK_SUBPASS_CONTENTS_SECONDARY_COMMAND_BUFFERS: VkSubpassContents =
+  VkSubpassContents(1);
 
 /// Command completed successfully
-pub const VK_SUCCESS: VkResult = VkResult(core::num::NonZeroI32::new(0));
+pub const VK_SUCCESS: VkResult = VkResult(NonZeroI32::new(0));
 
-pub const VK_SYSTEM_ALLOCATION_SCOPE_CACHE: VkSystemAllocationScope = VkSystemAllocationScope(2);
+pub const VK_SYSTEM_ALLOCATION_SCOPE_CACHE: VkSystemAllocationScope =
+  VkSystemAllocationScope(2);
 
-pub const VK_SYSTEM_ALLOCATION_SCOPE_COMMAND: VkSystemAllocationScope = VkSystemAllocationScope(0);
+pub const VK_SYSTEM_ALLOCATION_SCOPE_COMMAND: VkSystemAllocationScope =
+  VkSystemAllocationScope(0);
 
-pub const VK_SYSTEM_ALLOCATION_SCOPE_DEVICE: VkSystemAllocationScope = VkSystemAllocationScope(3);
+pub const VK_SYSTEM_ALLOCATION_SCOPE_DEVICE: VkSystemAllocationScope =
+  VkSystemAllocationScope(3);
 
-pub const VK_SYSTEM_ALLOCATION_SCOPE_INSTANCE: VkSystemAllocationScope = VkSystemAllocationScope(4);
+pub const VK_SYSTEM_ALLOCATION_SCOPE_INSTANCE: VkSystemAllocationScope =
+  VkSystemAllocationScope(4);
 
-pub const VK_SYSTEM_ALLOCATION_SCOPE_OBJECT: VkSystemAllocationScope = VkSystemAllocationScope(1);
+pub const VK_SYSTEM_ALLOCATION_SCOPE_OBJECT: VkSystemAllocationScope =
+  VkSystemAllocationScope(1);
 
 /// A wait operation has not completed in the specified time
-pub const VK_TIMEOUT: VkResult = VkResult(core::num::NonZeroI32::new(2));
+pub const VK_TIMEOUT: VkResult = VkResult(NonZeroI32::new(2));
 
 /// Codeplay Software Ltd. vendor ID
 pub const VK_VENDOR_ID_CODEPLAY: VkVendorId = VkVendorId(0x10004);

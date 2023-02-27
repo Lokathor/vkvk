@@ -7,10 +7,19 @@
 //! use vkvk::prelude::*;
 //! ```
 
-#[allow(unused_imports)]
 pub(crate) use crate::{ext::extension_enumeration_value, version_1_0::fn_types::*};
 
-pub use crate::version_1_0::{api_constants::*, base_types::*, constants::*, data_types::*, *};
+pub use crate::{
+  entry::*,
+  instance::Instance,
+  version_1_0::{api_constants::*, base_types::*, constants::*, data_types::*, *},
+};
+pub use alloc::{boxed::Box, string::String, vec::Vec};
+pub use core::{
+  ffi::{c_float, c_void},
+  num::NonZeroI32,
+  ptr::{null, null_mut},
+};
 
 #[cfg(feature = "VK_KHR_surface")]
 pub use crate::ext::vk_khr_surface::*;

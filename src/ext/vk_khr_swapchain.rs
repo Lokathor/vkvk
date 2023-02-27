@@ -1,7 +1,4 @@
 #![allow(clippy::double_parens)]
-#![allow(clippy::eq_op)]
-#![allow(clippy::erasing_op)]
-#![allow(clippy::identity_op)]
 #![allow(nonstandard_style)]
 #![allow(unused_parens)]
 #![allow(dead_code)]
@@ -11,17 +8,17 @@ use crate::prelude::*;
 pub const VK_KHR_SWAPCHAIN_SPEC_VERSION: u32 = 70;
 pub const VK_KHR_SWAPCHAIN_EXTENSION_NAME: &str = "VK_KHR_swapchain\0";
 pub const VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR: VkStructureType =
-  VkStructureType((1000000000 + (2 - 1) * 1000 + 0));
+  VkStructureType((extension_enumeration_value(2, 0)) as u32);
 pub const VK_STRUCTURE_TYPE_PRESENT_INFO_KHR: VkStructureType =
-  VkStructureType((1000000000 + (2 - 1) * 1000 + 1));
+  VkStructureType((extension_enumeration_value(2, 1)) as u32);
 pub const VK_IMAGE_LAYOUT_PRESENT_SRC_KHR: VkImageLayout =
-  VkImageLayout((1000000000 + (2 - 1) * 1000 + 2));
+  VkImageLayout((extension_enumeration_value(2, 2)) as u32);
 pub const VK_SUBOPTIMAL_KHR: VkResult =
-  VkResult(core::num::NonZeroI32::new((1000000000 + (2 - 1) * 1000 + 3)));
+  VkResult(core::num::NonZeroI32::new(extension_enumeration_value(2, 3)));
 pub const VK_ERROR_OUT_OF_DATE_KHR: VkResult =
-  VkResult(core::num::NonZeroI32::new(-(1000000000 + (2 - 1) * 1000 + 4)));
+  VkResult(core::num::NonZeroI32::new(-extension_enumeration_value(2, 4)));
 pub const VK_OBJECT_TYPE_SWAPCHAIN_KHR: VkObjectType =
-  VkObjectType((1000000000 + (2 - 1) * 1000 + 0));
+  VkObjectType((extension_enumeration_value(2, 0)) as u32);
 
 define_bitmask!(
   /// Khronos: [VkSwapchainCreateFlagBitsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSwapchainCreateFlagBitsKHR.html) (bitmask)
@@ -124,14 +121,14 @@ pub(crate) type vkCreateSwapchainKHR_t = unsafe extern "system" fn(
   create_info: *const VkSwapchainCreateInfoKHR,
   allocator: *const VkAllocationCallbacks,
   swapchain: *mut VkSwapchainKHR,
-);
+) -> VkResult;
 /// Khronos: [vkDestroySwapchainKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroySwapchainKHR.html)
 #[rustfmt::skip]
 pub(crate) type vkDestroySwapchainKHR_t = unsafe extern "system" fn(
   device: VkDevice,
   swapchain: VkSwapchainKHR,
   allocator: *const VkAllocationCallbacks,
-);
+) -> ();
 /// Khronos: [vkGetSwapchainImagesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSwapchainImagesKHR.html)
 #[rustfmt::skip]
 pub(crate) type vkGetSwapchainImagesKHR_t = unsafe extern "system" fn(
@@ -139,7 +136,7 @@ pub(crate) type vkGetSwapchainImagesKHR_t = unsafe extern "system" fn(
   swapchain: VkSwapchainKHR,
   swapchain_image_count: *mut u32,
   swapchain_images: *mut VkImage,
-);
+) -> VkResult;
 /// Khronos: [vkAcquireNextImageKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireNextImageKHR.html)
 #[rustfmt::skip]
 pub(crate) type vkAcquireNextImageKHR_t = unsafe extern "system" fn(
@@ -149,13 +146,13 @@ pub(crate) type vkAcquireNextImageKHR_t = unsafe extern "system" fn(
   semaphore: VkSemaphore,
   fence: VkFence,
   image_index: *mut u32,
-);
+) -> VkResult;
 /// Khronos: [vkQueuePresentKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueuePresentKHR.html)
 #[rustfmt::skip]
 pub(crate) type vkQueuePresentKHR_t = unsafe extern "system" fn(
   queue: VkQueue,
   present_info: *const VkPresentInfoKHR,
-);
+) -> VkResult;
 
 /// Khronos: [vkCreateSwapchainKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateSwapchainKHR.html)
 pub(crate) type PFN_vkCreateSwapchainKHR = Option<vkCreateSwapchainKHR_t>;
@@ -167,3 +164,8 @@ pub(crate) type PFN_vkGetSwapchainImagesKHR = Option<vkGetSwapchainImagesKHR_t>;
 pub(crate) type PFN_vkAcquireNextImageKHR = Option<vkAcquireNextImageKHR_t>;
 /// Khronos: [vkQueuePresentKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueuePresentKHR.html)
 pub(crate) type PFN_vkQueuePresentKHR = Option<vkQueuePresentKHR_t>;
+pub const vkCreateSwapchainKHR_NAME: &str = "vkCreateSwapchainKHR\0";
+pub const vkDestroySwapchainKHR_NAME: &str = "vkDestroySwapchainKHR\0";
+pub const vkGetSwapchainImagesKHR_NAME: &str = "vkGetSwapchainImagesKHR\0";
+pub const vkAcquireNextImageKHR_NAME: &str = "vkAcquireNextImageKHR\0";
+pub const vkQueuePresentKHR_NAME: &str = "vkQueuePresentKHR\0";

@@ -43,7 +43,7 @@ pub struct VkApplicationInfo {
   /// * Optional
   pub engine_name: *const u8,
   pub engine_version: u32,
-  pub api_version: u32,
+  pub api_version: VkVersion,
 }
 
 /// Khronos: [VkAttachmentDescription](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkAttachmentDescription.html)
@@ -743,11 +743,11 @@ pub struct VkDeviceCreateInfo {
   /// Ordered list of layer names to be enabled
   /// * Deprecated: ignored
   /// * Len: `enabledLayerCount,null-terminated`
-  pub pp_enabled_layer_names: *const *const u8,
+  pub enabled_layer_names: *const *const u8,
   /// * Optional
   pub enabled_extension_count: u32,
   /// * Len: `enabledExtensionCount,null-terminated`
-  pub pp_enabled_extension_names: *const *const u8,
+  pub enabled_extension_names: *const *const u8,
   /// * Optional
   pub enabled_features: *const VkPhysicalDeviceFeatures,
 }
@@ -855,7 +855,7 @@ pub struct VkEventCreateInfo {
 #[repr(C)]
 pub struct VkExtensionProperties {
   /// extension name
-  pub extension_name: [u8; VK_MAX_EXTENSION_NAME_SIZE],
+  pub extension_name: ArrayZString<VK_MAX_EXTENSION_NAME_SIZE>,
   /// version of the extension specification implemented
   pub spec_version: u32,
 }
@@ -1304,12 +1304,12 @@ pub struct VkInstanceCreateInfo {
   pub enabled_layer_count: u32,
   /// Ordered list of layer names to be enabled
   /// * Len: `enabledLayerCount,null-terminated`
-  pub pp_enabled_layer_names: *const *const u8,
+  pub enabled_layer_names: *const *const u8,
   /// * Optional
   pub enabled_extension_count: u32,
   /// Extension names to be enabled
   /// * Len: `enabledExtensionCount,null-terminated`
-  pub pp_enabled_extension_names: *const *const u8,
+  pub enabled_extension_names: *const *const u8,
 }
 
 define_enumeration!(
@@ -1323,13 +1323,13 @@ define_enumeration!(
 #[repr(C)]
 pub struct VkLayerProperties {
   /// layer name
-  pub layer_name: [u8; VK_MAX_EXTENSION_NAME_SIZE],
+  pub layer_name: ArrayZString<VK_MAX_EXTENSION_NAME_SIZE>,
   /// version of the layer specification implemented
   pub spec_version: VkVersion,
   /// build or release version of the layer's library
   pub implementation_version: u32,
   /// Free-form description of the layer
-  pub description: [u8; VK_MAX_DESCRIPTION_SIZE],
+  pub description: ArrayZString<VK_MAX_DESCRIPTION_SIZE>,
 }
 
 define_enumeration!(
@@ -1966,7 +1966,7 @@ pub struct VkPhysicalDeviceProperties {
   /// * Limit Type: noauto
   pub device_type: VkPhysicalDeviceType,
   /// * Limit Type: noauto
-  pub device_name: [u8; VK_MAX_PHYSICAL_DEVICE_NAME_SIZE],
+  pub device_name: ArrayZString<VK_MAX_PHYSICAL_DEVICE_NAME_SIZE>,
   /// * Limit Type: noauto
   pub pipeline_cache_uuid: [u8; VK_UUID_SIZE],
   /// * Limit Type: struct
