@@ -7,12 +7,7 @@
 //! use vkvk::prelude::*;
 //! ```
 
-pub use crate::{
-  api_constants::*,
-  base_types::*,
-  version_1_0::{constants::*, data_types::*, *},
-  vk_version::*,
-};
+pub use crate::version_1_0::{api_constants::*, base_types::*, constants::*, data_types::*, *};
 
 #[cfg(feature = "VK_KHR_surface")]
 pub use crate::ext::vk_khr_surface::*;

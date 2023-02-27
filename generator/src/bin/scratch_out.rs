@@ -142,9 +142,7 @@ pub fn print_v1_0_data(registry: &Registry) {
       format_ty(ty, &vendors)
     })
     .collect();
-  println!("use crate::api_constants::*;");
-  println!("use crate::base_types::*;");
-  println!("use crate::vk_version::*;");
+  println!("use crate::prelude::*;");
   println!();
   for data_type_string in data_type_strings.iter() {
     println!("{data_type_string}");

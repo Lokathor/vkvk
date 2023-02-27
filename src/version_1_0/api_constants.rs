@@ -5,7 +5,7 @@
 //! declared as `usize` instead, so they can be used as a Rust array length
 //! without any extra conversion.
 
-use crate::base_types::VkBool32;
+use crate::version_1_0::base_types::VkBool32;
 
 /// The maximum number of unique memory heaps, each of which support 1 or more
 /// memory types
@@ -17,10 +17,12 @@ pub const VK_MAX_MEMORY_TYPES: usize = 32;
 pub const VK_MAX_PHYSICAL_DEVICE_NAME_SIZE: usize = 256;
 pub const VK_UUID_SIZE: usize = 16;
 
+pub const VK_FALSE: VkBool32 = VkBool32::FALSE;
+pub const VK_TRUE: VkBool32 = VkBool32::TRUE;
+
 // unsorted
 
 pub const VK_ATTACHMENT_UNUSED: u32 = !0;
-pub const VK_FALSE: VkBool32 = VkBool32::FALSE;
 pub const VK_LOD_CLAMP_NONE: core::ffi::c_float = 1000.0;
 pub const VK_LUID_SIZE: u32 = 8;
 pub const VK_LUID_SIZE_KHR: u32 = VK_LUID_SIZE;
@@ -43,5 +45,4 @@ pub const VK_REMAINING_MIP_LEVELS: u32 = !0;
 pub const VK_SHADER_UNUSED_KHR: u32 = !0;
 pub const VK_SHADER_UNUSED_NV: u32 = VK_SHADER_UNUSED_KHR;
 pub const VK_SUBPASS_EXTERNAL: u32 = !0;
-pub const VK_TRUE: VkBool32 = VkBool32::TRUE;
 pub const VK_WHOLE_SIZE: u64 = !0;

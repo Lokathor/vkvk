@@ -1,3 +1,5 @@
+//! Extensions to the Vulkan API.
+
 #[cfg(feature = "VK_KHR_surface")]
 pub mod vk_khr_surface;
 
