@@ -170,14 +170,14 @@ pub(crate) type vkAllocateCommandBuffers_t = unsafe extern "system" fn(
   device: VkDevice,
   allocate_info: *const VkCommandBufferAllocateInfo,
   command_buffers: *mut VkCommandBuffer,
-);
+) -> VkResult;
 /// Khronos: [vkAllocateDescriptorSets](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAllocateDescriptorSets.html)
 #[rustfmt::skip]
 pub(crate) type vkAllocateDescriptorSets_t = unsafe extern "system" fn(
   device: VkDevice,
   allocate_info: *const VkDescriptorSetAllocateInfo,
   descriptor_sets: *mut VkDescriptorSet,
-);
+) -> VkResult;
 /// Khronos: [vkAllocateMemory](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAllocateMemory.html)
 #[rustfmt::skip]
 pub(crate) type vkAllocateMemory_t = unsafe extern "system" fn(
@@ -185,13 +185,13 @@ pub(crate) type vkAllocateMemory_t = unsafe extern "system" fn(
   allocate_info: *const VkMemoryAllocateInfo,
   allocator: *const VkAllocationCallbacks,
   memory: *mut VkDeviceMemory,
-);
+) -> VkResult;
 /// Khronos: [vkBeginCommandBuffer](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBeginCommandBuffer.html)
 #[rustfmt::skip]
 pub(crate) type vkBeginCommandBuffer_t = unsafe extern "system" fn(
   command_buffer: VkCommandBuffer,
   begin_info: *const VkCommandBufferBeginInfo,
-);
+) -> VkResult;
 /// Khronos: [vkBindBufferMemory](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindBufferMemory.html)
 #[rustfmt::skip]
 pub(crate) type vkBindBufferMemory_t = unsafe extern "system" fn(
@@ -199,7 +199,7 @@ pub(crate) type vkBindBufferMemory_t = unsafe extern "system" fn(
   buffer: VkBuffer,
   memory: VkDeviceMemory,
   memory_offset: VkDeviceSize,
-);
+) -> VkResult;
 /// Khronos: [vkBindImageMemory](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindImageMemory.html)
 #[rustfmt::skip]
 pub(crate) type vkBindImageMemory_t = unsafe extern "system" fn(
@@ -207,7 +207,7 @@ pub(crate) type vkBindImageMemory_t = unsafe extern "system" fn(
   image: VkImage,
   memory: VkDeviceMemory,
   memory_offset: VkDeviceSize,
-);
+) -> VkResult;
 /// Khronos: [vkCmdBeginQuery](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginQuery.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdBeginQuery_t = unsafe extern "system" fn(
@@ -215,14 +215,14 @@ pub(crate) type vkCmdBeginQuery_t = unsafe extern "system" fn(
   query_pool: VkQueryPool,
   query: u32,
   flags: VkQueryControlFlags,
-);
+) -> ();
 /// Khronos: [vkCmdBeginRenderPass](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginRenderPass.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdBeginRenderPass_t = unsafe extern "system" fn(
   command_buffer: VkCommandBuffer,
   render_pass_begin: *const VkRenderPassBeginInfo,
   contents: VkSubpassContents,
-);
+) -> ();
 /// Khronos: [vkCmdBindDescriptorSets](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindDescriptorSets.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdBindDescriptorSets_t = unsafe extern "system" fn(
@@ -234,7 +234,7 @@ pub(crate) type vkCmdBindDescriptorSets_t = unsafe extern "system" fn(
   descriptor_sets: *const VkDescriptorSet,
   dynamic_offset_count: u32,
   dynamic_offsets: *const u32,
-);
+) -> ();
 /// Khronos: [vkCmdBindIndexBuffer](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindIndexBuffer.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdBindIndexBuffer_t = unsafe extern "system" fn(
@@ -242,14 +242,14 @@ pub(crate) type vkCmdBindIndexBuffer_t = unsafe extern "system" fn(
   buffer: VkBuffer,
   offset: VkDeviceSize,
   index_type: VkIndexType,
-);
+) -> ();
 /// Khronos: [vkCmdBindPipeline](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindPipeline.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdBindPipeline_t = unsafe extern "system" fn(
   command_buffer: VkCommandBuffer,
   pipeline_bind_point: VkPipelineBindPoint,
   pipeline: VkPipeline,
-);
+) -> ();
 /// Khronos: [vkCmdBindVertexBuffers](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindVertexBuffers.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdBindVertexBuffers_t = unsafe extern "system" fn(
@@ -258,7 +258,7 @@ pub(crate) type vkCmdBindVertexBuffers_t = unsafe extern "system" fn(
   binding_count: u32,
   buffers: *const VkBuffer,
   offsets: *const VkDeviceSize,
-);
+) -> ();
 /// Khronos: [vkCmdBlitImage](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBlitImage.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdBlitImage_t = unsafe extern "system" fn(
@@ -270,7 +270,7 @@ pub(crate) type vkCmdBlitImage_t = unsafe extern "system" fn(
   region_count: u32,
   regions: *const VkImageBlit,
   filter: VkFilter,
-);
+) -> ();
 /// Khronos: [vkCmdClearAttachments](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdClearAttachments.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdClearAttachments_t = unsafe extern "system" fn(
@@ -279,7 +279,7 @@ pub(crate) type vkCmdClearAttachments_t = unsafe extern "system" fn(
   attachments: *const VkClearAttachment,
   rect_count: u32,
   rects: *const VkClearRect,
-);
+) -> ();
 /// Khronos: [vkCmdClearColorImage](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdClearColorImage.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdClearColorImage_t = unsafe extern "system" fn(
@@ -289,7 +289,7 @@ pub(crate) type vkCmdClearColorImage_t = unsafe extern "system" fn(
   color: *const VkClearColorValue,
   range_count: u32,
   ranges: *const VkImageSubresourceRange,
-);
+) -> ();
 /// Khronos: [vkCmdClearDepthStencilImage](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdClearDepthStencilImage.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdClearDepthStencilImage_t = unsafe extern "system" fn(
@@ -299,7 +299,7 @@ pub(crate) type vkCmdClearDepthStencilImage_t = unsafe extern "system" fn(
   depth_stencil: *const VkClearDepthStencilValue,
   range_count: u32,
   ranges: *const VkImageSubresourceRange,
-);
+) -> ();
 /// Khronos: [vkCmdCopyBuffer](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyBuffer.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdCopyBuffer_t = unsafe extern "system" fn(
@@ -308,7 +308,7 @@ pub(crate) type vkCmdCopyBuffer_t = unsafe extern "system" fn(
   dst_buffer: VkBuffer,
   region_count: u32,
   regions: *const VkBufferCopy,
-);
+) -> ();
 /// Khronos: [vkCmdCopyBufferToImage](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyBufferToImage.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdCopyBufferToImage_t = unsafe extern "system" fn(
@@ -318,7 +318,7 @@ pub(crate) type vkCmdCopyBufferToImage_t = unsafe extern "system" fn(
   dst_image_layout: VkImageLayout,
   region_count: u32,
   regions: *const VkBufferImageCopy,
-);
+) -> ();
 /// Khronos: [vkCmdCopyImage](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyImage.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdCopyImage_t = unsafe extern "system" fn(
@@ -329,7 +329,7 @@ pub(crate) type vkCmdCopyImage_t = unsafe extern "system" fn(
   dst_image_layout: VkImageLayout,
   region_count: u32,
   regions: *const VkImageCopy,
-);
+) -> ();
 /// Khronos: [vkCmdCopyImageToBuffer](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyImageToBuffer.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdCopyImageToBuffer_t = unsafe extern "system" fn(
@@ -339,7 +339,7 @@ pub(crate) type vkCmdCopyImageToBuffer_t = unsafe extern "system" fn(
   dst_buffer: VkBuffer,
   region_count: u32,
   regions: *const VkBufferImageCopy,
-);
+) -> ();
 /// Khronos: [vkCmdCopyQueryPoolResults](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyQueryPoolResults.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdCopyQueryPoolResults_t = unsafe extern "system" fn(
@@ -351,7 +351,7 @@ pub(crate) type vkCmdCopyQueryPoolResults_t = unsafe extern "system" fn(
   dst_offset: VkDeviceSize,
   stride: VkDeviceSize,
   flags: VkQueryResultFlags,
-);
+) -> ();
 /// Khronos: [vkCmdDispatch](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDispatch.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdDispatch_t = unsafe extern "system" fn(
@@ -359,14 +359,14 @@ pub(crate) type vkCmdDispatch_t = unsafe extern "system" fn(
   group_count_x: u32,
   group_count_y: u32,
   group_count_z: u32,
-);
+) -> ();
 /// Khronos: [vkCmdDispatchIndirect](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDispatchIndirect.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdDispatchIndirect_t = unsafe extern "system" fn(
   command_buffer: VkCommandBuffer,
   buffer: VkBuffer,
   offset: VkDeviceSize,
-);
+) -> ();
 /// Khronos: [vkCmdDraw](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDraw.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdDraw_t = unsafe extern "system" fn(
@@ -375,7 +375,7 @@ pub(crate) type vkCmdDraw_t = unsafe extern "system" fn(
   instance_count: u32,
   first_vertex: u32,
   first_instance: u32,
-);
+) -> ();
 /// Khronos: [vkCmdDrawIndexed](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndexed.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdDrawIndexed_t = unsafe extern "system" fn(
@@ -385,7 +385,7 @@ pub(crate) type vkCmdDrawIndexed_t = unsafe extern "system" fn(
   first_index: u32,
   vertex_offset: i32,
   first_instance: u32,
-);
+) -> ();
 /// Khronos: [vkCmdDrawIndexedIndirect](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndexedIndirect.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdDrawIndexedIndirect_t = unsafe extern "system" fn(
@@ -394,7 +394,7 @@ pub(crate) type vkCmdDrawIndexedIndirect_t = unsafe extern "system" fn(
   offset: VkDeviceSize,
   draw_count: u32,
   stride: u32,
-);
+) -> ();
 /// Khronos: [vkCmdDrawIndirect](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndirect.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdDrawIndirect_t = unsafe extern "system" fn(
@@ -403,26 +403,26 @@ pub(crate) type vkCmdDrawIndirect_t = unsafe extern "system" fn(
   offset: VkDeviceSize,
   draw_count: u32,
   stride: u32,
-);
+) -> ();
 /// Khronos: [vkCmdEndQuery](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndQuery.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdEndQuery_t = unsafe extern "system" fn(
   command_buffer: VkCommandBuffer,
   query_pool: VkQueryPool,
   query: u32,
-);
+) -> ();
 /// Khronos: [vkCmdEndRenderPass](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndRenderPass.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdEndRenderPass_t = unsafe extern "system" fn(
   command_buffer: VkCommandBuffer,
-);
+) -> ();
 /// Khronos: [vkCmdExecuteCommands](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdExecuteCommands.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdExecuteCommands_t = unsafe extern "system" fn(
   command_buffer: VkCommandBuffer,
   command_buffer_count: u32,
   command_buffers: *const VkCommandBuffer,
-);
+) -> ();
 /// Khronos: [vkCmdFillBuffer](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdFillBuffer.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdFillBuffer_t = unsafe extern "system" fn(
@@ -431,13 +431,13 @@ pub(crate) type vkCmdFillBuffer_t = unsafe extern "system" fn(
   dst_offset: VkDeviceSize,
   size: VkDeviceSize,
   data: u32,
-);
+) -> ();
 /// Khronos: [vkCmdNextSubpass](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdNextSubpass.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdNextSubpass_t = unsafe extern "system" fn(
   command_buffer: VkCommandBuffer,
   contents: VkSubpassContents,
-);
+) -> ();
 /// Khronos: [vkCmdPipelineBarrier](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPipelineBarrier.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdPipelineBarrier_t = unsafe extern "system" fn(
@@ -451,7 +451,7 @@ pub(crate) type vkCmdPipelineBarrier_t = unsafe extern "system" fn(
   buffer_memory_barriers: *const VkBufferMemoryBarrier,
   image_memory_barrier_count: u32,
   image_memory_barriers: *const VkImageMemoryBarrier,
-);
+) -> ();
 /// Khronos: [vkCmdPushConstants](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPushConstants.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdPushConstants_t = unsafe extern "system" fn(
@@ -461,14 +461,14 @@ pub(crate) type vkCmdPushConstants_t = unsafe extern "system" fn(
   offset: u32,
   size: u32,
   values: *const c_void,
-);
+) -> ();
 /// Khronos: [vkCmdResetEvent](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdResetEvent.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdResetEvent_t = unsafe extern "system" fn(
   command_buffer: VkCommandBuffer,
   event: VkEvent,
   stage_mask: VkPipelineStageFlags,
-);
+) -> ();
 /// Khronos: [vkCmdResetQueryPool](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdResetQueryPool.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdResetQueryPool_t = unsafe extern "system" fn(
@@ -476,7 +476,7 @@ pub(crate) type vkCmdResetQueryPool_t = unsafe extern "system" fn(
   query_pool: VkQueryPool,
   first_query: u32,
   query_count: u32,
-);
+) -> ();
 /// Khronos: [vkCmdResolveImage](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdResolveImage.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdResolveImage_t = unsafe extern "system" fn(
@@ -487,13 +487,13 @@ pub(crate) type vkCmdResolveImage_t = unsafe extern "system" fn(
   dst_image_layout: VkImageLayout,
   region_count: u32,
   regions: *const VkImageResolve,
-);
+) -> ();
 /// Khronos: [vkCmdSetBlendConstants](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetBlendConstants.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdSetBlendConstants_t = unsafe extern "system" fn(
   command_buffer: VkCommandBuffer,
   blend_constants: *const [c_float; 4],
-);
+) -> ();
 /// Khronos: [vkCmdSetDepthBias](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthBias.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdSetDepthBias_t = unsafe extern "system" fn(
@@ -501,27 +501,27 @@ pub(crate) type vkCmdSetDepthBias_t = unsafe extern "system" fn(
   depth_bias_constant_factor: c_float,
   depth_bias_clamp: c_float,
   depth_bias_slope_factor: c_float,
-);
+) -> ();
 /// Khronos: [vkCmdSetDepthBounds](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthBounds.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdSetDepthBounds_t = unsafe extern "system" fn(
   command_buffer: VkCommandBuffer,
   min_depth_bounds: c_float,
   max_depth_bounds: c_float,
-);
+) -> ();
 /// Khronos: [vkCmdSetEvent](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetEvent.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdSetEvent_t = unsafe extern "system" fn(
   command_buffer: VkCommandBuffer,
   event: VkEvent,
   stage_mask: VkPipelineStageFlags,
-);
+) -> ();
 /// Khronos: [vkCmdSetLineWidth](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineWidth.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdSetLineWidth_t = unsafe extern "system" fn(
   command_buffer: VkCommandBuffer,
   line_width: c_float,
-);
+) -> ();
 /// Khronos: [vkCmdSetScissor](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetScissor.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdSetScissor_t = unsafe extern "system" fn(
@@ -529,28 +529,28 @@ pub(crate) type vkCmdSetScissor_t = unsafe extern "system" fn(
   first_scissor: u32,
   scissor_count: u32,
   scissors: *const VkRect2D,
-);
+) -> ();
 /// Khronos: [vkCmdSetStencilCompareMask](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilCompareMask.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdSetStencilCompareMask_t = unsafe extern "system" fn(
   command_buffer: VkCommandBuffer,
   face_mask: VkStencilFaceFlags,
   compare_mask: u32,
-);
+) -> ();
 /// Khronos: [vkCmdSetStencilReference](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilReference.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdSetStencilReference_t = unsafe extern "system" fn(
   command_buffer: VkCommandBuffer,
   face_mask: VkStencilFaceFlags,
   reference: u32,
-);
+) -> ();
 /// Khronos: [vkCmdSetStencilWriteMask](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilWriteMask.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdSetStencilWriteMask_t = unsafe extern "system" fn(
   command_buffer: VkCommandBuffer,
   face_mask: VkStencilFaceFlags,
   write_mask: u32,
-);
+) -> ();
 /// Khronos: [vkCmdSetViewport](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewport.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdSetViewport_t = unsafe extern "system" fn(
@@ -558,7 +558,7 @@ pub(crate) type vkCmdSetViewport_t = unsafe extern "system" fn(
   first_viewport: u32,
   viewport_count: u32,
   viewports: *const VkViewport,
-);
+) -> ();
 /// Khronos: [vkCmdUpdateBuffer](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdUpdateBuffer.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdUpdateBuffer_t = unsafe extern "system" fn(
@@ -567,7 +567,7 @@ pub(crate) type vkCmdUpdateBuffer_t = unsafe extern "system" fn(
   dst_offset: VkDeviceSize,
   data_size: VkDeviceSize,
   data: *const c_void,
-);
+) -> ();
 /// Khronos: [vkCmdWaitEvents](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWaitEvents.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdWaitEvents_t = unsafe extern "system" fn(
@@ -582,7 +582,7 @@ pub(crate) type vkCmdWaitEvents_t = unsafe extern "system" fn(
   buffer_memory_barriers: *const VkBufferMemoryBarrier,
   image_memory_barrier_count: u32,
   image_memory_barriers: *const VkImageMemoryBarrier,
-);
+) -> ();
 /// Khronos: [vkCmdWriteTimestamp](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWriteTimestamp.html)
 #[rustfmt::skip]
 pub(crate) type vkCmdWriteTimestamp_t = unsafe extern "system" fn(
@@ -590,7 +590,7 @@ pub(crate) type vkCmdWriteTimestamp_t = unsafe extern "system" fn(
   pipeline_stage: VkPipelineStageFlagBits,
   query_pool: VkQueryPool,
   query: u32,
-);
+) -> ();
 /// Khronos: [vkCreateBuffer](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateBuffer.html)
 #[rustfmt::skip]
 pub(crate) type vkCreateBuffer_t = unsafe extern "system" fn(
@@ -598,7 +598,7 @@ pub(crate) type vkCreateBuffer_t = unsafe extern "system" fn(
   create_info: *const VkBufferCreateInfo,
   allocator: *const VkAllocationCallbacks,
   buffer: *mut VkBuffer,
-);
+) -> VkResult;
 /// Khronos: [vkCreateBufferView](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateBufferView.html)
 #[rustfmt::skip]
 pub(crate) type vkCreateBufferView_t = unsafe extern "system" fn(
@@ -606,7 +606,7 @@ pub(crate) type vkCreateBufferView_t = unsafe extern "system" fn(
   create_info: *const VkBufferViewCreateInfo,
   allocator: *const VkAllocationCallbacks,
   view: *mut VkBufferView,
-);
+) -> VkResult;
 /// Khronos: [vkCreateCommandPool](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateCommandPool.html)
 #[rustfmt::skip]
 pub(crate) type vkCreateCommandPool_t = unsafe extern "system" fn(
@@ -614,7 +614,7 @@ pub(crate) type vkCreateCommandPool_t = unsafe extern "system" fn(
   create_info: *const VkCommandPoolCreateInfo,
   allocator: *const VkAllocationCallbacks,
   command_pool: *mut VkCommandPool,
-);
+) -> VkResult;
 /// Khronos: [vkCreateComputePipelines](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateComputePipelines.html)
 #[rustfmt::skip]
 pub(crate) type vkCreateComputePipelines_t = unsafe extern "system" fn(
@@ -624,7 +624,7 @@ pub(crate) type vkCreateComputePipelines_t = unsafe extern "system" fn(
   create_infos: *const VkComputePipelineCreateInfo,
   allocator: *const VkAllocationCallbacks,
   pipelines: *mut VkPipeline,
-);
+) -> VkResult;
 /// Khronos: [vkCreateDescriptorPool](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDescriptorPool.html)
 #[rustfmt::skip]
 pub(crate) type vkCreateDescriptorPool_t = unsafe extern "system" fn(
@@ -632,7 +632,7 @@ pub(crate) type vkCreateDescriptorPool_t = unsafe extern "system" fn(
   create_info: *const VkDescriptorPoolCreateInfo,
   allocator: *const VkAllocationCallbacks,
   descriptor_pool: *mut VkDescriptorPool,
-);
+) -> VkResult;
 /// Khronos: [vkCreateDescriptorSetLayout](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDescriptorSetLayout.html)
 #[rustfmt::skip]
 pub(crate) type vkCreateDescriptorSetLayout_t = unsafe extern "system" fn(
@@ -640,7 +640,7 @@ pub(crate) type vkCreateDescriptorSetLayout_t = unsafe extern "system" fn(
   create_info: *const VkDescriptorSetLayoutCreateInfo,
   allocator: *const VkAllocationCallbacks,
   set_layout: *mut VkDescriptorSetLayout,
-);
+) -> VkResult;
 /// Khronos: [vkCreateDevice](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDevice.html)
 #[rustfmt::skip]
 pub(crate) type vkCreateDevice_t = unsafe extern "system" fn(
@@ -648,7 +648,7 @@ pub(crate) type vkCreateDevice_t = unsafe extern "system" fn(
   create_info: *const VkDeviceCreateInfo,
   allocator: *const VkAllocationCallbacks,
   device: *mut VkDevice,
-);
+) -> VkResult;
 /// Khronos: [vkCreateEvent](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateEvent.html)
 #[rustfmt::skip]
 pub(crate) type vkCreateEvent_t = unsafe extern "system" fn(
@@ -656,7 +656,7 @@ pub(crate) type vkCreateEvent_t = unsafe extern "system" fn(
   create_info: *const VkEventCreateInfo,
   allocator: *const VkAllocationCallbacks,
   event: *mut VkEvent,
-);
+) -> VkResult;
 /// Khronos: [vkCreateFence](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateFence.html)
 #[rustfmt::skip]
 pub(crate) type vkCreateFence_t = unsafe extern "system" fn(
@@ -664,7 +664,7 @@ pub(crate) type vkCreateFence_t = unsafe extern "system" fn(
   create_info: *const VkFenceCreateInfo,
   allocator: *const VkAllocationCallbacks,
   fence: *mut VkFence,
-);
+) -> VkResult;
 /// Khronos: [vkCreateFramebuffer](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateFramebuffer.html)
 #[rustfmt::skip]
 pub(crate) type vkCreateFramebuffer_t = unsafe extern "system" fn(
@@ -672,7 +672,7 @@ pub(crate) type vkCreateFramebuffer_t = unsafe extern "system" fn(
   create_info: *const VkFramebufferCreateInfo,
   allocator: *const VkAllocationCallbacks,
   framebuffer: *mut VkFramebuffer,
-);
+) -> VkResult;
 /// Khronos: [vkCreateGraphicsPipelines](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateGraphicsPipelines.html)
 #[rustfmt::skip]
 pub(crate) type vkCreateGraphicsPipelines_t = unsafe extern "system" fn(
@@ -682,7 +682,7 @@ pub(crate) type vkCreateGraphicsPipelines_t = unsafe extern "system" fn(
   create_infos: *const VkGraphicsPipelineCreateInfo,
   allocator: *const VkAllocationCallbacks,
   pipelines: *mut VkPipeline,
-);
+) -> VkResult;
 /// Khronos: [vkCreateImage](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateImage.html)
 #[rustfmt::skip]
 pub(crate) type vkCreateImage_t = unsafe extern "system" fn(
@@ -690,7 +690,7 @@ pub(crate) type vkCreateImage_t = unsafe extern "system" fn(
   create_info: *const VkImageCreateInfo,
   allocator: *const VkAllocationCallbacks,
   image: *mut VkImage,
-);
+) -> VkResult;
 /// Khronos: [vkCreateImageView](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateImageView.html)
 #[rustfmt::skip]
 pub(crate) type vkCreateImageView_t = unsafe extern "system" fn(
@@ -698,14 +698,14 @@ pub(crate) type vkCreateImageView_t = unsafe extern "system" fn(
   create_info: *const VkImageViewCreateInfo,
   allocator: *const VkAllocationCallbacks,
   view: *mut VkImageView,
-);
+) -> VkResult;
 /// Khronos: [vkCreateInstance](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateInstance.html)
 #[rustfmt::skip]
 pub(crate) type vkCreateInstance_t = unsafe extern "system" fn(
   create_info: *const VkInstanceCreateInfo,
   allocator: *const VkAllocationCallbacks,
   instance: *mut VkInstance,
-);
+) -> VkResult;
 /// Khronos: [vkCreatePipelineCache](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreatePipelineCache.html)
 #[rustfmt::skip]
 pub(crate) type vkCreatePipelineCache_t = unsafe extern "system" fn(
@@ -713,7 +713,7 @@ pub(crate) type vkCreatePipelineCache_t = unsafe extern "system" fn(
   create_info: *const VkPipelineCacheCreateInfo,
   allocator: *const VkAllocationCallbacks,
   pipeline_cache: *mut VkPipelineCache,
-);
+) -> VkResult;
 /// Khronos: [vkCreatePipelineLayout](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreatePipelineLayout.html)
 #[rustfmt::skip]
 pub(crate) type vkCreatePipelineLayout_t = unsafe extern "system" fn(
@@ -721,7 +721,7 @@ pub(crate) type vkCreatePipelineLayout_t = unsafe extern "system" fn(
   create_info: *const VkPipelineLayoutCreateInfo,
   allocator: *const VkAllocationCallbacks,
   pipeline_layout: *mut VkPipelineLayout,
-);
+) -> VkResult;
 /// Khronos: [vkCreateQueryPool](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateQueryPool.html)
 #[rustfmt::skip]
 pub(crate) type vkCreateQueryPool_t = unsafe extern "system" fn(
@@ -729,7 +729,7 @@ pub(crate) type vkCreateQueryPool_t = unsafe extern "system" fn(
   create_info: *const VkQueryPoolCreateInfo,
   allocator: *const VkAllocationCallbacks,
   query_pool: *mut VkQueryPool,
-);
+) -> VkResult;
 /// Khronos: [vkCreateRenderPass](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateRenderPass.html)
 #[rustfmt::skip]
 pub(crate) type vkCreateRenderPass_t = unsafe extern "system" fn(
@@ -737,7 +737,7 @@ pub(crate) type vkCreateRenderPass_t = unsafe extern "system" fn(
   create_info: *const VkRenderPassCreateInfo,
   allocator: *const VkAllocationCallbacks,
   render_pass: *mut VkRenderPass,
-);
+) -> VkResult;
 /// Khronos: [vkCreateSampler](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateSampler.html)
 #[rustfmt::skip]
 pub(crate) type vkCreateSampler_t = unsafe extern "system" fn(
@@ -745,7 +745,7 @@ pub(crate) type vkCreateSampler_t = unsafe extern "system" fn(
   create_info: *const VkSamplerCreateInfo,
   allocator: *const VkAllocationCallbacks,
   sampler: *mut VkSampler,
-);
+) -> VkResult;
 /// Khronos: [vkCreateSemaphore](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateSemaphore.html)
 #[rustfmt::skip]
 pub(crate) type vkCreateSemaphore_t = unsafe extern "system" fn(
@@ -753,7 +753,7 @@ pub(crate) type vkCreateSemaphore_t = unsafe extern "system" fn(
   create_info: *const VkSemaphoreCreateInfo,
   allocator: *const VkAllocationCallbacks,
   semaphore: *mut VkSemaphore,
-);
+) -> VkResult;
 /// Khronos: [vkCreateShaderModule](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateShaderModule.html)
 #[rustfmt::skip]
 pub(crate) type vkCreateShaderModule_t = unsafe extern "system" fn(
@@ -761,155 +761,155 @@ pub(crate) type vkCreateShaderModule_t = unsafe extern "system" fn(
   create_info: *const VkShaderModuleCreateInfo,
   allocator: *const VkAllocationCallbacks,
   shader_module: *mut VkShaderModule,
-);
+) -> VkResult;
 /// Khronos: [vkDestroyBuffer](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyBuffer.html)
 #[rustfmt::skip]
 pub(crate) type vkDestroyBuffer_t = unsafe extern "system" fn(
   device: VkDevice,
   buffer: VkBuffer,
   allocator: *const VkAllocationCallbacks,
-);
+) -> ();
 /// Khronos: [vkDestroyBufferView](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyBufferView.html)
 #[rustfmt::skip]
 pub(crate) type vkDestroyBufferView_t = unsafe extern "system" fn(
   device: VkDevice,
   buffer_view: VkBufferView,
   allocator: *const VkAllocationCallbacks,
-);
+) -> ();
 /// Khronos: [vkDestroyCommandPool](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyCommandPool.html)
 #[rustfmt::skip]
 pub(crate) type vkDestroyCommandPool_t = unsafe extern "system" fn(
   device: VkDevice,
   command_pool: VkCommandPool,
   allocator: *const VkAllocationCallbacks,
-);
+) -> ();
 /// Khronos: [vkDestroyDescriptorPool](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDescriptorPool.html)
 #[rustfmt::skip]
 pub(crate) type vkDestroyDescriptorPool_t = unsafe extern "system" fn(
   device: VkDevice,
   descriptor_pool: VkDescriptorPool,
   allocator: *const VkAllocationCallbacks,
-);
+) -> ();
 /// Khronos: [vkDestroyDescriptorSetLayout](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDescriptorSetLayout.html)
 #[rustfmt::skip]
 pub(crate) type vkDestroyDescriptorSetLayout_t = unsafe extern "system" fn(
   device: VkDevice,
   descriptor_set_layout: VkDescriptorSetLayout,
   allocator: *const VkAllocationCallbacks,
-);
+) -> ();
 /// Khronos: [vkDestroyDevice](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDevice.html)
 #[rustfmt::skip]
 pub(crate) type vkDestroyDevice_t = unsafe extern "system" fn(
   device: VkDevice,
   allocator: *const VkAllocationCallbacks,
-);
+) -> ();
 /// Khronos: [vkDestroyEvent](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyEvent.html)
 #[rustfmt::skip]
 pub(crate) type vkDestroyEvent_t = unsafe extern "system" fn(
   device: VkDevice,
   event: VkEvent,
   allocator: *const VkAllocationCallbacks,
-);
+) -> ();
 /// Khronos: [vkDestroyFence](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyFence.html)
 #[rustfmt::skip]
 pub(crate) type vkDestroyFence_t = unsafe extern "system" fn(
   device: VkDevice,
   fence: VkFence,
   allocator: *const VkAllocationCallbacks,
-);
+) -> ();
 /// Khronos: [vkDestroyFramebuffer](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyFramebuffer.html)
 #[rustfmt::skip]
 pub(crate) type vkDestroyFramebuffer_t = unsafe extern "system" fn(
   device: VkDevice,
   framebuffer: VkFramebuffer,
   allocator: *const VkAllocationCallbacks,
-);
+) -> ();
 /// Khronos: [vkDestroyImage](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyImage.html)
 #[rustfmt::skip]
 pub(crate) type vkDestroyImage_t = unsafe extern "system" fn(
   device: VkDevice,
   image: VkImage,
   allocator: *const VkAllocationCallbacks,
-);
+) -> ();
 /// Khronos: [vkDestroyImageView](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyImageView.html)
 #[rustfmt::skip]
 pub(crate) type vkDestroyImageView_t = unsafe extern "system" fn(
   device: VkDevice,
   image_view: VkImageView,
   allocator: *const VkAllocationCallbacks,
-);
+) -> ();
 /// Khronos: [vkDestroyInstance](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyInstance.html)
 #[rustfmt::skip]
 pub(crate) type vkDestroyInstance_t = unsafe extern "system" fn(
   instance: VkInstance,
   allocator: *const VkAllocationCallbacks,
-);
+) -> ();
 /// Khronos: [vkDestroyPipeline](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyPipeline.html)
 #[rustfmt::skip]
 pub(crate) type vkDestroyPipeline_t = unsafe extern "system" fn(
   device: VkDevice,
   pipeline: VkPipeline,
   allocator: *const VkAllocationCallbacks,
-);
+) -> ();
 /// Khronos: [vkDestroyPipelineCache](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyPipelineCache.html)
 #[rustfmt::skip]
 pub(crate) type vkDestroyPipelineCache_t = unsafe extern "system" fn(
   device: VkDevice,
   pipeline_cache: VkPipelineCache,
   allocator: *const VkAllocationCallbacks,
-);
+) -> ();
 /// Khronos: [vkDestroyPipelineLayout](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyPipelineLayout.html)
 #[rustfmt::skip]
 pub(crate) type vkDestroyPipelineLayout_t = unsafe extern "system" fn(
   device: VkDevice,
   pipeline_layout: VkPipelineLayout,
   allocator: *const VkAllocationCallbacks,
-);
+) -> ();
 /// Khronos: [vkDestroyQueryPool](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyQueryPool.html)
 #[rustfmt::skip]
 pub(crate) type vkDestroyQueryPool_t = unsafe extern "system" fn(
   device: VkDevice,
   query_pool: VkQueryPool,
   allocator: *const VkAllocationCallbacks,
-);
+) -> ();
 /// Khronos: [vkDestroyRenderPass](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyRenderPass.html)
 #[rustfmt::skip]
 pub(crate) type vkDestroyRenderPass_t = unsafe extern "system" fn(
   device: VkDevice,
   render_pass: VkRenderPass,
   allocator: *const VkAllocationCallbacks,
-);
+) -> ();
 /// Khronos: [vkDestroySampler](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroySampler.html)
 #[rustfmt::skip]
 pub(crate) type vkDestroySampler_t = unsafe extern "system" fn(
   device: VkDevice,
   sampler: VkSampler,
   allocator: *const VkAllocationCallbacks,
-);
+) -> ();
 /// Khronos: [vkDestroySemaphore](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroySemaphore.html)
 #[rustfmt::skip]
 pub(crate) type vkDestroySemaphore_t = unsafe extern "system" fn(
   device: VkDevice,
   semaphore: VkSemaphore,
   allocator: *const VkAllocationCallbacks,
-);
+) -> ();
 /// Khronos: [vkDestroyShaderModule](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyShaderModule.html)
 #[rustfmt::skip]
 pub(crate) type vkDestroyShaderModule_t = unsafe extern "system" fn(
   device: VkDevice,
   shader_module: VkShaderModule,
   allocator: *const VkAllocationCallbacks,
-);
+) -> ();
 /// Khronos: [vkDeviceWaitIdle](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDeviceWaitIdle.html)
 #[rustfmt::skip]
 pub(crate) type vkDeviceWaitIdle_t = unsafe extern "system" fn(
   device: VkDevice,
-);
+) -> VkResult;
 /// Khronos: [vkEndCommandBuffer](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEndCommandBuffer.html)
 #[rustfmt::skip]
 pub(crate) type vkEndCommandBuffer_t = unsafe extern "system" fn(
   command_buffer: VkCommandBuffer,
-);
+) -> VkResult;
 /// Khronos: [vkEnumerateDeviceExtensionProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateDeviceExtensionProperties.html)
 #[rustfmt::skip]
 pub(crate) type vkEnumerateDeviceExtensionProperties_t = unsafe extern "system" fn(
@@ -917,41 +917,41 @@ pub(crate) type vkEnumerateDeviceExtensionProperties_t = unsafe extern "system" 
   layer_name: *const u8,
   property_count: *mut u32,
   properties: *mut VkExtensionProperties,
-);
+) -> VkResult;
 /// Khronos: [vkEnumerateDeviceLayerProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateDeviceLayerProperties.html)
 #[rustfmt::skip]
 pub(crate) type vkEnumerateDeviceLayerProperties_t = unsafe extern "system" fn(
   physical_device: VkPhysicalDevice,
   property_count: *mut u32,
   properties: *mut VkLayerProperties,
-);
+) -> VkResult;
 /// Khronos: [vkEnumerateInstanceExtensionProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateInstanceExtensionProperties.html)
 #[rustfmt::skip]
 pub(crate) type vkEnumerateInstanceExtensionProperties_t = unsafe extern "system" fn(
   layer_name: *const u8,
   property_count: *mut u32,
   properties: *mut VkExtensionProperties,
-);
+) -> VkResult;
 /// Khronos: [vkEnumerateInstanceLayerProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateInstanceLayerProperties.html)
 #[rustfmt::skip]
 pub(crate) type vkEnumerateInstanceLayerProperties_t = unsafe extern "system" fn(
   property_count: *mut u32,
   properties: *mut VkLayerProperties,
-);
+) -> VkResult;
 /// Khronos: [vkEnumeratePhysicalDevices](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumeratePhysicalDevices.html)
 #[rustfmt::skip]
 pub(crate) type vkEnumeratePhysicalDevices_t = unsafe extern "system" fn(
   instance: VkInstance,
   physical_device_count: *mut u32,
   physical_devices: *mut VkPhysicalDevice,
-);
+) -> VkResult;
 /// Khronos: [vkFlushMappedMemoryRanges](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkFlushMappedMemoryRanges.html)
 #[rustfmt::skip]
 pub(crate) type vkFlushMappedMemoryRanges_t = unsafe extern "system" fn(
   device: VkDevice,
   memory_range_count: u32,
   memory_ranges: *const VkMappedMemoryRange,
-);
+) -> VkResult;
 /// Khronos: [vkFreeCommandBuffers](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkFreeCommandBuffers.html)
 #[rustfmt::skip]
 pub(crate) type vkFreeCommandBuffers_t = unsafe extern "system" fn(
@@ -959,7 +959,7 @@ pub(crate) type vkFreeCommandBuffers_t = unsafe extern "system" fn(
   command_pool: VkCommandPool,
   command_buffer_count: u32,
   command_buffers: *const VkCommandBuffer,
-);
+) -> ();
 /// Khronos: [vkFreeDescriptorSets](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkFreeDescriptorSets.html)
 #[rustfmt::skip]
 pub(crate) type vkFreeDescriptorSets_t = unsafe extern "system" fn(
@@ -967,34 +967,34 @@ pub(crate) type vkFreeDescriptorSets_t = unsafe extern "system" fn(
   descriptor_pool: VkDescriptorPool,
   descriptor_set_count: u32,
   descriptor_sets: *const VkDescriptorSet,
-);
+) -> VkResult;
 /// Khronos: [vkFreeMemory](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkFreeMemory.html)
 #[rustfmt::skip]
 pub(crate) type vkFreeMemory_t = unsafe extern "system" fn(
   device: VkDevice,
   memory: VkDeviceMemory,
   allocator: *const VkAllocationCallbacks,
-);
+) -> ();
 /// Khronos: [vkGetBufferMemoryRequirements](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetBufferMemoryRequirements.html)
 #[rustfmt::skip]
 pub(crate) type vkGetBufferMemoryRequirements_t = unsafe extern "system" fn(
   device: VkDevice,
   buffer: VkBuffer,
   memory_requirements: *mut VkMemoryRequirements,
-);
+) -> ();
 /// Khronos: [vkGetDeviceMemoryCommitment](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceMemoryCommitment.html)
 #[rustfmt::skip]
 pub(crate) type vkGetDeviceMemoryCommitment_t = unsafe extern "system" fn(
   device: VkDevice,
   memory: VkDeviceMemory,
   committed_memory_in_bytes: *mut VkDeviceSize,
-);
+) -> ();
 /// Khronos: [vkGetDeviceProcAddr](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceProcAddr.html)
 #[rustfmt::skip]
 pub(crate) type vkGetDeviceProcAddr_t = unsafe extern "system" fn(
   device: VkDevice,
   name: *const u8,
-);
+) -> PFN_vkVoidFunction;
 /// Khronos: [vkGetDeviceQueue](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceQueue.html)
 #[rustfmt::skip]
 pub(crate) type vkGetDeviceQueue_t = unsafe extern "system" fn(
@@ -1002,26 +1002,26 @@ pub(crate) type vkGetDeviceQueue_t = unsafe extern "system" fn(
   queue_family_index: u32,
   queue_index: u32,
   queue: *mut VkQueue,
-);
+) -> ();
 /// Khronos: [vkGetEventStatus](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetEventStatus.html)
 #[rustfmt::skip]
 pub(crate) type vkGetEventStatus_t = unsafe extern "system" fn(
   device: VkDevice,
   event: VkEvent,
-);
+) -> VkResult;
 /// Khronos: [vkGetFenceStatus](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetFenceStatus.html)
 #[rustfmt::skip]
 pub(crate) type vkGetFenceStatus_t = unsafe extern "system" fn(
   device: VkDevice,
   fence: VkFence,
-);
+) -> VkResult;
 /// Khronos: [vkGetImageMemoryRequirements](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageMemoryRequirements.html)
 #[rustfmt::skip]
 pub(crate) type vkGetImageMemoryRequirements_t = unsafe extern "system" fn(
   device: VkDevice,
   image: VkImage,
   memory_requirements: *mut VkMemoryRequirements,
-);
+) -> ();
 /// Khronos: [vkGetImageSparseMemoryRequirements](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageSparseMemoryRequirements.html)
 #[rustfmt::skip]
 pub(crate) type vkGetImageSparseMemoryRequirements_t = unsafe extern "system" fn(
@@ -1029,7 +1029,7 @@ pub(crate) type vkGetImageSparseMemoryRequirements_t = unsafe extern "system" fn
   image: VkImage,
   sparse_memory_requirement_count: *mut u32,
   sparse_memory_requirements: *mut VkSparseImageMemoryRequirements,
-);
+) -> ();
 /// Khronos: [vkGetImageSubresourceLayout](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageSubresourceLayout.html)
 #[rustfmt::skip]
 pub(crate) type vkGetImageSubresourceLayout_t = unsafe extern "system" fn(
@@ -1037,26 +1037,26 @@ pub(crate) type vkGetImageSubresourceLayout_t = unsafe extern "system" fn(
   image: VkImage,
   subresource: *const VkImageSubresource,
   layout: *mut VkSubresourceLayout,
-);
+) -> ();
 /// Khronos: [vkGetInstanceProcAddr](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetInstanceProcAddr.html)
 #[rustfmt::skip]
 pub(crate) type vkGetInstanceProcAddr_t = unsafe extern "system" fn(
   instance: VkInstance,
   name: *const u8,
-);
+) -> PFN_vkVoidFunction;
 /// Khronos: [vkGetPhysicalDeviceFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceFeatures.html)
 #[rustfmt::skip]
 pub(crate) type vkGetPhysicalDeviceFeatures_t = unsafe extern "system" fn(
   physical_device: VkPhysicalDevice,
   features: *mut VkPhysicalDeviceFeatures,
-);
+) -> ();
 /// Khronos: [vkGetPhysicalDeviceFormatProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceFormatProperties.html)
 #[rustfmt::skip]
 pub(crate) type vkGetPhysicalDeviceFormatProperties_t = unsafe extern "system" fn(
   physical_device: VkPhysicalDevice,
   format: VkFormat,
   format_properties: *mut VkFormatProperties,
-);
+) -> ();
 /// Khronos: [vkGetPhysicalDeviceImageFormatProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceImageFormatProperties.html)
 #[rustfmt::skip]
 pub(crate) type vkGetPhysicalDeviceImageFormatProperties_t = unsafe extern "system" fn(
@@ -1067,26 +1067,26 @@ pub(crate) type vkGetPhysicalDeviceImageFormatProperties_t = unsafe extern "syst
   usage: VkImageUsageFlags,
   flags: VkImageCreateFlags,
   image_format_properties: *mut VkImageFormatProperties,
-);
+) -> VkResult;
 /// Khronos: [vkGetPhysicalDeviceMemoryProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceMemoryProperties.html)
 #[rustfmt::skip]
 pub(crate) type vkGetPhysicalDeviceMemoryProperties_t = unsafe extern "system" fn(
   physical_device: VkPhysicalDevice,
   memory_properties: *mut VkPhysicalDeviceMemoryProperties,
-);
+) -> ();
 /// Khronos: [vkGetPhysicalDeviceProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceProperties.html)
 #[rustfmt::skip]
 pub(crate) type vkGetPhysicalDeviceProperties_t = unsafe extern "system" fn(
   physical_device: VkPhysicalDevice,
   properties: *mut VkPhysicalDeviceProperties,
-);
+) -> ();
 /// Khronos: [vkGetPhysicalDeviceQueueFamilyProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceQueueFamilyProperties.html)
 #[rustfmt::skip]
 pub(crate) type vkGetPhysicalDeviceQueueFamilyProperties_t = unsafe extern "system" fn(
   physical_device: VkPhysicalDevice,
   queue_family_property_count: *mut u32,
   queue_family_properties: *mut VkQueueFamilyProperties,
-);
+) -> ();
 /// Khronos: [vkGetPhysicalDeviceSparseImageFormatProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSparseImageFormatProperties.html)
 #[rustfmt::skip]
 pub(crate) type vkGetPhysicalDeviceSparseImageFormatProperties_t = unsafe extern "system" fn(
@@ -1098,7 +1098,7 @@ pub(crate) type vkGetPhysicalDeviceSparseImageFormatProperties_t = unsafe extern
   tiling: VkImageTiling,
   property_count: *mut u32,
   properties: *mut VkSparseImageFormatProperties,
-);
+) -> ();
 /// Khronos: [vkGetPipelineCacheData](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPipelineCacheData.html)
 #[rustfmt::skip]
 pub(crate) type vkGetPipelineCacheData_t = unsafe extern "system" fn(
@@ -1106,7 +1106,7 @@ pub(crate) type vkGetPipelineCacheData_t = unsafe extern "system" fn(
   pipeline_cache: VkPipelineCache,
   data_size: *mut usize,
   data: *mut c_void,
-);
+) -> VkResult;
 /// Khronos: [vkGetQueryPoolResults](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetQueryPoolResults.html)
 #[rustfmt::skip]
 pub(crate) type vkGetQueryPoolResults_t = unsafe extern "system" fn(
@@ -1118,21 +1118,21 @@ pub(crate) type vkGetQueryPoolResults_t = unsafe extern "system" fn(
   data: *mut c_void,
   stride: VkDeviceSize,
   flags: VkQueryResultFlags,
-);
+) -> VkResult;
 /// Khronos: [vkGetRenderAreaGranularity](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetRenderAreaGranularity.html)
 #[rustfmt::skip]
 pub(crate) type vkGetRenderAreaGranularity_t = unsafe extern "system" fn(
   device: VkDevice,
   render_pass: VkRenderPass,
   granularity: *mut VkExtent2D,
-);
+) -> ();
 /// Khronos: [vkInvalidateMappedMemoryRanges](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkInvalidateMappedMemoryRanges.html)
 #[rustfmt::skip]
 pub(crate) type vkInvalidateMappedMemoryRanges_t = unsafe extern "system" fn(
   device: VkDevice,
   memory_range_count: u32,
   memory_ranges: *const VkMappedMemoryRange,
-);
+) -> VkResult;
 /// Khronos: [vkMapMemory](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkMapMemory.html)
 #[rustfmt::skip]
 pub(crate) type vkMapMemory_t = unsafe extern "system" fn(
@@ -1142,7 +1142,7 @@ pub(crate) type vkMapMemory_t = unsafe extern "system" fn(
   size: VkDeviceSize,
   flags: VkMemoryMapFlags,
   pp_data: *mut *mut c_void,
-);
+) -> VkResult;
 /// Khronos: [vkMergePipelineCaches](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkMergePipelineCaches.html)
 #[rustfmt::skip]
 pub(crate) type vkMergePipelineCaches_t = unsafe extern "system" fn(
@@ -1150,7 +1150,7 @@ pub(crate) type vkMergePipelineCaches_t = unsafe extern "system" fn(
   dst_cache: VkPipelineCache,
   src_cache_count: u32,
   src_caches: *const VkPipelineCache,
-);
+) -> VkResult;
 /// Khronos: [vkQueueBindSparse](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueBindSparse.html)
 #[rustfmt::skip]
 pub(crate) type vkQueueBindSparse_t = unsafe extern "system" fn(
@@ -1158,7 +1158,7 @@ pub(crate) type vkQueueBindSparse_t = unsafe extern "system" fn(
   bind_info_count: u32,
   bind_info: *const VkBindSparseInfo,
   fence: VkFence,
-);
+) -> VkResult;
 /// Khronos: [vkQueueSubmit](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueSubmit.html)
 #[rustfmt::skip]
 pub(crate) type vkQueueSubmit_t = unsafe extern "system" fn(
@@ -1166,57 +1166,57 @@ pub(crate) type vkQueueSubmit_t = unsafe extern "system" fn(
   submit_count: u32,
   submits: *const VkSubmitInfo,
   fence: VkFence,
-);
+) -> VkResult;
 /// Khronos: [vkQueueWaitIdle](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueWaitIdle.html)
 #[rustfmt::skip]
 pub(crate) type vkQueueWaitIdle_t = unsafe extern "system" fn(
   queue: VkQueue,
-);
+) -> VkResult;
 /// Khronos: [vkResetCommandBuffer](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetCommandBuffer.html)
 #[rustfmt::skip]
 pub(crate) type vkResetCommandBuffer_t = unsafe extern "system" fn(
   command_buffer: VkCommandBuffer,
   flags: VkCommandBufferResetFlags,
-);
+) -> VkResult;
 /// Khronos: [vkResetCommandPool](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetCommandPool.html)
 #[rustfmt::skip]
 pub(crate) type vkResetCommandPool_t = unsafe extern "system" fn(
   device: VkDevice,
   command_pool: VkCommandPool,
   flags: VkCommandPoolResetFlags,
-);
+) -> VkResult;
 /// Khronos: [vkResetDescriptorPool](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetDescriptorPool.html)
 #[rustfmt::skip]
 pub(crate) type vkResetDescriptorPool_t = unsafe extern "system" fn(
   device: VkDevice,
   descriptor_pool: VkDescriptorPool,
   flags: VkDescriptorPoolResetFlags,
-);
+) -> VkResult;
 /// Khronos: [vkResetEvent](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetEvent.html)
 #[rustfmt::skip]
 pub(crate) type vkResetEvent_t = unsafe extern "system" fn(
   device: VkDevice,
   event: VkEvent,
-);
+) -> VkResult;
 /// Khronos: [vkResetFences](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetFences.html)
 #[rustfmt::skip]
 pub(crate) type vkResetFences_t = unsafe extern "system" fn(
   device: VkDevice,
   fence_count: u32,
   fences: *const VkFence,
-);
+) -> VkResult;
 /// Khronos: [vkSetEvent](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetEvent.html)
 #[rustfmt::skip]
 pub(crate) type vkSetEvent_t = unsafe extern "system" fn(
   device: VkDevice,
   event: VkEvent,
-);
+) -> VkResult;
 /// Khronos: [vkUnmapMemory](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUnmapMemory.html)
 #[rustfmt::skip]
 pub(crate) type vkUnmapMemory_t = unsafe extern "system" fn(
   device: VkDevice,
   memory: VkDeviceMemory,
-);
+) -> ();
 /// Khronos: [vkUpdateDescriptorSets](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUpdateDescriptorSets.html)
 #[rustfmt::skip]
 pub(crate) type vkUpdateDescriptorSets_t = unsafe extern "system" fn(
@@ -1225,7 +1225,7 @@ pub(crate) type vkUpdateDescriptorSets_t = unsafe extern "system" fn(
   descriptor_writes: *const VkWriteDescriptorSet,
   descriptor_copy_count: u32,
   descriptor_copies: *const VkCopyDescriptorSet,
-);
+) -> ();
 /// Khronos: [vkWaitForFences](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkWaitForFences.html)
 #[rustfmt::skip]
 pub(crate) type vkWaitForFences_t = unsafe extern "system" fn(
@@ -1234,7 +1234,7 @@ pub(crate) type vkWaitForFences_t = unsafe extern "system" fn(
   fences: *const VkFence,
   wait_all: VkBool32,
   timeout: u64,
-);
+) -> VkResult;
 /// Khronos: [vkAllocateCommandBuffers](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAllocateCommandBuffers.html)
 pub(crate) type PFN_vkAllocateCommandBuffers = Option<vkAllocateCommandBuffers_t>;
 /// Khronos: [vkAllocateDescriptorSets](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAllocateDescriptorSets.html)

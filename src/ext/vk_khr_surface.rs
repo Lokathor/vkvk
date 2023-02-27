@@ -1,7 +1,4 @@
 #![allow(clippy::double_parens)]
-#![allow(clippy::eq_op)]
-#![allow(clippy::erasing_op)]
-#![allow(clippy::identity_op)]
 #![allow(nonstandard_style)]
 #![allow(unused_parens)]
 #![allow(dead_code)]
@@ -11,11 +8,11 @@ use crate::prelude::*;
 pub const VK_KHR_SURFACE_SPEC_VERSION: u32 = 25;
 pub const VK_KHR_SURFACE_EXTENSION_NAME: &str = "VK_KHR_surface\0";
 pub const VK_ERROR_SURFACE_LOST_KHR: VkResult =
-  VkResult(core::num::NonZeroI32::new(-(1000000000 + (1 - 1) * 1000 + 0)));
+  VkResult(core::num::NonZeroI32::new(-extension_enumeration_value(1, 0)));
 pub const VK_ERROR_NATIVE_WINDOW_IN_USE_KHR: VkResult =
-  VkResult(core::num::NonZeroI32::new(-(1000000000 + (1 - 1) * 1000 + 1)));
+  VkResult(core::num::NonZeroI32::new(-extension_enumeration_value(1, 1)));
 pub const VK_OBJECT_TYPE_SURFACE_KHR: VkObjectType =
-  VkObjectType((1000000000 + (1 - 1) * 1000 + 0));
+  VkObjectType((extension_enumeration_value(1, 0)) as u32);
 
 define_non_dispatchable_handle!(
   /// Khronos: [VkSurfaceKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSurfaceKHR.html) (non-dispatchable handle)

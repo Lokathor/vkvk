@@ -100,6 +100,15 @@ impl Registry {
               registry.types.push(te);
             }
           }
+          if let Some(te) = registry.types.iter_mut().find(|t| t.name == "VkLayerProperties") {
+            if let Some(m) = te.members.iter_mut().find(|m| m.name == "specVersion") {
+              m.ty = "VkVersion";
+              let mut te = TypeEntry::default();
+              te.name = "VkVersion";
+              te.category = Some("basetype");
+              registry.types.push(te);
+            }
+          }
           return registry;
         }
         StartTag { name: "comment", attrs: "" } => loop {
@@ -261,7 +270,7 @@ fn do_types(
                     let arr_len = iter.next().unwrap().unwrap_text();
                     match member.ty_variant {
                       TypeVariant::Normal => {
-                        member.ty_variant = TypeVariant::ConstArrayPtrNamed(arr_len)
+                        member.ty_variant = TypeVariant::ArrayNamed(arr_len);
                       }
                       other => panic!("{other:?}"),
                     }
@@ -945,14 +954,14 @@ pub enum TypeVariant {
   MutPtrMutPtr,
   /// `*const [T; N]`
   ConstArrayPtrLit(usize),
-  /// `*const [T; NAMED_CONSTANT]`
-  ConstArrayPtrNamed(StaticStr),
   /// `*mut *const T`
   MutPtrConstPtr,
   /// `*const *const T`
   ConstPtrConstPtr,
   /// `[T; N]`
   ArrayLit(usize),
+  /// `[T; NAMED_CONSTANT]`
+  ArrayNamed(StaticStr),
   /// `[[T; A]; B]`
   ArrayOfArrayLit(usize, usize),
   /// `:N`
@@ -985,10 +994,10 @@ impl core::fmt::Debug for CommandParam {
       TypeVariant::MutPtr => write!(f, "{name}: *mut {ty}"),
       TypeVariant::MutPtrMutPtr => write!(f, "{name}: *mut *mut {ty}"),
       TypeVariant::ConstArrayPtrLit(n) => write!(f, "{name}: *const [{ty}; {n}]"),
-      TypeVariant::ConstArrayPtrNamed(n) => write!(f, "{name}: *const [{ty}; {n}]"),
       TypeVariant::MutPtrConstPtr => write!(f, "{name}: *mut *const {ty}"),
       TypeVariant::ConstPtrConstPtr => write!(f, "{name}: *const *const {ty}"),
       TypeVariant::ArrayLit(n) => write!(f, "{name}: [{ty}; {n}]"),
+      TypeVariant::ArrayNamed(n) => write!(f, "{name}: [{ty}; {n}]"),
       TypeVariant::ArrayOfArrayLit(a, b) => write!(f, "{name}: [[{ty}; {a}]; {b}]"),
       TypeVariant::BitfieldsLit(n) => write!(f, "{name}: {ty}{{:{n}}}"),
     }?;
@@ -1119,7 +1128,7 @@ impl Feature {
 #[derive(Debug, Clone, Default)]
 pub struct RequiredEnum {
   pub name: StaticStr,
-  pub value: StaticStr,
+  pub value: Option<StaticStr>,
   pub offset: Option<StaticStr>,
   pub extends: Option<StaticStr>,
   pub dir: Option<StaticStr>,
@@ -1138,7 +1147,7 @@ impl RequiredEnum {
       match key {
         "name" => s.name = value,
         "dir" => s.dir = Some(value),
-        "value" => s.value = value,
+        "value" => s.value = Some(value),
         "alias" => s.alias = Some(value),
         "bitpos" => s.bitpos = Some(value),
         "offset" => s.offset = Some(value),

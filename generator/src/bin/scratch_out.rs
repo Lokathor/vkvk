@@ -15,7 +15,7 @@ use vkvk_generator::{
   var_name,
   vk_dot_xml_parser::{
     Command, CommandParam, Enumeration, EnumerationEntry, Extension, Registry, RequireListEntry,
-    RequiredEnum, StaticStr, TypeEntry, VendorTag,
+    RequiredEnum, StaticStr, TypeEntry, TypeVariant, VendorTag,
   },
   FUNC_PTR_DECLS,
 };
@@ -32,10 +32,12 @@ fn main() {
   let registry = Registry::from_iter(&mut iter);
   //
 
+  print_v1_0_data(&registry);
   //print_v1_0_constants(&registry);
+  //print_v1_0_fn_types(&registry);
 
   //print_extension(&registry, "VK_KHR_surface");
-  print_extension(&registry, "VK_KHR_swapchain");
+  //print_extension(&registry, "VK_KHR_swapchain");
 }
 
 #[derive(Debug, Clone, Default)]
@@ -212,7 +214,8 @@ pub fn format_command_t(command: &Command) -> String {
     let arg_ty = format_type_and_variant(param.ty, param.ty_variant);
     writeln!(t, "  {arg}: {arg_ty},").ok();
   }
-  writeln!(t, ");").ok();
+  let return_ty = format_type_and_variant(command.return_ty, TypeVariant::Normal);
+  writeln!(t, ") -> {return_ty};").ok();
   t
 }
 
@@ -343,9 +346,6 @@ pub fn print_extension(registry: &Registry, name: &str) {
   assert!(supported.unwrap().split(',').any(|s| s == "vulkan"));
   //
   println!("#![allow(clippy::double_parens)]");
-  println!("#![allow(clippy::eq_op)]");
-  println!("#![allow(clippy::erasing_op)]");
-  println!("#![allow(clippy::identity_op)]");
   println!("#![allow(nonstandard_style)]");
   println!("#![allow(unused_parens)]");
   println!("#![allow(dead_code)]");
@@ -383,6 +383,10 @@ pub fn print_extension(registry: &Registry, name: &str) {
         None | Some("vulkan") => (),
         _ => continue,
       }
+      if let Some(protect) = protect {
+        println!("/* Skipping `{name}`, protected by {protect} */");
+        continue;
+      }
       //
       if let Some(comment) = comment {
         println!("/// {comment}");
@@ -390,27 +394,34 @@ pub fn print_extension(registry: &Registry, name: &str) {
       if let Some(deprecated) = deprecated {
         println!("#[deprecated = \"{deprecated}\"]");
       }
-      if let Some(extends) = extends {
+      if let Some(alias) = alias {
+        println!("/* ALIAS: {alias} is an alias for {name} */");
+      } else if let Some(extends) = extends {
         let extnumber = extnumber.or(*number).unwrap();
-        let offset = if let Some(offset) = offset {
-          offset
+        if let Some(offset) = offset {
+          let dir = dir.unwrap_or("");
+          let vk_result_prefix =
+            if *extends == "VkResult" { "core::num::NonZeroI32::new" } else { "" };
+          let vk_result_suffix = if *extends == "VkResult" { "" } else { " as u32" };
+          println!(
+            "pub const {name}: {extends} = {extends}({vk_result_prefix}({dir}extension_enumeration_value({extnumber},{offset})){vk_result_suffix});"
+          );
+        } else if let Some(bitpos) = bitpos {
+          println!("pub const {name}: {extends} = {extends}(1_u32 << {bitpos});");
         } else {
           panic!("{req_enum:?}");
         };
-        let dir = dir.unwrap_or("");
-        let vk_result_prefix =
-          if *extends == "VkResult" { "core::num::NonZeroI32::new(" } else { "" };
-        let vk_result_suffix = if *extends == "VkResult" { ")" } else { "" };
-        println!(
-          "pub const {name}: {extends} = {extends}({vk_result_prefix}{dir}(1000000000 + ({extnumber}-1)*1000 + {offset}){vk_result_suffix});"
-        );
-      } else if value.contains('&') {
-        let value = value.strip_prefix("&quot;").unwrap();
-        let value = value.strip_suffix("&quot;").unwrap();
-        println!("pub const {name}: &str = \"{value}\\0\";");
+      } else if let Some(value) = value {
+        if value.contains('&') {
+          let value = value.strip_prefix("&quot;").unwrap();
+          let value = value.strip_suffix("&quot;").unwrap();
+          println!("pub const {name}: &str = \"{value}\\0\";");
+        } else {
+          println!("pub const {name}: u32 = {value};");
+        }
       } else {
-        println!("pub const {name}: u32 = {value};");
-      };
+        panic!("{req_enum:?}");
+      }
     }
     println!();
     for ty_str in types.iter() {

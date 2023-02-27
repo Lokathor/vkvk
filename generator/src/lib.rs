@@ -69,10 +69,10 @@ pub fn format_type_and_variant(ty: &str, ty_variant: TypeVariant) -> String {
     TypeVariant::MutPtr => format!("*mut {ty}"),
     TypeVariant::MutPtrMutPtr => format!("*mut *mut {ty}"),
     TypeVariant::ConstArrayPtrLit(n) => format!("*const [{ty}; {n}]"),
-    TypeVariant::ConstArrayPtrNamed(n) => format!("*const [{ty}; {n}]"),
     TypeVariant::MutPtrConstPtr => format!("*mut *const {ty}"),
     TypeVariant::ConstPtrConstPtr => format!("*const *const {ty}"),
     TypeVariant::ArrayLit(n) => format!("[{ty}; {n}]"),
+    TypeVariant::ArrayNamed(n) => format!("[{ty}; {n}]"),
     TypeVariant::ArrayOfArrayLit(a, b) => format!("[[{ty}; {a}]; {b}]"),
     TypeVariant::BitfieldsLit(n) => format!("{ty}{{:{n}}}"),
   }

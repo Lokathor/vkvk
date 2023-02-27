@@ -855,7 +855,7 @@ pub struct VkEventCreateInfo {
 #[repr(C)]
 pub struct VkExtensionProperties {
   /// extension name
-  pub extension_name: *const [u8; VK_MAX_EXTENSION_NAME_SIZE],
+  pub extension_name: [u8; VK_MAX_EXTENSION_NAME_SIZE],
   /// version of the extension specification implemented
   pub spec_version: u32,
 }
@@ -1323,13 +1323,13 @@ define_enumeration!(
 #[repr(C)]
 pub struct VkLayerProperties {
   /// layer name
-  pub layer_name: *const [u8; VK_MAX_EXTENSION_NAME_SIZE],
+  pub layer_name: [u8; VK_MAX_EXTENSION_NAME_SIZE],
   /// version of the layer specification implemented
-  pub spec_version: u32,
+  pub spec_version: VkVersion,
   /// build or release version of the layer's library
   pub implementation_version: u32,
   /// Free-form description of the layer
-  pub description: *const [u8; VK_MAX_DESCRIPTION_SIZE],
+  pub description: [u8; VK_MAX_DESCRIPTION_SIZE],
 }
 
 define_enumeration!(
@@ -1945,9 +1945,9 @@ pub struct VkPhysicalDeviceLimits {
 #[repr(C)]
 pub struct VkPhysicalDeviceMemoryProperties {
   pub memory_type_count: u32,
-  pub memory_types: *const [VkMemoryType; VK_MAX_MEMORY_TYPES],
+  pub memory_types: [VkMemoryType; VK_MAX_MEMORY_TYPES],
   pub memory_heap_count: u32,
-  pub memory_heaps: *const [VkMemoryHeap; VK_MAX_MEMORY_HEAPS],
+  pub memory_heaps: [VkMemoryHeap; VK_MAX_MEMORY_HEAPS],
 }
 
 /// Khronos: [VkPhysicalDeviceProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceProperties.html)
@@ -1966,9 +1966,9 @@ pub struct VkPhysicalDeviceProperties {
   /// * Limit Type: noauto
   pub device_type: VkPhysicalDeviceType,
   /// * Limit Type: noauto
-  pub device_name: *const [u8; VK_MAX_PHYSICAL_DEVICE_NAME_SIZE],
+  pub device_name: [u8; VK_MAX_PHYSICAL_DEVICE_NAME_SIZE],
   /// * Limit Type: noauto
-  pub pipeline_cache_uuid: *const [u8; VK_UUID_SIZE],
+  pub pipeline_cache_uuid: [u8; VK_UUID_SIZE],
   /// * Limit Type: struct
   pub limits: VkPhysicalDeviceLimits,
   /// * Limit Type: struct
@@ -2070,7 +2070,7 @@ pub struct VkPipelineCacheHeaderVersionOne {
   pub header_version: VkPipelineCacheHeaderVersion,
   pub vendor_id: u32,
   pub device_id: u32,
-  pub pipeline_cache_uuid: *const [u8; VK_UUID_SIZE],
+  pub pipeline_cache_uuid: [u8; VK_UUID_SIZE],
 }
 
 /// Khronos: [VkPipelineColorBlendAttachmentState](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineColorBlendAttachmentState.html)
