@@ -14,7 +14,8 @@ use vkvk_generator::{
   structs_unions::{define_structure, define_union},
   var_name,
   vk_dot_xml_parser::{
-    Command, CommandParam, Enumeration, EnumerationEntry, Registry, StaticStr, TypeEntry, VendorTag,
+    Command, CommandParam, Enumeration, EnumerationEntry, Extension, Registry, RequireListEntry,
+    RequiredEnum, StaticStr, TypeEntry, VendorTag,
   },
   FUNC_PTR_DECLS,
 };
@@ -27,9 +28,14 @@ fn main() {
     .map(trim_text)
     .filter_map(skip_empty_text_elements);
   assert_eq!(iter.next().unwrap().unwrap_start_tag().0, "registry");
+  #[allow(unused)]
   let registry = Registry::from_iter(&mut iter);
   //
-  print_v1_0_constants(&registry);
+
+  //print_v1_0_constants(&registry);
+
+  //print_extension(&registry, "VK_KHR_surface");
+  print_extension(&registry, "VK_KHR_swapchain");
 }
 
 #[derive(Debug, Clone, Default)]
@@ -130,6 +136,9 @@ pub fn print_v1_0_data(registry: &Registry) {
     .iter()
     .map(|ty_name| {
       let ty = registry.types.iter().find(|ty_entry| ty_entry.name == *ty_name).unwrap();
+      if ty.name == "VkResult" {
+        return String::from("");
+      }
       format_ty(ty, &vendors)
     })
     .collect();
@@ -272,12 +281,15 @@ fn format_enum_entry(
           writeln!(f, "#[deprecated = \"{deprecated}\"]").ok();
         }
         writeln!(f, "pub const {symbol_name}: {rust_ty} = {alias};").ok();
-      } else if let Some(abs) = value.strip_prefix('-') {
+      } else if *rust_ty == "VkResult" {
         if let Some(deprecated) = deprecated {
           writeln!(f, "#[deprecated = \"{deprecated}\"]").ok();
         }
-        writeln!(f, "pub const {symbol_name}: {rust_ty} = {rust_ty}({abs}_u32.wrapping_neg());")
-          .ok();
+        writeln!(
+          f,
+          "pub const {symbol_name}: {rust_ty} = {rust_ty}(core::num::NonZeroI32::new({value}));"
+        )
+        .ok();
       } else {
         if let Some(deprecated) = deprecated {
           writeln!(f, "#[deprecated = \"{deprecated}\"]").ok();
@@ -306,4 +318,125 @@ fn format_enum_entry(
     _ => panic!("{entry:?}"),
   }
   f
+}
+
+pub fn print_extension(registry: &Registry, name: &str) {
+  let vendors: Vec<StaticStr> = registry.vendor_tags.iter().map(|v| v.name).collect();
+  let Extension {
+    name: _,
+    requires,
+    comment: _,
+    number,
+    ty: _,
+    author: _,
+    contact: _,
+    supported,
+    platform: _,
+    special_use: _,
+    deprecated_by: _,
+    promoted_to: _,
+    obsoleted_by: _,
+    provisional: _,
+    sort_order: _,
+    depends: _,
+    require_lists,
+  } = registry.extensions.iter().find(|ex| ex.name == name).unwrap();
+  assert!(requires.is_none() || *requires == Some("vulkan"));
+  assert!(supported.unwrap().split(',').any(|s| s == "vulkan"));
+  //
+  println!("#![allow(clippy::double_parens)]");
+  println!("#![allow(clippy::eq_op)]");
+  println!("#![allow(clippy::erasing_op)]");
+  println!("#![allow(clippy::identity_op)]");
+  println!("#![allow(nonstandard_style)]");
+  println!("#![allow(unused_parens)]");
+  println!("#![allow(dead_code)]");
+  println!();
+  println!("use crate::prelude::*;");
+  println!();
+  for RequireListEntry { enums, types, commands, depends, api, comment: _ } in require_lists.iter()
+  {
+    match api {
+      None | Some("vulkan") => (),
+      _ => continue,
+    }
+    match depends {
+      None => (),
+      Some("VK_VERSION_1_1") => continue,
+      other => panic!("{other:?}"),
+    }
+    //
+    for req_enum @ RequiredEnum {
+      name,
+      value,
+      offset,
+      extends,
+      dir,
+      extnumber,
+      bitpos,
+      comment,
+      alias,
+      deprecated,
+      api,
+      protect,
+    } in enums.iter()
+    {
+      match api {
+        None | Some("vulkan") => (),
+        _ => continue,
+      }
+      //
+      if let Some(comment) = comment {
+        println!("/// {comment}");
+      }
+      if let Some(deprecated) = deprecated {
+        println!("#[deprecated = \"{deprecated}\"]");
+      }
+      if let Some(extends) = extends {
+        let extnumber = extnumber.or(*number).unwrap();
+        let offset = if let Some(offset) = offset {
+          offset
+        } else {
+          panic!("{req_enum:?}");
+        };
+        let dir = dir.unwrap_or("");
+        let vk_result_prefix =
+          if *extends == "VkResult" { "core::num::NonZeroI32::new(" } else { "" };
+        let vk_result_suffix = if *extends == "VkResult" { ")" } else { "" };
+        println!(
+          "pub const {name}: {extends} = {extends}({vk_result_prefix}{dir}(1000000000 + ({extnumber}-1)*1000 + {offset}){vk_result_suffix});"
+        );
+      } else if value.contains('&') {
+        let value = value.strip_prefix("&quot;").unwrap();
+        let value = value.strip_suffix("&quot;").unwrap();
+        println!("pub const {name}: &str = \"{value}\\0\";");
+      } else {
+        println!("pub const {name}: u32 = {value};");
+      };
+    }
+    println!();
+    for ty_str in types.iter() {
+      if ty_str.contains("Flags") {
+        continue;
+      }
+      let mut ty = registry.types.iter().find(|t| t.name == *ty_str).unwrap().clone();
+      if ty_str.contains("Flags") || ty_str.contains("FlagBits") {
+        ty.category = Some("bitmask");
+      }
+      println!("{}", format_ty(&ty, &vendors));
+      for enumeration in registry.enums.iter().filter(|e| e.name == *ty_str) {
+        println!("{}", define_enums(enumeration));
+      }
+    }
+    println!();
+    for command_str in commands.iter() {
+      let command = registry.commands.iter().find(|c| c.name == *command_str).unwrap();
+      print!("{}", format_command_t(command));
+    }
+    println!();
+    for command_str in commands.iter() {
+      print!("{}", format_pfn_command(command_str));
+    }
+    println!();
+  }
 }

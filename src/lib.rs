@@ -11,6 +11,8 @@ pub mod vk_version;
 
 pub mod version_1_0;
 
+pub mod ext;
+
 /* VK_KHR_surface
 
 pub const VK_KHR_SURFACE_SPEC_VERSION: u32 = 25;

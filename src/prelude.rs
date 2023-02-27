@@ -13,3 +13,9 @@ pub use crate::{
   version_1_0::{constants::*, data_types::*, *},
   vk_version::*,
 };
+
+#[cfg(feature = "VK_KHR_surface")]
+pub use crate::ext::vk_khr_surface::*;
+
+#[cfg(feature = "VK_KHR_swapchain")]
+pub use crate::ext::vk_khr_swapchain::*;
