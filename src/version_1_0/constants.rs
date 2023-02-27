@@ -305,50 +305,50 @@ pub const VK_DYNAMIC_STATE_VIEWPORT: VkDynamicState = VkDynamicState(0);
 
 /// The logical device has been lost. See
 /// &lt;&lt;devsandqueues-lost-device&gt;&gt;
-pub const VK_ERROR_DEVICE_LOST: VkResult = VkResult(4_u32.wrapping_neg());
+pub const VK_ERROR_DEVICE_LOST: VkResult = VkResult(core::num::NonZeroI32::new(-4));
 
 /// Extension specified does not exist
-pub const VK_ERROR_EXTENSION_NOT_PRESENT: VkResult = VkResult(7_u32.wrapping_neg());
+pub const VK_ERROR_EXTENSION_NOT_PRESENT: VkResult = VkResult(core::num::NonZeroI32::new(-7));
 
 /// Requested feature is not available on this device
-pub const VK_ERROR_FEATURE_NOT_PRESENT: VkResult = VkResult(8_u32.wrapping_neg());
+pub const VK_ERROR_FEATURE_NOT_PRESENT: VkResult = VkResult(core::num::NonZeroI32::new(-8));
 
 /// Requested format is not supported on this device
-pub const VK_ERROR_FORMAT_NOT_SUPPORTED: VkResult = VkResult(11_u32.wrapping_neg());
+pub const VK_ERROR_FORMAT_NOT_SUPPORTED: VkResult = VkResult(core::num::NonZeroI32::new(-11));
 
 /// A requested pool allocation has failed due to fragmentation of the pool's
 /// memory
-pub const VK_ERROR_FRAGMENTED_POOL: VkResult = VkResult(12_u32.wrapping_neg());
+pub const VK_ERROR_FRAGMENTED_POOL: VkResult = VkResult(core::num::NonZeroI32::new(-12));
 
 /// Unable to find a Vulkan driver
-pub const VK_ERROR_INCOMPATIBLE_DRIVER: VkResult = VkResult(9_u32.wrapping_neg());
+pub const VK_ERROR_INCOMPATIBLE_DRIVER: VkResult = VkResult(core::num::NonZeroI32::new(-9));
 
 /// Initialization of an object has failed
-pub const VK_ERROR_INITIALIZATION_FAILED: VkResult = VkResult(3_u32.wrapping_neg());
+pub const VK_ERROR_INITIALIZATION_FAILED: VkResult = VkResult(core::num::NonZeroI32::new(-3));
 
 /// Layer specified does not exist
-pub const VK_ERROR_LAYER_NOT_PRESENT: VkResult = VkResult(6_u32.wrapping_neg());
+pub const VK_ERROR_LAYER_NOT_PRESENT: VkResult = VkResult(core::num::NonZeroI32::new(-6));
 
 /// Mapping of a memory object has failed
-pub const VK_ERROR_MEMORY_MAP_FAILED: VkResult = VkResult(5_u32.wrapping_neg());
+pub const VK_ERROR_MEMORY_MAP_FAILED: VkResult = VkResult(core::num::NonZeroI32::new(-5));
 
 /// A device memory allocation has failed
-pub const VK_ERROR_OUT_OF_DEVICE_MEMORY: VkResult = VkResult(2_u32.wrapping_neg());
+pub const VK_ERROR_OUT_OF_DEVICE_MEMORY: VkResult = VkResult(core::num::NonZeroI32::new(-2));
 
 /// A host memory allocation has failed
-pub const VK_ERROR_OUT_OF_HOST_MEMORY: VkResult = VkResult(1_u32.wrapping_neg());
+pub const VK_ERROR_OUT_OF_HOST_MEMORY: VkResult = VkResult(core::num::NonZeroI32::new(-1));
 
 /// Too many objects of the type have already been created
-pub const VK_ERROR_TOO_MANY_OBJECTS: VkResult = VkResult(10_u32.wrapping_neg());
+pub const VK_ERROR_TOO_MANY_OBJECTS: VkResult = VkResult(core::num::NonZeroI32::new(-10));
 
 /// An unknown error has occurred, due to an implementation or application bug
-pub const VK_ERROR_UNKNOWN: VkResult = VkResult(13_u32.wrapping_neg());
+pub const VK_ERROR_UNKNOWN: VkResult = VkResult(core::num::NonZeroI32::new(-13));
 
 /// An event is unsignaled
-pub const VK_EVENT_RESET: VkResult = VkResult(4);
+pub const VK_EVENT_RESET: VkResult = VkResult(core::num::NonZeroI32::new(4));
 
 /// An event is signaled
-pub const VK_EVENT_SET: VkResult = VkResult(3);
+pub const VK_EVENT_SET: VkResult = VkResult(core::num::NonZeroI32::new(3));
 
 pub const VK_FENCE_CREATE_SIGNALED_BIT: VkFenceCreateFlagBits = VkFenceCreateFlagBits(1_u32 << 0);
 
@@ -897,7 +897,7 @@ pub const VK_IMAGE_VIEW_TYPE_CUBE: VkImageViewType = VkImageViewType(3);
 pub const VK_IMAGE_VIEW_TYPE_CUBE_ARRAY: VkImageViewType = VkImageViewType(6);
 
 /// A return array was too small for the result
-pub const VK_INCOMPLETE: VkResult = VkResult(5);
+pub const VK_INCOMPLETE: VkResult = VkResult(core::num::NonZeroI32::new(5));
 
 pub const VK_INDEX_TYPE_UINT16: VkIndexType = VkIndexType(0);
 
@@ -964,7 +964,7 @@ pub const VK_MEMORY_PROPERTY_LAZILY_ALLOCATED_BIT: VkMemoryPropertyFlagBits =
   VkMemoryPropertyFlagBits(1_u32 << 4);
 
 /// A fence or query has not yet completed
-pub const VK_NOT_READY: VkResult = VkResult(1);
+pub const VK_NOT_READY: VkResult = VkResult(core::num::NonZeroI32::new(1));
 
 pub const VK_OBJECT_TYPE_BUFFER: VkObjectType = VkObjectType(9);
 
@@ -1445,7 +1445,7 @@ pub const VK_SUBPASS_CONTENTS_INLINE: VkSubpassContents = VkSubpassContents(0);
 pub const VK_SUBPASS_CONTENTS_SECONDARY_COMMAND_BUFFERS: VkSubpassContents = VkSubpassContents(1);
 
 /// Command completed successfully
-pub const VK_SUCCESS: VkResult = VkResult(0);
+pub const VK_SUCCESS: VkResult = VkResult(core::num::NonZeroI32::new(0));
 
 pub const VK_SYSTEM_ALLOCATION_SCOPE_CACHE: VkSystemAllocationScope = VkSystemAllocationScope(2);
 
@@ -1458,7 +1458,7 @@ pub const VK_SYSTEM_ALLOCATION_SCOPE_INSTANCE: VkSystemAllocationScope = VkSyste
 pub const VK_SYSTEM_ALLOCATION_SCOPE_OBJECT: VkSystemAllocationScope = VkSystemAllocationScope(1);
 
 /// A wait operation has not completed in the specified time
-pub const VK_TIMEOUT: VkResult = VkResult(2);
+pub const VK_TIMEOUT: VkResult = VkResult(core::num::NonZeroI32::new(2));
 
 /// Codeplay Software Ltd. vendor ID
 pub const VK_VENDOR_ID_CODEPLAY: VkVendorId = VkVendorId(0x10004);

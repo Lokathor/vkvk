@@ -2592,11 +2592,6 @@ pub struct VkRenderPassCreateInfo {
   pub dependencies: *const VkSubpassDependency,
 }
 
-define_enumeration!(
-  /// Khronos: [VkResult](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkResult.html) (enumeration)
-  VkResult
-);
-
 define_bitmask!(
   /// Khronos: [VkSampleCountFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSampleCountFlagBits.html) (bitmask)
   VkSampleCountFlagBits

@@ -5,6 +5,7 @@
 pub use core::ffi::c_void;
 
 pub use core::ffi::c_float;
+use core::num::NonZeroI32;
 
 /// Android Native Window
 pub type ANativeWindow = c_void;
@@ -56,3 +57,8 @@ pub struct VkDeviceSize(pub u64);
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[repr(transparent)]
 pub struct VkDeviceAddress(pub u64);
+
+/// Khronos: [VkResult](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkResult.html) (enumeration)
+#[derive(Clone, Copy, PartialEq, Eq)]
+#[repr(transparent)]
+pub struct VkResult(pub Option<NonZeroI32>);
