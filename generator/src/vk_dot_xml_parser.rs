@@ -88,18 +88,6 @@ impl Registry {
             }
           }
           registry.types.extend(extra_types.into_iter());
-          // We're going to change sone specific fields into our custom newtype.
-          for (s, f) in [
-            ("VkPhysicalDeviceProperties", "apiVersion"),
-            ("VkLayerProperties", "specVersion"),
-            ("VkApplicationInfo", "apiVersion"),
-          ] {
-            if let Some(te) = registry.types.iter_mut().find(|t| t.name == s) {
-              if let Some(m) = te.members.iter_mut().find(|m| m.name == f) {
-                m.ty = "VkVersion";
-              }
-            }
-          }
           // add VkVersion as a fake base type
           let mut te = TypeEntry::default();
           te.name = "VkVersion";

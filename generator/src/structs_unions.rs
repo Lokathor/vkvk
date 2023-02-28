@@ -31,6 +31,8 @@ pub fn define_structure(
   assert!(deprecated.is_none());
   assert!(bit_values.is_none());
   //
+  let member_replacements: Vec<&(&str, &str, &str)> =
+    MAGIC_MEMBER_REPLACEMENTS.iter().filter(|r| r.0 == *name).collect();
   let mut f = String::new();
   if let Some(alias) = is_alias_for {
     assert!(comment.is_none());
@@ -109,7 +111,11 @@ pub fn define_structure(
       }
       //
       let field: String = var_name(name);
-      let field_ty = format_type_and_variant(ty, *ty_variant);
+      let field_ty = if let Some(r) = member_replacements.iter().find(|r| r.1 == *name) {
+        String::from(r.2)
+      } else {
+        format_type_and_variant(ty, *ty_variant)
+      };
       if let Some(comment) = comment {
         let comment = comment.replace('[', "\\[").replace(']', "\\]");
         writeln!(f, "  /// {comment}").ok();
@@ -196,6 +202,8 @@ pub fn define_union(
   assert!(deprecated.is_none());
   assert!(bit_values.is_none());
   //
+  let member_replacements: Vec<&(&str, &str, &str)> =
+    MAGIC_MEMBER_REPLACEMENTS.iter().filter(|r| r.0 == *name).collect();
   let mut f = String::new();
   if let Some(alias) = is_alias_for {
     assert!(comment.is_none());
@@ -267,7 +275,11 @@ pub fn define_union(
       }
       //
       let field: String = var_name(name);
-      let field_ty = format_type_and_variant(ty, *ty_variant);
+      let field_ty = if let Some(r) = member_replacements.iter().find(|r| r.1 == *name) {
+        String::from(r.2)
+      } else {
+        format_type_and_variant(ty, *ty_variant)
+      };
       if let Some(comment) = comment {
         writeln!(f, "  /// {comment}").ok();
       }
@@ -329,3 +341,10 @@ pub fn define_union(
 const OMIT_DERIVE_DEBUG: &[&str] = &["VkAllocationCallbacks"];
 
 const OMIT_DERIVE_DEFAULT: &[&str] = &["VkApplicationInfo", "VkInstanceCreateInfo"];
+
+const MAGIC_MEMBER_REPLACEMENTS: &[(&str, &str, &str)] = &[
+  ("VkSurfaceCapabilitiesKHR", "maxImageCount", "Option<NonZeroU32>"),
+  ("VkPhysicalDeviceProperties", "apiVersion", "VkVersion"),
+  ("VkLayerProperties", "specVersion", "VkVersion"),
+  ("VkApplicationInfo", "apiVersion", "VkVersion"),
+];

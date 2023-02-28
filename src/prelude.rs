@@ -18,7 +18,7 @@ pub use crate::{
 pub use alloc::{boxed::Box, string::String, vec::Vec};
 pub use core::{
   ffi::{c_float, c_void},
-  num::NonZeroI32,
+  num::{NonZeroI32, NonZeroU32},
   ptr::{null, null_mut},
 };
 

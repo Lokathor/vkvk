@@ -92,7 +92,7 @@ pub struct VkSurfaceCapabilitiesKHR {
   /// Supported minimum number of images for the surface
   pub min_image_count: u32,
   /// Supported maximum number of images for the surface, 0 for unlimited
-  pub max_image_count: u32,
+  pub max_image_count: Option<NonZeroU32>,
   /// Current image width and height for the surface, (0, 0) if undefined
   pub current_extent: VkExtent2D,
   /// Supported minimum image width and height for the surface
