@@ -47,6 +47,52 @@ impl<'i, 'p: 'i> Device<'i, 'p> {
     unsafe { (self.fns.vkDestroyDevice)(self.vk_device, null()) };
     core::mem::forget(self);
   }
+
+  /// Creates a swapchain.
+  ///
+  /// See:
+  /// * Khronos: [VkSwapchainCreateInfoKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSwapchainCreateInfoKHR.html)
+  /// * Khronos: [vkCreateSwapchainKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateSwapchainKHR.html)
+  #[cfg(feature = "VK_KHR_swapchain")]
+  pub fn create_swapchain_khr(
+    &self, surface: VkSurfaceKHR, surface_format: VkSurfaceFormatKHR,
+    image_extent: VkExtent2D, present_mode: VkPresentModeKHR, min_image_count: u32,
+    image_usage: VkImageUsageFlags,
+  ) -> Result<VkSwapchainKHR, NonZeroI32> {
+    if let Some(swapchain_fns) = self.vk_khr_swapchain_fns {
+      let swapchain_create_info = VkSwapchainCreateInfoKHR {
+        surface,
+        min_image_count,
+        image_format: surface_format.format,
+        image_color_space: surface_format.color_space,
+        image_extent,
+        image_array_layers: 1,
+        image_usage,
+        image_sharing_mode: VK_SHARING_MODE_EXCLUSIVE,
+        pre_transform: VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR,
+        composite_alpha: VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR,
+        present_mode,
+        clipped: true.into(),
+        ..VkSwapchainCreateInfoKHR::default()
+      };
+      let mut vk_swapchain = VkSwapchainKHR::NULL;
+      let create_ret = unsafe {
+        (swapchain_fns.vkCreateSwapchainKHR)(
+          self.vk_device,
+          &swapchain_create_info,
+          null(),
+          &mut vk_swapchain,
+        )
+      };
+      if let Some(err_code) = create_ret.0 {
+        Err(err_code)
+      } else {
+        Ok(vk_swapchain)
+      }
+    } else {
+      Err(VK_ERROR_EXTENSION_NOT_PRESENT.0.unwrap())
+    }
+  }
 }
 
 #[derive(Clone, Copy)]
