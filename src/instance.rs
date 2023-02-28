@@ -30,6 +30,15 @@ impl Drop for Instance {
   }
 }
 impl Instance {
+  /// Gets the wrapped [`VkInstance`], in case you need need to interact with
+  /// Vulkan via other libraries.
+  #[inline]
+  #[must_use]
+  pub const fn vk_instance(&self) -> VkInstance {
+    self.vk_instance
+  }
+
+  #[inline]
   pub(crate) unsafe fn new(
     vkGetInstanceProcAddr: vkGetInstanceProcAddr_t, vk_instance: VkInstance,
   ) -> Result<Self, NonZeroI32> {
@@ -44,6 +53,22 @@ impl Instance {
         InstanceFnTable_VkKhrSurface::new(vkGetInstanceProcAddr, vk_instance)
       },
     })
+  }
+
+  /// Destroys a surface
+  ///
+  /// ## Safety
+  /// * This must be a valid surface value that came from this instance.
+  /// * The surface must have been created without using any allocation
+  ///   callbacks (which is the case for SDL surfaces, which is the main other
+  ///   library that I want this library to work with).
+  #[inline]
+  pub unsafe fn destroy_surface(&self, surface: VkSurfaceKHR) -> Result<(), NonZeroI32> {
+    if let Some(surface_fns) = self.vk_khr_surface_fns {
+      Ok((surface_fns.vkDestroySurfaceKHR)(self.vk_instance, surface, null()))
+    } else {
+      Err(VK_ERROR_EXTENSION_NOT_PRESENT.0.unwrap())
+    }
   }
 
   /// Destroy the instance.
@@ -206,6 +231,109 @@ impl PhysicalDevice<'_> {
     }
     unsafe { buf.set_len(count.try_into().unwrap()) };
     buf
+  }
+
+  /// Gets the [VkSurfaceCapabilitiesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSurfaceCapabilitiesKHR.html)
+  #[inline]
+  #[cfg(feature = "VK_KHR_surface")]
+  pub fn get_surface_capabilities_khr(
+    &self, surface: VkSurfaceKHR,
+  ) -> Result<VkSurfaceCapabilitiesKHR, NonZeroI32> {
+    if let Some(surface_fns) = self.parent.vk_khr_surface_fns {
+      let mut capabilities = VkSurfaceCapabilitiesKHR::default();
+      let get_ret = unsafe {
+        (surface_fns.vkGetPhysicalDeviceSurfaceCapabilitiesKHR)(
+          self.vk_physical_device,
+          surface,
+          &mut capabilities,
+        )
+      };
+      if let Some(err_code) = get_ret.0 {
+        Err(err_code)
+      } else {
+        Ok(capabilities)
+      }
+    } else {
+      Err(VK_ERROR_EXTENSION_NOT_PRESENT.0.unwrap())
+    }
+  }
+
+  /// Gets the possible [VkPresentModeKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPresentModeKHR.html)
+  #[inline]
+  #[cfg(feature = "VK_KHR_surface")]
+  pub fn get_surface_present_modes_khr(
+    &self, surface: VkSurfaceKHR,
+  ) -> Result<Vec<VkPresentModeKHR>, NonZeroI32> {
+    if let Some(surface_fns) = self.parent.vk_khr_surface_fns {
+      let mut count = 0_u32;
+      if let Some(err) = unsafe {
+        (surface_fns.vkGetPhysicalDeviceSurfacePresentModesKHR)(
+          self.vk_physical_device,
+          surface,
+          &mut count,
+          null_mut(),
+        )
+        .0
+      } {
+        return Err(err);
+      }
+      let mut buf = Vec::with_capacity(count.try_into().unwrap());
+      if let Some(err) = unsafe {
+        (surface_fns.vkGetPhysicalDeviceSurfacePresentModesKHR)(
+          self.vk_physical_device,
+          surface,
+          &mut count,
+          buf.as_mut_ptr(),
+        )
+        .0
+      } {
+        Err(err)
+      } else {
+        unsafe { buf.set_len(count.try_into().unwrap()) };
+        Ok(buf)
+      }
+    } else {
+      Err(VK_ERROR_EXTENSION_NOT_PRESENT.0.unwrap())
+    }
+  }
+
+  /// Gets the possible [VkSurfaceFormatKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSurfaceFormatKHR.html)
+  #[inline]
+  #[cfg(feature = "VK_KHR_surface")]
+  pub fn get_surface_formats_khr(
+    &self, surface: VkSurfaceKHR,
+  ) -> Result<Vec<VkSurfaceFormatKHR>, NonZeroI32> {
+    if let Some(surface_fns) = self.parent.vk_khr_surface_fns {
+      let mut count = 0_u32;
+      if let Some(err) = unsafe {
+        (surface_fns.vkGetPhysicalDeviceSurfaceFormatsKHR)(
+          self.vk_physical_device,
+          surface,
+          &mut count,
+          null_mut(),
+        )
+        .0
+      } {
+        return Err(err);
+      }
+      let mut buf = Vec::with_capacity(count.try_into().unwrap());
+      if let Some(err) = unsafe {
+        (surface_fns.vkGetPhysicalDeviceSurfaceFormatsKHR)(
+          self.vk_physical_device,
+          surface,
+          &mut count,
+          buf.as_mut_ptr(),
+        )
+        .0
+      } {
+        Err(err)
+      } else {
+        unsafe { buf.set_len(count.try_into().unwrap()) };
+        Ok(buf)
+      }
+    } else {
+      Err(VK_ERROR_EXTENSION_NOT_PRESENT.0.unwrap())
+    }
   }
 
   /// Opens a specific connection to this physical device, creating a "device".
