@@ -118,7 +118,6 @@ pub struct VkPresentInfoKHR {
 pub(crate) type vkCreateSwapchainKHR_t = unsafe extern "system" fn(
   device: VkDevice,
   create_info: *const VkSwapchainCreateInfoKHR,
-  create_info: *const VkSwapchainCreateInfoKHR,
   allocator: *const VkAllocationCallbacks,
   swapchain: *mut VkSwapchainKHR,
 ) -> VkResult;

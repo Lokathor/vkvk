@@ -1141,7 +1141,7 @@ pub(crate) type vkMapMemory_t = unsafe extern "system" fn(
   offset: VkDeviceSize,
   size: VkDeviceSize,
   flags: VkMemoryMapFlags,
-  pp_data: *mut *mut c_void,
+  data: *mut *mut c_void,
 ) -> VkResult;
 /// Khronos: [vkMergePipelineCaches](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkMergePipelineCaches.html)
 #[rustfmt::skip]
@@ -1425,7 +1425,8 @@ pub(crate) type PFN_vkEndCommandBuffer = Option<vkEndCommandBuffer_t>;
 pub(crate) type PFN_vkEnumerateDeviceExtensionProperties =
   Option<vkEnumerateDeviceExtensionProperties_t>;
 /// Khronos: [vkEnumerateDeviceLayerProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateDeviceLayerProperties.html)
-pub(crate) type PFN_vkEnumerateDeviceLayerProperties = Option<vkEnumerateDeviceLayerProperties_t>;
+pub(crate) type PFN_vkEnumerateDeviceLayerProperties =
+  Option<vkEnumerateDeviceLayerProperties_t>;
 /// Khronos: [vkEnumerateInstanceExtensionProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateInstanceExtensionProperties.html)
 pub(crate) type PFN_vkEnumerateInstanceExtensionProperties =
   Option<vkEnumerateInstanceExtensionProperties_t>;
@@ -1443,7 +1444,8 @@ pub(crate) type PFN_vkFreeDescriptorSets = Option<vkFreeDescriptorSets_t>;
 /// Khronos: [vkFreeMemory](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkFreeMemory.html)
 pub(crate) type PFN_vkFreeMemory = Option<vkFreeMemory_t>;
 /// Khronos: [vkGetBufferMemoryRequirements](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetBufferMemoryRequirements.html)
-pub(crate) type PFN_vkGetBufferMemoryRequirements = Option<vkGetBufferMemoryRequirements_t>;
+pub(crate) type PFN_vkGetBufferMemoryRequirements =
+  Option<vkGetBufferMemoryRequirements_t>;
 /// Khronos: [vkGetDeviceMemoryCommitment](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceMemoryCommitment.html)
 pub(crate) type PFN_vkGetDeviceMemoryCommitment = Option<vkGetDeviceMemoryCommitment_t>;
 /// Khronos: [vkGetDeviceProcAddr](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceProcAddr.html)
@@ -1475,7 +1477,8 @@ pub(crate) type PFN_vkGetPhysicalDeviceImageFormatProperties =
 pub(crate) type PFN_vkGetPhysicalDeviceMemoryProperties =
   Option<vkGetPhysicalDeviceMemoryProperties_t>;
 /// Khronos: [vkGetPhysicalDeviceProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceProperties.html)
-pub(crate) type PFN_vkGetPhysicalDeviceProperties = Option<vkGetPhysicalDeviceProperties_t>;
+pub(crate) type PFN_vkGetPhysicalDeviceProperties =
+  Option<vkGetPhysicalDeviceProperties_t>;
 /// Khronos: [vkGetPhysicalDeviceQueueFamilyProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceQueueFamilyProperties.html)
 pub(crate) type PFN_vkGetPhysicalDeviceQueueFamilyProperties =
   Option<vkGetPhysicalDeviceQueueFamilyProperties_t>;
@@ -1489,7 +1492,8 @@ pub(crate) type PFN_vkGetQueryPoolResults = Option<vkGetQueryPoolResults_t>;
 /// Khronos: [vkGetRenderAreaGranularity](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetRenderAreaGranularity.html)
 pub(crate) type PFN_vkGetRenderAreaGranularity = Option<vkGetRenderAreaGranularity_t>;
 /// Khronos: [vkInvalidateMappedMemoryRanges](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkInvalidateMappedMemoryRanges.html)
-pub(crate) type PFN_vkInvalidateMappedMemoryRanges = Option<vkInvalidateMappedMemoryRanges_t>;
+pub(crate) type PFN_vkInvalidateMappedMemoryRanges =
+  Option<vkInvalidateMappedMemoryRanges_t>;
 /// Khronos: [vkMapMemory](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkMapMemory.html)
 pub(crate) type PFN_vkMapMemory = Option<vkMapMemory_t>;
 /// Khronos: [vkMergePipelineCaches](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkMergePipelineCaches.html)
@@ -1593,7 +1597,8 @@ pub(crate) const vkDestroyBuffer_NAME: &str = "vkDestroyBuffer\0";
 pub(crate) const vkDestroyBufferView_NAME: &str = "vkDestroyBufferView\0";
 pub(crate) const vkDestroyCommandPool_NAME: &str = "vkDestroyCommandPool\0";
 pub(crate) const vkDestroyDescriptorPool_NAME: &str = "vkDestroyDescriptorPool\0";
-pub(crate) const vkDestroyDescriptorSetLayout_NAME: &str = "vkDestroyDescriptorSetLayout\0";
+pub(crate) const vkDestroyDescriptorSetLayout_NAME: &str =
+  "vkDestroyDescriptorSetLayout\0";
 pub(crate) const vkDestroyDevice_NAME: &str = "vkDestroyDevice\0";
 pub(crate) const vkDestroyEvent_NAME: &str = "vkDestroyEvent\0";
 pub(crate) const vkDestroyFence_NAME: &str = "vkDestroyFence\0";
@@ -1613,7 +1618,8 @@ pub(crate) const vkDeviceWaitIdle_NAME: &str = "vkDeviceWaitIdle\0";
 pub(crate) const vkEndCommandBuffer_NAME: &str = "vkEndCommandBuffer\0";
 pub(crate) const vkEnumerateDeviceExtensionProperties_NAME: &str =
   "vkEnumerateDeviceExtensionProperties\0";
-pub(crate) const vkEnumerateDeviceLayerProperties_NAME: &str = "vkEnumerateDeviceLayerProperties\0";
+pub(crate) const vkEnumerateDeviceLayerProperties_NAME: &str =
+  "vkEnumerateDeviceLayerProperties\0";
 pub(crate) const vkEnumerateInstanceExtensionProperties_NAME: &str =
   "vkEnumerateInstanceExtensionProperties\0";
 pub(crate) const vkEnumerateInstanceLayerProperties_NAME: &str =
@@ -1623,13 +1629,15 @@ pub(crate) const vkFlushMappedMemoryRanges_NAME: &str = "vkFlushMappedMemoryRang
 pub(crate) const vkFreeCommandBuffers_NAME: &str = "vkFreeCommandBuffers\0";
 pub(crate) const vkFreeDescriptorSets_NAME: &str = "vkFreeDescriptorSets\0";
 pub(crate) const vkFreeMemory_NAME: &str = "vkFreeMemory\0";
-pub(crate) const vkGetBufferMemoryRequirements_NAME: &str = "vkGetBufferMemoryRequirements\0";
+pub(crate) const vkGetBufferMemoryRequirements_NAME: &str =
+  "vkGetBufferMemoryRequirements\0";
 pub(crate) const vkGetDeviceMemoryCommitment_NAME: &str = "vkGetDeviceMemoryCommitment\0";
 pub(crate) const vkGetDeviceProcAddr_NAME: &str = "vkGetDeviceProcAddr\0";
 pub(crate) const vkGetDeviceQueue_NAME: &str = "vkGetDeviceQueue\0";
 pub(crate) const vkGetEventStatus_NAME: &str = "vkGetEventStatus\0";
 pub(crate) const vkGetFenceStatus_NAME: &str = "vkGetFenceStatus\0";
-pub(crate) const vkGetImageMemoryRequirements_NAME: &str = "vkGetImageMemoryRequirements\0";
+pub(crate) const vkGetImageMemoryRequirements_NAME: &str =
+  "vkGetImageMemoryRequirements\0";
 pub(crate) const vkGetImageSparseMemoryRequirements_NAME: &str =
   "vkGetImageSparseMemoryRequirements\0";
 pub(crate) const vkGetImageSubresourceLayout_NAME: &str = "vkGetImageSubresourceLayout\0";
@@ -1641,7 +1649,8 @@ pub(crate) const vkGetPhysicalDeviceImageFormatProperties_NAME: &str =
   "vkGetPhysicalDeviceImageFormatProperties\0";
 pub(crate) const vkGetPhysicalDeviceMemoryProperties_NAME: &str =
   "vkGetPhysicalDeviceMemoryProperties\0";
-pub(crate) const vkGetPhysicalDeviceProperties_NAME: &str = "vkGetPhysicalDeviceProperties\0";
+pub(crate) const vkGetPhysicalDeviceProperties_NAME: &str =
+  "vkGetPhysicalDeviceProperties\0";
 pub(crate) const vkGetPhysicalDeviceQueueFamilyProperties_NAME: &str =
   "vkGetPhysicalDeviceQueueFamilyProperties\0";
 pub(crate) const vkGetPhysicalDeviceSparseImageFormatProperties_NAME: &str =
@@ -1649,7 +1658,8 @@ pub(crate) const vkGetPhysicalDeviceSparseImageFormatProperties_NAME: &str =
 pub(crate) const vkGetPipelineCacheData_NAME: &str = "vkGetPipelineCacheData\0";
 pub(crate) const vkGetQueryPoolResults_NAME: &str = "vkGetQueryPoolResults\0";
 pub(crate) const vkGetRenderAreaGranularity_NAME: &str = "vkGetRenderAreaGranularity\0";
-pub(crate) const vkInvalidateMappedMemoryRanges_NAME: &str = "vkInvalidateMappedMemoryRanges\0";
+pub(crate) const vkInvalidateMappedMemoryRanges_NAME: &str =
+  "vkInvalidateMappedMemoryRanges\0";
 pub(crate) const vkMapMemory_NAME: &str = "vkMapMemory\0";
 pub(crate) const vkMergePipelineCaches_NAME: &str = "vkMergePipelineCaches\0";
 pub(crate) const vkQueueBindSparse_NAME: &str = "vkQueueBindSparse\0";

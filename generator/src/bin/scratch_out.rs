@@ -32,9 +32,9 @@ fn main() {
   let registry = Registry::from_iter(&mut iter);
   //
 
-  print_v1_0_data(&registry);
+  //print_v1_0_data(&registry);
   //print_v1_0_constants(&registry);
-  //print_v1_0_fn_types(&registry);
+  print_v1_0_fn_types(&registry);
 
   //print_extension(&registry, "VK_KHR_surface");
   //print_extension(&registry, "VK_KHR_swapchain");
@@ -217,6 +217,10 @@ pub fn format_command_t(command: &Command) -> String {
   writeln!(t, "#[rustfmt::skip]").ok();
   writeln!(t, "pub(crate) type {name}_t = unsafe extern \"system\" fn(").ok();
   for param in command.params.iter() {
+    match param.api {
+      None | Some("vulkan") => (),
+      _ => continue,
+    }
     let arg = var_name(param.name);
     let arg_ty = format_type_and_variant(param.ty, param.ty_variant);
     writeln!(t, "  {arg}: {arg_ty},").ok();
