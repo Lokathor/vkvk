@@ -8,7 +8,6 @@ use crate::prelude::*;
 ///
 /// The Device, or its child objects, are what you'll actually use for most of
 /// controlling Vulkan during any given program.
-#[derive(Clone, Copy)]
 pub struct Device<'i, 'p: 'i> {
   parent: core::marker::PhantomData<&'p PhysicalDevice<'i>>,
   vk_device: VkDevice,
@@ -16,6 +15,40 @@ pub struct Device<'i, 'p: 'i> {
   #[cfg(feature = "VK_KHR_swapchain")]
   vk_khr_swapchain_fns: Option<DeviceFnTable_VkKhrSwapchain>,
 }
+impl Drop for Device<'_, '_> {
+  fn drop(&mut self) {
+    if cfg!(debug_assertions) {
+      panic!("Bug: you shouldn't drop a `Device`, please destroy it properly with `Device::destroy`");
+    }
+  }
+}
+impl<'i, 'p: 'i> Device<'i, 'p> {
+  pub(crate) unsafe fn new(
+    vkGetDeviceProcAddr: vkGetDeviceProcAddr_t, vk_device: VkDevice,
+  ) -> Result<Self, NonZeroI32> {
+    Ok(Self {
+      parent: core::marker::PhantomData,
+      vk_device,
+      fns: unsafe {
+        DeviceFnTable::new(vkGetDeviceProcAddr, vk_device)
+          .ok_or(VK_ERROR_UNKNOWN.0.unwrap())?
+      },
+      vk_khr_swapchain_fns: unsafe {
+        DeviceFnTable_VkKhrSwapchain::new(vkGetDeviceProcAddr, vk_device)
+      },
+    })
+  }
+
+  /// Destroy the device.
+  ///
+  /// You should call this rather than letting the device simply drop.
+  #[inline]
+  pub fn destroy(self) {
+    unsafe { (self.fns.vkDestroyDevice)(self.vk_device, null()) };
+    core::mem::forget(self);
+  }
+}
+
 #[derive(Clone, Copy)]
 #[allow(bad_style)]
 struct DeviceFnTable {
