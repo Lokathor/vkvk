@@ -1,14 +1,43 @@
+use beryllium::{events::Event, init::InitFlags, video::CreateWinArgs, Sdl};
 use vkvk::prelude::*;
 
 fn main() {
-  let entry = Entry::LINKED;
+  let sdl = Sdl::init(InitFlags::VIDEO);
+  let win = sdl
+    .create_vk_window(CreateWinArgs { title: "VkVk Example", ..Default::default() })
+    .unwrap();
 
-  let instance = {
-    let mut instance_extensions =
-      vec![ZString::try_from(VK_KHR_SURFACE_EXTENSION_NAME).unwrap()];
+  let entry: Entry = {
+    let Some(f) = win.get_vkGetInstanceProcAddr() else {
+      panic!("Couldn't begin Vulkan initialization!");
+    };
+    // TODO: make a proper constructor fn?
+    unsafe { core::mem::transmute::<_, Entry>(f) }
+  };
+  let instance: Instance = {
+    let mut instance_extensions: Vec<ZString> = win
+      .get_instance_extensions()
+      .unwrap()
+      .into_iter()
+      .map(|p| {
+        // TODO: wow, haha, this is not good at all!
+        let mut s = String::new();
+        let mut p = p.cast::<u8>();
+        while unsafe { *p } != 0 {
+          s.push(unsafe { *p } as char);
+          p = unsafe { p.add(1) };
+        }
+        println!("SDL wants {s}");
+        ZString::try_from(s).unwrap()
+      })
+      .collect();
     let mut instance_layers = Vec::new();
 
     if cfg!(target_os = "macos") {
+      // When on Mac we're running on "MoltenVK", which translates Vulkan to
+      // Metal, so we have to enable the portability extension, which (I guess?)
+      // lets us get a vulkan that might not be *perfectly* conformant to the
+      // "real" vulkan spec.
       const PORTABILITY: &str = "VK_KHR_portability_enumeration";
       if entry
         .enumerate_instance_extension_properties(None)
@@ -49,21 +78,100 @@ fn main() {
         None,
         0,
         VkVersion::API_1_0,
-        VkInstanceCreateFlags::none(),
+        VkInstanceCreateFlags::default(),
         &instance_layer_strs,
         &instance_extension_strs,
       )
       .unwrap()
   };
+  let surface: VkSurfaceKHR = unsafe {
+    // this juggles the beryllium vulkan types and the vkvk vulkan types
+    let u: u64 =
+      win.create_surface(core::mem::transmute(instance.vk_instance())).unwrap().0;
+    core::mem::transmute(u)
+  };
+  let physical_device: PhysicalDevice =
+    instance.enumerate_physical_devices().unwrap().into_iter().next().unwrap();
+  let device: Device = {
+    let queue_family_index: u32 = physical_device
+      .get_queue_family_properties()
+      .iter()
+      .position(|prop| (prop.queue_flags & VK_QUEUE_GRAPHICS_BIT).0 != 0)
+      .unwrap()
+      .try_into()
+      .unwrap();
 
-  let physical_devices = instance.enumerate_physical_devices().unwrap();
-  for physical_device in physical_devices.iter() {
-    println!("{:?}", physical_device.get_features());
+    let mut device_extensions: Vec<ZStr<'_>> =
+      vec![ZStr::try_from(VK_KHR_SWAPCHAIN_EXTENSION_NAME).unwrap()];
+    if cfg!(target_os = "macos") {
+      device_extensions.push(ZStr::try_from("VK_KHR_portability_subset\0").unwrap());
+    }
+    physical_device.create_device(queue_family_index, &device_extensions, None).unwrap()
+  };
+  let swapchain: VkSwapchainKHR = {
+    let surface_format = physical_device
+      .get_surface_formats_khr(surface)
+      .unwrap()
+      .iter()
+      .find(|surface_format| {
+        surface_format.color_space == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR
+          && [VK_FORMAT_R8G8B8A8_SRGB, VK_FORMAT_B8G8R8A8_SRGB]
+            .contains(&surface_format.format)
+      })
+      .copied()
+      .expect("couldn't find compatible surface format");
+    let surface_capabilities =
+      physical_device.get_surface_capabilities_khr(surface).unwrap();
+    let surface_present_modes =
+      physical_device.get_surface_present_modes_khr(surface).unwrap();
+    let (present_mode, min_image_count) =
+      if surface_present_modes.contains(&VK_PRESENT_MODE_MAILBOX_KHR) {
+        let min = surface_capabilities.min_image_count;
+        let max =
+          surface_capabilities.max_image_count.map(NonZeroU32::get).unwrap_or(u32::MAX);
+        let count = min.clamp(3, max);
+        (VK_PRESENT_MODE_MAILBOX_KHR, count)
+      } else if let Some(mode) = surface_present_modes.get(0).copied() {
+        (mode, surface_capabilities.min_image_count)
+      } else {
+        panic!("No presentation modes available!");
+      };
+    let image_usage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
+    device
+      .create_swapchain_khr(
+        surface,
+        surface_format,
+        surface_capabilities.current_extent,
+        present_mode,
+        min_image_count,
+        image_usage,
+      )
+      .unwrap()
+  };
+
+  // TODO: get queues?
+
+  // TODO: get images and make image_views
+
+  // program "main loop".
+  'the_loop: loop {
+    // Process pending events.
+    #[allow(clippy::never_loop)]
+    #[allow(clippy::single_match)]
+    while let Some((event, _timestamp)) = sdl.poll_events() {
+      match event {
+        Event::Quit => break 'the_loop,
+        _ => (),
+      }
+    }
+
+    // TODO: post-events drawing
+
+    // TODO: present an image.
   }
 
-  // TODO: enumerate physical devices and pick one
-
-  // TODO: create a device from a physical device.
-
+  // TODO: destroy the swapchain
+  unsafe { instance.destroy_surface(surface).unwrap() };
+  device.destroy();
   instance.destroy();
 }
