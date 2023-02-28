@@ -28,7 +28,7 @@ define_bitmask!(
 pub type VkSwapchainCreateFlagsKHR = VkSwapchainCreateFlagBitsKHR;
 
 /// Khronos: [VkSwapchainCreateInfoKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSwapchainCreateInfoKHR.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkSwapchainCreateInfoKHR {
   /// * Values: [`VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR`]
@@ -86,7 +86,7 @@ define_non_dispatchable_handle!(
 );
 
 /// Khronos: [VkPresentInfoKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPresentInfoKHR.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkPresentInfoKHR {
   /// * Values: [`VK_STRUCTURE_TYPE_PRESENT_INFO_KHR`]

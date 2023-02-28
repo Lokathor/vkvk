@@ -86,7 +86,7 @@ pub const VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR: VkCompositeAlphaFlagBitsKHR =
 
 /// Khronos: [VkSurfaceCapabilitiesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSurfaceCapabilitiesKHR.html)
 /// * Returned Only
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkSurfaceCapabilitiesKHR {
   /// Supported minimum number of images for the surface
@@ -114,7 +114,7 @@ pub struct VkSurfaceCapabilitiesKHR {
 
 /// Khronos: [VkSurfaceFormatKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSurfaceFormatKHR.html)
 /// * Returned Only
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkSurfaceFormatKHR {
   /// Supported pair of rendering format
