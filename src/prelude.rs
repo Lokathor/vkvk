@@ -10,8 +10,9 @@
 pub(crate) use crate::{ext::extension_enumeration_value, version_1_0::fn_types::*};
 
 pub use crate::{
+  device::*,
   entry::*,
-  instance::Instance,
+  instance::*,
   version_1_0::{api_constants::*, base_types::*, constants::*, data_types::*, *},
 };
 pub use alloc::{boxed::Box, string::String, vec::Vec};

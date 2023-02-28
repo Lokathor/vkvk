@@ -1,4 +1,4 @@
-#![allow(dead_code)]
+//! The entry module lets you query the system before creating an Instance.
 
 use crate::prelude::*;
 
@@ -16,11 +16,24 @@ extern "system" {
 pub(crate) type vkGetInstanceProcAddr_t =
   unsafe extern "system" fn(VkInstance, *const u8) -> PFN_vkVoidFunction;
 
+/// Allows safely accessing the Vulkan entry-point functions.
+///
+/// An `Entry` value is just newtype wrapper over a
+/// [vkGetInstanceProcAddr](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetInstanceProcAddr.html)
+/// function pointer to provide safe methods. There's nothing else special about
+/// it. If you use the `Entry::LINKED` value you'll get the
+/// `vkGetInstanceProcAddr` that's dynamically linked to your program. This is a
+/// reasonable default, but in rare situations you may want to use a function
+/// obtained from a dynamic library after the program starts. Just transmute the
+/// (non-null) function pointer from the dynamic library into this type and
+/// it'll work.
 #[repr(transparent)]
 pub struct Entry(vkGetInstanceProcAddr_t);
 impl Entry {
+  /// Entry point for the dynamically linked Vulkan.
   pub const LINKED: Self = Self(vkGetInstanceProcAddr);
 
+  /// Gets information about the available instance layers.
   pub fn enumerate_instance_layer_properties(
     &self,
   ) -> Result<Vec<VkLayerProperties>, NonZeroI32> {
@@ -48,8 +61,14 @@ impl Entry {
     }
   }
 
+  /// Gets information about what instance extensions are available.
+  ///
+  /// Adding layers to the instance can add additional extension possibilities.
+  /// You can pass `None` to see what extensions are available with no
+  /// additional layers, or you can pass `Some(name)` to see what extensions a
+  /// particular layer allows.
   pub fn enumerate_instance_extension_properties(
-    &self, layer: Option<&str>,
+    &self, layer_name: Option<&str>,
   ) -> Result<Vec<VkExtensionProperties>, NonZeroI32> {
     let pfn_void = unsafe {
       vkGetInstanceProcAddr(
@@ -62,7 +81,7 @@ impl Entry {
     } else {
       return Err(VK_ERROR_UNKNOWN.0.unwrap());
     };
-    let layer = layer.map(|s| alloc::format!("{s}\0"));
+    let layer = layer_name.map(|s| alloc::format!("{s}\0"));
     let layer_p = match layer.as_ref() {
       None => core::ptr::null(),
       Some(string_ref) => string_ref.as_ptr(),
@@ -80,6 +99,15 @@ impl Entry {
     }
   }
 
+  /// Attempts to create a Vulkan instance.
+  ///
+  /// Note that this wraps the created [`VkInstance`] as an [`Instance`] type
+  /// value from this library. The extra wrapping includes pre-loading all the
+  /// function pointers to power the various methods.
+  ///
+  /// For more details on the instance creation rules see the Khronos docs:
+  /// [vkCreateInstance](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateInstance.html)
+  #[inline]
   #[allow(clippy::too_many_arguments)]
   pub fn create_instance(
     &self, application_name: Option<ZStr<'_>>, application_version: u32,

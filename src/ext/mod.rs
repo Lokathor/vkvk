@@ -1,10 +1,12 @@
 //! Extensions to the Vulkan API.
 
 /// Khronos: [VK_KHR_surface](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_KHR_surface.html) (instance extension)
+#[allow(missing_docs)]
 #[cfg(feature = "VK_KHR_surface")]
 pub mod vk_khr_surface;
 
 /// Khronos: [VK_KHR_swapchain](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_KHR_swapchain.html) (device extension)
+#[allow(missing_docs)]
 #[cfg(feature = "VK_KHR_swapchain")]
 pub mod vk_khr_swapchain;
 

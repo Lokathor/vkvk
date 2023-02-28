@@ -1,9 +1,11 @@
 #![no_std]
 #![allow(dead_code)]
 #![allow(non_snake_case)]
+#![warn(missing_docs)]
+
+//! A library for interacting with the Vulkan graphical and compute API.
 
 extern crate alloc;
-
 extern crate std;
 
 #[macro_use]
@@ -16,7 +18,10 @@ pub mod version_1_0;
 pub mod ext;
 
 pub mod entry;
+
 pub mod instance;
+
+pub mod device;
 
 impl core::fmt::Debug for prelude::VkLayerProperties {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {

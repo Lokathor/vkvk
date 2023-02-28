@@ -1,12 +1,20 @@
+//! The device module mostly has the [`Device`] type.
+//!
+//! The device is the primary way that you can actually make Vulkan "do stuff".
+
 use crate::prelude::*;
 
+/// Represents an open connection to a Vulkan device.
+///
+/// The Device, or its child objects, are what you'll actually use for most of
+/// controlling Vulkan during any given program.
 #[derive(Clone, Copy)]
 pub struct Device<'i, 'p: 'i> {
   parent: core::marker::PhantomData<&'p PhysicalDevice<'i>>,
   vk_device: VkDevice,
   fns: DeviceFnTable,
   #[cfg(feature = "VK_KHR_swapchain")]
-  vk_khr_swapchain_fns: DeviceFnTable_VkKhrSwapchain,
+  vk_khr_swapchain_fns: Option<DeviceFnTable_VkKhrSwapchain>,
 }
 #[derive(Clone, Copy)]
 #[allow(bad_style)]
