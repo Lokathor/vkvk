@@ -94,13 +94,6 @@ macro_rules! define_bitmask {
     #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
     #[repr(transparent)]
     pub struct $flag_bits_name(pub u32);
-    impl $flag_bits_name {
-      #[inline]
-      #[must_use]
-      pub const fn none() -> Self {
-        Self(0)
-      }
-    }
     //
     impl core::ops::BitAnd for $flag_bits_name {
       type Output = Self;

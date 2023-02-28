@@ -40,7 +40,7 @@ impl Default for prelude::VkInstanceCreateInfo {
     Self {
       ty: prelude::VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
       next: core::ptr::null(),
-      flags: prelude::VkInstanceCreateFlags::none(),
+      flags: prelude::VkInstanceCreateFlags::default(),
       application_info: core::ptr::null(),
       enabled_layer_count: 0,
       enabled_layer_names: core::ptr::null(),
@@ -71,7 +71,7 @@ impl Default for prelude::VkDeviceCreateInfo {
     Self {
       ty: prelude::VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO,
       next: core::ptr::null(),
-      flags: prelude::VkDeviceCreateFlags::none(),
+      flags: prelude::VkDeviceCreateFlags::default(),
       queue_create_info_count: 0,
       queue_create_infos: core::ptr::null(),
       enabled_layer_count: 0,
@@ -89,7 +89,7 @@ impl Default for prelude::VkDeviceQueueCreateInfo {
     Self {
       ty: prelude::VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO,
       next: core::ptr::null(),
-      flags: prelude::VkDeviceQueueCreateFlagBits::none(),
+      flags: prelude::VkDeviceQueueCreateFlagBits::default(),
       queue_family_index: 0,
       queue_count: 0,
       queue_priorities: core::ptr::null(),
@@ -125,5 +125,32 @@ impl core::fmt::Debug for prelude::VkClearColorValue {
       .field("int_32", &unsafe { self.int_32 })
       .field("uint_32", &unsafe { self.uint_32 })
       .finish()
+  }
+}
+#[cfg(feature = "VK_KHR_swapchain")]
+impl Default for prelude::VkSwapchainCreateInfoKHR {
+  #[inline]
+  #[must_use]
+  fn default() -> Self {
+    Self {
+      ty: prelude::VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR,
+      next: core::ptr::null(),
+      flags: prelude::VkSwapchainCreateFlagBitsKHR::default(),
+      surface: prelude::VkSurfaceKHR::NULL,
+      min_image_count: 0,
+      image_format: prelude::VkFormat::default(),
+      image_color_space: prelude::VkColorSpaceKHR::default(),
+      image_extent: prelude::VkExtent2D::default(),
+      image_array_layers: 0,
+      image_usage: prelude::VkImageUsageFlagBits::default(),
+      image_sharing_mode: prelude::VkSharingMode::default(),
+      queue_family_index_count: 0,
+      queue_family_indices: core::ptr::null(),
+      pre_transform: prelude::VkSurfaceTransformFlagBitsKHR::default(),
+      composite_alpha: prelude::VkCompositeAlphaFlagBitsKHR::default(),
+      present_mode: prelude::VkPresentModeKHR::default(),
+      clipped: prelude::VkBool32::FALSE,
+      old_swapchain: prelude::VkSwapchainKHR::NULL,
+    }
   }
 }
