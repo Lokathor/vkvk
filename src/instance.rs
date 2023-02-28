@@ -30,6 +30,22 @@ impl Drop for Instance {
   }
 }
 impl Instance {
+  pub(crate) unsafe fn new(
+    vkGetInstanceProcAddr: vkGetInstanceProcAddr_t, vk_instance: VkInstance,
+  ) -> Result<Self, NonZeroI32> {
+    Ok(Self {
+      vk_instance,
+      fns: unsafe {
+        InstanceFnTable::new(vkGetInstanceProcAddr, vk_instance)
+          .ok_or(VK_ERROR_UNKNOWN.0.unwrap())?
+      },
+      #[cfg(feature = "VK_KHR_surface")]
+      vk_khr_surface_fns: unsafe {
+        InstanceFnTable_VkKhrSurface::new(vkGetInstanceProcAddr, vk_instance)
+      },
+    })
+  }
+
   /// Destroy the instance.
   ///
   /// You should call this rather than letting the instance simply drop.
@@ -72,23 +88,6 @@ impl Instance {
     }
   }
 }
-impl Instance {
-  pub(crate) unsafe fn new(
-    vkGetInstanceProcAddr: vkGetInstanceProcAddr_t, vk_instance: VkInstance,
-  ) -> Result<Self, NonZeroI32> {
-    Ok(Self {
-      vk_instance,
-      fns: unsafe {
-        InstanceFnTable::new(vkGetInstanceProcAddr, vk_instance)
-          .ok_or(VK_ERROR_UNKNOWN.0.unwrap())?
-      },
-      #[cfg(feature = "VK_KHR_surface")]
-      vk_khr_surface_fns: unsafe {
-        InstanceFnTable_VkKhrSurface::new(vkGetInstanceProcAddr, vk_instance)
-      },
-    })
-  }
-}
 
 #[derive(Clone, Copy)]
 #[allow(bad_style)]
@@ -107,6 +106,7 @@ struct InstanceFnTable {
   vkGetPhysicalDeviceQueueFamilyProperties: vkGetPhysicalDeviceQueueFamilyProperties_t,
   vkGetPhysicalDeviceSparseImageFormatProperties:
     vkGetPhysicalDeviceSparseImageFormatProperties_t,
+  vkGetDeviceProcAddr: vkGetDeviceProcAddr_t,
 }
 impl InstanceFnTable {
   #[rustfmt::skip]
@@ -128,6 +128,7 @@ impl InstanceFnTable {
       vkGetPhysicalDeviceProperties: core::mem::transmute(vkGetInstanceProcAddr(vk_instance, vkGetPhysicalDeviceProperties_NAME.as_ptr())?),
       vkGetPhysicalDeviceQueueFamilyProperties: core::mem::transmute(vkGetInstanceProcAddr(vk_instance, vkGetPhysicalDeviceQueueFamilyProperties_NAME.as_ptr())?),
       vkGetPhysicalDeviceSparseImageFormatProperties: core::mem::transmute(vkGetInstanceProcAddr(vk_instance, vkGetPhysicalDeviceSparseImageFormatProperties_NAME.as_ptr())?),
+      vkGetDeviceProcAddr: core::mem::transmute(vkGetInstanceProcAddr(vk_instance, vkGetDeviceProcAddr_NAME.as_ptr())?),
     })
   }
 }
@@ -182,5 +183,71 @@ impl PhysicalDevice<'_> {
       )
     }
     features
+  }
+
+  /// Gets information about the queue families that are supported.
+  #[inline]
+  pub fn get_queue_family_properties(&self) -> Vec<VkQueueFamilyProperties> {
+    let mut count = 0_u32;
+    unsafe {
+      (self.parent.fns.vkGetPhysicalDeviceQueueFamilyProperties)(
+        self.vk_physical_device,
+        &mut count,
+        null_mut(),
+      )
+    }
+    let mut buf = Vec::with_capacity(count.try_into().unwrap());
+    unsafe {
+      (self.parent.fns.vkGetPhysicalDeviceQueueFamilyProperties)(
+        self.vk_physical_device,
+        &mut count,
+        buf.as_mut_ptr(),
+      )
+    }
+    unsafe { buf.set_len(count.try_into().unwrap()) };
+    buf
+  }
+
+  /// Opens a specific connection to this physical device, creating a "device".
+  ///
+  /// This is a simplified version of the full device creation system: You
+  /// specify just one queue family's index, and then you get just one queue in
+  /// that queue family.
+  #[inline]
+  pub fn create_device(
+    &self, queue_family_index: u32, device_extensions: &[ZStr<'_>],
+    enabled_features: Option<&VkPhysicalDeviceFeatures>,
+  ) -> Result<Device, NonZeroI32> {
+    let priorities = &[1.0];
+    let device_queue_create_info = VkDeviceQueueCreateInfo {
+      queue_family_index,
+      queue_count: priorities.len().try_into().unwrap(),
+      queue_priorities: priorities.as_ptr(),
+      ..VkDeviceQueueCreateInfo::default()
+    };
+    let enabled_features =
+      enabled_features.map(|f| f as *const VkPhysicalDeviceFeatures).unwrap_or(null());
+    let info = VkDeviceCreateInfo {
+      queue_create_info_count: 1,
+      queue_create_infos: &device_queue_create_info,
+      enabled_extension_count: device_extensions.len().try_into().unwrap(),
+      enabled_extension_names: device_extensions.as_ptr().cast(),
+      enabled_features,
+      ..VkDeviceCreateInfo::default()
+    };
+    let mut vk_device = VkDevice::NULL;
+    if let Some(err) = unsafe {
+      (self.parent.fns.vkCreateDevice)(
+        self.vk_physical_device,
+        &info,
+        null(),
+        &mut vk_device,
+      )
+      .0
+    } {
+      Err(err)
+    } else {
+      unsafe { Device::new(self.parent.fns.vkGetDeviceProcAddr, vk_device) }
+    }
   }
 }
