@@ -68,7 +68,15 @@ pub fn define_structure(
       Some("true") => drop(writeln!(f, "/// * Duplicates Allowed")),
       other => panic!("{other:?}"),
     }
+    if !OMIT_DERIVE_DEBUG.contains(name) {
+      writeln!(f, "#[derive(Debug)]").ok();
+    }
     writeln!(f, "#[derive(Clone, Copy)]").ok();
+    if !(OMIT_DERIVE_DEFAULT.contains(name)
+      || members.iter().any(|m| m.ty_variant.is_ptr()))
+    {
+      writeln!(f, "#[derive(Default)]").ok();
+    }
     writeln!(f, "#[repr(C)] pub struct {name} {{").ok();
     for Member {
       name,
@@ -135,9 +143,12 @@ pub fn define_structure(
         None => (),
         Some("false") => drop(writeln!(f, "  /// * Required")),
         Some("true") => drop(writeln!(f, "  /// * Optional")),
-        Some("false,true") => drop(writeln!(f, "  /// * Must be non-null, but may point at 0.")),
+        Some("false,true") => {
+          drop(writeln!(f, "  /// * Must be non-null, but may point at 0."))
+        }
         Some("true,false") => {
-          writeln!(f, "  /// * Optional, but if non-null must be point to valid data.").ok();
+          writeln!(f, "  /// * Optional, but if non-null must be point to valid data.")
+            .ok();
         }
         other => panic!("{other:?}"),
       }
@@ -289,9 +300,12 @@ pub fn define_union(
         None => (),
         Some("false") => drop(writeln!(f, "  /// * Required")),
         Some("true") => drop(writeln!(f, "  /// * Optional")),
-        Some("false,true") => drop(writeln!(f, "  /// * Must be non-null, but may point at 0.")),
+        Some("false,true") => {
+          drop(writeln!(f, "  /// * Must be non-null, but may point at 0."))
+        }
         Some("true,false") => {
-          writeln!(f, "  /// * Optional, but if non-null must be point to valid data.").ok();
+          writeln!(f, "  /// * Optional, but if non-null must be point to valid data.")
+            .ok();
         }
         other => panic!("{other:?}"),
       }
@@ -311,3 +325,7 @@ pub fn define_union(
   }
   f
 }
+
+const OMIT_DERIVE_DEBUG: &[&str] = &["VkAllocationCallbacks"];
+
+const OMIT_DERIVE_DEFAULT: &[&str] = &["VkApplicationInfo", "VkInstanceCreateInfo"];

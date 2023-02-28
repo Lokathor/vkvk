@@ -75,7 +75,7 @@ macro_rules! define_enumeration {
     $name:ident
   ) => {
     $(#[$name_meta])*
-    #[derive(Clone, Copy, Default, PartialEq, Eq)]
+    #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
     #[repr(transparent)]
     pub struct $name(pub u32);
   };
@@ -91,7 +91,7 @@ macro_rules! define_bitmask {
     $flag_bits_name:ident
   ) => {
     $(#[$flag_bits_meta])*
-    #[derive(Clone, Copy, Default, PartialEq, Eq)]
+    #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
     #[repr(transparent)]
     pub struct $flag_bits_name(pub u32);
     impl $flag_bits_name {

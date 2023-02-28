@@ -1,4 +1,5 @@
 #![allow(clippy::drop_ref)]
+#![allow(clippy::drop_copy)]
 
 use vk_dot_xml_parser::TypeVariant;
 
@@ -13,7 +14,10 @@ pub mod vk_dot_xml_parser;
 /// ```rust
 /// # use vkvk_generator::strip_vendor;
 /// let vendors = ["KHR", "IMG"];
-/// assert_eq!(strip_vendor("vkCreateSwapchainKHR", &vendors), ("vkCreateSwapchain", Some("KHR")));
+/// assert_eq!(
+///   strip_vendor("vkCreateSwapchainKHR", &vendors),
+///   ("vkCreateSwapchain", Some("KHR"))
+/// );
 /// assert_eq!(strip_vendor("vkCreateInstance", &vendors), ("vkCreateInstance", None));
 /// ```
 pub fn strip_vendor<'v>(name: &'v str, vendors: &[&str]) -> (&'v str, Option<&'v str>) {

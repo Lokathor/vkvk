@@ -23,24 +23,6 @@ pub mod instance;
 
 pub mod device;
 
-impl core::fmt::Debug for prelude::VkLayerProperties {
-  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-    f.debug_struct("VkLayerProperties")
-      .field("layer_name", &self.layer_name)
-      .field("spec_version", &self.spec_version)
-      .field("implementation_version", &self.implementation_version)
-      .field("description", &self.description)
-      .finish()
-  }
-}
-impl core::fmt::Debug for prelude::VkExtensionProperties {
-  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-    f.debug_struct("VkExtensionProperties")
-      .field("extension_name", &self.extension_name)
-      .field("spec_version", &self.spec_version)
-      .finish()
-  }
-}
 impl Default for prelude::VkInstanceCreateInfo {
   #[inline]
   #[must_use]
@@ -70,5 +52,36 @@ impl Default for prelude::VkApplicationInfo {
       engine_version: 0,
       api_version: prelude::VkVersion::API_1_0,
     }
+  }
+}
+impl Default for prelude::VkClearColorValue {
+  #[inline]
+  #[must_use]
+  fn default() -> Self {
+    Self { uint_32: [0_u32; 4] }
+  }
+}
+impl Default for prelude::VkClearValue {
+  #[inline]
+  #[must_use]
+  fn default() -> Self {
+    Self { color: prelude::VkClearColorValue::default() }
+  }
+}
+impl core::fmt::Debug for prelude::VkClearValue {
+  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+    f.debug_struct("VkClearValue")
+      .field("color", &unsafe { self.color })
+      .field("depth_stencil", &unsafe { self.depth_stencil })
+      .finish()
+  }
+}
+impl core::fmt::Debug for prelude::VkClearColorValue {
+  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+    f.debug_struct("VkClearColorValue(union)")
+      .field("float_32", &unsafe { self.float_32 })
+      .field("int_32", &unsafe { self.int_32 })
+      .field("uint_32", &unsafe { self.uint_32 })
+      .finish()
   }
 }

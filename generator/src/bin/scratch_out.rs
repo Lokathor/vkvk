@@ -32,8 +32,8 @@ fn main() {
   let registry = Registry::from_iter(&mut iter);
   //
 
-  //print_v1_0_data(&registry);
-  print_v1_0_constants(&registry);
+  print_v1_0_data(&registry);
+  //print_v1_0_constants(&registry);
   //print_v1_0_fn_types(&registry);
 
   //print_extension(&registry, "VK_KHR_surface");
@@ -158,8 +158,6 @@ pub fn print_v1_0_data(registry: &Registry) {
   for data_type_string in data_type_strings.iter() {
     println!("{data_type_string}");
   }
-  println!();
-  println!("{FUNC_PTR_DECLS}");
 }
 
 pub fn print_v1_0_fn_types(registry: &Registry) {

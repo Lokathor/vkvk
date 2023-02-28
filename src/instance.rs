@@ -33,9 +33,43 @@ impl Instance {
   /// Destroy the instance.
   ///
   /// You should call this rather than letting the instance simply drop.
+  #[inline]
   pub fn destroy(self) {
     unsafe { (self.fns.vkDestroyInstance)(self.vk_instance, null()) };
     core::mem::forget(self);
+  }
+
+  /// Gets a list of physical devices that are available.
+  ///
+  /// The physical devices have a lifetime back to this instance, but you do not
+  /// need to explicitly drop them.
+  #[inline]
+  pub fn enumerate_physical_devices(&self) -> Result<Vec<PhysicalDevice>, NonZeroI32> {
+    let mut count = 0_u32;
+    if let Some(err) = unsafe {
+      (self.fns.vkEnumeratePhysicalDevices)(self.vk_instance, &mut count, null_mut()).0
+    } {
+      return Err(err);
+    }
+    let mut buf = Vec::with_capacity(count.try_into().unwrap());
+    if let Some(err) = unsafe {
+      (self.fns.vkEnumeratePhysicalDevices)(
+        self.vk_instance,
+        &mut count,
+        buf.as_mut_ptr(),
+      )
+      .0
+    } {
+      Err(err)
+    } else {
+      unsafe { buf.set_len(count.try_into().unwrap()) };
+      Ok(
+        buf
+          .into_iter()
+          .map(|pd| PhysicalDevice { parent: self, vk_physical_device: pd })
+          .collect(),
+      )
+    }
   }
 }
 impl Instance {
@@ -135,4 +169,18 @@ impl InstanceFnTable_VkKhrSurface {
 pub struct PhysicalDevice<'i> {
   parent: &'i Instance,
   vk_physical_device: VkPhysicalDevice,
+}
+impl PhysicalDevice<'_> {
+  /// Gets the [VkPhysicalDeviceFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceFeatures.html)
+  #[inline]
+  pub fn get_features(&self) -> VkPhysicalDeviceFeatures {
+    let mut features = VkPhysicalDeviceFeatures::default();
+    unsafe {
+      (self.parent.fns.vkGetPhysicalDeviceFeatures)(
+        self.vk_physical_device,
+        &mut features,
+      )
+    }
+    features
+  }
 }

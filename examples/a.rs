@@ -56,6 +56,11 @@ fn main() {
       .unwrap()
   };
 
+  let physical_devices = instance.enumerate_physical_devices().unwrap();
+  for physical_device in physical_devices.iter() {
+    println!("{:?}", physical_device.get_features());
+  }
+
   // TODO: enumerate physical devices and pick one
 
   // TODO: create a device from a physical device.

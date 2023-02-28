@@ -22,7 +22,7 @@ pub type IOSurfaceRef = *mut c_void;
 #[repr(transparent)]
 pub struct VkSampleMask(pub u32);
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[repr(transparent)]
 pub struct VkBool32(u32);
 impl VkBool32 {
@@ -43,8 +43,18 @@ impl From<VkBool32> for bool {
     value.0 != 0
   }
 }
+impl core::fmt::Debug for VkBool32 {
+  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+    core::fmt::Debug::fmt(&bool::from(*self), f)
+  }
+}
+impl core::fmt::Display for VkBool32 {
+  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+    core::fmt::Display::fmt(&bool::from(*self), f)
+  }
+}
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[repr(transparent)]
 pub struct VkDeviceSize(pub u64);
 // TODO: it would be neat if the debug printing here could automatically shift
@@ -321,3 +331,52 @@ impl<const N: usize> core::fmt::Display for ArrayZString<N> {
     core::fmt::Display::fmt(self.as_str(), f)
   }
 }
+
+#[allow(nonstandard_style)]
+pub type vkVoidFunction_t = unsafe extern "system" fn();
+#[allow(nonstandard_style)]
+pub type vkAllocationFunction_t = unsafe extern "system" fn(
+  user_data: *mut c_void,
+  size: usize,
+  alignment: usize,
+  allocation_scope: VkSystemAllocationScope,
+);
+#[allow(nonstandard_style)]
+pub type vkReallocationFunction_t = unsafe extern "system" fn(
+  user_data: *mut c_void,
+  original: *mut c_void,
+  size: usize,
+  alignment: usize,
+  allocation_scope: VkSystemAllocationScope,
+);
+#[allow(nonstandard_style)]
+pub type vkFreeFunction_t =
+  unsafe extern "system" fn(pUserData: *mut c_void, pMemory: *mut c_void);
+#[allow(nonstandard_style)]
+pub type vkInternalAllocationNotification_t = unsafe extern "system" fn(
+  user_data: *mut c_void,
+  size: usize,
+  allocation_type: VkInternalAllocationType,
+  allocation_scope: VkSystemAllocationScope,
+);
+#[allow(nonstandard_style)]
+pub type vkInternalFreeNotification_t = unsafe extern "system" fn(
+  user_data: *mut c_void,
+  size: usize,
+  allocation_type: VkInternalAllocationType,
+  allocation_scope: VkSystemAllocationScope,
+);
+
+#[allow(nonstandard_style)]
+pub type PFN_vkVoidFunction = Option<vkVoidFunction_t>;
+#[allow(nonstandard_style)]
+pub type PFN_vkAllocationFunction = Option<vkAllocationFunction_t>;
+#[allow(nonstandard_style)]
+pub type PFN_vkReallocationFunction = Option<vkReallocationFunction_t>;
+#[allow(nonstandard_style)]
+pub type PFN_vkFreeFunction = Option<vkFreeFunction_t>;
+#[allow(nonstandard_style)]
+pub type PFN_vkInternalAllocationNotification =
+  Option<vkInternalAllocationNotification_t>;
+#[allow(nonstandard_style)]
+pub type PFN_vkInternalFreeNotification = Option<vkInternalFreeNotification_t>;

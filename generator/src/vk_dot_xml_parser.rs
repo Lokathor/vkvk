@@ -112,16 +112,26 @@ impl Registry {
             break;
           }
         },
-        StartTag { name: "platforms", attrs } => do_platforms(attrs, &mut registry.platforms, iter),
-        StartTag { name: "tags", attrs } => do_tags(attrs, &mut registry.vendor_tags, iter),
+        StartTag { name: "platforms", attrs } => {
+          do_platforms(attrs, &mut registry.platforms, iter)
+        }
+        StartTag { name: "tags", attrs } => {
+          do_tags(attrs, &mut registry.vendor_tags, iter)
+        }
         StartTag { name: "types", attrs } => do_types(attrs, &mut registry.types, iter),
         StartTag { name: "enums", attrs } => do_enums(attrs, &mut registry.enums, iter),
-        StartTag { name: "commands", attrs } => do_commands(attrs, &mut registry.commands, iter),
-        StartTag { name: "feature", attrs } => do_feature(attrs, &mut registry.features, iter),
+        StartTag { name: "commands", attrs } => {
+          do_commands(attrs, &mut registry.commands, iter)
+        }
+        StartTag { name: "feature", attrs } => {
+          do_feature(attrs, &mut registry.features, iter)
+        }
         StartTag { name: "extensions", attrs } => {
           do_extensions(attrs, &mut registry.extensions, iter)
         }
-        StartTag { name: "formats", attrs } => do_formats(attrs, &mut registry.formats, iter),
+        StartTag { name: "formats", attrs } => {
+          do_formats(attrs, &mut registry.formats, iter)
+        }
         StartTag { name: "spirvextensions", attrs } => {
           do_spirv_extensions(attrs, &mut registry.spirv_extensions, iter)
         }
@@ -235,7 +245,9 @@ fn do_types(
                 Text("**") => {
                   match member.ty_variant {
                     TypeVariant::Normal => member.ty_variant = TypeVariant::MutPtrMutPtr,
-                    TypeVariant::ConstPtr => member.ty_variant = TypeVariant::MutPtrConstPtr,
+                    TypeVariant::ConstPtr => {
+                      member.ty_variant = TypeVariant::MutPtrConstPtr
+                    }
                     other => panic!("{other:?}"),
                   }
                   match iter.next().unwrap() {
@@ -245,7 +257,9 @@ fn do_types(
                 }
                 Text("* const*") | Text("* const *") => {
                   match member.ty_variant {
-                    TypeVariant::ConstPtr => member.ty_variant = TypeVariant::ConstPtrConstPtr,
+                    TypeVariant::ConstPtr => {
+                      member.ty_variant = TypeVariant::ConstPtrConstPtr
+                    }
                     other => panic!("{other:?}"),
                   }
                   match iter.next().unwrap() {
@@ -286,15 +300,21 @@ fn do_types(
                     other => panic!("{other:?}"),
                   },
                   Text("[3][4]") => match member.ty_variant {
-                    TypeVariant::Normal => member.ty_variant = TypeVariant::ArrayOfArrayLit(3, 4),
+                    TypeVariant::Normal => {
+                      member.ty_variant = TypeVariant::ArrayOfArrayLit(3, 4)
+                    }
                     other => panic!("{other:?}"),
                   },
                   Text(":8") => match member.ty_variant {
-                    TypeVariant::Normal => member.ty_variant = TypeVariant::BitfieldsLit(8),
+                    TypeVariant::Normal => {
+                      member.ty_variant = TypeVariant::BitfieldsLit(8)
+                    }
                     other => panic!("{other:?}"),
                   },
                   Text(":24") => match member.ty_variant {
-                    TypeVariant::Normal => member.ty_variant = TypeVariant::BitfieldsLit(24),
+                    TypeVariant::Normal => {
+                      member.ty_variant = TypeVariant::BitfieldsLit(24)
+                    }
                     other => panic!("{other:?}"),
                   },
                   StartTag { name: "comment", attrs: "" } => {
@@ -414,8 +434,12 @@ fn do_commands(
                 }
                 Text("**") => {
                   match command_param.ty_variant {
-                    TypeVariant::Normal => command_param.ty_variant = TypeVariant::MutPtrMutPtr,
-                    TypeVariant::ConstPtr => command_param.ty_variant = TypeVariant::MutPtrConstPtr,
+                    TypeVariant::Normal => {
+                      command_param.ty_variant = TypeVariant::MutPtrMutPtr
+                    }
+                    TypeVariant::ConstPtr => {
+                      command_param.ty_variant = TypeVariant::MutPtrConstPtr
+                    }
                     other => panic!("{other:?}"),
                   }
                   match iter.next().unwrap() {
@@ -655,7 +679,8 @@ fn do_extensions(
 }
 
 fn do_formats(
-  attrs: StaticStr, formats: &mut Vec<Format>, iter: &mut impl Iterator<Item = XmlElement<'static>>,
+  attrs: StaticStr, formats: &mut Vec<Format>,
+  iter: &mut impl Iterator<Item = XmlElement<'static>>,
 ) {
   assert_attrs_comment_only!(attrs);
   loop {
@@ -962,6 +987,19 @@ pub enum TypeVariant {
   ArrayOfArrayLit(usize, usize),
   /// `:N`
   BitfieldsLit(usize),
+}
+impl TypeVariant {
+  pub fn is_ptr(&self) -> bool {
+    matches!(
+      *self,
+      TypeVariant::ConstPtr
+        | TypeVariant::MutPtr
+        | TypeVariant::MutPtrMutPtr
+        | TypeVariant::ConstArrayPtrLit(_)
+        | TypeVariant::MutPtrConstPtr
+        | TypeVariant::ConstPtrConstPtr
+    )
+  }
 }
 
 #[derive(Clone, Default)]

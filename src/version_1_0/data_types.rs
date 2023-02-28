@@ -28,7 +28,7 @@ pub struct VkAllocationCallbacks {
 }
 
 /// Khronos: [VkApplicationInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkApplicationInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkApplicationInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_APPLICATION_INFO`]
@@ -47,7 +47,7 @@ pub struct VkApplicationInfo {
 }
 
 /// Khronos: [VkAttachmentDescription](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkAttachmentDescription.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkAttachmentDescription {
   /// * Optional
@@ -79,7 +79,7 @@ define_enumeration!(
 );
 
 /// Khronos: [VkAttachmentReference](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkAttachmentReference.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkAttachmentReference {
   pub attachment: u32,
@@ -92,7 +92,7 @@ define_enumeration!(
 );
 
 /// Khronos: [VkBaseInStructure](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkBaseInStructure.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkBaseInStructure {
   pub ty: VkStructureType,
@@ -101,7 +101,7 @@ pub struct VkBaseInStructure {
 }
 
 /// Khronos: [VkBaseOutStructure](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkBaseOutStructure.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkBaseOutStructure {
   pub ty: VkStructureType,
@@ -110,7 +110,7 @@ pub struct VkBaseOutStructure {
 }
 
 /// Khronos: [VkBindSparseInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkBindSparseInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkBindSparseInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_BIND_SPARSE_INFO`]
@@ -162,7 +162,7 @@ define_non_dispatchable_handle!(
 );
 
 /// Khronos: [VkBufferCopy](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkBufferCopy.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkBufferCopy {
   /// Specified in bytes
@@ -182,7 +182,7 @@ define_bitmask!(
 pub type VkBufferCreateFlags = VkBufferCreateFlagBits;
 
 /// Khronos: [VkBufferCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkBufferCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkBufferCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO`]
@@ -205,7 +205,7 @@ pub struct VkBufferCreateInfo {
 }
 
 /// Khronos: [VkBufferImageCopy](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkBufferImageCopy.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkBufferImageCopy {
   /// Specified in bytes
@@ -221,7 +221,7 @@ pub struct VkBufferImageCopy {
 }
 
 /// Khronos: [VkBufferMemoryBarrier](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkBufferMemoryBarrier.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkBufferMemoryBarrier {
   /// * Values: [`VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER`]
@@ -268,7 +268,7 @@ define_bitmask!(
 pub type VkBufferViewCreateFlags = VkBufferViewCreateFlagBits;
 
 /// Khronos: [VkBufferViewCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkBufferViewCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkBufferViewCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_BUFFER_VIEW_CREATE_INFO`]
@@ -287,7 +287,7 @@ pub struct VkBufferViewCreateInfo {
 }
 
 /// Khronos: [VkClearAttachment](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkClearAttachment.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkClearAttachment {
   pub aspect_mask: VkImageAspectFlags,
@@ -310,7 +310,7 @@ pub union VkClearColorValue {
 }
 
 /// Khronos: [VkClearDepthStencilValue](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkClearDepthStencilValue.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkClearDepthStencilValue {
   pub depth: c_float,
@@ -318,7 +318,7 @@ pub struct VkClearDepthStencilValue {
 }
 
 /// Khronos: [VkClearRect](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkClearRect.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkClearRect {
   pub rect: VkRect2D,
@@ -353,7 +353,7 @@ define_handle!(
 );
 
 /// Khronos: [VkCommandBufferAllocateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkCommandBufferAllocateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkCommandBufferAllocateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO`]
@@ -366,7 +366,7 @@ pub struct VkCommandBufferAllocateInfo {
 }
 
 /// Khronos: [VkCommandBufferBeginInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkCommandBufferBeginInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkCommandBufferBeginInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO`]
@@ -383,7 +383,7 @@ pub struct VkCommandBufferBeginInfo {
 }
 
 /// Khronos: [VkCommandBufferInheritanceInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkCommandBufferInheritanceInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkCommandBufferInheritanceInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_INFO`]
@@ -447,7 +447,7 @@ define_bitmask!(
 pub type VkCommandPoolCreateFlags = VkCommandPoolCreateFlagBits;
 
 /// Khronos: [VkCommandPoolCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkCommandPoolCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkCommandPoolCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO`]
@@ -473,7 +473,7 @@ define_enumeration!(
 );
 
 /// Khronos: [VkComponentMapping](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkComponentMapping.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkComponentMapping {
   pub r: VkComponentSwizzle,
@@ -488,7 +488,7 @@ define_enumeration!(
 );
 
 /// Khronos: [VkComputePipelineCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkComputePipelineCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkComputePipelineCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_CREATE_INFO`]
@@ -513,7 +513,7 @@ pub struct VkComputePipelineCreateInfo {
 }
 
 /// Khronos: [VkCopyDescriptorSet](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkCopyDescriptorSet.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkCopyDescriptorSet {
   /// * Values: [`VK_STRUCTURE_TYPE_COPY_DESCRIPTOR_SET`]
@@ -552,7 +552,7 @@ define_bitmask!(
 pub type VkDependencyFlags = VkDependencyFlagBits;
 
 /// Khronos: [VkDescriptorBufferInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDescriptorBufferInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkDescriptorBufferInfo {
   /// Buffer used for this descriptor slot.
@@ -565,7 +565,7 @@ pub struct VkDescriptorBufferInfo {
 }
 
 /// Khronos: [VkDescriptorImageInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDescriptorImageInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkDescriptorImageInfo {
   /// Sampler to write to the descriptor in case it is a SAMPLER or
@@ -598,7 +598,7 @@ define_bitmask!(
 pub type VkDescriptorPoolCreateFlags = VkDescriptorPoolCreateFlagBits;
 
 /// Khronos: [VkDescriptorPoolCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDescriptorPoolCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkDescriptorPoolCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO`]
@@ -622,7 +622,7 @@ define_bitmask!(
 pub type VkDescriptorPoolResetFlags = VkDescriptorPoolResetFlagBits;
 
 /// Khronos: [VkDescriptorPoolSize](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDescriptorPoolSize.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkDescriptorPoolSize {
   pub ty: VkDescriptorType,
@@ -637,7 +637,7 @@ define_non_dispatchable_handle!(
 );
 
 /// Khronos: [VkDescriptorSetAllocateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDescriptorSetAllocateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkDescriptorSetAllocateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO`]
@@ -658,7 +658,7 @@ define_non_dispatchable_handle!(
 );
 
 /// Khronos: [VkDescriptorSetLayoutBinding](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDescriptorSetLayoutBinding.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkDescriptorSetLayoutBinding {
   /// Binding number for this entry
@@ -688,7 +688,7 @@ define_bitmask!(
 pub type VkDescriptorSetLayoutCreateFlags = VkDescriptorSetLayoutCreateFlagBits;
 
 /// Khronos: [VkDescriptorSetLayoutCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDescriptorSetLayoutCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkDescriptorSetLayoutCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO`]
@@ -725,7 +725,7 @@ define_bitmask!(
 pub type VkDeviceCreateFlags = VkDeviceCreateFlagBits;
 
 /// Khronos: [VkDeviceCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDeviceCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkDeviceCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO`]
@@ -767,7 +767,7 @@ define_bitmask!(
 pub type VkDeviceQueueCreateFlags = VkDeviceQueueCreateFlagBits;
 
 /// Khronos: [VkDeviceQueueCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDeviceQueueCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkDeviceQueueCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO`]
@@ -783,7 +783,7 @@ pub struct VkDeviceQueueCreateInfo {
 }
 
 /// Khronos: [VkDispatchIndirectCommand](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDispatchIndirectCommand.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkDispatchIndirectCommand {
   /// * No Auto Validity
@@ -795,7 +795,7 @@ pub struct VkDispatchIndirectCommand {
 }
 
 /// Khronos: [VkDrawIndexedIndirectCommand](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDrawIndexedIndirectCommand.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkDrawIndexedIndirectCommand {
   pub index_count: u32,
@@ -807,7 +807,7 @@ pub struct VkDrawIndexedIndirectCommand {
 }
 
 /// Khronos: [VkDrawIndirectCommand](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDrawIndirectCommand.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkDrawIndirectCommand {
   pub vertex_count: u32,
@@ -837,7 +837,7 @@ define_bitmask!(
 pub type VkEventCreateFlags = VkEventCreateFlagBits;
 
 /// Khronos: [VkEventCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkEventCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkEventCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_EVENT_CREATE_INFO`]
@@ -851,7 +851,7 @@ pub struct VkEventCreateInfo {
 
 /// Khronos: [VkExtensionProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkExtensionProperties.html)
 /// * Returned Only
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkExtensionProperties {
   /// extension name
@@ -861,7 +861,7 @@ pub struct VkExtensionProperties {
 }
 
 /// Khronos: [VkExtent2D](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkExtent2D.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkExtent2D {
   pub width: u32,
@@ -869,7 +869,7 @@ pub struct VkExtent2D {
 }
 
 /// Khronos: [VkExtent3D](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkExtent3D.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkExtent3D {
   pub width: u32,
@@ -892,7 +892,7 @@ define_bitmask!(
 pub type VkFenceCreateFlags = VkFenceCreateFlagBits;
 
 /// Khronos: [VkFenceCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkFenceCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkFenceCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_FENCE_CREATE_INFO`]
@@ -923,7 +923,7 @@ pub type VkFormatFeatureFlags = VkFormatFeatureFlagBits;
 
 /// Khronos: [VkFormatProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkFormatProperties.html)
 /// * Returned Only
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkFormatProperties {
   /// Format features in case of linear tiling
@@ -955,7 +955,7 @@ define_bitmask!(
 pub type VkFramebufferCreateFlags = VkFramebufferCreateFlagBits;
 
 /// Khronos: [VkFramebufferCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkFramebufferCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkFramebufferCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO`]
@@ -981,7 +981,7 @@ define_enumeration!(
 );
 
 /// Khronos: [VkGraphicsPipelineCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkGraphicsPipelineCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkGraphicsPipelineCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO`]
@@ -1060,7 +1060,7 @@ define_bitmask!(
 pub type VkImageAspectFlags = VkImageAspectFlagBits;
 
 /// Khronos: [VkImageBlit](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkImageBlit.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkImageBlit {
   pub src_subresource: VkImageSubresourceLayers,
@@ -1072,7 +1072,7 @@ pub struct VkImageBlit {
 }
 
 /// Khronos: [VkImageCopy](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkImageCopy.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkImageCopy {
   pub src_subresource: VkImageSubresourceLayers,
@@ -1093,7 +1093,7 @@ define_bitmask!(
 pub type VkImageCreateFlags = VkImageCreateFlagBits;
 
 /// Khronos: [VkImageCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkImageCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkImageCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO`]
@@ -1127,7 +1127,7 @@ pub struct VkImageCreateInfo {
 
 /// Khronos: [VkImageFormatProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkImageFormatProperties.html)
 /// * Returned Only
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkImageFormatProperties {
   /// max image dimensions for this resource type
@@ -1149,7 +1149,7 @@ define_enumeration!(
 );
 
 /// Khronos: [VkImageMemoryBarrier](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkImageMemoryBarrier.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkImageMemoryBarrier {
   /// * Values: [`VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER`]
@@ -1177,7 +1177,7 @@ pub struct VkImageMemoryBarrier {
 }
 
 /// Khronos: [VkImageResolve](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkImageResolve.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkImageResolve {
   pub src_subresource: VkImageSubresourceLayers,
@@ -1188,7 +1188,7 @@ pub struct VkImageResolve {
 }
 
 /// Khronos: [VkImageSubresource](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkImageSubresource.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkImageSubresource {
   pub aspect_mask: VkImageAspectFlags,
@@ -1197,7 +1197,7 @@ pub struct VkImageSubresource {
 }
 
 /// Khronos: [VkImageSubresourceLayers](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkImageSubresourceLayers.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkImageSubresourceLayers {
   pub aspect_mask: VkImageAspectFlags,
@@ -1207,7 +1207,7 @@ pub struct VkImageSubresourceLayers {
 }
 
 /// Khronos: [VkImageSubresourceRange](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkImageSubresourceRange.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkImageSubresourceRange {
   pub aspect_mask: VkImageAspectFlags,
@@ -1249,7 +1249,7 @@ define_bitmask!(
 pub type VkImageViewCreateFlags = VkImageViewCreateFlagBits;
 
 /// Khronos: [VkImageViewCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkImageViewCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkImageViewCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO`]
@@ -1289,7 +1289,7 @@ define_bitmask!(
 pub type VkInstanceCreateFlags = VkInstanceCreateFlagBits;
 
 /// Khronos: [VkInstanceCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkInstanceCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkInstanceCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO`]
@@ -1319,7 +1319,7 @@ define_enumeration!(
 
 /// Khronos: [VkLayerProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkLayerProperties.html)
 /// * Returned Only
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkLayerProperties {
   /// layer name
@@ -1338,7 +1338,7 @@ define_enumeration!(
 );
 
 /// Khronos: [VkMappedMemoryRange](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkMappedMemoryRange.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkMappedMemoryRange {
   /// * Values: [`VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE`]
@@ -1354,7 +1354,7 @@ pub struct VkMappedMemoryRange {
 }
 
 /// Khronos: [VkMemoryAllocateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkMemoryAllocateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkMemoryAllocateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO`]
@@ -1368,7 +1368,7 @@ pub struct VkMemoryAllocateInfo {
 }
 
 /// Khronos: [VkMemoryBarrier](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkMemoryBarrier.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkMemoryBarrier {
   /// * Values: [`VK_STRUCTURE_TYPE_MEMORY_BARRIER`]
@@ -1385,7 +1385,7 @@ pub struct VkMemoryBarrier {
 
 /// Khronos: [VkMemoryHeap](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkMemoryHeap.html)
 /// * Returned Only
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkMemoryHeap {
   /// Available memory in the heap
@@ -1418,7 +1418,7 @@ pub type VkMemoryPropertyFlags = VkMemoryPropertyFlagBits;
 
 /// Khronos: [VkMemoryRequirements](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkMemoryRequirements.html)
 /// * Returned Only
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkMemoryRequirements {
   /// Specified in bytes
@@ -1432,7 +1432,7 @@ pub struct VkMemoryRequirements {
 
 /// Khronos: [VkMemoryType](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkMemoryType.html)
 /// * Returned Only
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkMemoryType {
   /// Memory properties of this memory type
@@ -1448,7 +1448,7 @@ define_enumeration!(
 );
 
 /// Khronos: [VkOffset2D](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkOffset2D.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkOffset2D {
   pub x: i32,
@@ -1456,7 +1456,7 @@ pub struct VkOffset2D {
 }
 
 /// Khronos: [VkOffset3D](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkOffset3D.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkOffset3D {
   pub x: i32,
@@ -1472,7 +1472,7 @@ define_handle!(
 );
 
 /// Khronos: [VkPhysicalDeviceFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceFeatures.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkPhysicalDeviceFeatures {
   /// out of bounds buffer accesses are well defined
@@ -1602,7 +1602,7 @@ pub struct VkPhysicalDeviceFeatures {
 ///
 /// compute stage limits
 /// * Returned Only
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkPhysicalDeviceLimits {
   /// max 1D image dimension
@@ -1941,7 +1941,7 @@ pub struct VkPhysicalDeviceLimits {
 
 /// Khronos: [VkPhysicalDeviceMemoryProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMemoryProperties.html)
 /// * Returned Only
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkPhysicalDeviceMemoryProperties {
   pub memory_type_count: u32,
@@ -1952,7 +1952,7 @@ pub struct VkPhysicalDeviceMemoryProperties {
 
 /// Khronos: [VkPhysicalDeviceProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceProperties.html)
 /// * Returned Only
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkPhysicalDeviceProperties {
   /// * Limit Type: noauto
@@ -1977,7 +1977,7 @@ pub struct VkPhysicalDeviceProperties {
 
 /// Khronos: [VkPhysicalDeviceSparseProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceSparseProperties.html)
 /// * Returned Only
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkPhysicalDeviceSparseProperties {
   /// Sparse resources support: GPU will access all 2D (single sample) sparse
@@ -2037,7 +2037,7 @@ define_bitmask!(
 pub type VkPipelineCacheCreateFlags = VkPipelineCacheCreateFlagBits;
 
 /// Khronos: [VkPipelineCacheCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineCacheCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkPipelineCacheCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_PIPELINE_CACHE_CREATE_INFO`]
@@ -2063,7 +2063,7 @@ define_enumeration!(
 ///
 /// The fields in this structure are non-normative since structure packing is
 /// implementation-defined in C. The specification defines the normative layout.
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkPipelineCacheHeaderVersionOne {
   pub header_size: u32,
@@ -2074,7 +2074,7 @@ pub struct VkPipelineCacheHeaderVersionOne {
 }
 
 /// Khronos: [VkPipelineColorBlendAttachmentState](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineColorBlendAttachmentState.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkPipelineColorBlendAttachmentState {
   pub blend_enable: VkBool32,
@@ -2096,7 +2096,7 @@ define_bitmask!(
 pub type VkPipelineColorBlendStateCreateFlags = VkPipelineColorBlendStateCreateFlagBits;
 
 /// Khronos: [VkPipelineColorBlendStateCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineColorBlendStateCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkPipelineColorBlendStateCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO`]
@@ -2129,10 +2129,11 @@ define_bitmask!(
   VkPipelineDepthStencilStateCreateFlagBits
 );
 /// Khronos: [VkPipelineDepthStencilStateCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineDepthStencilStateCreateFlagBits.html) (bitmask)
-pub type VkPipelineDepthStencilStateCreateFlags = VkPipelineDepthStencilStateCreateFlagBits;
+pub type VkPipelineDepthStencilStateCreateFlags =
+  VkPipelineDepthStencilStateCreateFlagBits;
 
 /// Khronos: [VkPipelineDepthStencilStateCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineDepthStencilStateCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkPipelineDepthStencilStateCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO`]
@@ -2161,7 +2162,7 @@ define_bitmask!(
 pub type VkPipelineDynamicStateCreateFlags = VkPipelineDynamicStateCreateFlagBits;
 
 /// Khronos: [VkPipelineDynamicStateCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineDynamicStateCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkPipelineDynamicStateCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO`]
@@ -2181,10 +2182,11 @@ define_bitmask!(
   VkPipelineInputAssemblyStateCreateFlagBits
 );
 /// Khronos: [VkPipelineInputAssemblyStateCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineInputAssemblyStateCreateFlagBits.html) (bitmask)
-pub type VkPipelineInputAssemblyStateCreateFlags = VkPipelineInputAssemblyStateCreateFlagBits;
+pub type VkPipelineInputAssemblyStateCreateFlags =
+  VkPipelineInputAssemblyStateCreateFlagBits;
 
 /// Khronos: [VkPipelineInputAssemblyStateCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineInputAssemblyStateCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkPipelineInputAssemblyStateCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO`]
@@ -2212,7 +2214,7 @@ define_bitmask!(
 pub type VkPipelineLayoutCreateFlags = VkPipelineLayoutCreateFlagBits;
 
 /// Khronos: [VkPipelineLayoutCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineLayoutCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkPipelineLayoutCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO`]
@@ -2246,7 +2248,7 @@ define_bitmask!(
 pub type VkPipelineMultisampleStateCreateFlags = VkPipelineMultisampleStateCreateFlagBits;
 
 /// Khronos: [VkPipelineMultisampleStateCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineMultisampleStateCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkPipelineMultisampleStateCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO`]
@@ -2275,10 +2277,11 @@ define_bitmask!(
   VkPipelineRasterizationStateCreateFlagBits
 );
 /// Khronos: [VkPipelineRasterizationStateCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineRasterizationStateCreateFlagBits.html) (bitmask)
-pub type VkPipelineRasterizationStateCreateFlags = VkPipelineRasterizationStateCreateFlagBits;
+pub type VkPipelineRasterizationStateCreateFlags =
+  VkPipelineRasterizationStateCreateFlagBits;
 
 /// Khronos: [VkPipelineRasterizationStateCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineRasterizationStateCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkPipelineRasterizationStateCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO`]
@@ -2309,7 +2312,7 @@ define_bitmask!(
 pub type VkPipelineShaderStageCreateFlags = VkPipelineShaderStageCreateFlagBits;
 
 /// Khronos: [VkPipelineShaderStageCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineShaderStageCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkPipelineShaderStageCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO`]
@@ -2342,10 +2345,11 @@ define_bitmask!(
   VkPipelineTessellationStateCreateFlagBits
 );
 /// Khronos: [VkPipelineTessellationStateCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineTessellationStateCreateFlagBits.html) (bitmask)
-pub type VkPipelineTessellationStateCreateFlags = VkPipelineTessellationStateCreateFlagBits;
+pub type VkPipelineTessellationStateCreateFlags =
+  VkPipelineTessellationStateCreateFlagBits;
 
 /// Khronos: [VkPipelineTessellationStateCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineTessellationStateCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkPipelineTessellationStateCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_PIPELINE_TESSELLATION_STATE_CREATE_INFO`]
@@ -2365,7 +2369,7 @@ define_bitmask!(
 pub type VkPipelineVertexInputStateCreateFlags = VkPipelineVertexInputStateCreateFlagBits;
 
 /// Khronos: [VkPipelineVertexInputStateCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineVertexInputStateCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkPipelineVertexInputStateCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO`]
@@ -2394,7 +2398,7 @@ define_bitmask!(
 pub type VkPipelineViewportStateCreateFlags = VkPipelineViewportStateCreateFlagBits;
 
 /// Khronos: [VkPipelineViewportStateCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineViewportStateCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkPipelineViewportStateCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO`]
@@ -2428,7 +2432,7 @@ define_enumeration!(
 );
 
 /// Khronos: [VkPushConstantRange](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPushConstantRange.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkPushConstantRange {
   /// Which stages use the range
@@ -2468,7 +2472,7 @@ define_bitmask!(
 pub type VkQueryPoolCreateFlags = VkQueryPoolCreateFlagBits;
 
 /// Khronos: [VkQueryPoolCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkQueryPoolCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkQueryPoolCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_QUERY_POOL_CREATE_INFO`]
@@ -2506,7 +2510,7 @@ define_handle!(
 
 /// Khronos: [VkQueueFamilyProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkQueueFamilyProperties.html)
 /// * Returned Only
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkQueueFamilyProperties {
   /// Queue flags
@@ -2530,7 +2534,7 @@ define_bitmask!(
 pub type VkQueueFlags = VkQueueFlagBits;
 
 /// Khronos: [VkRect2D](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkRect2D.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkRect2D {
   pub offset: VkOffset2D,
@@ -2545,7 +2549,7 @@ define_non_dispatchable_handle!(
 );
 
 /// Khronos: [VkRenderPassBeginInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkRenderPassBeginInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkRenderPassBeginInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO`]
@@ -2570,7 +2574,7 @@ define_bitmask!(
 pub type VkRenderPassCreateFlags = VkRenderPassCreateFlagBits;
 
 /// Khronos: [VkRenderPassCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkRenderPassCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkRenderPassCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO`]
@@ -2619,7 +2623,7 @@ define_bitmask!(
 pub type VkSamplerCreateFlags = VkSamplerCreateFlagBits;
 
 /// Khronos: [VkSamplerCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSamplerCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkSamplerCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO`]
@@ -2670,7 +2674,7 @@ define_bitmask!(
 pub type VkSemaphoreCreateFlags = VkSemaphoreCreateFlagBits;
 
 /// Khronos: [VkSemaphoreCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSemaphoreCreateInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkSemaphoreCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO`]
@@ -2698,7 +2702,7 @@ pub type VkShaderModuleCreateFlags = VkShaderModuleCreateFlagBits;
 
 /// Khronos: [VkShaderModuleCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkShaderModuleCreateInfo.html)
 /// * Struct Extends: [VkPipelineShaderStageCreateInfo]
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkShaderModuleCreateInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO`]
@@ -2731,7 +2735,7 @@ define_enumeration!(
 );
 
 /// Khronos: [VkSparseBufferMemoryBindInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSparseBufferMemoryBindInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkSparseBufferMemoryBindInfo {
   pub buffer: VkBuffer,
@@ -2749,7 +2753,7 @@ pub type VkSparseImageFormatFlags = VkSparseImageFormatFlagBits;
 
 /// Khronos: [VkSparseImageFormatProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSparseImageFormatProperties.html)
 /// * Returned Only
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkSparseImageFormatProperties {
   /// * Limit Type: bitmask
@@ -2763,7 +2767,7 @@ pub struct VkSparseImageFormatProperties {
 }
 
 /// Khronos: [VkSparseImageMemoryBind](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSparseImageMemoryBind.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkSparseImageMemoryBind {
   pub subresource: VkImageSubresource,
@@ -2778,7 +2782,7 @@ pub struct VkSparseImageMemoryBind {
 }
 
 /// Khronos: [VkSparseImageMemoryBindInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSparseImageMemoryBindInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkSparseImageMemoryBindInfo {
   pub image: VkImage,
@@ -2789,7 +2793,7 @@ pub struct VkSparseImageMemoryBindInfo {
 
 /// Khronos: [VkSparseImageMemoryRequirements](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSparseImageMemoryRequirements.html)
 /// * Returned Only
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkSparseImageMemoryRequirements {
   pub format_properties: VkSparseImageFormatProperties,
@@ -2806,7 +2810,7 @@ pub struct VkSparseImageMemoryRequirements {
 }
 
 /// Khronos: [VkSparseImageOpaqueMemoryBindInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSparseImageOpaqueMemoryBindInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkSparseImageOpaqueMemoryBindInfo {
   pub image: VkImage,
@@ -2816,7 +2820,7 @@ pub struct VkSparseImageOpaqueMemoryBindInfo {
 }
 
 /// Khronos: [VkSparseMemoryBind](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSparseMemoryBind.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkSparseMemoryBind {
   /// Specified in bytes
@@ -2839,7 +2843,7 @@ define_bitmask!(
 pub type VkSparseMemoryBindFlags = VkSparseMemoryBindFlagBits;
 
 /// Khronos: [VkSpecializationInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSpecializationInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkSpecializationInfo {
   /// Number of entries in the map
@@ -2857,7 +2861,7 @@ pub struct VkSpecializationInfo {
 }
 
 /// Khronos: [VkSpecializationMapEntry](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSpecializationMapEntry.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkSpecializationMapEntry {
   /// The SpecConstant ID specified in the BIL
@@ -2882,7 +2886,7 @@ define_enumeration!(
 );
 
 /// Khronos: [VkStencilOpState](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkStencilOpState.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkStencilOpState {
   pub fail_op: VkStencilOp,
@@ -2900,7 +2904,7 @@ define_enumeration!(
 );
 
 /// Khronos: [VkSubmitInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSubmitInfo.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkSubmitInfo {
   /// * Values: [`VK_STRUCTURE_TYPE_SUBMIT_INFO`]
@@ -2930,7 +2934,7 @@ define_enumeration!(
 );
 
 /// Khronos: [VkSubpassDependency](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSubpassDependency.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkSubpassDependency {
   pub src_subpass: u32,
@@ -2950,7 +2954,7 @@ pub struct VkSubpassDependency {
 }
 
 /// Khronos: [VkSubpassDescription](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSubpassDescription.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkSubpassDescription {
   /// * Optional
@@ -2984,7 +2988,7 @@ define_bitmask!(
 pub type VkSubpassDescriptionFlags = VkSubpassDescriptionFlagBits;
 
 /// Khronos: [VkSubresourceLayout](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSubresourceLayout.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkSubresourceLayout {
   /// Specified in bytes
@@ -3010,7 +3014,7 @@ define_enumeration!(
 );
 
 /// Khronos: [VkVertexInputAttributeDescription](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkVertexInputAttributeDescription.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkVertexInputAttributeDescription {
   /// location of the shader vertex attrib
@@ -3024,7 +3028,7 @@ pub struct VkVertexInputAttributeDescription {
 }
 
 /// Khronos: [VkVertexInputBindingDescription](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkVertexInputBindingDescription.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkVertexInputBindingDescription {
   /// Vertex buffer binding id
@@ -3041,7 +3045,7 @@ define_enumeration!(
 );
 
 /// Khronos: [VkViewport](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkViewport.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct VkViewport {
   /// * No Auto Validity
@@ -3057,7 +3061,7 @@ pub struct VkViewport {
 }
 
 /// Khronos: [VkWriteDescriptorSet](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkWriteDescriptorSet.html)
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct VkWriteDescriptorSet {
   /// * Values: [`VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET`]
@@ -3093,50 +3097,3 @@ pub struct VkWriteDescriptorSet {
   /// * No Auto Validity
   pub texel_buffer_view: *const VkBufferView,
 }
-
-#[allow(nonstandard_style)]
-pub type vkVoidFunction_t = unsafe extern "system" fn();
-#[allow(nonstandard_style)]
-pub type vkAllocationFunction_t = unsafe extern "system" fn(
-  user_data: *mut c_void,
-  size: usize,
-  alignment: usize,
-  allocation_scope: VkSystemAllocationScope,
-);
-#[allow(nonstandard_style)]
-pub type vkReallocationFunction_t = unsafe extern "system" fn(
-  user_data: *mut c_void,
-  original: *mut c_void,
-  size: usize,
-  alignment: usize,
-  allocation_scope: VkSystemAllocationScope,
-);
-#[allow(nonstandard_style)]
-pub type vkFreeFunction_t = unsafe extern "system" fn(pUserData: *mut c_void, pMemory: *mut c_void);
-#[allow(nonstandard_style)]
-pub type vkInternalAllocationNotification_t = unsafe extern "system" fn(
-  user_data: *mut c_void,
-  size: usize,
-  allocation_type: VkInternalAllocationType,
-  allocation_scope: VkSystemAllocationScope,
-);
-#[allow(nonstandard_style)]
-pub type vkInternalFreeNotification_t = unsafe extern "system" fn(
-  user_data: *mut c_void,
-  size: usize,
-  allocation_type: VkInternalAllocationType,
-  allocation_scope: VkSystemAllocationScope,
-);
-
-#[allow(nonstandard_style)]
-pub type PFN_vkVoidFunction = Option<vkVoidFunction_t>;
-#[allow(nonstandard_style)]
-pub type PFN_vkAllocationFunction = Option<vkAllocationFunction_t>;
-#[allow(nonstandard_style)]
-pub type PFN_vkReallocationFunction = Option<vkReallocationFunction_t>;
-#[allow(nonstandard_style)]
-pub type PFN_vkFreeFunction = Option<vkFreeFunction_t>;
-#[allow(nonstandard_style)]
-pub type PFN_vkInternalAllocationNotification = Option<vkInternalAllocationNotification_t>;
-#[allow(nonstandard_style)]
-pub type PFN_vkInternalFreeNotification = Option<vkInternalFreeNotification_t>;
