@@ -54,6 +54,38 @@ impl Default for prelude::VkApplicationInfo {
     }
   }
 }
+impl Default for prelude::VkDeviceCreateInfo {
+  #[inline]
+  #[must_use]
+  fn default() -> Self {
+    Self {
+      ty: prelude::VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO,
+      next: core::ptr::null(),
+      flags: prelude::VkDeviceCreateFlags::none(),
+      queue_create_info_count: 0,
+      queue_create_infos: core::ptr::null(),
+      enabled_layer_count: 0,
+      enabled_layer_names: core::ptr::null(),
+      enabled_extension_count: 0,
+      enabled_extension_names: core::ptr::null(),
+      enabled_features: core::ptr::null(),
+    }
+  }
+}
+impl Default for prelude::VkDeviceQueueCreateInfo {
+  #[inline]
+  #[must_use]
+  fn default() -> Self {
+    Self {
+      ty: prelude::VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO,
+      next: core::ptr::null(),
+      flags: prelude::VkDeviceQueueCreateFlagBits::none(),
+      queue_family_index: 0,
+      queue_count: 0,
+      queue_priorities: core::ptr::null(),
+    }
+  }
+}
 impl Default for prelude::VkClearColorValue {
   #[inline]
   #[must_use]
