@@ -27,3 +27,6 @@ pub use crate::ext::vk_khr_surface::*;
 
 #[cfg(feature = "VK_KHR_swapchain")]
 pub use crate::ext::vk_khr_swapchain::*;
+
+#[cfg(feature = "VK_KHR_portability_enumeration")]
+pub use crate::ext::vk_khr_portability_enumeration::*;

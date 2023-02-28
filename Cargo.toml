@@ -10,6 +10,7 @@ license = "Zlib OR Apache-2.0 OR MIT"
 beryllium = "0.9.2"
 
 [features]
-default = ["VK_KHR_surface", "VK_KHR_swapchain"]
+default = ["VK_KHR_surface", "VK_KHR_swapchain", "VK_KHR_portability_enumeration"]
 VK_KHR_surface = []
 VK_KHR_swapchain = ["VK_KHR_surface"]
+VK_KHR_portability_enumeration = []

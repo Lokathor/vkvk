@@ -34,10 +34,11 @@ fn main() {
 
   //print_v1_0_data(&registry);
   //print_v1_0_constants(&registry);
-  print_v1_0_fn_types(&registry);
+  //print_v1_0_fn_types(&registry);
 
   //print_extension(&registry, "VK_KHR_surface");
   //print_extension(&registry, "VK_KHR_swapchain");
+  print_extension(&registry, "VK_KHR_portability_enumeration");
 }
 
 #[derive(Debug, Clone, Default)]

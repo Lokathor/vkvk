@@ -38,14 +38,14 @@ fn main() {
       // Metal, so we have to enable the portability extension, which (I guess?)
       // lets us get a vulkan that might not be *perfectly* conformant to the
       // "real" vulkan spec.
-      const PORTABILITY: &str = "VK_KHR_portability_enumeration";
+      let portability = VK_KHR_PORTABILITY_ENUMERATION_EXTENSION_NAME.trim_end();
       if entry
         .enumerate_instance_extension_properties(None)
         .unwrap_or_default()
         .iter()
-        .any(|x| x.extension_name.as_str() == PORTABILITY)
+        .any(|x| x.extension_name.as_str() == portability)
       {
-        instance_extensions.push(ZString::try_from(PORTABILITY).unwrap())
+        instance_extensions.push(ZString::try_from(portability).unwrap())
       } else {
         println!(
           "Problem: running on mac but wasn't able to find the portability extension!"
@@ -108,7 +108,7 @@ fn main() {
     }
     physical_device.create_device(queue_family_index, &device_extensions, None).unwrap()
   };
-  let swapchain: VkSwapchainKHR = {
+  let _swapchain: VkSwapchainKHR = {
     let surface_format = physical_device
       .get_surface_formats_khr(surface)
       .unwrap()

@@ -10,6 +10,11 @@ pub mod vk_khr_surface;
 #[cfg(feature = "VK_KHR_swapchain")]
 pub mod vk_khr_swapchain;
 
+/// Khronos: [VK_KHR_portability_enumeration](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_KHR_portability_enumeration.html) (device extension)
+#[allow(missing_docs)]
+#[cfg(feature = "VK_KHR_portability_enumeration")]
+pub mod vk_khr_portability_enumeration;
+
 /// Makes a vulkan enumeration value, according to the [specification][vk].
 ///
 /// [vk]: https://registry.khronos.org/vulkan/specs/1.3/styleguide.html#_assigning_extension_token_values
