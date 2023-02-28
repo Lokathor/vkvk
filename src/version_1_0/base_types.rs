@@ -87,7 +87,7 @@ impl VkVersion {
   //
   pub const API_SC_1_0: Self = Self::variant_major_minor_patch(1, 1, 3, 0);
   //
-  pub const HEADER: Self = Self::major_minor_patch(1, 3, 241);
+  pub const HEADER: Self = Self::major_minor_patch(1, 3, 242);
 
   #[inline]
   #[must_use]
