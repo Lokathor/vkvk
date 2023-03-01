@@ -67,6 +67,12 @@ fn main() {
       }
     }
 
+    let instance_create_flags = if cfg!(target_os = "macos") {
+      VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR
+    } else {
+      VkInstanceCreateFlagBits::default()
+    };
+
     let instance_layer_strs: Vec<ZStr<'_>> =
       instance_layers.iter().map(|s| s.as_zstr()).collect();
     let instance_extension_strs: Vec<ZStr<'_>> =
@@ -78,7 +84,7 @@ fn main() {
         None,
         0,
         VkVersion::API_1_0,
-        VkInstanceCreateFlags::default(),
+        instance_create_flags,
         &instance_layer_strs,
         &instance_extension_strs,
       )
@@ -88,7 +94,7 @@ fn main() {
     // this juggles the beryllium vulkan types and the vkvk vulkan types
     let u: u64 =
       win.create_surface(core::mem::transmute(instance.vk_instance())).unwrap().0;
-    core::mem::transmute(u)
+    core::mem::transmute::<u64, VkSurfaceKHR>(u)
   };
   let physical_device: PhysicalDevice =
     instance.enumerate_physical_devices().unwrap().into_iter().next().unwrap();
@@ -108,7 +114,7 @@ fn main() {
     }
     physical_device.create_device(queue_family_index, &device_extensions, None).unwrap()
   };
-  let _swapchain: VkSwapchainKHR = {
+  let swapchain: SwapchainKHR = {
     let surface_format = physical_device
       .get_surface_formats_khr(surface)
       .unwrap()
@@ -170,7 +176,7 @@ fn main() {
     // TODO: present an image.
   }
 
-  // TODO: destroy the swapchain
+  swapchain.destroy();
   unsafe { instance.destroy_surface(surface).unwrap() };
   device.destroy();
   instance.destroy();

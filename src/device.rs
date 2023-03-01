@@ -54,11 +54,11 @@ impl<'i, 'p: 'i> Device<'i, 'p> {
   /// * Khronos: [VkSwapchainCreateInfoKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSwapchainCreateInfoKHR.html)
   /// * Khronos: [vkCreateSwapchainKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateSwapchainKHR.html)
   #[cfg(feature = "VK_KHR_swapchain")]
-  pub fn create_swapchain_khr(
-    &self, surface: VkSurfaceKHR, surface_format: VkSurfaceFormatKHR,
+  pub fn create_swapchain_khr<'d>(
+    &'d self, surface: VkSurfaceKHR, surface_format: VkSurfaceFormatKHR,
     image_extent: VkExtent2D, present_mode: VkPresentModeKHR, min_image_count: u32,
     image_usage: VkImageUsageFlags,
-  ) -> Result<VkSwapchainKHR, NonZeroI32> {
+  ) -> Result<SwapchainKHR<'i, 'p, 'd>, NonZeroI32> {
     if let Some(swapchain_fns) = self.vk_khr_swapchain_fns {
       let swapchain_create_info = VkSwapchainCreateInfoKHR {
         surface,
@@ -75,19 +75,19 @@ impl<'i, 'p: 'i> Device<'i, 'p> {
         clipped: true.into(),
         ..VkSwapchainCreateInfoKHR::default()
       };
-      let mut vk_swapchain = VkSwapchainKHR::NULL;
+      let mut vk_swapchain_khr = VkSwapchainKHR::NULL;
       let create_ret = unsafe {
         (swapchain_fns.vkCreateSwapchainKHR)(
           self.vk_device,
           &swapchain_create_info,
           null(),
-          &mut vk_swapchain,
+          &mut vk_swapchain_khr,
         )
       };
       if let Some(err_code) = create_ret.0 {
         Err(err_code)
       } else {
-        Ok(vk_swapchain)
+        Ok(SwapchainKHR { vk_swapchain_khr, parent: self })
       }
     } else {
       Err(VK_ERROR_EXTENSION_NOT_PRESENT.0.unwrap())
@@ -376,5 +376,33 @@ impl DeviceFnTable_VkKhrSwapchain {
       vkAcquireNextImageKHR: core::mem::transmute(vkGetDeviceProcAddr(vk_device, vkAcquireNextImageKHR_NAME.as_ptr())?),
       vkQueuePresentKHR: core::mem::transmute(vkGetDeviceProcAddr(vk_device, vkQueuePresentKHR_NAME.as_ptr())?),
     })
+  }
+}
+
+pub struct SwapchainKHR<'i, 'p: 'i, 'd: 'p> {
+  vk_swapchain_khr: VkSwapchainKHR,
+  parent: &'d Device<'i, 'p>,
+}
+impl Drop for SwapchainKHR<'_, '_, '_> {
+  fn drop(&mut self) {
+    if cfg!(debug_assertions) {
+      panic!("Bug: you shouldn't drop a `SwapchainKHR`, please destroy it properly with `SwapchainKHR::destroy`");
+    }
+  }
+}
+impl SwapchainKHR<'_, '_, '_> {
+  pub fn destroy(self) {
+    if let Some(swapchain_fns) = self.parent.vk_khr_swapchain_fns {
+      unsafe {
+        (swapchain_fns.vkDestroySwapchainKHR)(
+          self.parent.vk_device,
+          self.vk_swapchain_khr,
+          null(),
+        )
+      }
+      core::mem::forget(self);
+    } else {
+      unimplemented!()
+    }
   }
 }
