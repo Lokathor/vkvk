@@ -55,13 +55,13 @@ impl<'i, 'p: 'i> Device<'i, 'p> {
   /// * Khronos: [vkCreateSwapchainKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateSwapchainKHR.html)
   #[cfg(feature = "VK_KHR_swapchain")]
   pub fn create_swapchain_khr<'d>(
-    &'d self, surface: VkSurfaceKHR, surface_format: VkSurfaceFormatKHR,
+    &'d self, surface: &SurfaceKHR<'i>, surface_format: VkSurfaceFormatKHR,
     image_extent: VkExtent2D, present_mode: VkPresentModeKHR, min_image_count: u32,
     image_usage: VkImageUsageFlags,
   ) -> Result<SwapchainKHR<'i, 'p, 'd>, NonZeroI32> {
     if let Some(swapchain_fns) = self.vk_khr_swapchain_fns {
       let swapchain_create_info = VkSwapchainCreateInfoKHR {
-        surface,
+        surface: surface.vk_surface_khr,
         min_image_count,
         image_format: surface_format.format,
         image_color_space: surface_format.color_space,
@@ -379,6 +379,7 @@ impl DeviceFnTable_VkKhrSwapchain {
   }
 }
 
+/// Wrapper for a [VkSwapchainKHR]
 pub struct SwapchainKHR<'i, 'p: 'i, 'd: 'p> {
   vk_swapchain_khr: VkSwapchainKHR,
   parent: &'d Device<'i, 'p>,
@@ -391,6 +392,7 @@ impl Drop for SwapchainKHR<'_, '_, '_> {
   }
 }
 impl SwapchainKHR<'_, '_, '_> {
+  /// Destroys the swapchian.
   pub fn destroy(self) {
     if let Some(swapchain_fns) = self.parent.vk_khr_swapchain_fns {
       unsafe {

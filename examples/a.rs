@@ -83,18 +83,18 @@ fn main() {
         1,
         None,
         0,
-        VkVersion::API_1_0,
+        VkVersion::API_1_1,
         instance_create_flags,
         &instance_layer_strs,
         &instance_extension_strs,
       )
       .unwrap()
   };
-  let surface: VkSurfaceKHR = unsafe {
+  let surface: SurfaceKHR = unsafe {
     // this juggles the beryllium vulkan types and the vkvk vulkan types
-    let u: u64 =
-      win.create_surface(core::mem::transmute(instance.vk_instance())).unwrap().0;
-    core::mem::transmute::<u64, VkSurfaceKHR>(u)
+    let raw = win.create_surface(core::mem::transmute(instance.vk_instance())).unwrap().0;
+    let vk_surface_khr = core::mem::transmute::<_, VkSurfaceKHR>(raw);
+    instance.raw_surface_handle_to_vkvk_wrapper(vk_surface_khr)
   };
   let physical_device: PhysicalDevice =
     instance.enumerate_physical_devices().unwrap().into_iter().next().unwrap();
@@ -115,8 +115,9 @@ fn main() {
     physical_device.create_device(queue_family_index, &device_extensions, None).unwrap()
   };
   let swapchain: SwapchainKHR = {
+    println!("{:?}", physical_device.get_surface_formats_khr(&surface));
     let surface_format = physical_device
-      .get_surface_formats_khr(surface)
+      .get_surface_formats_khr(&surface)
       .unwrap()
       .iter()
       .find(|surface_format| {
@@ -126,10 +127,20 @@ fn main() {
       })
       .copied()
       .expect("couldn't find compatible surface format");
+    println!("{surface_format:?}");
+    let image_usage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
+    let format_properties = physical_device.get_image_format_properties(
+      surface_format.format,
+      VK_IMAGE_TYPE_2D,
+      VK_IMAGE_TILING_OPTIMAL,
+      image_usage,
+      VkImageCreateFlagBits::default(),
+    );
+    println!("{format_properties:?}");
     let surface_capabilities =
-      physical_device.get_surface_capabilities_khr(surface).unwrap();
+      physical_device.get_surface_capabilities_khr(&surface).unwrap();
     let surface_present_modes =
-      physical_device.get_surface_present_modes_khr(surface).unwrap();
+      physical_device.get_surface_present_modes_khr(&surface).unwrap();
     let (present_mode, min_image_count) =
       if surface_present_modes.contains(&VK_PRESENT_MODE_MAILBOX_KHR) {
         let min = surface_capabilities.min_image_count;
@@ -142,10 +153,9 @@ fn main() {
       } else {
         panic!("No presentation modes available!");
       };
-    let image_usage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
     device
       .create_swapchain_khr(
-        surface,
+        &surface,
         surface_format,
         surface_capabilities.current_extent,
         present_mode,
@@ -177,7 +187,7 @@ fn main() {
   }
 
   swapchain.destroy();
-  unsafe { instance.destroy_surface(surface).unwrap() };
   device.destroy();
+  surface.destroy();
   instance.destroy();
 }

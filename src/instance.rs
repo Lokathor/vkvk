@@ -5,6 +5,30 @@
 
 use crate::prelude::*;
 
+/// Wrappers that bundles a [`VkSurfaceKHR`] with a reference to its parent
+/// instance.
+pub struct SurfaceKHR<'i> {
+  pub(crate) vk_surface_khr: VkSurfaceKHR,
+  pub(crate) parent: &'i Instance,
+}
+impl Drop for SurfaceKHR<'_> {
+  fn drop(&mut self) {
+    if cfg!(debug_assertions) {
+      panic!("Bug: you shouldn't drop a `SurfaceKHR`, please destroy it properly with `SurfaceKHR::destroy`");
+    }
+  }
+}
+impl SurfaceKHR<'_> {
+  /// Destroy the instance.
+  ///
+  /// You should call this rather than letting the instance simply drop.
+  #[inline]
+  pub fn destroy(self) {
+    unsafe { self.parent.destroy_surface(self.vk_surface_khr) }.ok();
+    core::mem::forget(self);
+  }
+}
+
 /// The Instance type is a wrapper for a [`VkInstance`].
 ///
 /// An instance is a specific "connection" to the Vulkan API, with a particular
@@ -36,6 +60,17 @@ impl Instance {
   #[must_use]
   pub const fn vk_instance(&self) -> VkInstance {
     self.vk_instance
+  }
+
+  /// Wraps a raw surface value as coming from this instance.
+  ///
+  /// ## Safety
+  /// The raw surface value has to have really come from this instance, and have
+  /// been made with no allocation callbacks.
+  pub const unsafe fn raw_surface_handle_to_vkvk_wrapper(
+    &self, vk_surface_khr: VkSurfaceKHR,
+  ) -> SurfaceKHR<'_> {
+    SurfaceKHR { vk_surface_khr, parent: self }
   }
 
   #[inline]
@@ -237,14 +272,14 @@ impl PhysicalDevice<'_> {
   #[inline]
   #[cfg(feature = "VK_KHR_surface")]
   pub fn get_surface_capabilities_khr(
-    &self, surface: VkSurfaceKHR,
+    &self, surface: &SurfaceKHR<'_>,
   ) -> Result<VkSurfaceCapabilitiesKHR, NonZeroI32> {
     if let Some(surface_fns) = self.parent.vk_khr_surface_fns {
       let mut capabilities = VkSurfaceCapabilitiesKHR::default();
       let get_ret = unsafe {
         (surface_fns.vkGetPhysicalDeviceSurfaceCapabilitiesKHR)(
           self.vk_physical_device,
-          surface,
+          surface.vk_surface_khr,
           &mut capabilities,
         )
       };
@@ -262,14 +297,14 @@ impl PhysicalDevice<'_> {
   #[inline]
   #[cfg(feature = "VK_KHR_surface")]
   pub fn get_surface_present_modes_khr(
-    &self, surface: VkSurfaceKHR,
+    &self, surface: &SurfaceKHR<'_>,
   ) -> Result<Vec<VkPresentModeKHR>, NonZeroI32> {
     if let Some(surface_fns) = self.parent.vk_khr_surface_fns {
       let mut count = 0_u32;
       if let Some(err) = unsafe {
         (surface_fns.vkGetPhysicalDeviceSurfacePresentModesKHR)(
           self.vk_physical_device,
-          surface,
+          surface.vk_surface_khr,
           &mut count,
           null_mut(),
         )
@@ -281,7 +316,7 @@ impl PhysicalDevice<'_> {
       if let Some(err) = unsafe {
         (surface_fns.vkGetPhysicalDeviceSurfacePresentModesKHR)(
           self.vk_physical_device,
-          surface,
+          surface.vk_surface_khr,
           &mut count,
           buf.as_mut_ptr(),
         )
@@ -301,14 +336,14 @@ impl PhysicalDevice<'_> {
   #[inline]
   #[cfg(feature = "VK_KHR_surface")]
   pub fn get_surface_formats_khr(
-    &self, surface: VkSurfaceKHR,
+    &self, surface: &SurfaceKHR<'_>,
   ) -> Result<Vec<VkSurfaceFormatKHR>, NonZeroI32> {
     if let Some(surface_fns) = self.parent.vk_khr_surface_fns {
       let mut count = 0_u32;
       if let Some(err) = unsafe {
         (surface_fns.vkGetPhysicalDeviceSurfaceFormatsKHR)(
           self.vk_physical_device,
-          surface,
+          surface.vk_surface_khr,
           &mut count,
           null_mut(),
         )
@@ -320,7 +355,7 @@ impl PhysicalDevice<'_> {
       if let Some(err) = unsafe {
         (surface_fns.vkGetPhysicalDeviceSurfaceFormatsKHR)(
           self.vk_physical_device,
-          surface,
+          surface.vk_surface_khr,
           &mut count,
           buf.as_mut_ptr(),
         )
@@ -333,6 +368,34 @@ impl PhysicalDevice<'_> {
       }
     } else {
       Err(VK_ERROR_EXTENSION_NOT_PRESENT.0.unwrap())
+    }
+  }
+
+  /// Gets the image format properties when using the format with the other
+  /// settings listed.
+  ///
+  /// If the combination requested isn't allowed on this physical device then
+  /// this will give an error.
+  pub fn get_image_format_properties(
+    &self, format: VkFormat, ty: VkImageType, tiling: VkImageTiling,
+    usage: VkImageUsageFlags, flags: VkImageCreateFlags,
+  ) -> Result<VkImageFormatProperties, NonZeroI32> {
+    let mut image_format_properties = VkImageFormatProperties::default();
+    if let Some(err) = unsafe {
+      (self.parent.fns.vkGetPhysicalDeviceImageFormatProperties)(
+        self.vk_physical_device,
+        format,
+        ty,
+        tiling,
+        usage,
+        flags,
+        &mut image_format_properties,
+      )
+      .0
+    } {
+      Err(err)
+    } else {
+      Ok(image_format_properties)
     }
   }
 
