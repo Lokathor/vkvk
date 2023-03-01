@@ -68,6 +68,7 @@ impl Default for prelude::VkDeviceCreateInfo {
   #[inline]
   #[must_use]
   fn default() -> Self {
+    #[allow(deprecated)]
     Self {
       ty: prelude::VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO,
       next: core::ptr::null(),

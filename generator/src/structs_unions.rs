@@ -120,9 +120,6 @@ pub fn define_structure(
         let comment = comment.replace('[', "\\[").replace(']', "\\]");
         writeln!(f, "  /// {comment}").ok();
       }
-      if let Some(deprecated) = deprecated {
-        writeln!(f, "  /// * Deprecated: {deprecated}").ok();
-      }
       if let Some(len) = len {
         writeln!(f, "  /// * Len: `{len}`").ok();
       }
@@ -167,6 +164,9 @@ pub fn define_structure(
         None => (),
         Some("true") => drop(writeln!(f, "  /// * Extern Sync")),
         other => panic!("{other:?}"),
+      }
+      if let Some(deprecated) = deprecated {
+        writeln!(f, "  #[deprecated = \"{deprecated}\"]").ok();
       }
       writeln!(f, "  pub {field}: {field_ty},").ok();
     }
@@ -283,9 +283,6 @@ pub fn define_union(
       if let Some(comment) = comment {
         writeln!(f, "  /// {comment}").ok();
       }
-      if let Some(deprecated) = deprecated {
-        writeln!(f, "  /// * Deprecated: {deprecated}").ok();
-      }
       if let Some(len) = len {
         writeln!(f, "  /// * Len: `{len}`").ok();
       }
@@ -330,6 +327,9 @@ pub fn define_union(
         None => (),
         Some("true") => drop(writeln!(f, "  /// * Extern Sync")),
         other => panic!("{other:?}"),
+      }
+      if let Some(deprecated) = deprecated {
+        writeln!(f, "  #[deprecated = \"{deprecated}\"]").ok();
       }
       writeln!(f, "  pub {field}: {field_ty},").ok();
     }

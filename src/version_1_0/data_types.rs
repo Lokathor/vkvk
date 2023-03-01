@@ -737,12 +737,12 @@ pub struct VkDeviceCreateInfo {
   pub queue_create_info_count: u32,
   /// * Len: `queueCreateInfoCount`
   pub queue_create_infos: *const VkDeviceQueueCreateInfo,
-  /// * Deprecated: ignored
   /// * Optional
+  #[deprecated = "ignored"]
   pub enabled_layer_count: u32,
   /// Ordered list of layer names to be enabled
-  /// * Deprecated: ignored
   /// * Len: `enabledLayerCount,null-terminated`
+  #[deprecated = "ignored"]
   pub enabled_layer_names: *const *const u8,
   /// * Optional
   pub enabled_extension_count: u32,
