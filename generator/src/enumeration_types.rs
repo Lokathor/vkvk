@@ -26,6 +26,9 @@ pub fn define_enumeration(TypeEntry { name, api:_, category, texts:_, comment, r
     ).ok();
   } else {
     writeln!(f, "define_enumeration!(").ok();
+    if MANUAL_DEBUG.contains(name) {
+      writeln!(f, "  MANUAL_DEBUG").ok();
+    }
     writeln!(f, "  /// Khronos: [{name}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{name}.html) (enumeration)").ok();
     writeln!(f, "  {name}").ok();
     writeln!(f, ");").ok();
@@ -86,3 +89,5 @@ pub fn define_enums(Enumeration { name: rust_ty, ty:_, comment: _, bitwidth, ent
   }
   f
 }
+
+const MANUAL_DEBUG: &[&str] = &["VkFormat"];
