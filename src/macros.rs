@@ -71,6 +71,16 @@ macro_rules! define_non_dispatchable_handle {
 /// * If you want a derived Debug you have to declare that yourself.
 macro_rules! define_enumeration {
   (
+    MANUAL_DEBUG
+    $(#[$name_meta:meta])*
+    $name:ident
+  ) => {
+    $(#[$name_meta])*
+    #[derive(Clone, Copy, Default, PartialEq, Eq)]
+    #[repr(transparent)]
+    pub struct $name(pub u32);
+  };
+  (
     $(#[$name_meta:meta])*
     $name:ident
   ) => {
