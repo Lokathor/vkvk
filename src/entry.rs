@@ -1,170 +1,152 @@
-#![allow(non_snake_case)]
+//! The entry module lets you query the system before creating an Instance.
 
-use super::*;
+use crate::prelude::*;
 
 #[cfg_attr(windows, link(name = "vulkan-1"))]
 #[cfg_attr(not(windows), link(name = "vulkan"))]
+#[allow(dead_code)]
 extern "system" {
-  /// khronos: [vkGetInstanceProcAddr](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetInstanceProcAddr.html)
-  fn vkGetInstanceProcAddr(instance: VkInstance, name: *const u8) -> PFN_vkVoidFunction;
+  /// Khronos: [vkGetInstanceProcAddr](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetInstanceProcAddr.html)
+  pub(crate) fn vkGetInstanceProcAddr(
+    instance: VkInstance, name: *const u8,
+  ) -> PFN_vkVoidFunction;
 }
 
+#[allow(non_camel_case_types)]
+pub(crate) type vkGetInstanceProcAddr_t =
+  unsafe extern "system" fn(VkInstance, *const u8) -> PFN_vkVoidFunction;
+
+/// Allows safely accessing the Vulkan entry-point functions.
+///
+/// An `Entry` value is just newtype wrapper over a
+/// [vkGetInstanceProcAddr](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetInstanceProcAddr.html)
+/// function pointer to provide safe methods. There's nothing else special about
+/// it. If you use the `Entry::LINKED` value you'll get the
+/// `vkGetInstanceProcAddr` that's dynamically linked to your program. This is a
+/// reasonable default, but in rare situations you may want to use a function
+/// obtained from a dynamic library after the program starts. Just transmute the
+/// (non-null) function pointer from the dynamic library into this type and
+/// it'll work.
 #[repr(transparent)]
-pub struct Entry(pub(crate) vkGetInstanceProcAddr_t);
+pub struct Entry(vkGetInstanceProcAddr_t);
 impl Entry {
+  /// Entry point for the dynamically linked Vulkan.
   pub const LINKED: Self = Self(vkGetInstanceProcAddr);
 
-  /// ## Safety
-  /// The fn pointer passed must be a genuine [vkGetInstanceProcAddr][k]
-  /// function, not just have the correct signature.
-  ///
-  /// [k]: https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetInstanceProcAddr.html
-  #[inline]
-  #[must_use]
-  pub const unsafe fn from_fn_ptr(vkGetInstanceProcAddr: vkGetInstanceProcAddr_t) -> Self {
-    Self(vkGetInstanceProcAddr)
-  }
-
-  /// Gets the highest API level Instance that can be created on this system.
-  ///
-  /// Your instance creation request can ask for any API level equal to or less
-  /// than this.
-  #[inline]
-  pub fn get_max_instance_version(&self) -> Result<VkVersion, VkErrorCode> {
-    let vkGetInstanceProcAddr = self.0;
-    let Some(f) =  (unsafe { vkGetInstanceProcAddr(VkInstance::NULL, vkEnumerateInstanceVersion_NAME.as_ptr()) }) else {
-      // When vkEnumerateInstanceVersion is missing we assume that it means Vulkan 1.0
-      return Ok(VkVersion::_1_0)
+  /// Gets information about the available instance layers.
+  pub fn enumerate_instance_layer_properties(
+    &self,
+  ) -> Result<Vec<VkLayerProperties>, NonZeroI32> {
+    let pfn_void = unsafe {
+      vkGetInstanceProcAddr(
+        VkInstance::NULL,
+        vkEnumerateInstanceLayerProperties_NAME.as_ptr(),
+      )
     };
-    let vkEnumerateInstanceVersion: vkEnumerateInstanceVersion_t =
-      unsafe { core::mem::transmute(f) };
-    let mut version = VkVersion(0);
-    let res = unsafe { vkEnumerateInstanceVersion(&mut version) };
-    match res.0 {
-      None => Ok(version),
-      Some(err_code) => Err(err_code),
-    }
-  }
-
-  /// Gets the list of available layers and info about them.
-  #[inline]
-  pub fn get_available_layers(&self) -> Result<Vec<VkLayerProperties>, VkErrorCode> {
-    let vkGetInstanceProcAddr = self.0;
-    let Some(f) =  (unsafe { vkGetInstanceProcAddr(VkInstance::NULL, vkEnumerateInstanceLayerProperties_NAME.as_ptr()) }) else {
-      return Err(VkErrorCode::ERROR_UNKNOWN)
-    };
-    let vkEnumerateInstanceLayerProperties: vkEnumerateInstanceLayerProperties_t =
-      unsafe { core::mem::transmute(f) };
-    //
-    let mut property_count: u32 = 0;
-    let count_ret = unsafe { vkEnumerateInstanceLayerProperties(&mut property_count, null_mut()) };
-    if let Some(err_code) = count_ret.0 {
-      return Err(err_code);
-    }
-    let mut buf = Vec::with_capacity(property_count.try_into().unwrap());
-    let write_ret =
-      unsafe { vkEnumerateInstanceLayerProperties(&mut property_count, buf.as_mut_ptr()) };
-    if let Some(err_code) = write_ret.0 {
-      Err(err_code)
+    let f: vkEnumerateInstanceLayerProperties_t = if let Some(v) = pfn_void {
+      unsafe { core::mem::transmute(v) }
     } else {
-      unsafe { buf.set_len(property_count.try_into().unwrap()) };
+      return Err(VK_ERROR_UNKNOWN.0.unwrap());
+    };
+    let mut count: u32 = 0;
+    if let Some(err) = unsafe { f(&mut count, null_mut()) }.0 {
+      return Err(err);
+    }
+    let mut buf = Vec::with_capacity(count.try_into().unwrap());
+    if let Some(err) = unsafe { f(&mut count, buf.as_mut_ptr()) }.0 {
+      Err(err)
+    } else {
+      unsafe { buf.set_len(count.try_into().unwrap()) };
       Ok(buf)
     }
   }
 
-  /// Gets the possible extensions for a given layer.
+  /// Gets information about what instance extensions are available.
   ///
-  /// When `None` is passed as the layer name you get the extensions available
-  /// on the instance with no layers applied.
-  #[inline]
-  pub fn get_available_extensions(
-    &self, instance_layer: Option<&ArrayZStr<VK_MAX_EXTENSION_NAME_SIZE>>,
-  ) -> Result<Vec<VkExtensionProperties>, VkErrorCode> {
-    let vkGetInstanceProcAddr = self.0;
-    let Some(r) =  (unsafe { vkGetInstanceProcAddr(VkInstance::NULL, vkEnumerateInstanceExtensionProperties_NAME.as_ptr()) }) else {
-      return Err(VkErrorCode::ERROR_UNKNOWN)
+  /// Adding layers to the instance can add additional extension possibilities.
+  /// You can pass `None` to see what extensions are available with no
+  /// additional layers, or you can pass `Some(name)` to see what extensions a
+  /// particular layer allows.
+  pub fn enumerate_instance_extension_properties(
+    &self, layer_name: Option<&str>,
+  ) -> Result<Vec<VkExtensionProperties>, NonZeroI32> {
+    let pfn_void = unsafe {
+      vkGetInstanceProcAddr(
+        VkInstance::NULL,
+        vkEnumerateInstanceExtensionProperties_NAME.as_ptr(),
+      )
     };
-    let vkEnumerateInstanceExtensionProperties: vkEnumerateInstanceExtensionProperties_t =
-      unsafe { core::mem::transmute(r) };
-    //
-    let layer_z: *const u8 = match instance_layer {
-      Some(l) => l.as_ptr(),
-      None => null(),
-    };
-    //
-    let mut extension_count: u32 = 0;
-    let count_ret =
-      unsafe { vkEnumerateInstanceExtensionProperties(layer_z, &mut extension_count, null_mut()) };
-    if let Some(err_code) = count_ret.0 {
-      return Err(err_code);
-    }
-    let mut buf = Vec::with_capacity(extension_count.try_into().unwrap());
-    let write_ret = unsafe {
-      vkEnumerateInstanceExtensionProperties(layer_z, &mut extension_count, buf.as_mut_ptr())
-    };
-    if let Some(err_code) = write_ret.0 {
-      Err(err_code)
+    let f: vkEnumerateInstanceExtensionProperties_t = if let Some(v) = pfn_void {
+      unsafe { core::mem::transmute(v) }
     } else {
-      unsafe { buf.set_len(extension_count.try_into().unwrap()) };
+      return Err(VK_ERROR_UNKNOWN.0.unwrap());
+    };
+    let layer = layer_name.map(|s| alloc::format!("{s}\0"));
+    let layer_p = match layer.as_ref() {
+      None => core::ptr::null(),
+      Some(string_ref) => string_ref.as_ptr(),
+    };
+    let mut count: u32 = 0;
+    if let Some(err) = unsafe { f(layer_p, &mut count, null_mut()) }.0 {
+      return Err(err);
+    }
+    let mut buf = Vec::with_capacity(count.try_into().unwrap());
+    if let Some(err) = unsafe { f(layer_p, &mut count, buf.as_mut_ptr()) }.0 {
+      Err(err)
+    } else {
+      unsafe { buf.set_len(count.try_into().unwrap()) };
       Ok(buf)
     }
   }
 
+  /// Attempts to create a Vulkan instance.
+  ///
+  /// Note that this wraps the created [`VkInstance`] as an [`Instance`] type
+  /// value from this library. The extra wrapping includes pre-loading all the
+  /// function pointers to power the various methods.
+  ///
+  /// For more details on the instance creation rules see the Khronos docs:
+  /// [vkCreateInstance](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateInstance.html)
   #[inline]
-  pub fn create_instance(&self, mut request: CreateRequest) -> Result<Instance, VkErrorCode> {
-    let vkGetInstanceProcAddr = self.0;
-    let Some(r) =  (unsafe { vkGetInstanceProcAddr(VkInstance::NULL, vkCreateInstance_NAME.as_ptr()) }) else {
-      return Err(VkErrorCode::ERROR_UNKNOWN)
-    };
-    let vkCreateInstance: vkCreateInstance_t = unsafe { core::mem::transmute(r) };
-    //
-    request.application_name.push('\0');
-    request.engine_name.push('\0');
-    request.instance_layers.iter_mut().for_each(|s| s.push('\0'));
-    request.instance_extensions.iter_mut().for_each(|s| s.push('\0'));
-    //
-    let app_create_info = VkApplicationInfo {
-      ty: VK_STRUCTURE_TYPE_APPLICATION_INFO,
-      next: null(),
-      api_version: request.api_version,
-      application_name: request.application_name.as_ptr(),
-      application_version: request.application_version,
-      engine_name: request.engine_name.as_ptr(),
-      engine_version: request.engine_version,
-    };
-    let layer_ptrs: Vec<*const u8> = request.instance_layers.iter().map(|l| l.as_ptr()).collect();
-    let extension_ptrs: Vec<*const u8> =
-      request.instance_extensions.iter().map(|l| l.as_ptr()).collect();
-    // TODO: if we set `next` to be a VkDebugUtilsMessengerCreateInfoEXT we can get
-    // debug messages about the instance creation process itself.
-    let instance_create_info = VkInstanceCreateInfo {
-      application_info: &app_create_info,
-      next: null(),
-      ty: VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
-      flags: request.instance_create_flags,
-      enabled_layer_count: layer_ptrs.len().try_into().unwrap(),
-      enabled_layer_names: layer_ptrs.as_ptr(),
-      enabled_extension_count: extension_ptrs.len().try_into().unwrap(),
-      enabled_extension_names: extension_ptrs.as_ptr(),
+  #[allow(clippy::too_many_arguments)]
+  pub fn create_instance(
+    &self, application_name: Option<ZStr<'_>>, application_version: u32,
+    engine_name: Option<ZStr<'_>>, engine_version: u32, api_version: VkVersion,
+    instance_create_flags: VkInstanceCreateFlags, layers: &[ZStr<'_>],
+    extensions: &[ZStr<'_>],
+  ) -> Result<Instance, NonZeroI32> {
+    let pfn_void =
+      unsafe { vkGetInstanceProcAddr(VkInstance::NULL, vkCreateInstance_NAME.as_ptr()) };
+    let vk_create_instance: vkCreateInstance_t = if let Some(v) = pfn_void {
+      unsafe { core::mem::transmute(v) }
+    } else {
+      return Err(VK_ERROR_UNKNOWN.0.unwrap());
     };
     //
+    let application_info = VkApplicationInfo {
+      application_name: application_name.map(ZStr::as_ptr).unwrap_or(null()),
+      engine_name: engine_name.map(ZStr::as_ptr).unwrap_or(null()),
+      application_version,
+      engine_version,
+      api_version,
+      ..VkApplicationInfo::default()
+    };
+    let instance_crate_info = VkInstanceCreateInfo {
+      flags: instance_create_flags,
+      application_info: &application_info,
+      enabled_layer_count: layers.len().try_into().unwrap(),
+      enabled_layer_names: layers.as_ptr().cast(),
+      enabled_extension_count: extensions.len().try_into().unwrap(),
+      enabled_extension_names: extensions.as_ptr().cast(),
+      ..VkInstanceCreateInfo::default()
+    };
     let mut vk_instance = VkInstance::NULL;
-    let create = unsafe { vkCreateInstance(&instance_create_info, null(), &mut vk_instance) };
-    if let Some(err_code) = create.0 {
-      Err(err_code)
+    if let Some(err) = unsafe {
+      vk_create_instance(&instance_crate_info, core::ptr::null(), &mut vk_instance).0
+    } {
+      Err(err)
     } else {
-      Ok(Instance { entry: Entry(self.0), vk_instance })
+      unsafe { Instance::new(self.0, vk_instance) }
     }
   }
-}
-
-pub struct CreateRequest {
-  pub application_name: String,
-  pub application_version: uint32_t,
-  pub engine_name: String,
-  pub engine_version: uint32_t,
-  pub api_version: VkVersion,
-  pub instance_create_flags: VkInstanceCreateFlags,
-  pub instance_layers: Vec<String>,
-  pub instance_extensions: Vec<String>,
 }

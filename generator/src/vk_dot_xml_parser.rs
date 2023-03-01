@@ -15,6 +15,20 @@ macro_rules! assert_attrs_comment_only {
   };
 }
 
+fn fix_ty(ty: StaticStr) -> StaticStr {
+  match ty {
+    "char" => "u8",
+    "uint8_t" => "u8",
+    "int32_t" => "i32",
+    "uint32_t" => "u32",
+    "uint64_t" => "u64",
+    "size_t" => "usize",
+    "float" => "c_float",
+    "void" => "c_void", // command return void is fixed to () elsewhere.
+    other => other,
+  }
+}
+
 /// Registry of all useful data out of a `vk.xml` file.
 ///
 /// ```rust,no_run
@@ -43,26 +57,69 @@ pub struct Registry {
 }
 
 impl Registry {
+  #[allow(clippy::field_reassign_with_default)]
   pub fn from_iter(iter: &mut impl Iterator<Item = XmlElement<'static>>) -> Self {
     let mut registry = Self::default();
     loop {
       match iter.next().unwrap() {
-        EndTag { name: "registry" } => return registry,
+        EndTag { name: "registry" } => {
+          // POST PROCESSING
+          let mut extra_types = Vec::new();
+          // If we see FooFlags or FooFlagBits without the matching other side of the
+          // pairing then we add a dummy entry for the other side so that registry lookup
+          // (ideally) won't ever fail.
+          for ty in registry.types.iter() {
+            if let Some(n) = ty.name.strip_suffix("Flags") {
+              let s = format!("{n}FlagBits");
+              if !registry.types.iter().any(|ty| ty.name == s) {
+                let mut te = TypeEntry::default();
+                te.category = Some("bitmask");
+                te.name = Box::leak(s.into_boxed_str());
+                extra_types.push(te);
+              }
+            } else if let Some(n) = ty.name.strip_suffix("FlagBits") {
+              let s = format!("{n}Flags");
+              if !registry.types.iter().any(|ty| ty.name == s) {
+                let mut te = TypeEntry::default();
+                te.category = Some("bitmask");
+                te.name = Box::leak(s.into_boxed_str());
+                extra_types.push(te);
+              }
+            }
+          }
+          registry.types.extend(extra_types.into_iter());
+          // add VkVersion as a fake base type
+          let mut te = TypeEntry::default();
+          te.name = "VkVersion";
+          te.category = Some("basetype");
+          registry.types.push(te);
+          return registry;
+        }
         StartTag { name: "comment", attrs: "" } => loop {
           if let EndTag { name: "comment" } = iter.next().unwrap() {
             break;
           }
         },
-        StartTag { name: "platforms", attrs } => do_platforms(attrs, &mut registry.platforms, iter),
-        StartTag { name: "tags", attrs } => do_tags(attrs, &mut registry.vendor_tags, iter),
+        StartTag { name: "platforms", attrs } => {
+          do_platforms(attrs, &mut registry.platforms, iter)
+        }
+        StartTag { name: "tags", attrs } => {
+          do_tags(attrs, &mut registry.vendor_tags, iter)
+        }
         StartTag { name: "types", attrs } => do_types(attrs, &mut registry.types, iter),
         StartTag { name: "enums", attrs } => do_enums(attrs, &mut registry.enums, iter),
-        StartTag { name: "commands", attrs } => do_commands(attrs, &mut registry.commands, iter),
-        StartTag { name: "feature", attrs } => do_feature(attrs, &mut registry.features, iter),
+        StartTag { name: "commands", attrs } => {
+          do_commands(attrs, &mut registry.commands, iter)
+        }
+        StartTag { name: "feature", attrs } => {
+          do_feature(attrs, &mut registry.features, iter)
+        }
         StartTag { name: "extensions", attrs } => {
           do_extensions(attrs, &mut registry.extensions, iter)
         }
-        StartTag { name: "formats", attrs } => do_formats(attrs, &mut registry.formats, iter),
+        StartTag { name: "formats", attrs } => {
+          do_formats(attrs, &mut registry.formats, iter)
+        }
         StartTag { name: "spirvextensions", attrs } => {
           do_spirv_extensions(attrs, &mut registry.spirv_extensions, iter)
         }
@@ -158,11 +215,7 @@ fn do_types(
                 StartTag { name: "type", attrs: "" } => (),
                 other => panic!("{other:?}"),
               }
-              member.ty = match iter.next().unwrap().unwrap_text() {
-                "char" => "u8",
-                "uint32_t" => "u32",
-                other => other,
-              };
+              member.ty = fix_ty(iter.next().unwrap().unwrap_text());
               assert_eq!(iter.next().unwrap().unwrap_end_tag(), "type");
 
               match iter.next().unwrap() {
@@ -180,7 +233,9 @@ fn do_types(
                 Text("**") => {
                   match member.ty_variant {
                     TypeVariant::Normal => member.ty_variant = TypeVariant::MutPtrMutPtr,
-                    TypeVariant::ConstPtr => member.ty_variant = TypeVariant::MutPtrConstPtr,
+                    TypeVariant::ConstPtr => {
+                      member.ty_variant = TypeVariant::MutPtrConstPtr
+                    }
                     other => panic!("{other:?}"),
                   }
                   match iter.next().unwrap() {
@@ -190,7 +245,9 @@ fn do_types(
                 }
                 Text("* const*") | Text("* const *") => {
                   match member.ty_variant {
-                    TypeVariant::ConstPtr => member.ty_variant = TypeVariant::ConstPtrConstPtr,
+                    TypeVariant::ConstPtr => {
+                      member.ty_variant = TypeVariant::ConstPtrConstPtr
+                    }
                     other => panic!("{other:?}"),
                   }
                   match iter.next().unwrap() {
@@ -211,7 +268,7 @@ fn do_types(
                     let arr_len = iter.next().unwrap().unwrap_text();
                     match member.ty_variant {
                       TypeVariant::Normal => {
-                        member.ty_variant = TypeVariant::ConstArrayPtrNamed(arr_len)
+                        member.ty_variant = TypeVariant::ArrayNamed(arr_len);
                       }
                       other => panic!("{other:?}"),
                     }
@@ -231,15 +288,21 @@ fn do_types(
                     other => panic!("{other:?}"),
                   },
                   Text("[3][4]") => match member.ty_variant {
-                    TypeVariant::Normal => member.ty_variant = TypeVariant::ArrayOfArrayLit(3, 4),
+                    TypeVariant::Normal => {
+                      member.ty_variant = TypeVariant::ArrayOfArrayLit(3, 4)
+                    }
                     other => panic!("{other:?}"),
                   },
                   Text(":8") => match member.ty_variant {
-                    TypeVariant::Normal => member.ty_variant = TypeVariant::BitfieldsLit(8),
+                    TypeVariant::Normal => {
+                      member.ty_variant = TypeVariant::BitfieldsLit(8)
+                    }
                     other => panic!("{other:?}"),
                   },
                   Text(":24") => match member.ty_variant {
-                    TypeVariant::Normal => member.ty_variant = TypeVariant::BitfieldsLit(24),
+                    TypeVariant::Normal => {
+                      member.ty_variant = TypeVariant::BitfieldsLit(24)
+                    }
                     other => panic!("{other:?}"),
                   },
                   StartTag { name: "comment", attrs: "" } => {
@@ -258,7 +321,11 @@ fn do_types(
         types.push(ty_entry);
       }
       EmptyTag { name: "type", attrs } => {
-        types.push(TypeEntry::from_attrs(attrs));
+        let mut te = TypeEntry::from_attrs(attrs);
+        if te.name.ends_with("FlagBits") {
+          te.category = Some("bitmask");
+        }
+        types.push(te);
       }
       StartTag { name: "comment", attrs: "" } => {
         let _ = iter.next().unwrap().unwrap_text();
@@ -306,10 +373,10 @@ fn do_commands(
             }
             StartTag { name: "proto", attrs: "" } => {
               assert_eq!(iter.next().unwrap().unwrap_start_tag(), ("type", ""));
-              command.return_ty = iter.next().unwrap().unwrap_text();
-              if command.return_ty == "void" {
-                command.return_ty = "()";
-              }
+              command.return_ty = match iter.next().unwrap().unwrap_text() {
+                "void" => "()",
+                other => fix_ty(other),
+              };
               assert_eq!(iter.next().unwrap().unwrap_end_tag(), "type");
               //
               assert_eq!(iter.next().unwrap().unwrap_start_tag(), ("name", ""));
@@ -339,11 +406,7 @@ fn do_commands(
                 StartTag { name: "type", attrs: "" } => (),
                 other => panic!("{other:?}"),
               }
-              command_param.ty = match iter.next().unwrap().unwrap_text() {
-                "char" => "u8",
-                "uint32_t" => "u32",
-                other => other,
-              };
+              command_param.ty = fix_ty(iter.next().unwrap().unwrap_text());
               assert_eq!(iter.next().unwrap().unwrap_end_tag(), "type");
               match iter.next().unwrap() {
                 Text("*") => {
@@ -359,8 +422,12 @@ fn do_commands(
                 }
                 Text("**") => {
                   match command_param.ty_variant {
-                    TypeVariant::Normal => command_param.ty_variant = TypeVariant::MutPtrMutPtr,
-                    TypeVariant::ConstPtr => command_param.ty_variant = TypeVariant::MutPtrConstPtr,
+                    TypeVariant::Normal => {
+                      command_param.ty_variant = TypeVariant::MutPtrMutPtr
+                    }
+                    TypeVariant::ConstPtr => {
+                      command_param.ty_variant = TypeVariant::MutPtrConstPtr
+                    }
                     other => panic!("{other:?}"),
                   }
                   match iter.next().unwrap() {
@@ -600,7 +667,8 @@ fn do_extensions(
 }
 
 fn do_formats(
-  attrs: StaticStr, formats: &mut Vec<Format>, iter: &mut impl Iterator<Item = XmlElement<'static>>,
+  attrs: StaticStr, formats: &mut Vec<Format>,
+  iter: &mut impl Iterator<Item = XmlElement<'static>>,
 ) {
   assert_attrs_comment_only!(attrs);
   loop {
@@ -895,18 +963,31 @@ pub enum TypeVariant {
   MutPtrMutPtr,
   /// `*const [T; N]`
   ConstArrayPtrLit(usize),
-  /// `*const [T; NAMED_CONSTANT]`
-  ConstArrayPtrNamed(StaticStr),
   /// `*mut *const T`
   MutPtrConstPtr,
   /// `*const *const T`
   ConstPtrConstPtr,
   /// `[T; N]`
   ArrayLit(usize),
+  /// `[T; NAMED_CONSTANT]`
+  ArrayNamed(StaticStr),
   /// `[[T; A]; B]`
   ArrayOfArrayLit(usize, usize),
   /// `:N`
   BitfieldsLit(usize),
+}
+impl TypeVariant {
+  pub fn is_ptr(&self) -> bool {
+    matches!(
+      *self,
+      TypeVariant::ConstPtr
+        | TypeVariant::MutPtr
+        | TypeVariant::MutPtrMutPtr
+        | TypeVariant::ConstArrayPtrLit(_)
+        | TypeVariant::MutPtrConstPtr
+        | TypeVariant::ConstPtrConstPtr
+    )
+  }
 }
 
 #[derive(Clone, Default)]
@@ -935,10 +1016,10 @@ impl core::fmt::Debug for CommandParam {
       TypeVariant::MutPtr => write!(f, "{name}: *mut {ty}"),
       TypeVariant::MutPtrMutPtr => write!(f, "{name}: *mut *mut {ty}"),
       TypeVariant::ConstArrayPtrLit(n) => write!(f, "{name}: *const [{ty}; {n}]"),
-      TypeVariant::ConstArrayPtrNamed(n) => write!(f, "{name}: *const [{ty}; {n}]"),
       TypeVariant::MutPtrConstPtr => write!(f, "{name}: *mut *const {ty}"),
       TypeVariant::ConstPtrConstPtr => write!(f, "{name}: *const *const {ty}"),
       TypeVariant::ArrayLit(n) => write!(f, "{name}: [{ty}; {n}]"),
+      TypeVariant::ArrayNamed(n) => write!(f, "{name}: [{ty}; {n}]"),
       TypeVariant::ArrayOfArrayLit(a, b) => write!(f, "{name}: [[{ty}; {a}]; {b}]"),
       TypeVariant::BitfieldsLit(n) => write!(f, "{name}: {ty}{{:{n}}}"),
     }?;
@@ -1030,7 +1111,7 @@ impl Command {
         "videocoding" => s.video_coding = Some(value),
         "name" => s.name = value,
         "api" => s.api = Some(value),
-        _ => panic!("{key:?} = {value:?}"),
+        _ => panic!("{key:?} = {value:?} ({attrs})"),
       }
     }
     s
@@ -1069,7 +1150,7 @@ impl Feature {
 #[derive(Debug, Clone, Default)]
 pub struct RequiredEnum {
   pub name: StaticStr,
-  pub value: StaticStr,
+  pub value: Option<StaticStr>,
   pub offset: Option<StaticStr>,
   pub extends: Option<StaticStr>,
   pub dir: Option<StaticStr>,
@@ -1088,7 +1169,7 @@ impl RequiredEnum {
       match key {
         "name" => s.name = value,
         "dir" => s.dir = Some(value),
-        "value" => s.value = value,
+        "value" => s.value = Some(value),
         "alias" => s.alias = Some(value),
         "bitpos" => s.bitpos = Some(value),
         "offset" => s.offset = Some(value),
@@ -1110,18 +1191,18 @@ pub struct RequireListEntry {
   pub enums: Vec<RequiredEnum>,
   pub types: Vec<StaticStr>,
   pub commands: Vec<StaticStr>,
-  pub depends: StaticStr,
-  pub api: StaticStr,
-  pub comment: StaticStr,
+  pub depends: Option<StaticStr>,
+  pub api: Option<StaticStr>,
+  pub comment: Option<StaticStr>,
 }
 impl RequireListEntry {
   pub fn from_attrs(attrs: StaticStr) -> Self {
     let mut s = Self::default();
     for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
       match key {
-        "depends" => s.depends = value,
-        "api" => s.api = value,
-        "comment" => s.comment = value,
+        "api" => s.api = Some(value),
+        "depends" => s.depends = Some(value),
+        "comment" => s.comment = Some(value),
         _ => panic!("{key:?} = {value:?}"),
       }
     }
@@ -1132,22 +1213,21 @@ impl RequireListEntry {
 #[derive(Debug, Clone, Default)]
 pub struct Extension {
   pub name: StaticStr,
-  pub requires: StaticStr,
-  pub comment: StaticStr,
-  pub number: StaticStr,
-  pub ty: StaticStr,
-  pub author: StaticStr,
-  pub contact: StaticStr,
-  pub supported: StaticStr,
-  pub platform: StaticStr,
-  pub special_use: StaticStr,
-  pub deprecated_by: StaticStr,
-  pub promoted_to: StaticStr,
-  pub requires_core: StaticStr,
-  pub obsoleted_by: StaticStr,
-  pub provisional: StaticStr,
-  pub sort_order: StaticStr,
-  pub depends: StaticStr,
+  pub requires: Option<StaticStr>,
+  pub comment: Option<StaticStr>,
+  pub number: Option<StaticStr>,
+  pub ty: Option<StaticStr>,
+  pub author: Option<StaticStr>,
+  pub contact: Option<StaticStr>,
+  pub supported: Option<StaticStr>,
+  pub platform: Option<StaticStr>,
+  pub special_use: Option<StaticStr>,
+  pub deprecated_by: Option<StaticStr>,
+  pub promoted_to: Option<StaticStr>,
+  pub obsoleted_by: Option<StaticStr>,
+  pub provisional: Option<StaticStr>,
+  pub sort_order: Option<StaticStr>,
+  pub depends: Option<StaticStr>,
   pub require_lists: Vec<RequireListEntry>,
 }
 impl Extension {
@@ -1156,22 +1236,21 @@ impl Extension {
     for TagAttribute { key, value } in TagAttributeIterator::new(attrs) {
       match key {
         "name" => s.name = value,
-        "type" => s.ty = value,
-        "number" => s.number = value,
-        "author" => s.author = value,
-        "contact" => s.contact = value,
-        "comment" => s.comment = value,
-        "requires" => s.requires = value,
-        "platform" => s.platform = value,
-        "sortorder" => s.sort_order = value,
-        "supported" => s.supported = value,
-        "specialuse" => s.special_use = value,
-        "promotedto" => s.promoted_to = value,
-        "provisional" => s.provisional = value,
-        "obsoletedby" => s.obsoleted_by = value,
-        "deprecatedby" => s.deprecated_by = value,
-        "requiresCore" => s.requires_core = value,
-        "depends" => s.depends = value,
+        "type" => s.ty = Some(value),
+        "number" => s.number = Some(value),
+        "author" => s.author = Some(value),
+        "contact" => s.contact = Some(value),
+        "comment" => s.comment = Some(value),
+        "requires" => s.requires = Some(value),
+        "platform" => s.platform = Some(value),
+        "sortorder" => s.sort_order = Some(value),
+        "supported" => s.supported = Some(value),
+        "specialuse" => s.special_use = Some(value),
+        "promotedto" => s.promoted_to = Some(value),
+        "provisional" => s.provisional = Some(value),
+        "obsoletedby" => s.obsoleted_by = Some(value),
+        "deprecatedby" => s.deprecated_by = Some(value),
+        "depends" => s.depends = Some(value),
         _ => panic!("{key:?} = {value:?}"),
       }
     }

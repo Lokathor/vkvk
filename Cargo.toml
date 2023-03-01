@@ -6,11 +6,11 @@ version = "0.1.0+vk1.3.241"
 edition = "2021"
 license = "Zlib OR Apache-2.0 OR MIT"
 
-[dependencies]
-bitfrob = "1.0.0"
-
 [dev-dependencies]
-beryllium = "0.9.2"
+beryllium = "0.10.0"
 
-[profile.dev]
-opt-level = 1
+[features]
+default = ["VK_KHR_surface", "VK_KHR_swapchain", "VK_KHR_portability_enumeration"]
+VK_KHR_surface = []
+VK_KHR_swapchain = ["VK_KHR_surface"]
+VK_KHR_portability_enumeration = []
