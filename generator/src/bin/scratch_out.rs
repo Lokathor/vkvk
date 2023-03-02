@@ -32,13 +32,13 @@ fn main() {
   let registry = Registry::from_iter(&mut iter);
   //
 
-  print_v1_0_data(&registry);
-  //print_v1_0_constants(&registry);
-  //print_v1_0_fn_types(&registry);
+  format_v1_0_data(&registry);
+  format_v1_0_constants(&registry);
+  format_v1_0_fn_types(&registry);
 
-  //print_extension(&registry, "VK_KHR_surface");
-  //print_extension(&registry, "VK_KHR_swapchain");
-  //print_extension(&registry, "VK_KHR_portability_enumeration");
+  format_extension(&registry, "VK_KHR_surface");
+  format_extension(&registry, "VK_KHR_swapchain");
+  format_extension(&registry, "VK_KHR_portability_enumeration");
 }
 
 #[derive(Debug, Clone, Default)]
@@ -140,7 +140,8 @@ pub fn format_ty(ty: &TypeEntry, vendors: &[&str]) -> String {
   }
 }
 
-pub fn print_v1_0_data(registry: &Registry) {
+pub fn format_v1_0_data(registry: &Registry) -> String {
+  let mut f = String::new();
   let vk_1_0 = determine_vulkan_1_0(registry);
   let vendors: Vec<StaticStr> = registry.vendor_tags.iter().map(|v| v.name).collect();
   let data_type_strings: Vec<String> = vk_1_0
@@ -154,15 +155,16 @@ pub fn print_v1_0_data(registry: &Registry) {
       format_ty(ty, &vendors)
     })
     .collect();
-  println!("use crate::prelude::*;");
-  println!();
+  writeln!(f, "use crate::prelude::*;").ok();
+  writeln!(f).ok();
   for data_type_string in data_type_strings.iter() {
-    println!("{data_type_string}");
+    writeln!(f, "{data_type_string}").ok();
   }
+  f
 }
 
-pub fn print_v1_0_fn_types(registry: &Registry) {
-  use core::fmt::Write;
+pub fn format_v1_0_fn_types(registry: &Registry) -> String {
+  let mut f = String::new();
   let vk_1_0 = determine_vulkan_1_0(registry);
   let commands: Vec<Command> = vk_1_0
     .commands
@@ -170,11 +172,11 @@ pub fn print_v1_0_fn_types(registry: &Registry) {
     .map(|c| registry.commands.iter().find(|rc| rc.name == *c).unwrap().clone())
     .collect();
   //
-  println!("#![allow(dead_code)]");
-  println!("#![allow(nonstandard_style)]");
-  println!();
-  println!("use crate::prelude::*;");
-  println!();
+  writeln!(f, "#![allow(dead_code)]").ok();
+  writeln!(f, "#![allow(nonstandard_style)]").ok();
+  writeln!(f).ok();
+  writeln!(f, "use crate::prelude::*;").ok();
+  writeln!(f).ok();
   //
   let mut commands_by_first_arg: BTreeMap<&str, Vec<&str>> = BTreeMap::new();
   for command in commands.iter() {
@@ -188,27 +190,28 @@ pub fn print_v1_0_fn_types(registry: &Registry) {
     };
     commands_by_first_arg.entry(key).or_default().push(command.name);
   }
-  // print comment tables of which commands go with what handle
+  // write comment tables of which commands go with what handle
   for (ty, command_list) in commands_by_first_arg.iter() {
-    println!("// {ty}");
-    println!("/*");
+    writeln!(f, "// {ty}").ok();
+    writeln!(f, "/*").ok();
     for command in command_list.iter() {
-      println!("{}", *command);
+      writeln!(f, "{}", *command).ok();
     }
-    println!("*/");
-    println!();
+    writeln!(f, "*/").ok();
+    writeln!(f).ok();
   }
-  // just print out all the types
+  // just write out all the types
   for command in commands.iter() {
-    print!("{}", format_command_t(command));
+    write!(f, "{}", format_command_t(command)).ok();
   }
   for command in commands.iter() {
-    print!("{}", format_pfn_command(command.name));
+    write!(f, "{}", format_pfn_command(command.name)).ok();
   }
   for command in commands.iter() {
     let name = command.name;
-    println!("pub(crate) const {name}_NAME: &str = \"{name}\\0\";");
+    writeln!(f, "pub(crate) const {name}_NAME: &str = \"{name}\\0\";").ok();
   }
+  f
 }
 
 pub fn format_command_t(command: &Command) -> String {
@@ -238,7 +241,8 @@ pub fn format_pfn_command(name: &str) -> String {
   pfn
 }
 
-pub fn print_v1_0_constants(registry: &Registry) {
+pub fn format_v1_0_constants(registry: &Registry) -> String {
+  let mut f = String::new();
   let vk_1_0 = determine_vulkan_1_0(registry);
   let mut constant_strings = Vec::new();
   'name_loop: for name in vk_1_0.constants.iter() {
@@ -255,13 +259,14 @@ pub fn print_v1_0_constants(registry: &Registry) {
     }
     panic!("Constant Definition Not Found: {name:?}");
   }
-  println!("#![allow(nonstandard_style)]");
-  println!();
-  println!("use crate::prelude::*;");
-  println!();
+  writeln!(f, "#![allow(nonstandard_style)]").ok();
+  writeln!(f,).ok();
+  writeln!(f, "use crate::prelude::*;").ok();
+  writeln!(f,).ok();
   for s in constant_strings.iter() {
-    println!("{s}");
+    writeln!(f, "{s}").ok();
   }
+  f
 }
 
 fn format_enum_entry(
@@ -336,7 +341,8 @@ fn format_enum_entry(
   f
 }
 
-pub fn print_extension(registry: &Registry, name: &str) {
+pub fn format_extension(registry: &Registry, name: &str) -> String {
+  let mut f = String::new();
   let vendors: Vec<StaticStr> = registry.vendor_tags.iter().map(|v| v.name).collect();
   let Extension {
     name: _,
@@ -360,13 +366,13 @@ pub fn print_extension(registry: &Registry, name: &str) {
   assert!(requires.is_none() || *requires == Some("vulkan"));
   assert!(supported.unwrap().split(',').any(|s| s == "vulkan"));
   //
-  println!("#![allow(clippy::double_parens)]");
-  println!("#![allow(nonstandard_style)]");
-  println!("#![allow(unused_parens)]");
-  println!("#![allow(dead_code)]");
-  println!();
-  println!("use crate::prelude::*;");
-  println!();
+  writeln!(f, "#![allow(clippy::double_parens)]").ok();
+  writeln!(f, "#![allow(nonstandard_style)]").ok();
+  writeln!(f, "#![allow(unused_parens)]").ok();
+  writeln!(f, "#![allow(dead_code)]").ok();
+  writeln!(f).ok();
+  writeln!(f, "use crate::prelude::*;").ok();
+  writeln!(f).ok();
   for RequireListEntry { enums, types, commands, depends, api, comment: _ } in
     require_lists.iter()
   {
@@ -400,18 +406,18 @@ pub fn print_extension(registry: &Registry, name: &str) {
         _ => continue,
       }
       if let Some(protect) = protect {
-        println!("/* Skipping `{name}`, protected by {protect} */");
+        writeln!(f, "/* Skipping `{name}`, protected by {protect} */").ok();
         continue;
       }
       //
       if let Some(comment) = comment {
-        println!("/// {comment}");
+        writeln!(f, "/// {comment}").ok();
       }
       if let Some(deprecated) = deprecated {
-        println!("#[deprecated = \"{deprecated}\"]");
+        writeln!(f, "#[deprecated = \"{deprecated}\"]").ok();
       }
       if let Some(alias) = alias {
-        println!("/* ALIAS: {alias} is an alias for {name} */");
+        writeln!(f, "/* ALIAS: {alias} is an alias for {name} */").ok();
       } else if let Some(extends) = extends {
         let extnumber = extnumber.or(*number).unwrap();
         if let Some(offset) = offset {
@@ -419,11 +425,11 @@ pub fn print_extension(registry: &Registry, name: &str) {
           let vk_result_prefix =
             if *extends == "VkResult" { "core::num::NonZeroI32::new" } else { "" };
           let vk_result_suffix = if *extends == "VkResult" { "" } else { " as u32" };
-          println!(
+          writeln!(f,
             "pub const {name}: {extends} = {extends}({vk_result_prefix}({dir}extension_enumeration_value({extnumber},{offset})){vk_result_suffix});"
-          );
+          ).ok();
         } else if let Some(bitpos) = bitpos {
-          println!("pub const {name}: {extends} = {extends}(1_u32 << {bitpos});");
+          writeln!(f, "pub const {name}: {extends} = {extends}(1_u32 << {bitpos});").ok();
         } else {
           panic!("{req_enum:?}");
         };
@@ -431,15 +437,15 @@ pub fn print_extension(registry: &Registry, name: &str) {
         if value.contains('&') {
           let value = value.strip_prefix("&quot;").unwrap();
           let value = value.strip_suffix("&quot;").unwrap();
-          println!("pub const {name}: &str = \"{value}\\0\";");
+          writeln!(f, "pub const {name}: &str = \"{value}\\0\";").ok();
         } else {
-          println!("pub const {name}: u32 = {value};");
+          writeln!(f, "pub const {name}: u32 = {value};").ok();
         }
       } else {
         panic!("{req_enum:?}");
       }
     }
-    println!();
+    writeln!(f).ok();
     for ty_str in types.iter() {
       if ty_str.contains("Flags") {
         continue;
@@ -448,23 +454,24 @@ pub fn print_extension(registry: &Registry, name: &str) {
       if ty_str.contains("Flags") || ty_str.contains("FlagBits") {
         ty.category = Some("bitmask");
       }
-      println!("{}", format_ty(&ty, &vendors));
+      writeln!(f, "{}", format_ty(&ty, &vendors)).ok();
       for enumeration in registry.enums.iter().filter(|e| e.name == *ty_str) {
-        println!("{}", define_enums(enumeration));
+        writeln!(f, "{}", define_enums(enumeration)).ok();
       }
     }
-    println!();
+    writeln!(f).ok();
     for command_str in commands.iter() {
       let command = registry.commands.iter().find(|c| c.name == *command_str).unwrap();
-      print!("{}", format_command_t(command));
+      write!(f, "{}", format_command_t(command)).ok();
     }
-    println!();
+    writeln!(f).ok();
     for command_str in commands.iter() {
-      print!("{}", format_pfn_command(command_str));
+      write!(f, "{}", format_pfn_command(command_str)).ok();
     }
     for command_str in commands.iter() {
-      println!("pub const {command_str}_NAME: &str = \"{command_str}\\0\";");
+      writeln!(f, "pub const {command_str}_NAME: &str = \"{command_str}\\0\";").ok();
     }
-    println!();
+    writeln!(f).ok();
   }
+  f
 }
