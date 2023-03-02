@@ -33,6 +33,11 @@ fn main() {
       .collect();
     let mut instance_layers = Vec::new();
 
+    instance_extensions
+      .push(ZString::try_from("VK_KHR_get_physical_device_properties2").unwrap());
+
+    println!("props: {:#?}", entry.enumerate_instance_extension_properties(None));
+
     if cfg!(target_os = "macos") {
       // When on Mac we're running on "MoltenVK", which translates Vulkan to
       // Metal, so we have to enable the portability extension, which (I guess?)
@@ -83,7 +88,7 @@ fn main() {
         1,
         None,
         0,
-        VkVersion::API_1_1,
+        VkVersion::API_1_0,
         instance_create_flags,
         &instance_layer_strs,
         &instance_extension_strs,
