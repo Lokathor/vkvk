@@ -54,11 +54,11 @@ impl<'i, 'p: 'i> Device<'i, 'p> {
   /// * Khronos: [VkSwapchainCreateInfoKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSwapchainCreateInfoKHR.html)
   /// * Khronos: [vkCreateSwapchainKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateSwapchainKHR.html)
   #[cfg(feature = "VK_KHR_swapchain")]
-  pub fn create_swapchain_khr<'d>(
-    &'d self, surface: &SurfaceKHR<'i>, surface_format: VkSurfaceFormatKHR,
+  pub fn create_swapchain_khr<'d, 's>(
+    &'d self, surface: &'s SurfaceKHR<'i>, surface_format: VkSurfaceFormatKHR,
     image_extent: VkExtent2D, present_mode: VkPresentModeKHR, min_image_count: u32,
     image_usage: VkImageUsageFlags,
-  ) -> Result<SwapchainKHR<'i, 'p, 'd>, NonZeroI32> {
+  ) -> Result<SwapchainKHR<'i, 'p, 'd, 's>, NonZeroI32> {
     if let Some(swapchain_fns) = self.vk_khr_swapchain_fns {
       let swapchain_create_info = VkSwapchainCreateInfoKHR {
         surface: surface.vk_surface_khr,
@@ -87,7 +87,11 @@ impl<'i, 'p: 'i> Device<'i, 'p> {
       if let Some(err_code) = create_ret.0 {
         Err(err_code)
       } else {
-        Ok(SwapchainKHR { vk_swapchain_khr, parent: self })
+        Ok(SwapchainKHR {
+          vk_swapchain_khr,
+          parent: self,
+          surface_life: core::marker::PhantomData,
+        })
       }
     } else {
       Err(VK_ERROR_EXTENSION_NOT_PRESENT.0.unwrap())
@@ -380,18 +384,19 @@ impl DeviceFnTable_VkKhrSwapchain {
 }
 
 /// Wrapper for a [VkSwapchainKHR]
-pub struct SwapchainKHR<'i, 'p: 'i, 'd: 'p> {
+pub struct SwapchainKHR<'i, 'p: 'i, 'd: 'p, 's: 'i> {
   vk_swapchain_khr: VkSwapchainKHR,
   parent: &'d Device<'i, 'p>,
+  surface_life: core::marker::PhantomData<&'s VkSurfaceKHR>,
 }
-impl Drop for SwapchainKHR<'_, '_, '_> {
+impl Drop for SwapchainKHR<'_, '_, '_, '_> {
   fn drop(&mut self) {
     if cfg!(debug_assertions) {
       panic!("Bug: you shouldn't drop a `SwapchainKHR`, please destroy it properly with `SwapchainKHR::destroy`");
     }
   }
 }
-impl SwapchainKHR<'_, '_, '_> {
+impl SwapchainKHR<'_, '_, '_, '_> {
   /// Destroys the swapchian.
   pub fn destroy(self) {
     if let Some(swapchain_fns) = self.parent.vk_khr_swapchain_fns {
