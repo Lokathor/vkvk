@@ -32,13 +32,38 @@ fn main() {
   let registry = Registry::from_iter(&mut iter);
   //
 
-  format_v1_0_data(&registry);
-  format_v1_0_constants(&registry);
-  format_v1_0_fn_types(&registry);
+  std::fs::write(
+    "../src/version_1_0/constants.rs",
+    format_v1_0_constants(&registry).as_bytes(),
+  )
+  .unwrap();
+  std::fs::write(
+    "../src/version_1_0/data_types.rs",
+    format_v1_0_data(&registry).as_bytes(),
+  )
+  .unwrap();
+  std::fs::write(
+    "../src/version_1_0/fn_types.rs",
+    format_v1_0_fn_types(&registry).as_bytes(),
+  )
+  .unwrap();
 
-  format_extension(&registry, "VK_KHR_surface");
-  format_extension(&registry, "VK_KHR_swapchain");
-  format_extension(&registry, "VK_KHR_portability_enumeration");
+  // extensions.
+  std::fs::write(
+    "../src/ext/vk_khr_surface.rs",
+    format_extension(&registry, "VK_KHR_surface").as_bytes(),
+  )
+  .unwrap();
+  std::fs::write(
+    "../src/ext/vk_khr_swapchain.rs",
+    format_extension(&registry, "VK_KHR_swapchain").as_bytes(),
+  )
+  .unwrap();
+  std::fs::write(
+    "../src/ext/vk_khr_portability_enumeration.rs",
+    format_extension(&registry, "VK_KHR_portability_enumeration").as_bytes(),
+  )
+  .unwrap();
 }
 
 #[derive(Debug, Clone, Default)]
