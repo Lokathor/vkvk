@@ -23,3 +23,24 @@ pub use bitmasks::*;
 fn api_vulkan(api: Option<StaticStr>) -> bool {
   api.map(|s| s.split(',').any(|s| s == "vulkan")).unwrap_or(true)
 }
+
+/// Breaks off the vendor tag off of the end of an item name, if there is one.
+pub fn break_vendor<'v>(
+  registry: &VulkanRegistry, item: &'v str,
+) -> (&'v str, Option<&'v str>) {
+  for vendor in registry.vendors.iter().copied() {
+    if let Some(stripped) = item.strip_suffix(vendor.name) {
+      let stripped_len = stripped.len();
+      return (&item[..stripped_len], Some(&item[stripped_len..]));
+    }
+  }
+  (item, None)
+}
+
+pub fn break_number(item: &str) -> (&str, Option<&str>) {
+  if let Some(stripped) = item.strip_suffix(|ch: char| ch.is_ascii_digit()) {
+    let stripped_len = stripped.len();
+    return (&item[..stripped_len], Some(&item[stripped_len..]));
+  }
+  (item, None)
+}

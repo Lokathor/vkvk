@@ -1,2 +1,2 @@
-pub mod bitfields;
+pub mod bitmasks;
 pub mod enumerations;

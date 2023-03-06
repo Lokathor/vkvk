@@ -22,12 +22,12 @@ macro_rules! define_enumeration {
 macro_rules! define_bitmask {
   (
     $(#[$flag_bits_meta:meta])*
-    $flag_bits_name:ident
+    $flag_bits_name:ident($t:ty)
   ) => {
     $(#[$flag_bits_meta])*
-    #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
+    #[derive(Clone, Copy, Default, PartialEq, Eq)]
     #[repr(transparent)]
-    pub struct $flag_bits_name(pub u32);
+    pub struct $flag_bits_name(pub $t);
     //
     impl core::ops::BitAnd for $flag_bits_name {
       type Output = Self;

@@ -10,5 +10,5 @@ fn main() {
   write_out_enumerations("../src/generated/enumerations.rs", &enumerations);
   //
   let bitmasks = gather_bitmasks(&registry);
-  println!("{bitmasks:#?}");
+  write_out_bitmasks("../src/generated/bitmasks.rs", &bitmasks);
 }

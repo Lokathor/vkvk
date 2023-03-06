@@ -213,9 +213,12 @@ pub fn gather_enumerations(
       comment,
       is_negative,
       api,
-      protect: _,
+      protect,
     } in requirement.required_offset_enums.iter().cloned()
     {
+      if protect.is_some() {
+        continue;
+      }
       if !api_vulkan(api) {
         continue;
       }
