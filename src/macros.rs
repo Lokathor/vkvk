@@ -1,84 +1,17 @@
 #![allow(unused_macros)]
 
-/// Makes a (dispatchable) handle.
-macro_rules! define_handle {
-  (
-    $(#[$name_meta:meta])*
-    $name:ident
-  ) => {
-    $(#[$name_meta])*
-    #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    #[repr(transparent)]
-    pub struct $name(*mut core::ffi::c_void);
-    unsafe impl Send for $name {}
-    unsafe impl Sync for $name {}
-    impl Default for $name {
-      #[inline]
-      #[must_use]
-      fn default() -> Self {
-        Self::NULL
-      }
-    }
-    impl $name {
-      pub const NULL: Self = Self::null();
-      #[inline]
-      #[must_use]
-      pub const fn null() -> Self {
-        Self(core::ptr::null_mut())
-      }
-    }
-  };
-}
-
-/// Makes a non-dispatchable handle.
-macro_rules! define_non_dispatchable_handle {
-  (
-    $(#[$name_meta:meta])*
-    $name:ident
-  ) => {
-    $(#[$name_meta])*
-    #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    #[repr(transparent)]
-    pub struct $name(
-      #[cfg(target_pointer_width = "64")] *mut core::ffi::c_void,
-      #[cfg(not(target_pointer_width = "64"))] u64,
-    );
-    unsafe impl Send for $name {}
-    unsafe impl Sync for $name {}
-    impl $name {
-      pub const NULL: Self = Self::null();
-      #[inline]
-      #[must_use]
-      pub const fn null() -> Self {
-        #[cfg(target_pointer_width = "64")]
-        return Self(core::ptr::null_mut());
-        #[cfg(not(target_pointer_width = "64"))]
-        return Self(0);
-      }
-    }
-    impl Default for $name {
-      #[inline]
-      #[must_use]
-      fn default() -> Self {
-        Self::NULL
-      }
-    }
-  };
-}
-
 /// Makes an enumeration newtype.
 ///
 /// * If you want a derived Debug you have to declare that yourself.
 macro_rules! define_enumeration {
   (
-    MANUAL_DEBUG
     $(#[$name_meta:meta])*
-    $name:ident
+    $name:ident($t:ty)
   ) => {
     $(#[$name_meta])*
-    #[derive(Clone, Copy, Default, PartialEq, Eq)]
+    #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
     #[repr(transparent)]
-    pub struct $name(pub u32);
+    pub struct $name(pub $t);
   };
   (
     $(#[$name_meta:meta])*
