@@ -22,6 +22,10 @@ fn main() {
   for enumeration in enumerations.values() {
     writeln!(f, "{enumeration}").unwrap();
   }
+  // * TODO: generate enumeration debug impls
+  // * TODO: merge the "offset" and "value" paths. We just need to know when
+  //   we're declaring `Name=Ty(value)` or `Name=OtherName`, we don't need to
+  //   store the offset/value distinction.
 }
 
 /// Given an `api` attribute, is this item "vulkan" compatible?
@@ -216,7 +220,7 @@ impl Display for Enumeration {
     if *signed {
       writeln!(f, "  {name}(i32)")?;
     } else {
-      writeln!(f, "  {name}")?;
+      writeln!(f, "  {name}(u32)")?;
     }
     writeln!(f, ");")?;
     for value in values.values() {
