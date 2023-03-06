@@ -2051,8 +2051,7 @@ define_enumeration!(
   /// Khronos: [VkResult](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkResult.html)
   VkResult(i32)
 );
-/// The logical device has been lost. See
-/// &lt;&lt;devsandqueues-lost-device&gt;&gt;
+/// The logical device has been lost. Spec: [5.2.3. Lost Device](https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-lost-device).
 pub const VK_ERROR_DEVICE_LOST: VkResult = VkResult(-4);
 /// Extension specified does not exist
 pub const VK_ERROR_EXTENSION_NOT_PRESENT: VkResult = VkResult(-7);

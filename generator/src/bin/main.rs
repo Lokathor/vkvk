@@ -33,6 +33,8 @@ fn api_vulkan(api: Option<StaticStr>) -> bool {
   api.map(|s| s.split(',').any(|s| s == "vulkan")).unwrap_or(true)
 }
 
+const LOST_DEVICE: &str = "The logical device has been lost. Spec: [5.2.3. Lost Device](https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-lost-device).";
+
 pub fn gather_enumerations(
   registry: &VulkanRegistry,
 ) -> BTreeMap<StaticStr, Enumeration> {
@@ -75,6 +77,11 @@ pub fn gather_enumerations(
       let mut value = ConstNewtypeValue { name, ty: enum_group.name, value, comment };
       if value.name == "VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE" {
         value.comment = None;
+      }
+      if let Some(comment) = value.comment {
+        if comment.contains("devsandqueues-lost-device") {
+          value.comment = Some(LOST_DEVICE);
+        }
       }
       if value.value.starts_with('-') {
         e.signed = true;
