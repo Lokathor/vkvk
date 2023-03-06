@@ -71,7 +71,9 @@ pub struct ConstAlias {
 impl Display for ConstAlias {
   fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
     let ConstAlias { name, ty, alias_of, deprecated, comment } = self;
+    writeln!(f, "/// Alias of [`{alias_of}`]")?;
     if let Some(comment) = comment {
+      writeln!(f, "///")?;
       writeln!(f, r#"/// {comment}"#)?;
     }
     if let Some(reason) = deprecated {
