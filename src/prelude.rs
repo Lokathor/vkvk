@@ -14,4 +14,6 @@ pub use core::{
   ptr::{null, null_mut},
 };
 
+pub use raw_vulkan_handle::*;
+
 pub use crate::generated::enumerations::*;

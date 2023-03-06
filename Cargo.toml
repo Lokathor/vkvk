@@ -2,15 +2,12 @@
 name = "vkvk"
 description = "A vulkan library."
 repository = "https://github.com/Lokathor/vkvk"
-version = "0.1.0+vk1.3.241"
+version = "0.1.0+vk1.3.242"
 edition = "2021"
 license = "Zlib OR Apache-2.0 OR MIT"
 
 [dev-dependencies]
 beryllium = "0.10.0"
 
-[features]
-default = ["VK_KHR_surface", "VK_KHR_swapchain", "VK_KHR_portability_enumeration"]
-VK_KHR_surface = []
-VK_KHR_swapchain = ["VK_KHR_surface"]
-VK_KHR_portability_enumeration = []
+[dependencies]
+raw_vulkan_handle = "0.1.1"
