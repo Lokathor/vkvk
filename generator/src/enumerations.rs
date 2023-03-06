@@ -92,7 +92,6 @@ pub fn write_out_enumerations<P: AsRef<Path>>(
   for enumeration in enumerations.values() {
     writeln!(f, "{enumeration}").unwrap();
   }
-  // * TODO: generate enumeration debug impls
 }
 
 const LOST_DEVICE: &str = "The logical device has been lost. Spec: [5.2.3. Lost Device](https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#devsandqueues-lost-device).";
