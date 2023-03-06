@@ -79,11 +79,7 @@ impl Display for Flags {
         let bit_val = 1_u64 << position.bit;
         let no_type_words =
           position.name.strip_prefix(&screaming_core).unwrap().strip_prefix('_').unwrap();
-        let no_type_digits = no_type_words
-          .strip_prefix(digits)
-          .and_then(|s| s.strip_prefix('_'))
-          .unwrap_or(no_type_words);
-        let no_vendor = no_type_digits
+        let no_vendor = no_type_words
           .strip_suffix(vendor)
           .and_then(|s| s.strip_suffix('_'))
           .unwrap_or(no_type_words);
