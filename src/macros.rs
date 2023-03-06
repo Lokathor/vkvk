@@ -9,18 +9,9 @@ macro_rules! define_enumeration {
     $name:ident($t:ty)
   ) => {
     $(#[$name_meta])*
-    #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
+    #[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Hash)]
     #[repr(transparent)]
     pub struct $name(pub $t);
-  };
-  (
-    $(#[$name_meta:meta])*
-    $name:ident
-  ) => {
-    $(#[$name_meta])*
-    #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
-    #[repr(transparent)]
-    pub struct $name(pub u32);
   };
 }
 
