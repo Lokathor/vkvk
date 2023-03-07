@@ -101,11 +101,10 @@ impl Display for RustStructureMember {
     if let Some(value) = *value {
       writeln!(f, "  /// * Intended Value: `{value}`")?;
     }
-    if let Some(len) = *len {
-      writeln!(f, "  /// * Len: {len}")?;
-    }
-    if let Some(alt_len) = *alt_len {
-      writeln!(f, "  /// * Alt Len: {alt_len}")?;
+    if let Some(len) = alt_len.or(*len) {
+      // We favor Alt Len when available, because that's the one that (if present)
+      // will look "like code" instead of being LaTeX or whatever.
+      writeln!(f, "  /// * Len: `{len}`")?;
     }
     if let Some(object_type) = *object_type {
       writeln!(f, "  /// * Object Type: {object_type}")?;

@@ -25,6 +25,12 @@ pub use structures::*;
 mod aliases;
 pub use aliases::*;
 
+// TODO: union defaults
+
+// TODO: struct defaults
+
+// TODO: struct debug
+
 /// Given an `api` attribute, is this item "vulkan" compatible?
 ///
 /// The logic is that if "vulkan" is in the comma separated list then it's
@@ -84,21 +90,8 @@ pub fn filter_ty(ty: &str) -> &str {
     "float" => "c_float",
     "double" => "c_double",
     "void" => "c_void",
-    // temp hacks!
-    "dummy_entry_for_rust_fmt_start"
-    | "_screen_context"
-    | "_screen_window"
-    | "Display"
-    | "IDirectFB"
-    | "IDirectFBSurface"
-    | "NvSciBufAttrList"
-    | "NvSciBufObj"
-    | "NvSciSyncAttrList"
-    | "NvSciSyncFence"
-    | "NvSciSyncObj"
-    | "Window"
-    | "zx_handle_t"
-    | "dummy_entry_for_rustfmt_end" => "c_int",
+    "Display" => "XlibDisplay",
+    "Window" => "XlibWindow",
     other => other,
   }
 }
@@ -139,4 +132,10 @@ const BLOCKED_TYPES: &[&str] = &[
   "VkVideoEncodeH265SessionParametersAddInfoEXT",
   "VkVideoDecodeH264SessionParametersAddInfoKHR",
   "VkVideoDecodeH265SessionParametersAddInfoKHR",
+  // TODO: support whatever nvidia thing this stuff is for.
+  "NvSciBufAttrList",
+  "NvSciBufObj",
+  "NvSciSyncAttrList",
+  "NvSciSyncFence",
+  "NvSciSyncObj",
 ];

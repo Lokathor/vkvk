@@ -3,31 +3,51 @@
 
 //! Various base types which don't fit elsewhere.
 
+// Note(Lokathor): this import makes the doc links work properly without having
+// to specify the full path on all of them.
+#[allow(unused_imports)]
+use raw_window_handle::*;
+
 pub use core::ffi::c_void;
 
 /// Mild fudge until <https://github.com/rust-lang/rust/issues/88345>
 #[allow(non_camel_case_types)]
 pub type c_size_t = usize;
 
-/// Android Native Window
+/// Part of [AndroidNdkWindowHandle]
 pub type ANativeWindow = c_void;
 /// Android Hardware Buffer
 pub type AHardwareBuffer = c_void;
-/// Part of [XcbDisplayHandle](raw_window_handle::XcbDisplayHandle)
+
+/// Part of [XcbDisplayHandle]
 pub type xcb_connection_t = *mut c_void;
-/// Part of [XcbWindowHandle](raw_window_handle::XcbWindowHandle)
+/// Part of [XcbWindowHandle]
 pub type xcb_window_t = u32;
-/// Part of [WaylandDisplayHandle](raw_window_handle::WaylandDisplayHandle)
+pub type xcb_visualid_t = u32;
+
+/// Part of [XlibDisplayHandle]
+///
+/// Normally this is just defined as `Display`, but that's too generic for a
+/// type from outsid this crate so we define it with a slightly better name.
+pub type XlibDisplay = *mut c_void;
+/// Part of [XlibWindowHandle]
+///
+/// Normally this is just defined as `Window`, but that's too generic for a
+/// type from outsid this crate so we define it with a slightly better name.
+pub type XlibWindow = core::ffi::c_ulong;
+
+/// Part of [WaylandDisplayHandle]
 pub type wl_display = *mut c_void;
-/// Part of [WaylandWindowHandle](raw_window_handle::WaylandWindowHandle)
+/// Part of [WaylandWindowHandle]
 pub type wl_surface = *mut c_void;
+
 /// A [Win32](https://learn.microsoft.com/en-us/windows/win32/winprog/windows-data-types) data type.
 ///
-/// Part of [Win32WindowHandle](raw_window_handle::Win32WindowHandle)
+/// Part of [Win32WindowHandle]
 pub type HWND = *mut c_void;
 /// A [Win32](https://learn.microsoft.com/en-us/windows/win32/winprog/windows-data-types) data type.
 ///
-/// Part of [Win32WindowHandle](raw_window_handle::Win32WindowHandle)
+/// Part of [Win32WindowHandle]
 pub type HINSTANCE = *mut c_void;
 /// A [Win32](https://learn.microsoft.com/en-us/windows/win32/winprog/windows-data-types) data type.
 pub type HANDLE = *mut c_void;
@@ -43,6 +63,8 @@ pub type LPCWSTR = *const u16;
 /// Vulkan, and you can just cast the pointer.
 pub type SECURITY_ATTRIBUTES = c_void;
 
+// TODO: docs links for these?
+
 pub type CAMetalLayer = c_void;
 pub type MTLDevice_id = *mut c_void;
 pub type MTLCommandQueue_id = *mut c_void;
@@ -50,7 +72,11 @@ pub type MTLBuffer_id = *mut c_void;
 pub type MTLTexture_id = *mut c_void;
 pub type MTLSharedEvent_id = *mut c_void;
 pub type IOSurfaceRef = *mut c_void;
-pub type GgpFrameToken = u64;
+pub type _screen_context = c_void;
+pub type _screen_window = c_void;
+pub type IDirectFB = c_void;
+pub type IDirectFBSurface = c_void;
+pub type zx_handle_t = u32;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[repr(transparent)]

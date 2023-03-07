@@ -36,10 +36,10 @@ pub struct VkAccelerationStructureBuildGeometryInfoKHR {
   /// * Optional: true
   pub geometryCount: u32,
   /// * Optional: true
-  /// * Len: geometryCount
+  /// * Len: `geometryCount`
   pub pGeometries: *const VkAccelerationStructureGeometryKHR,
   /// * Optional: true,false
-  /// * Len: geometryCount,1
+  /// * Len: `geometryCount,1`
   pub ppGeometries: *const *const VkAccelerationStructureGeometryKHR,
   /// * No Auto-Validity
   pub scratchData: VkDeviceOrHostAddressKHR,
@@ -214,7 +214,7 @@ pub struct VkAccelerationStructureInfoNV {
   pub instanceCount: u32,
   /// * Optional: true
   pub geometryCount: u32,
-  /// * Len: geometryCount
+  /// * Len: `geometryCount`
   pub pGeometries: *const VkGeometryNV,
 }
 
@@ -263,10 +263,10 @@ pub struct VkAccelerationStructureTrianglesOpacityMicromapEXT {
   /// * Optional: true
   pub usageCountsCount: u32,
   /// * Optional: true
-  /// * Len: usageCountsCount
+  /// * Len: `usageCountsCount`
   pub pUsageCounts: *const VkMicromapUsageEXT,
   /// * Optional: true,false
-  /// * Len: usageCountsCount,1
+  /// * Len: `usageCountsCount,1`
   pub ppUsageCounts: *const *const VkMicromapUsageEXT,
   pub micromap: VkMicromapEXT,
 }
@@ -279,8 +279,7 @@ pub struct VkAccelerationStructureVersionInfoKHR {
   pub sType: VkStructureType,
   /// * Optional: true
   pub pNext: *const c_void,
-  /// * Len: latexmath:[2 \times \mathtt{VK\_UUID\_SIZE}]
-  /// * Alt Len: 2*VK_UUID_SIZE
+  /// * Len: `2*VK_UUID_SIZE`
   pub pVersionData: *const u8,
 }
 
@@ -445,11 +444,11 @@ pub struct VkApplicationInfo {
   /// * Optional: true
   pub pNext: *const c_void,
   /// * Optional: true
-  /// * Len: null-terminated
+  /// * Len: `null-terminated`
   pub pApplicationName: *const u8,
   pub applicationVersion: u32,
   /// * Optional: true
-  /// * Len: null-terminated
+  /// * Len: `null-terminated`
   pub pEngineName: *const u8,
   pub engineVersion: u32,
   pub apiVersion: u32,
@@ -580,7 +579,7 @@ pub struct VkAttachmentSampleCountInfoAMD {
   pub pNext: *const c_void,
   /// * Optional: true
   pub colorAttachmentCount: u32,
-  /// * Len: colorAttachmentCount
+  /// * Len: `colorAttachmentCount`
   /// * No Auto-Validity
   pub pColorAttachmentSamples: *const VkSampleCountFlagBits,
   /// * Optional: true
@@ -627,7 +626,7 @@ pub struct VkBindAccelerationStructureMemoryInfoNV {
   pub memoryOffset: VkDeviceSize,
   /// * Optional: true
   pub deviceIndexCount: u32,
-  /// * Len: deviceIndexCount
+  /// * Len: `deviceIndexCount`
   pub pDeviceIndices: *const u32,
 }
 
@@ -643,7 +642,7 @@ pub struct VkBindBufferMemoryDeviceGroupInfo {
   pub pNext: *const c_void,
   /// * Optional: true
   pub deviceIndexCount: u32,
-  /// * Len: deviceIndexCount
+  /// * Len: `deviceIndexCount`
   pub pDeviceIndices: *const u32,
 }
 
@@ -672,11 +671,11 @@ pub struct VkBindImageMemoryDeviceGroupInfo {
   pub pNext: *const c_void,
   /// * Optional: true
   pub deviceIndexCount: u32,
-  /// * Len: deviceIndexCount
+  /// * Len: `deviceIndexCount`
   pub pDeviceIndices: *const u32,
   /// * Optional: true
   pub splitInstanceBindRegionCount: u32,
-  /// * Len: splitInstanceBindRegionCount
+  /// * Len: `splitInstanceBindRegionCount`
   pub pSplitInstanceBindRegions: *const VkRect2D,
 }
 
@@ -748,23 +747,23 @@ pub struct VkBindSparseInfo {
   pub pNext: *const c_void,
   /// * Optional: true
   pub waitSemaphoreCount: u32,
-  /// * Len: waitSemaphoreCount
+  /// * Len: `waitSemaphoreCount`
   pub pWaitSemaphores: *const VkSemaphore,
   /// * Optional: true
   pub bufferBindCount: u32,
-  /// * Len: bufferBindCount
+  /// * Len: `bufferBindCount`
   pub pBufferBinds: *const VkSparseBufferMemoryBindInfo,
   /// * Optional: true
   pub imageOpaqueBindCount: u32,
-  /// * Len: imageOpaqueBindCount
+  /// * Len: `imageOpaqueBindCount`
   pub pImageOpaqueBinds: *const VkSparseImageOpaqueMemoryBindInfo,
   /// * Optional: true
   pub imageBindCount: u32,
-  /// * Len: imageBindCount
+  /// * Len: `imageBindCount`
   pub pImageBinds: *const VkSparseImageMemoryBindInfo,
   /// * Optional: true
   pub signalSemaphoreCount: u32,
-  /// * Len: signalSemaphoreCount
+  /// * Len: `signalSemaphoreCount`
   pub pSignalSemaphores: *const VkSemaphore,
 }
 
@@ -804,7 +803,7 @@ pub struct VkBlitImageInfo2 {
   pub dstImage: VkImage,
   pub dstImageLayout: VkImageLayout,
   pub regionCount: u32,
-  /// * Len: regionCount
+  /// * Len: `regionCount`
   pub pRegions: *const VkImageBlit2,
   pub filter: VkFilter,
 }
@@ -857,7 +856,7 @@ pub struct VkBufferCollectionCreateInfoFUCHSIA {
   pub sType: VkStructureType,
   /// * Optional: true
   pub pNext: *const c_void,
-  pub collectionToken: c_int,
+  pub collectionToken: zx_handle_t,
 }
 
 /// Khronos: [VkBufferCollectionImageCreateInfoFUCHSIA](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkBufferCollectionImageCreateInfoFUCHSIA.html)
@@ -957,7 +956,7 @@ pub struct VkBufferCreateInfo {
   pub sharingMode: VkSharingMode,
   /// * Optional: true
   pub queueFamilyIndexCount: u32,
-  /// * Len: queueFamilyIndexCount
+  /// * Len: `queueFamilyIndexCount`
   /// * No Auto-Validity
   pub pQueueFamilyIndices: *const u32,
 }
@@ -1198,7 +1197,7 @@ pub struct VkCoarseSampleOrderCustomNV {
   pub shadingRate: VkShadingRatePaletteEntryNV,
   pub sampleCount: u32,
   pub sampleLocationCount: u32,
-  /// * Len: sampleLocationCount
+  /// * Len: `sampleLocationCount`
   pub pSampleLocations: *const VkCoarseSampleLocationNV,
 }
 
@@ -1329,7 +1328,7 @@ pub struct VkCommandBufferInheritanceRenderingInfo {
   pub viewMask: u32,
   /// * Optional: true
   pub colorAttachmentCount: u32,
-  /// * Len: colorAttachmentCount
+  /// * Len: `colorAttachmentCount`
   pub pColorAttachmentFormats: *const VkFormat,
   pub depthAttachmentFormat: VkFormat,
   pub stencilAttachmentFormat: VkFormat,
@@ -1522,7 +1521,7 @@ pub struct VkCopyBufferInfo2 {
   pub srcBuffer: VkBuffer,
   pub dstBuffer: VkBuffer,
   pub regionCount: u32,
-  /// * Len: regionCount
+  /// * Len: `regionCount`
   pub pRegions: *const VkBufferCopy2,
 }
 
@@ -1538,7 +1537,7 @@ pub struct VkCopyBufferToImageInfo2 {
   pub dstImage: VkImage,
   pub dstImageLayout: VkImageLayout,
   pub regionCount: u32,
-  /// * Len: regionCount
+  /// * Len: `regionCount`
   pub pRegions: *const VkBufferImageCopy2,
 }
 
@@ -1595,7 +1594,7 @@ pub struct VkCopyImageInfo2 {
   pub dstImage: VkImage,
   pub dstImageLayout: VkImageLayout,
   pub regionCount: u32,
-  /// * Len: regionCount
+  /// * Len: `regionCount`
   pub pRegions: *const VkImageCopy2,
 }
 
@@ -1611,7 +1610,7 @@ pub struct VkCopyImageToBufferInfo2 {
   pub srcImageLayout: VkImageLayout,
   pub dstBuffer: VkBuffer,
   pub regionCount: u32,
-  /// * Len: regionCount
+  /// * Len: `regionCount`
   pub pRegions: *const VkBufferImageCopy2,
 }
 
@@ -1704,7 +1703,7 @@ pub struct VkCuFunctionCreateInfoNVX {
   /// * Optional: true
   pub pNext: *const c_void,
   pub module: VkCuModuleNVX,
-  /// * Len: null-terminated
+  /// * Len: `null-terminated`
   pub pName: *const u8,
 }
 
@@ -1726,11 +1725,11 @@ pub struct VkCuLaunchInfoNVX {
   pub sharedMemBytes: u32,
   /// * Optional: true
   pub paramCount: c_size_t,
-  /// * Len: paramCount
+  /// * Len: `paramCount`
   pub pParams: *const *const c_void,
   /// * Optional: true
   pub extraCount: c_size_t,
-  /// * Len: extraCount
+  /// * Len: `extraCount`
   pub pExtras: *const *const c_void,
 }
 
@@ -1743,7 +1742,7 @@ pub struct VkCuModuleCreateInfoNVX {
   /// * Optional: true
   pub pNext: *const c_void,
   pub dataSize: c_size_t,
-  /// * Len: dataSize
+  /// * Len: `dataSize`
   pub pData: *const c_void,
 }
 
@@ -1760,12 +1759,12 @@ pub struct VkD3D12FenceSubmitInfoKHR {
   /// * Optional: true
   pub waitSemaphoreValuesCount: u32,
   /// * Optional: true
-  /// * Len: waitSemaphoreValuesCount
+  /// * Len: `waitSemaphoreValuesCount`
   pub pWaitSemaphoreValues: *const u64,
   /// * Optional: true
   pub signalSemaphoreValuesCount: u32,
   /// * Optional: true
-  /// * Len: signalSemaphoreValuesCount
+  /// * Len: `signalSemaphoreValuesCount`
   pub pSignalSemaphoreValues: *const u64,
 }
 
@@ -1778,7 +1777,7 @@ pub struct VkDebugMarkerMarkerInfoEXT {
   /// * Optional: true
   pub pNext: *const c_void,
   /// Name of the debug marker
-  /// * Len: null-terminated
+  /// * Len: `null-terminated`
   pub pMarkerName: *const u8,
   /// Optional color for debug marker
   pub color: [c_float; 4],
@@ -1798,7 +1797,7 @@ pub struct VkDebugMarkerObjectNameInfoEXT {
   /// * Object Type: objectType
   pub object: u64,
   /// Name to apply to the object
-  /// * Len: null-terminated
+  /// * Len: `null-terminated`
   pub pObjectName: *const u8,
 }
 
@@ -1820,7 +1819,7 @@ pub struct VkDebugMarkerObjectTagInfoEXT {
   /// The length in bytes of the tag data
   pub tagSize: c_size_t,
   /// Tag data to attach to the object
-  /// * Len: tagSize
+  /// * Len: `tagSize`
   pub pTag: *const c_void,
 }
 
@@ -1852,7 +1851,7 @@ pub struct VkDebugUtilsLabelEXT {
   pub sType: VkStructureType,
   /// * Optional: true
   pub pNext: *const c_void,
-  /// * Len: null-terminated
+  /// * Len: `null-terminated`
   pub pLabelName: *const u8,
   pub color: [c_float; 4],
 }
@@ -1868,22 +1867,22 @@ pub struct VkDebugUtilsMessengerCallbackDataEXT {
   /// * Optional: true
   pub flags: VkDebugUtilsMessengerCallbackDataFlagsEXT,
   /// * Optional: true
-  /// * Len: null-terminated
+  /// * Len: `null-terminated`
   pub pMessageIdName: *const u8,
   pub messageIdNumber: i32,
-  /// * Len: null-terminated
+  /// * Len: `null-terminated`
   pub pMessage: *const u8,
   /// * Optional: true
   pub queueLabelCount: u32,
-  /// * Len: queueLabelCount
+  /// * Len: `queueLabelCount`
   pub pQueueLabels: *const VkDebugUtilsLabelEXT,
   /// * Optional: true
   pub cmdBufLabelCount: u32,
-  /// * Len: cmdBufLabelCount
+  /// * Len: `cmdBufLabelCount`
   pub pCmdBufLabels: *const VkDebugUtilsLabelEXT,
   /// * Optional: true
   pub objectCount: u32,
-  /// * Len: objectCount
+  /// * Len: `objectCount`
   pub pObjects: *const VkDebugUtilsObjectNameInfoEXT,
 }
 
@@ -1921,7 +1920,7 @@ pub struct VkDebugUtilsObjectNameInfoEXT {
   /// * Object Type: objectType
   pub objectHandle: u64,
   /// * Optional: true
-  /// * Len: null-terminated
+  /// * Len: `null-terminated`
   pub pObjectName: *const u8,
 }
 
@@ -1938,7 +1937,7 @@ pub struct VkDebugUtilsObjectTagInfoEXT {
   pub objectHandle: u64,
   pub tagName: u64,
   pub tagSize: c_size_t,
-  /// * Len: tagSize
+  /// * Len: `tagSize`
   pub pTag: *const c_void,
 }
 
@@ -2013,15 +2012,15 @@ pub struct VkDependencyInfo {
   pub dependencyFlags: VkDependencyFlags,
   /// * Optional: true
   pub memoryBarrierCount: u32,
-  /// * Len: memoryBarrierCount
+  /// * Len: `memoryBarrierCount`
   pub pMemoryBarriers: *const VkMemoryBarrier2,
   /// * Optional: true
   pub bufferMemoryBarrierCount: u32,
-  /// * Len: bufferMemoryBarrierCount
+  /// * Len: `bufferMemoryBarrierCount`
   pub pBufferMemoryBarriers: *const VkBufferMemoryBarrier2,
   /// * Optional: true
   pub imageMemoryBarrierCount: u32,
-  /// * Len: imageMemoryBarrierCount
+  /// * Len: `imageMemoryBarrierCount`
   pub pImageMemoryBarriers: *const VkImageMemoryBarrier2,
 }
 
@@ -2118,7 +2117,7 @@ pub struct VkDescriptorPoolCreateInfo {
   pub maxSets: u32,
   /// * Optional: true
   pub poolSizeCount: u32,
-  /// * Len: poolSizeCount
+  /// * Len: `poolSizeCount`
   pub pPoolSizes: *const VkDescriptorPoolSize,
 }
 
@@ -2153,7 +2152,7 @@ pub struct VkDescriptorSetAllocateInfo {
   pub pNext: *const c_void,
   pub descriptorPool: VkDescriptorPool,
   pub descriptorSetCount: u32,
-  /// * Len: descriptorSetCount
+  /// * Len: `descriptorSetCount`
   pub pSetLayouts: *const VkDescriptorSetLayout,
 }
 
@@ -2185,7 +2184,7 @@ pub struct VkDescriptorSetLayoutBinding {
   pub stageFlags: VkShaderStageFlags,
   /// Immutable samplers (used if descriptor type is SAMPLER or COMBINED_IMAGE_SAMPLER, is either NULL or contains count number of elements)
   /// * Optional: true
-  /// * Len: descriptorCount
+  /// * Len: `descriptorCount`
   /// * No Auto-Validity
   pub pImmutableSamplers: *const VkSampler,
 }
@@ -2203,7 +2202,7 @@ pub struct VkDescriptorSetLayoutBindingFlagsCreateInfo {
   /// * Optional: true
   pub bindingCount: u32,
   /// * Optional: false,true
-  /// * Len: bindingCount
+  /// * Len: `bindingCount`
   pub pBindingFlags: *const VkDescriptorBindingFlags,
 }
 
@@ -2221,7 +2220,7 @@ pub struct VkDescriptorSetLayoutCreateInfo {
   /// * Optional: true
   pub bindingCount: u32,
   /// Array of descriptor set layout bindings
-  /// * Len: bindingCount
+  /// * Len: `bindingCount`
   pub pBindings: *const VkDescriptorSetLayoutBinding,
 }
 
@@ -2262,7 +2261,7 @@ pub struct VkDescriptorSetVariableDescriptorCountAllocateInfo {
   pub pNext: *const c_void,
   /// * Optional: true
   pub descriptorSetCount: u32,
-  /// * Len: descriptorSetCount
+  /// * Len: `descriptorSetCount`
   pub pDescriptorCounts: *const u32,
 }
 
@@ -2293,7 +2292,7 @@ pub struct VkDescriptorUpdateTemplateCreateInfo {
   /// Number of descriptor update entries to use for the update template
   pub descriptorUpdateEntryCount: u32,
   /// Descriptor update entries for the template
-  /// * Len: descriptorUpdateEntryCount
+  /// * Len: `descriptorUpdateEntryCount`
   pub pDescriptorUpdateEntries: *const VkDescriptorUpdateTemplateEntry,
   pub templateType: VkDescriptorUpdateTemplateType,
   /// * No Auto-Validity
@@ -2364,18 +2363,18 @@ pub struct VkDeviceCreateInfo {
   /// * Optional: true
   pub flags: VkDeviceCreateFlags,
   pub queueCreateInfoCount: u32,
-  /// * Len: queueCreateInfoCount
+  /// * Len: `queueCreateInfoCount`
   pub pQueueCreateInfos: *const VkDeviceQueueCreateInfo,
   /// * Optional: true
   #[deprecated = "ignored"]
   pub enabledLayerCount: u32,
   /// Ordered list of layer names to be enabled
-  /// * Len: enabledLayerCount,null-terminated
+  /// * Len: `enabledLayerCount,null-terminated`
   #[deprecated = "ignored"]
   pub ppEnabledLayerNames: *const *const u8,
   /// * Optional: true
   pub enabledExtensionCount: u32,
-  /// * Len: enabledExtensionCount,null-terminated
+  /// * Len: `enabledExtensionCount,null-terminated`
   pub ppEnabledExtensionNames: *const *const u8,
   /// * Optional: true
   pub pEnabledFeatures: *const VkPhysicalDeviceFeatures,
@@ -2534,7 +2533,7 @@ pub struct VkDeviceGroupDeviceCreateInfo {
   pub pNext: *const c_void,
   /// * Optional: true
   pub physicalDeviceCount: u32,
-  /// * Len: physicalDeviceCount
+  /// * Len: `physicalDeviceCount`
   pub pPhysicalDevices: *const VkPhysicalDevice,
 }
 
@@ -2564,7 +2563,7 @@ pub struct VkDeviceGroupPresentInfoKHR {
   pub pNext: *const c_void,
   /// * Optional: true
   pub swapchainCount: u32,
-  /// * Len: swapchainCount
+  /// * Len: `swapchainCount`
   pub pDeviceMasks: *const u32,
   pub mode: VkDeviceGroupPresentModeFlagBitsKHR,
 }
@@ -2583,7 +2582,7 @@ pub struct VkDeviceGroupRenderPassBeginInfo {
   pub deviceMask: u32,
   /// * Optional: true
   pub deviceRenderAreaCount: u32,
-  /// * Len: deviceRenderAreaCount
+  /// * Len: `deviceRenderAreaCount`
   pub pDeviceRenderAreas: *const VkRect2D,
 }
 
@@ -2599,15 +2598,15 @@ pub struct VkDeviceGroupSubmitInfo {
   pub pNext: *const c_void,
   /// * Optional: true
   pub waitSemaphoreCount: u32,
-  /// * Len: waitSemaphoreCount
+  /// * Len: `waitSemaphoreCount`
   pub pWaitSemaphoreDeviceIndices: *const u32,
   /// * Optional: true
   pub commandBufferCount: u32,
-  /// * Len: commandBufferCount
+  /// * Len: `commandBufferCount`
   pub pCommandBufferDeviceMasks: *const u32,
   /// * Optional: true
   pub signalSemaphoreCount: u32,
-  /// * Len: signalSemaphoreCount
+  /// * Len: `signalSemaphoreCount`
   pub pSignalSemaphoreDeviceIndices: *const u32,
 }
 
@@ -2694,11 +2693,11 @@ pub struct VkDeviceObjectReservationCreateInfo {
   pub pNext: *const c_void,
   /// * Optional: true
   pub pipelineCacheCreateInfoCount: u32,
-  /// * Len: pipelineCacheCreateInfoCount
+  /// * Len: `pipelineCacheCreateInfoCount`
   pub pPipelineCacheCreateInfos: *const VkPipelineCacheCreateInfo,
   /// * Optional: true
   pub pipelinePoolSizeCount: u32,
-  /// * Len: pipelinePoolSizeCount
+  /// * Len: `pipelinePoolSizeCount`
   pub pPipelinePoolSizes: *const VkPipelinePoolSize,
   /// * Optional: true
   pub semaphoreRequestCount: u32,
@@ -2794,7 +2793,7 @@ pub struct VkDeviceQueueCreateInfo {
   pub flags: VkDeviceQueueCreateFlags,
   pub queueFamilyIndex: u32,
   pub queueCount: u32,
-  /// * Len: queueCount
+  /// * Len: `queueCount`
   pub pQueuePriorities: *const c_float,
 }
 
@@ -2866,7 +2865,7 @@ pub struct VkDirectDriverLoadingListLUNARG {
   pub pNext: *mut c_void,
   pub mode: VkDirectDriverLoadingModeLUNARG,
   pub driverCount: u32,
-  /// * Len: driverCount
+  /// * Len: `driverCount`
   pub pDrivers: *const VkDirectDriverLoadingInfoLUNARG,
 }
 
@@ -2881,9 +2880,9 @@ pub struct VkDirectFBSurfaceCreateInfoEXT {
   /// * Optional: true
   pub flags: VkDirectFBSurfaceCreateFlagsEXT,
   /// * No Auto-Validity
-  pub dfb: *mut c_int,
+  pub dfb: *mut IDirectFB,
   /// * No Auto-Validity
-  pub surface: *mut c_int,
+  pub surface: *mut IDirectFBSurface,
 }
 
 /// Khronos: [VkDispatchIndirectCommand](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDispatchIndirectCommand.html)
@@ -3095,7 +3094,7 @@ pub struct VkDisplayPropertiesKHR {
   /// Handle of the display object
   pub display: VkDisplayKHR,
   /// Name of the display
-  /// * Len: null-terminated
+  /// * Len: `null-terminated`
   pub displayName: *const u8,
   /// In millimeters?
   pub physicalDimensions: VkExtent2D,
@@ -3215,7 +3214,7 @@ pub struct VkDrmFormatModifierPropertiesList2EXT {
   /// * Optional: true
   pub drmFormatModifierCount: u32,
   /// * Optional: true
-  /// * Len: drmFormatModifierCount
+  /// * Len: `drmFormatModifierCount`
   pub pDrmFormatModifierProperties: *mut VkDrmFormatModifierProperties2EXT,
 }
 
@@ -3233,7 +3232,7 @@ pub struct VkDrmFormatModifierPropertiesListEXT {
   /// * Optional: true
   pub drmFormatModifierCount: u32,
   /// * Optional: true
-  /// * Len: drmFormatModifierCount
+  /// * Len: `drmFormatModifierCount`
   pub pDrmFormatModifierProperties: *mut VkDrmFormatModifierPropertiesEXT,
 }
 
@@ -3262,19 +3261,6 @@ pub struct VkExportFenceCreateInfo {
   pub pNext: *const c_void,
   /// * Optional: true
   pub handleTypes: VkExternalFenceHandleTypeFlags,
-}
-
-/// Khronos: [VkExportFenceSciSyncInfoNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkExportFenceSciSyncInfoNV.html)
-///
-/// * Struct Extends: [`VkFenceCreateInfo`]
-#[derive(Clone, Copy)]
-#[repr(C)]
-pub struct VkExportFenceSciSyncInfoNV {
-  /// * Intended Value: `VK_STRUCTURE_TYPE_EXPORT_FENCE_SCI_SYNC_INFO_NV`
-  pub sType: VkStructureType,
-  /// * Optional: true
-  pub pNext: *const c_void,
-  pub pAttributes: c_int,
 }
 
 /// Khronos: [VkExportFenceWin32HandleInfoKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkExportFenceWin32HandleInfoKHR.html)
@@ -3319,19 +3305,6 @@ pub struct VkExportMemoryAllocateInfoNV {
   pub pNext: *const c_void,
   /// * Optional: true
   pub handleTypes: VkExternalMemoryHandleTypeFlagsNV,
-}
-
-/// Khronos: [VkExportMemorySciBufInfoNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkExportMemorySciBufInfoNV.html)
-///
-/// * Struct Extends: [`VkMemoryAllocateInfo`]
-#[derive(Clone, Copy)]
-#[repr(C)]
-pub struct VkExportMemorySciBufInfoNV {
-  /// * Intended Value: `VK_STRUCTURE_TYPE_EXPORT_MEMORY_SCI_BUF_INFO_NV`
-  pub sType: VkStructureType,
-  /// * Optional: true
-  pub pNext: *const c_void,
-  pub pAttributes: c_int,
 }
 
 /// Khronos: [VkExportMemoryWin32HandleInfoKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkExportMemoryWin32HandleInfoKHR.html)
@@ -3506,19 +3479,6 @@ pub struct VkExportSemaphoreCreateInfo {
   pub pNext: *const c_void,
   /// * Optional: true
   pub handleTypes: VkExternalSemaphoreHandleTypeFlags,
-}
-
-/// Khronos: [VkExportSemaphoreSciSyncInfoNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkExportSemaphoreSciSyncInfoNV.html)
-///
-/// * Struct Extends: [`VkSemaphoreCreateInfo`]
-#[derive(Clone, Copy)]
-#[repr(C)]
-pub struct VkExportSemaphoreSciSyncInfoNV {
-  /// * Intended Value: `VK_STRUCTURE_TYPE_EXPORT_SEMAPHORE_SCI_SYNC_INFO_NV`
-  pub sType: VkStructureType,
-  /// * Optional: true
-  pub pNext: *const c_void,
-  pub pAttributes: c_int,
 }
 
 /// Khronos: [VkExportSemaphoreWin32HandleInfoKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkExportSemaphoreWin32HandleInfoKHR.html)
@@ -3721,7 +3681,7 @@ pub struct VkFaultCallbackInfo {
   /// * Optional: true
   pub faultCount: u32,
   /// * Optional: true
-  /// * Len: faultCount
+  /// * Len: `faultCount`
   pub pFaults: *mut VkFaultData,
   pub pfnFaultCallback: PFN_vkFaultCallbackFunction,
 }
@@ -3895,7 +3855,7 @@ pub struct VkFramebufferAttachmentImageInfo {
   pub layerCount: u32,
   /// * Optional: true
   pub viewFormatCount: u32,
-  /// * Len: viewFormatCount
+  /// * Len: `viewFormatCount`
   pub pViewFormats: *const VkFormat,
 }
 
@@ -3911,7 +3871,7 @@ pub struct VkFramebufferAttachmentsCreateInfo {
   pub pNext: *const c_void,
   /// * Optional: true
   pub attachmentImageInfoCount: u32,
-  /// * Len: attachmentImageInfoCount
+  /// * Len: `attachmentImageInfoCount`
   pub pAttachmentImageInfos: *const VkFramebufferAttachmentImageInfo,
 }
 
@@ -3928,7 +3888,7 @@ pub struct VkFramebufferCreateInfo {
   pub renderPass: VkRenderPass,
   /// * Optional: true
   pub attachmentCount: u32,
-  /// * Len: attachmentCount
+  /// * Len: `attachmentCount`
   /// * No Auto-Validity
   pub pAttachments: *const VkImageView,
   pub width: u32,
@@ -3964,7 +3924,7 @@ pub struct VkGeneratedCommandsInfoNV {
   pub pipeline: VkPipeline,
   pub indirectCommandsLayout: VkIndirectCommandsLayoutNV,
   pub streamCount: u32,
-  /// * Len: streamCount
+  /// * Len: `streamCount`
   pub pStreams: *const VkIndirectCommandsStreamNV,
   pub sequencesCount: u32,
   pub preprocessBuffer: VkBuffer,
@@ -4072,7 +4032,7 @@ pub struct VkGraphicsPipelineCreateInfo {
   pub stageCount: u32,
   /// One entry for each active shader stage
   /// * Optional: true
-  /// * Len: stageCount
+  /// * Len: `stageCount`
   /// * No Auto-Validity
   pub pStages: *const VkPipelineShaderStageCreateInfo,
   /// * Optional: true
@@ -4143,11 +4103,11 @@ pub struct VkGraphicsPipelineShaderGroupsCreateInfoNV {
   pub pNext: *const c_void,
   /// * Optional: true
   pub groupCount: u32,
-  /// * Len: groupCount
+  /// * Len: `groupCount`
   pub pGroups: *const VkGraphicsShaderGroupCreateInfoNV,
   /// * Optional: true
   pub pipelineCount: u32,
-  /// * Len: pipelineCount
+  /// * Len: `pipelineCount`
   pub pPipelines: *const VkPipeline,
 }
 
@@ -4160,7 +4120,7 @@ pub struct VkGraphicsShaderGroupCreateInfoNV {
   /// * Optional: true
   pub pNext: *const c_void,
   pub stageCount: u32,
-  /// * Len: stageCount
+  /// * Len: `stageCount`
   pub pStages: *const VkPipelineShaderStageCreateInfo,
   /// * Optional: true
   /// * No Auto-Validity
@@ -4286,7 +4246,7 @@ pub struct VkImageCompressionControlEXT {
   pub flags: VkImageCompressionFlagsEXT,
   /// * Optional: true
   pub compressionControlPlaneCount: u32,
-  /// * Len: compressionControlPlaneCount
+  /// * Len: `compressionControlPlaneCount`
   /// * No Auto-Validity
   pub pFixedRateFlags: *mut VkImageCompressionFixedRateFlagsEXT,
 }
@@ -4317,7 +4277,7 @@ pub struct VkImageConstraintsInfoFUCHSIA {
   /// * Optional: true
   pub pNext: *const c_void,
   pub formatConstraintsCount: u32,
-  /// * Len: formatConstraintsCount
+  /// * Len: `formatConstraintsCount`
   pub pFormatConstraints: *const VkImageFormatConstraintsInfoFUCHSIA,
   pub bufferCollectionConstraints: VkBufferCollectionConstraintsInfoFUCHSIA,
   /// * Optional: true
@@ -4382,7 +4342,7 @@ pub struct VkImageCreateInfo {
   /// * Optional: true
   pub queueFamilyIndexCount: u32,
   /// Array of queue family indices to share across
-  /// * Len: queueFamilyIndexCount
+  /// * Len: `queueFamilyIndexCount`
   /// * No Auto-Validity
   pub pQueueFamilyIndices: *const u32,
   /// Initial image layout for all subresources
@@ -4402,7 +4362,7 @@ pub struct VkImageDrmFormatModifierExplicitCreateInfoEXT {
   pub drmFormatModifier: u64,
   /// * Optional: false
   pub drmFormatModifierPlaneCount: u32,
-  /// * Len: drmFormatModifierPlaneCount
+  /// * Len: `drmFormatModifierPlaneCount`
   pub pPlaneLayouts: *const VkSubresourceLayout,
 }
 
@@ -4417,7 +4377,7 @@ pub struct VkImageDrmFormatModifierListCreateInfoEXT {
   /// * Optional: true
   pub pNext: *const c_void,
   pub drmFormatModifierCount: u32,
-  /// * Len: drmFormatModifierCount
+  /// * Len: `drmFormatModifierCount`
   pub pDrmFormatModifiers: *const u64,
 }
 
@@ -4449,7 +4409,7 @@ pub struct VkImageFormatConstraintsInfoFUCHSIA {
   /// * Optional: true
   pub sysmemPixelFormat: u64,
   pub colorSpaceCount: u32,
-  /// * Len: colorSpaceCount
+  /// * Len: `colorSpaceCount`
   pub pColorSpaces: *const VkSysmemColorSpaceFUCHSIA,
 }
 
@@ -4467,7 +4427,7 @@ pub struct VkImageFormatListCreateInfo {
   pub pNext: *const c_void,
   /// * Optional: true
   pub viewFormatCount: u32,
-  /// * Len: viewFormatCount
+  /// * Len: `viewFormatCount`
   pub pViewFormats: *const VkFormat,
 }
 
@@ -4576,7 +4536,7 @@ pub struct VkImagePipeSurfaceCreateInfoFUCHSIA {
   pub pNext: *const c_void,
   /// * Optional: true
   pub flags: VkImagePipeSurfaceCreateFlagsFUCHSIA,
-  pub imagePipeHandle: c_int,
+  pub imagePipeHandle: zx_handle_t,
 }
 
 /// Khronos: [VkImagePlaneMemoryRequirementsInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkImagePlaneMemoryRequirementsInfo.html)
@@ -4929,20 +4889,6 @@ pub struct VkImportMemoryHostPointerInfoEXT {
   pub pHostPointer: *mut c_void,
 }
 
-/// Khronos: [VkImportMemorySciBufInfoNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkImportMemorySciBufInfoNV.html)
-///
-/// * Struct Extends: [`VkMemoryAllocateInfo`]
-#[derive(Clone, Copy)]
-#[repr(C)]
-pub struct VkImportMemorySciBufInfoNV {
-  /// * Intended Value: `VK_STRUCTURE_TYPE_IMPORT_MEMORY_SCI_BUF_INFO_NV`
-  pub sType: VkStructureType,
-  /// * Optional: true
-  pub pNext: *const c_void,
-  pub handleType: VkExternalMemoryHandleTypeFlagBits,
-  pub handle: c_int,
-}
-
 /// Khronos: [VkImportMemoryWin32HandleInfoKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkImportMemoryWin32HandleInfoKHR.html)
 ///
 /// * Struct Extends: [`VkMemoryAllocateInfo`]
@@ -4990,7 +4936,7 @@ pub struct VkImportMemoryZirconHandleInfoFUCHSIA {
   /// * Optional: true
   pub handleType: VkExternalMemoryHandleTypeFlagBits,
   /// * Optional: true
-  pub handle: c_int,
+  pub handle: zx_handle_t,
 }
 
 /// Khronos: [VkImportMetalBufferInfoEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkImportMetalBufferInfoEXT.html)
@@ -5112,7 +5058,7 @@ pub struct VkImportSemaphoreZirconHandleInfoFUCHSIA {
   /// * Optional: true
   pub flags: VkSemaphoreImportFlags,
   pub handleType: VkExternalSemaphoreHandleTypeFlagBits,
-  pub zirconHandle: c_int,
+  pub zirconHandle: zx_handle_t,
 }
 
 /// Khronos: [VkIndirectCommandsLayoutCreateInfoNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkIndirectCommandsLayoutCreateInfoNV.html)
@@ -5127,10 +5073,10 @@ pub struct VkIndirectCommandsLayoutCreateInfoNV {
   pub flags: VkIndirectCommandsLayoutUsageFlagsNV,
   pub pipelineBindPoint: VkPipelineBindPoint,
   pub tokenCount: u32,
-  /// * Len: tokenCount
+  /// * Len: `tokenCount`
   pub pTokens: *const VkIndirectCommandsLayoutTokenNV,
   pub streamCount: u32,
-  /// * Len: streamCount
+  /// * Len: `streamCount`
   pub pStreamStrides: *const u32,
 }
 
@@ -5157,9 +5103,9 @@ pub struct VkIndirectCommandsLayoutTokenNV {
   pub indirectStateFlags: VkIndirectStateFlagsNV,
   /// * Optional: true
   pub indexTypeCount: u32,
-  /// * Len: indexTypeCount
+  /// * Len: `indexTypeCount`
   pub pIndexTypes: *const VkIndexType,
-  /// * Len: indexTypeCount
+  /// * Len: `indexTypeCount`
   pub pIndexTypeValues: *const u32,
 }
 
@@ -5207,12 +5153,12 @@ pub struct VkInstanceCreateInfo {
   /// * Optional: true
   pub enabledLayerCount: u32,
   /// Ordered list of layer names to be enabled
-  /// * Len: enabledLayerCount,null-terminated
+  /// * Len: `enabledLayerCount,null-terminated`
   pub ppEnabledLayerNames: *const *const u8,
   /// * Optional: true
   pub enabledExtensionCount: u32,
   /// Extension names to be enabled
-  /// * Len: enabledExtensionCount,null-terminated
+  /// * Len: `enabledExtensionCount,null-terminated`
   pub ppEnabledExtensionNames: *const *const u8,
 }
 
@@ -5606,10 +5552,10 @@ pub struct VkMicromapBuildInfoEXT {
   /// * Optional: true
   pub usageCountsCount: u32,
   /// * Optional: true
-  /// * Len: usageCountsCount
+  /// * Len: `usageCountsCount`
   pub pUsageCounts: *const VkMicromapUsageEXT,
   /// * Optional: true,false
-  /// * Len: usageCountsCount,1
+  /// * Len: `usageCountsCount,1`
   pub ppUsageCounts: *const *const VkMicromapUsageEXT,
   /// * No Auto-Validity
   pub data: VkDeviceOrHostAddressConstKHR,
@@ -5680,8 +5626,7 @@ pub struct VkMicromapVersionInfoEXT {
   pub sType: VkStructureType,
   /// * Optional: true
   pub pNext: *const c_void,
-  /// * Len: latexmath:[2 \times \mathtt{VK\_UUID\_SIZE}]
-  /// * Alt Len: 2*VK_UUID_SIZE
+  /// * Len: `2*VK_UUID_SIZE`
   pub pVersionData: *const u8,
 }
 
@@ -5759,7 +5704,7 @@ pub struct VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM {
   pub pNext: *const c_void,
   /// * Optional: true
   pub perViewRenderAreaCount: u32,
-  /// * Len: perViewRenderAreaCount
+  /// * Len: `perViewRenderAreaCount`
   pub pPerViewRenderAreas: *const VkRect2D,
 }
 
@@ -5776,7 +5721,7 @@ pub struct VkMutableDescriptorTypeCreateInfoEXT {
   pub pNext: *const c_void,
   /// * Optional: true
   pub mutableDescriptorTypeListCount: u32,
-  /// * Len: mutableDescriptorTypeListCount
+  /// * Len: `mutableDescriptorTypeListCount`
   pub pMutableDescriptorTypeLists: *const VkMutableDescriptorTypeListEXT,
 }
 
@@ -5786,7 +5731,7 @@ pub struct VkMutableDescriptorTypeCreateInfoEXT {
 pub struct VkMutableDescriptorTypeListEXT {
   /// * Optional: true
   pub descriptorTypeCount: u32,
-  /// * Len: descriptorTypeCount
+  /// * Len: `descriptorTypeCount`
   pub pDescriptorTypes: *const VkDescriptorType,
 }
 
@@ -5860,7 +5805,7 @@ pub struct VkOpticalFlowExecuteInfoNV {
   pub flags: VkOpticalFlowExecuteFlagsNV,
   /// * Optional: true
   pub regionCount: u32,
-  /// * Len: regionCount
+  /// * Len: `regionCount`
   pub pRegions: *const VkRect2D,
 }
 
@@ -7858,7 +7803,7 @@ pub struct VkPhysicalDeviceImageDrmFormatModifierInfoEXT {
   pub sharingMode: VkSharingMode,
   /// * Optional: true
   pub queueFamilyIndexCount: u32,
-  /// * Len: queueFamilyIndexCount
+  /// * Len: `queueFamilyIndexCount`
   /// * No Auto-Validity
   pub pQueueFamilyIndices: *const u32,
 }
@@ -11300,7 +11245,7 @@ pub struct VkPipelineCacheCreateInfo {
   /// * Optional: true
   pub initialDataSize: c_size_t,
   /// Initial data to populate cache
-  /// * Len: initialDataSize
+  /// * Len: `initialDataSize`
   pub pInitialData: *const c_void,
 }
 
@@ -11403,7 +11348,7 @@ pub struct VkPipelineColorBlendStateCreateInfo {
   /// * Optional: true
   pub attachmentCount: u32,
   /// * Optional: true
-  /// * Len: attachmentCount
+  /// * Len: `attachmentCount`
   pub pAttachments: *const VkPipelineColorBlendAttachmentState,
   pub blendConstants: [c_float; 4],
 }
@@ -11421,7 +11366,7 @@ pub struct VkPipelineColorWriteCreateInfoEXT {
   /// # of pAttachments
   /// * Optional: true
   pub attachmentCount: u32,
-  /// * Len: attachmentCount
+  /// * Len: `attachmentCount`
   pub pColorWriteEnables: *const VkBool32,
 }
 
@@ -11457,7 +11402,7 @@ pub struct VkPipelineCoverageModulationStateCreateInfoNV {
   /// * Optional: true
   pub coverageModulationTableCount: u32,
   /// * Optional: true
-  /// * Len: coverageModulationTableCount
+  /// * Len: `coverageModulationTableCount`
   /// * No Auto-Validity
   pub pCoverageModulationTable: *const c_float,
 }
@@ -11522,7 +11467,7 @@ pub struct VkPipelineCreationFeedbackCreateInfo {
   /// * Optional: true
   pub pipelineStageCreationFeedbackCount: u32,
   /// One entry for each shader stage specified in the parent Vk*PipelineCreateInfo struct
-  /// * Len: pipelineStageCreationFeedbackCount
+  /// * Len: `pipelineStageCreationFeedbackCount`
   pub pPipelineStageCreationFeedbacks: *mut VkPipelineCreationFeedback,
 }
 
@@ -11563,7 +11508,7 @@ pub struct VkPipelineDiscardRectangleStateCreateInfoEXT {
   pub discardRectangleMode: VkDiscardRectangleModeEXT,
   /// * Optional: true
   pub discardRectangleCount: u32,
-  /// * Len: discardRectangleCount
+  /// * Len: `discardRectangleCount`
   /// * No Auto-Validity
   pub pDiscardRectangles: *const VkRect2D,
 }
@@ -11580,7 +11525,7 @@ pub struct VkPipelineDynamicStateCreateInfo {
   pub flags: VkPipelineDynamicStateCreateFlags,
   /// * Optional: true
   pub dynamicStateCount: u32,
-  /// * Len: dynamicStateCount
+  /// * Len: `dynamicStateCount`
   pub pDynamicStates: *const VkDynamicState,
 }
 
@@ -11611,7 +11556,7 @@ pub struct VkPipelineExecutableInternalRepresentationKHR {
   pub isText: VkBool32,
   pub dataSize: c_size_t,
   /// * Optional: true
-  /// * Len: dataSize
+  /// * Len: `dataSize`
   pub pData: *mut c_void,
 }
 
@@ -11722,13 +11667,13 @@ pub struct VkPipelineLayoutCreateInfo {
   pub setLayoutCount: u32,
   /// Array of setCount number of descriptor set layout objects defining the layout of the
   /// * Optional: false,true
-  /// * Len: setLayoutCount
+  /// * Len: `setLayoutCount`
   pub pSetLayouts: *const VkDescriptorSetLayout,
   /// Number of push-constant ranges used by the pipeline
   /// * Optional: true
   pub pushConstantRangeCount: u32,
   /// Array of pushConstantRangeCount number of ranges used by various shader stages
-  /// * Len: pushConstantRangeCount
+  /// * Len: `pushConstantRangeCount`
   pub pPushConstantRanges: *const VkPushConstantRange,
 }
 
@@ -11744,7 +11689,7 @@ pub struct VkPipelineLibraryCreateInfoKHR {
   pub pNext: *const c_void,
   /// * Optional: true
   pub libraryCount: u32,
-  /// * Len: libraryCount
+  /// * Len: `libraryCount`
   pub pLibraries: *const VkPipeline,
 }
 
@@ -11766,8 +11711,7 @@ pub struct VkPipelineMultisampleStateCreateInfo {
   pub minSampleShading: c_float,
   /// Array of sampleMask words
   /// * Optional: true
-  /// * Len: latexmath:[\lceil{\mathit{rasterizationSamples} \over 32}\rceil]
-  /// * Alt Len: (rasterizationSamples + 31) / 32
+  /// * Len: `(rasterizationSamples + 31) / 32`
   pub pSampleMask: *const VkSampleMask,
   pub alphaToCoverageEnable: VkBool32,
   pub alphaToOneEnable: VkBool32,
@@ -11944,7 +11888,7 @@ pub struct VkPipelineRenderingCreateInfo {
   pub viewMask: u32,
   /// * Optional: true
   pub colorAttachmentCount: u32,
-  /// * Len: colorAttachmentCount
+  /// * Len: `colorAttachmentCount`
   /// * No Auto-Validity
   pub pColorAttachmentFormats: *const VkFormat,
   /// * No Auto-Validity
@@ -12016,7 +11960,7 @@ pub struct VkPipelineShaderStageCreateInfo {
   /// * Optional: true
   pub module: VkShaderModule,
   /// Null-terminated entry point name
-  /// * Len: null-terminated
+  /// * Len: `null-terminated`
   pub pName: *const u8,
   /// * Optional: true
   pub pSpecializationInfo: *const VkSpecializationInfo,
@@ -12034,7 +11978,7 @@ pub struct VkPipelineShaderStageModuleIdentifierCreateInfoEXT {
   pub pNext: *const c_void,
   /// * Optional: true
   pub identifierSize: u32,
-  /// * Len: identifierSize
+  /// * Len: `identifierSize`
   pub pIdentifier: *const u8,
 }
 
@@ -12089,7 +12033,7 @@ pub struct VkPipelineVertexInputDivisorStateCreateInfoEXT {
   /// * Optional: true
   pub pNext: *const c_void,
   pub vertexBindingDivisorCount: u32,
-  /// * Len: vertexBindingDivisorCount
+  /// * Len: `vertexBindingDivisorCount`
   pub pVertexBindingDivisors: *const VkVertexInputBindingDivisorDescriptionEXT,
 }
 
@@ -12106,12 +12050,12 @@ pub struct VkPipelineVertexInputStateCreateInfo {
   /// number of bindings
   /// * Optional: true
   pub vertexBindingDescriptionCount: u32,
-  /// * Len: vertexBindingDescriptionCount
+  /// * Len: `vertexBindingDescriptionCount`
   pub pVertexBindingDescriptions: *const VkVertexInputBindingDescription,
   /// number of attributes
   /// * Optional: true
   pub vertexAttributeDescriptionCount: u32,
-  /// * Len: vertexAttributeDescriptionCount
+  /// * Len: `vertexAttributeDescriptionCount`
   pub pVertexAttributeDescriptions: *const VkVertexInputAttributeDescription,
 }
 
@@ -12128,7 +12072,7 @@ pub struct VkPipelineViewportCoarseSampleOrderStateCreateInfoNV {
   pub sampleOrderType: VkCoarseSampleOrderTypeNV,
   /// * Optional: true
   pub customSampleOrderCount: u32,
-  /// * Len: customSampleOrderCount
+  /// * Len: `customSampleOrderCount`
   pub pCustomSampleOrders: *const VkCoarseSampleOrderCustomNV,
 }
 
@@ -12157,7 +12101,7 @@ pub struct VkPipelineViewportExclusiveScissorStateCreateInfoNV {
   pub pNext: *const c_void,
   /// * Optional: true
   pub exclusiveScissorCount: u32,
-  /// * Len: exclusiveScissorCount
+  /// * Len: `exclusiveScissorCount`
   /// * No Auto-Validity
   pub pExclusiveScissors: *const VkRect2D,
 }
@@ -12175,7 +12119,7 @@ pub struct VkPipelineViewportShadingRateImageStateCreateInfoNV {
   pub shadingRateImageEnable: VkBool32,
   /// * Optional: true
   pub viewportCount: u32,
-  /// * Len: viewportCount
+  /// * Len: `viewportCount`
   /// * No Auto-Validity
   pub pShadingRatePalettes: *const VkShadingRatePaletteNV,
 }
@@ -12193,13 +12137,13 @@ pub struct VkPipelineViewportStateCreateInfo {
   /// * Optional: true
   pub viewportCount: u32,
   /// * Optional: true
-  /// * Len: viewportCount
+  /// * Len: `viewportCount`
   /// * No Auto-Validity
   pub pViewports: *const VkViewport,
   /// * Optional: true
   pub scissorCount: u32,
   /// * Optional: true
-  /// * Len: scissorCount
+  /// * Len: `scissorCount`
   /// * No Auto-Validity
   pub pScissors: *const VkRect2D,
 }
@@ -12217,7 +12161,7 @@ pub struct VkPipelineViewportSwizzleStateCreateInfoNV {
   /// * Optional: true
   pub flags: VkPipelineViewportSwizzleStateCreateFlagsNV,
   pub viewportCount: u32,
-  /// * Len: viewportCount
+  /// * Len: `viewportCount`
   pub pViewportSwizzles: *const VkViewportSwizzleNV,
 }
 
@@ -12234,7 +12178,7 @@ pub struct VkPipelineViewportWScalingStateCreateInfoNV {
   pub viewportWScalingEnable: VkBool32,
   pub viewportCount: u32,
   /// * Optional: true
-  /// * Len: viewportCount
+  /// * Len: `viewportCount`
   /// * No Auto-Validity
   pub pViewportWScalings: *const VkViewportWScalingNV,
 }
@@ -12253,7 +12197,7 @@ pub struct VkPresentIdKHR {
   pub swapchainCount: u32,
   /// Present ID values for each swapchain
   /// * Optional: true
-  /// * Len: swapchainCount
+  /// * Len: `swapchainCount`
   pub pPresentIds: *const u64,
 }
 
@@ -12269,19 +12213,19 @@ pub struct VkPresentInfoKHR {
   /// * Optional: true
   pub waitSemaphoreCount: u32,
   /// Semaphores to wait for before presenting
-  /// * Len: waitSemaphoreCount
+  /// * Len: `waitSemaphoreCount`
   pub pWaitSemaphores: *const VkSemaphore,
   /// Number of swapchains to present in this call
   pub swapchainCount: u32,
   /// Swapchains to present an image from
-  /// * Len: swapchainCount
+  /// * Len: `swapchainCount`
   pub pSwapchains: *const VkSwapchainKHR,
   /// Indices of which presentable images to present
-  /// * Len: swapchainCount
+  /// * Len: `swapchainCount`
   pub pImageIndices: *const u32,
   /// Optional (i.e. if non-NULL) VkResult for each swapchain
   /// * Optional: true
-  /// * Len: swapchainCount
+  /// * Len: `swapchainCount`
   pub pResults: *mut VkResult,
 }
 
@@ -12294,7 +12238,7 @@ pub struct VkPresentRegionKHR {
   pub rectangleCount: u32,
   /// Array of rectangles that have changed in a swapchain's image(s)
   /// * Optional: true
-  /// * Len: rectangleCount
+  /// * Len: `rectangleCount`
   pub pRectangles: *const VkRectLayerKHR,
 }
 
@@ -12312,7 +12256,7 @@ pub struct VkPresentRegionsKHR {
   pub swapchainCount: u32,
   /// The regions that have changed
   /// * Optional: true
-  /// * Len: swapchainCount
+  /// * Len: `swapchainCount`
   pub pRegions: *const VkPresentRegionKHR,
 }
 
@@ -12340,7 +12284,7 @@ pub struct VkPresentTimesInfoGOOGLE {
   pub swapchainCount: u32,
   /// The earliest times to present images
   /// * Optional: true
-  /// * Len: swapchainCount
+  /// * Len: `swapchainCount`
   pub pTimes: *const VkPresentTimeGOOGLE,
 }
 
@@ -12425,7 +12369,7 @@ pub struct VkQueryPoolPerformanceCreateInfoKHR {
   pub pNext: *const c_void,
   pub queueFamilyIndex: u32,
   pub counterIndexCount: u32,
-  /// * Len: counterIndexCount
+  /// * Len: `counterIndexCount`
   pub pCounterIndices: *const u32,
 }
 
@@ -12564,11 +12508,11 @@ pub struct VkRayTracingPipelineCreateInfoKHR {
   /// * Optional: true
   pub stageCount: u32,
   /// One entry for each active shader stage
-  /// * Len: stageCount
+  /// * Len: `stageCount`
   pub pStages: *const VkPipelineShaderStageCreateInfo,
   /// * Optional: true
   pub groupCount: u32,
-  /// * Len: groupCount
+  /// * Len: `groupCount`
   pub pGroups: *const VkRayTracingShaderGroupCreateInfoKHR,
   pub maxPipelineRayRecursionDepth: u32,
   /// * Optional: true
@@ -12600,10 +12544,10 @@ pub struct VkRayTracingPipelineCreateInfoNV {
   pub flags: VkPipelineCreateFlags,
   pub stageCount: u32,
   /// One entry for each active shader stage
-  /// * Len: stageCount
+  /// * Len: `stageCount`
   pub pStages: *const VkPipelineShaderStageCreateInfo,
   pub groupCount: u32,
-  /// * Len: groupCount
+  /// * Len: `groupCount`
   pub pGroups: *const VkRayTracingShaderGroupCreateInfoNV,
   pub maxRecursionDepth: u32,
   /// Interface layout of the pipeline
@@ -12712,7 +12656,7 @@ pub struct VkRefreshObjectListKHR {
   /// * Optional: true
   pub pNext: *const c_void,
   pub objectCount: u32,
-  /// * Len: objectCount
+  /// * Len: `objectCount`
   pub pObjects: *const VkRefreshObjectKHR,
 }
 
@@ -12730,7 +12674,7 @@ pub struct VkReleaseSwapchainImagesInfoEXT {
   /// Number of indices to release
   pub imageIndexCount: u32,
   /// Indices of which presentable images to release
-  /// * Len: imageIndexCount
+  /// * Len: `imageIndexCount`
   pub pImageIndices: *const u32,
 }
 
@@ -12746,7 +12690,7 @@ pub struct VkRenderPassAttachmentBeginInfo {
   pub pNext: *const c_void,
   /// * Optional: true
   pub attachmentCount: u32,
-  /// * Len: attachmentCount
+  /// * Len: `attachmentCount`
   pub pAttachments: *const VkImageView,
 }
 
@@ -12763,7 +12707,7 @@ pub struct VkRenderPassBeginInfo {
   pub renderArea: VkRect2D,
   /// * Optional: true
   pub clearValueCount: u32,
-  /// * Len: clearValueCount
+  /// * Len: `clearValueCount`
   /// * No Auto-Validity
   pub pClearValues: *const VkClearValue,
 }
@@ -12780,14 +12724,14 @@ pub struct VkRenderPassCreateInfo {
   pub flags: VkRenderPassCreateFlags,
   /// * Optional: true
   pub attachmentCount: u32,
-  /// * Len: attachmentCount
+  /// * Len: `attachmentCount`
   pub pAttachments: *const VkAttachmentDescription,
   pub subpassCount: u32,
-  /// * Len: subpassCount
+  /// * Len: `subpassCount`
   pub pSubpasses: *const VkSubpassDescription,
   /// * Optional: true
   pub dependencyCount: u32,
-  /// * Len: dependencyCount
+  /// * Len: `dependencyCount`
   pub pDependencies: *const VkSubpassDependency,
 }
 
@@ -12803,18 +12747,18 @@ pub struct VkRenderPassCreateInfo2 {
   pub flags: VkRenderPassCreateFlags,
   /// * Optional: true
   pub attachmentCount: u32,
-  /// * Len: attachmentCount
+  /// * Len: `attachmentCount`
   pub pAttachments: *const VkAttachmentDescription2,
   pub subpassCount: u32,
-  /// * Len: subpassCount
+  /// * Len: `subpassCount`
   pub pSubpasses: *const VkSubpassDescription2,
   /// * Optional: true
   pub dependencyCount: u32,
-  /// * Len: dependencyCount
+  /// * Len: `dependencyCount`
   pub pDependencies: *const VkSubpassDependency2,
   /// * Optional: true
   pub correlatedViewMaskCount: u32,
-  /// * Len: correlatedViewMaskCount
+  /// * Len: `correlatedViewMaskCount`
   pub pCorrelatedViewMasks: *const u32,
 }
 
@@ -12879,7 +12823,7 @@ pub struct VkRenderPassInputAttachmentAspectCreateInfo {
   /// * Optional: true
   pub pNext: *const c_void,
   pub aspectReferenceCount: u32,
-  /// * Len: aspectReferenceCount
+  /// * Len: `aspectReferenceCount`
   pub pAspectReferences: *const VkInputAttachmentAspectReference,
 }
 
@@ -12895,15 +12839,15 @@ pub struct VkRenderPassMultiviewCreateInfo {
   pub pNext: *const c_void,
   /// * Optional: true
   pub subpassCount: u32,
-  /// * Len: subpassCount
+  /// * Len: `subpassCount`
   pub pViewMasks: *const u32,
   /// * Optional: true
   pub dependencyCount: u32,
-  /// * Len: dependencyCount
+  /// * Len: `dependencyCount`
   pub pViewOffsets: *const i32,
   /// * Optional: true
   pub correlationMaskCount: u32,
-  /// * Len: correlationMaskCount
+  /// * Len: `correlationMaskCount`
   pub pCorrelationMasks: *const u32,
 }
 
@@ -12919,11 +12863,11 @@ pub struct VkRenderPassSampleLocationsBeginInfoEXT {
   pub pNext: *const c_void,
   /// * Optional: true
   pub attachmentInitialSampleLocationsCount: u32,
-  /// * Len: attachmentInitialSampleLocationsCount
+  /// * Len: `attachmentInitialSampleLocationsCount`
   pub pAttachmentInitialSampleLocations: *const VkAttachmentSampleLocationsEXT,
   /// * Optional: true
   pub postSubpassSampleLocationsCount: u32,
-  /// * Len: postSubpassSampleLocationsCount
+  /// * Len: `postSubpassSampleLocationsCount`
   pub pPostSubpassSampleLocations: *const VkSubpassSampleLocationsEXT,
 }
 
@@ -13032,7 +12976,7 @@ pub struct VkRenderingInfo {
   pub viewMask: u32,
   /// * Optional: true
   pub colorAttachmentCount: u32,
-  /// * Len: colorAttachmentCount
+  /// * Len: `colorAttachmentCount`
   pub pColorAttachments: *const VkRenderingAttachmentInfo,
   /// * Optional: true
   pub pDepthAttachment: *const VkRenderingAttachmentInfo,
@@ -13053,7 +12997,7 @@ pub struct VkResolveImageInfo2 {
   pub dstImage: VkImage,
   pub dstImageLayout: VkImageLayout,
   pub regionCount: u32,
-  /// * Len: regionCount
+  /// * Len: `regionCount`
   pub pRegions: *const VkImageResolve2,
 }
 
@@ -13103,7 +13047,7 @@ pub struct VkSampleLocationsInfoEXT {
   pub sampleLocationGridSize: VkExtent2D,
   /// * Optional: true
   pub sampleLocationsCount: u32,
-  /// * Len: sampleLocationsCount
+  /// * Len: `sampleLocationsCount`
   pub pSampleLocations: *const VkSampleLocationEXT,
 }
 
@@ -13261,9 +13205,9 @@ pub struct VkScreenSurfaceCreateInfoQNX {
   /// * Optional: true
   pub flags: VkScreenSurfaceCreateFlagsQNX,
   /// * No Auto-Validity
-  pub context: *mut c_int,
+  pub context: *mut _screen_context,
   /// * No Auto-Validity
-  pub window: *mut c_int,
+  pub window: *mut _screen_window,
 }
 
 /// Khronos: [VkSemaphoreCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSemaphoreCreateInfo.html)
@@ -13327,31 +13271,6 @@ pub struct VkSemaphoreGetZirconHandleInfoFUCHSIA {
   pub handleType: VkExternalSemaphoreHandleTypeFlagBits,
 }
 
-/// Khronos: [VkSemaphoreSciSyncCreateInfoNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSemaphoreSciSyncCreateInfoNV.html)
-///
-/// * Struct Extends: [`VkSemaphoreCreateInfo`]
-#[derive(Clone, Copy)]
-#[repr(C)]
-pub struct VkSemaphoreSciSyncCreateInfoNV {
-  /// * Intended Value: `VK_STRUCTURE_TYPE_SEMAPHORE_SCI_SYNC_CREATE_INFO_NV`
-  pub sType: VkStructureType,
-  /// * Optional: true
-  pub pNext: *const c_void,
-  pub semaphorePool: VkSemaphoreSciSyncPoolNV,
-  pub pFence: *const c_int,
-}
-
-/// Khronos: [VkSemaphoreSciSyncPoolCreateInfoNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSemaphoreSciSyncPoolCreateInfoNV.html)
-#[derive(Clone, Copy)]
-#[repr(C)]
-pub struct VkSemaphoreSciSyncPoolCreateInfoNV {
-  /// * Intended Value: `VK_STRUCTURE_TYPE_SEMAPHORE_SCI_SYNC_POOL_CREATE_INFO_NV`
-  pub sType: VkStructureType,
-  /// * Optional: true
-  pub pNext: *const c_void,
-  pub handle: c_int,
-}
-
 /// Khronos: [VkSemaphoreSignalInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSemaphoreSignalInfo.html)
 #[derive(Clone, Copy)]
 #[repr(C)]
@@ -13405,9 +13324,9 @@ pub struct VkSemaphoreWaitInfo {
   /// * Optional: true
   pub flags: VkSemaphoreWaitFlags,
   pub semaphoreCount: u32,
-  /// * Len: semaphoreCount
+  /// * Len: `semaphoreCount`
   pub pSemaphores: *const VkSemaphore,
-  /// * Len: semaphoreCount
+  /// * Len: `semaphoreCount`
   pub pValues: *const u64,
 }
 
@@ -13435,8 +13354,7 @@ pub struct VkShaderModuleCreateInfo {
   /// Specified in bytes
   pub codeSize: c_size_t,
   /// Binary code of size codeSize
-  /// * Len: latexmath:[\textrm{codeSize} \over 4]
-  /// * Alt Len: codeSize / 4
+  /// * Len: `codeSize / 4`
   pub pCode: *const u32,
 }
 
@@ -13502,7 +13420,7 @@ pub struct VkShaderStatisticsInfoAMD {
 #[repr(C)]
 pub struct VkShadingRatePaletteNV {
   pub shadingRatePaletteEntryCount: u32,
-  /// * Len: shadingRatePaletteEntryCount
+  /// * Len: `shadingRatePaletteEntryCount`
   pub pShadingRatePaletteEntries: *const VkShadingRatePaletteEntryNV,
 }
 
@@ -13528,7 +13446,7 @@ pub struct VkSharedPresentSurfaceCapabilitiesKHR {
 pub struct VkSparseBufferMemoryBindInfo {
   pub buffer: VkBuffer,
   pub bindCount: u32,
-  /// * Len: bindCount
+  /// * Len: `bindCount`
   pub pBinds: *const VkSparseMemoryBind,
 }
 
@@ -13583,7 +13501,7 @@ pub struct VkSparseImageMemoryBind {
 pub struct VkSparseImageMemoryBindInfo {
   pub image: VkImage,
   pub bindCount: u32,
-  /// * Len: bindCount
+  /// * Len: `bindCount`
   pub pBinds: *const VkSparseImageMemoryBind,
 }
 
@@ -13622,7 +13540,7 @@ pub struct VkSparseImageMemoryRequirements2 {
 pub struct VkSparseImageOpaqueMemoryBindInfo {
   pub image: VkImage,
   pub bindCount: u32,
-  /// * Len: bindCount
+  /// * Len: `bindCount`
   pub pBinds: *const VkSparseMemoryBind,
 }
 
@@ -13650,13 +13568,13 @@ pub struct VkSpecializationInfo {
   /// * Optional: true
   pub mapEntryCount: u32,
   /// Array of map entries
-  /// * Len: mapEntryCount
+  /// * Len: `mapEntryCount`
   pub pMapEntries: *const VkSpecializationMapEntry,
   /// Size in bytes of pData
   /// * Optional: true
   pub dataSize: c_size_t,
   /// Pointer to SpecConstant data
-  /// * Len: dataSize
+  /// * Len: `dataSize`
   pub pData: *const c_void,
 }
 
@@ -13706,18 +13624,18 @@ pub struct VkSubmitInfo {
   pub pNext: *const c_void,
   /// * Optional: true
   pub waitSemaphoreCount: u32,
-  /// * Len: waitSemaphoreCount
+  /// * Len: `waitSemaphoreCount`
   pub pWaitSemaphores: *const VkSemaphore,
   /// * Optional: false,true
-  /// * Len: waitSemaphoreCount
+  /// * Len: `waitSemaphoreCount`
   pub pWaitDstStageMask: *const VkPipelineStageFlags,
   /// * Optional: true
   pub commandBufferCount: u32,
-  /// * Len: commandBufferCount
+  /// * Len: `commandBufferCount`
   pub pCommandBuffers: *const VkCommandBuffer,
   /// * Optional: true
   pub signalSemaphoreCount: u32,
-  /// * Len: signalSemaphoreCount
+  /// * Len: `signalSemaphoreCount`
   pub pSignalSemaphores: *const VkSemaphore,
 }
 
@@ -13733,15 +13651,15 @@ pub struct VkSubmitInfo2 {
   pub flags: VkSubmitFlags,
   /// * Optional: true
   pub waitSemaphoreInfoCount: u32,
-  /// * Len: waitSemaphoreInfoCount
+  /// * Len: `waitSemaphoreInfoCount`
   pub pWaitSemaphoreInfos: *const VkSemaphoreSubmitInfo,
   /// * Optional: true
   pub commandBufferInfoCount: u32,
-  /// * Len: commandBufferInfoCount
+  /// * Len: `commandBufferInfoCount`
   pub pCommandBufferInfos: *const VkCommandBufferSubmitInfo,
   /// * Optional: true
   pub signalSemaphoreInfoCount: u32,
-  /// * Len: signalSemaphoreInfoCount
+  /// * Len: `signalSemaphoreInfoCount`
   pub pSignalSemaphoreInfos: *const VkSemaphoreSubmitInfo,
 }
 
@@ -13809,20 +13727,20 @@ pub struct VkSubpassDescription {
   pub pipelineBindPoint: VkPipelineBindPoint,
   /// * Optional: true
   pub inputAttachmentCount: u32,
-  /// * Len: inputAttachmentCount
+  /// * Len: `inputAttachmentCount`
   pub pInputAttachments: *const VkAttachmentReference,
   /// * Optional: true
   pub colorAttachmentCount: u32,
-  /// * Len: colorAttachmentCount
+  /// * Len: `colorAttachmentCount`
   pub pColorAttachments: *const VkAttachmentReference,
   /// * Optional: true
-  /// * Len: colorAttachmentCount
+  /// * Len: `colorAttachmentCount`
   pub pResolveAttachments: *const VkAttachmentReference,
   /// * Optional: true
   pub pDepthStencilAttachment: *const VkAttachmentReference,
   /// * Optional: true
   pub preserveAttachmentCount: u32,
-  /// * Len: preserveAttachmentCount
+  /// * Len: `preserveAttachmentCount`
   pub pPreserveAttachments: *const u32,
 }
 
@@ -13840,20 +13758,20 @@ pub struct VkSubpassDescription2 {
   pub viewMask: u32,
   /// * Optional: true
   pub inputAttachmentCount: u32,
-  /// * Len: inputAttachmentCount
+  /// * Len: `inputAttachmentCount`
   pub pInputAttachments: *const VkAttachmentReference2,
   /// * Optional: true
   pub colorAttachmentCount: u32,
-  /// * Len: colorAttachmentCount
+  /// * Len: `colorAttachmentCount`
   pub pColorAttachments: *const VkAttachmentReference2,
   /// * Optional: true
-  /// * Len: colorAttachmentCount
+  /// * Len: `colorAttachmentCount`
   pub pResolveAttachments: *const VkAttachmentReference2,
   /// * Optional: true
   pub pDepthStencilAttachment: *const VkAttachmentReference2,
   /// * Optional: true
   pub preserveAttachmentCount: u32,
-  /// * Len: preserveAttachmentCount
+  /// * Len: `preserveAttachmentCount`
   pub pPreserveAttachments: *const u32,
 }
 
@@ -13900,7 +13818,7 @@ pub struct VkSubpassFragmentDensityMapOffsetEndInfoQCOM {
   pub pNext: *const c_void,
   /// * Optional: true
   pub fragmentDensityOffsetCount: u32,
-  /// * Len: fragmentDensityOffsetCount
+  /// * Len: `fragmentDensityOffsetCount`
   pub pFragmentDensityOffsets: *const VkOffset2D,
 }
 
@@ -14138,7 +14056,7 @@ pub struct VkSurfacePresentModeCompatibilityEXT {
   pub presentModeCount: u32,
   /// Output list of present modes compatible with the one specified in VkSurfacePresentModeEXT
   /// * Optional: true
-  /// * Len: presentModeCount
+  /// * Len: `presentModeCount`
   pub pPresentModes: *mut VkPresentModeKHR,
 }
 
@@ -14237,7 +14155,7 @@ pub struct VkSwapchainCreateInfoKHR {
   /// * Optional: true
   pub queueFamilyIndexCount: u32,
   /// Array of queue family indices having access to the images in case of concurrent sharing mode
-  /// * Len: queueFamilyIndexCount
+  /// * Len: `queueFamilyIndexCount`
   /// * No Auto-Validity
   pub pQueueFamilyIndices: *const u32,
   /// The transform, relative to the device's natural orientation, applied to the image content prior to presentation
@@ -14303,7 +14221,7 @@ pub struct VkSwapchainPresentFenceInfoEXT {
   /// Copy of VkPresentInfoKHR::swapchainCount
   pub swapchainCount: u32,
   /// Fence to signal for each swapchain
-  /// * Len: swapchainCount
+  /// * Len: `swapchainCount`
   pub pFences: *const VkFence,
 }
 
@@ -14320,7 +14238,7 @@ pub struct VkSwapchainPresentModeInfoEXT {
   /// Copy of VkPresentInfoKHR::swapchainCount
   pub swapchainCount: u32,
   /// Presentation mode for each swapchain
-  /// * Len: swapchainCount
+  /// * Len: `swapchainCount`
   pub pPresentModes: *const VkPresentModeKHR,
 }
 
@@ -14336,7 +14254,7 @@ pub struct VkSwapchainPresentModesCreateInfoEXT {
   /// * Optional: true
   pub pNext: *mut c_void,
   pub presentModeCount: u32,
-  /// * Len: presentModeCount
+  /// * Len: `presentModeCount`
   pub pPresentModes: *const VkPresentModeKHR,
 }
 
@@ -14410,12 +14328,12 @@ pub struct VkTimelineSemaphoreSubmitInfo {
   /// * Optional: true
   pub waitSemaphoreValueCount: u32,
   /// * Optional: true
-  /// * Len: waitSemaphoreValueCount
+  /// * Len: `waitSemaphoreValueCount`
   pub pWaitSemaphoreValues: *const u64,
   /// * Optional: true
   pub signalSemaphoreValueCount: u32,
   /// * Optional: true
-  /// * Len: signalSemaphoreValueCount
+  /// * Len: `signalSemaphoreValueCount`
   pub pSignalSemaphoreValues: *const u64,
 }
 
@@ -14467,7 +14385,7 @@ pub struct VkValidationCacheCreateInfoEXT {
   pub flags: VkValidationCacheCreateFlagsEXT,
   /// * Optional: true
   pub initialDataSize: c_size_t,
-  /// * Len: initialDataSize
+  /// * Len: `initialDataSize`
   pub pInitialData: *const c_void,
 }
 
@@ -14486,13 +14404,13 @@ pub struct VkValidationFeaturesEXT {
   /// * Optional: true
   pub enabledValidationFeatureCount: u32,
   /// Validation features to enable
-  /// * Len: enabledValidationFeatureCount
+  /// * Len: `enabledValidationFeatureCount`
   pub pEnabledValidationFeatures: *const VkValidationFeatureEnableEXT,
   /// Number of validation features to disable
   /// * Optional: true
   pub disabledValidationFeatureCount: u32,
   /// Validation features to disable
-  /// * Len: disabledValidationFeatureCount
+  /// * Len: `disabledValidationFeatureCount`
   pub pDisabledValidationFeatures: *const VkValidationFeatureDisableEXT,
 }
 
@@ -14510,7 +14428,7 @@ pub struct VkValidationFlagsEXT {
   /// Number of validation checks to disable
   pub disabledValidationCheckCount: u32,
   /// Validation checks to disable
-  /// * Len: disabledValidationCheckCount
+  /// * Len: `disabledValidationCheckCount`
   pub pDisabledValidationChecks: *const VkValidationCheckEXT,
 }
 
@@ -14611,7 +14529,7 @@ pub struct VkVideoBeginCodingInfoKHR {
   pub videoSessionParameters: VkVideoSessionParametersKHR,
   /// * Optional: true
   pub referenceSlotCount: u32,
-  /// * Len: referenceSlotCount
+  /// * Len: `referenceSlotCount`
   pub pReferenceSlots: *const VkVideoReferenceSlotInfoKHR,
 }
 
@@ -14681,7 +14599,7 @@ pub struct VkVideoDecodeInfoKHR {
   pub pSetupReferenceSlot: *const VkVideoReferenceSlotInfoKHR,
   /// * Optional: true
   pub referenceSlotCount: u32,
-  /// * Len: referenceSlotCount
+  /// * Len: `referenceSlotCount`
   pub pReferenceSlots: *const VkVideoReferenceSlotInfoKHR,
 }
 
@@ -14757,7 +14675,7 @@ pub struct VkVideoEncodeH264EmitPictureParametersInfoEXT {
   pub spsId: u8,
   pub emitSpsEnable: VkBool32,
   pub ppsIdEntryCount: u32,
-  /// * Len: ppsIdEntryCount
+  /// * Len: `ppsIdEntryCount`
   pub ppsIdEntries: *const u8,
 }
 
@@ -14874,7 +14792,7 @@ pub struct VkVideoEncodeH265EmitPictureParametersInfoEXT {
   pub emitSpsEnable: VkBool32,
   /// * Optional: true
   pub ppsIdEntryCount: u32,
-  /// * Len: ppsIdEntryCount
+  /// * Len: `ppsIdEntryCount`
   pub ppsIdEntries: *const u8,
 }
 
@@ -14960,7 +14878,7 @@ pub struct VkVideoEncodeInfoKHR {
   pub pSetupReferenceSlot: *const VkVideoReferenceSlotInfoKHR,
   /// * Optional: true
   pub referenceSlotCount: u32,
-  /// * Len: referenceSlotCount
+  /// * Len: `referenceSlotCount`
   pub pReferenceSlots: *const VkVideoReferenceSlotInfoKHR,
   pub precedingExternallyEncodedBytes: u32,
 }
@@ -14979,7 +14897,7 @@ pub struct VkVideoEncodeRateControlInfoKHR {
   pub flags: VkVideoEncodeRateControlFlagsKHR,
   pub rateControlMode: VkVideoEncodeRateControlModeFlagBitsKHR,
   pub layerCount: u8,
-  /// * Len: layerCount
+  /// * Len: `layerCount`
   pub pLayerConfigs: *const VkVideoEncodeRateControlLayerInfoKHR,
 }
 
@@ -15099,7 +15017,7 @@ pub struct VkVideoProfileListInfoKHR {
   pub pNext: *const c_void,
   /// * Optional: true
   pub profileCount: u32,
-  /// * Len: profileCount
+  /// * Len: `profileCount`
   pub pProfiles: *const VkVideoProfileInfoKHR,
 }
 
@@ -15241,17 +15159,17 @@ pub struct VkWin32KeyedMutexAcquireReleaseInfoKHR {
   pub pNext: *const c_void,
   /// * Optional: true
   pub acquireCount: u32,
-  /// * Len: acquireCount
+  /// * Len: `acquireCount`
   pub pAcquireSyncs: *const VkDeviceMemory,
-  /// * Len: acquireCount
+  /// * Len: `acquireCount`
   pub pAcquireKeys: *const u64,
-  /// * Len: acquireCount
+  /// * Len: `acquireCount`
   pub pAcquireTimeouts: *const u32,
   /// * Optional: true
   pub releaseCount: u32,
-  /// * Len: releaseCount
+  /// * Len: `releaseCount`
   pub pReleaseSyncs: *const VkDeviceMemory,
-  /// * Len: releaseCount
+  /// * Len: `releaseCount`
   pub pReleaseKeys: *const u64,
 }
 
@@ -15268,17 +15186,17 @@ pub struct VkWin32KeyedMutexAcquireReleaseInfoNV {
   pub pNext: *const c_void,
   /// * Optional: true
   pub acquireCount: u32,
-  /// * Len: acquireCount
+  /// * Len: `acquireCount`
   pub pAcquireSyncs: *const VkDeviceMemory,
-  /// * Len: acquireCount
+  /// * Len: `acquireCount`
   pub pAcquireKeys: *const u64,
-  /// * Len: acquireCount
+  /// * Len: `acquireCount`
   pub pAcquireTimeoutMilliseconds: *const u32,
   /// * Optional: true
   pub releaseCount: u32,
-  /// * Len: releaseCount
+  /// * Len: `releaseCount`
   pub pReleaseSyncs: *const VkDeviceMemory,
-  /// * Len: releaseCount
+  /// * Len: `releaseCount`
   pub pReleaseKeys: *const u64,
 }
 
@@ -15316,15 +15234,15 @@ pub struct VkWriteDescriptorSet {
   /// Descriptor type to write (determines which members of the array pointed by pDescriptors are going to be used)
   pub descriptorType: VkDescriptorType,
   /// Sampler, image view, and layout for SAMPLER, COMBINED_IMAGE_SAMPLER, {SAMPLED,STORAGE}_IMAGE, and INPUT_ATTACHMENT descriptor types.
-  /// * Len: descriptorCount
+  /// * Len: `descriptorCount`
   /// * No Auto-Validity
   pub pImageInfo: *const VkDescriptorImageInfo,
   /// Raw buffer, size, and offset for {UNIFORM,STORAGE}_BUFFER\[_DYNAMIC\] descriptor types.
-  /// * Len: descriptorCount
+  /// * Len: `descriptorCount`
   /// * No Auto-Validity
   pub pBufferInfo: *const VkDescriptorBufferInfo,
   /// Buffer view to write to the descriptor for {UNIFORM,STORAGE}_TEXEL_BUFFER descriptor types.
-  /// * Len: descriptorCount
+  /// * Len: `descriptorCount`
   /// * No Auto-Validity
   pub pTexelBufferView: *const VkBufferView,
 }
@@ -15341,7 +15259,7 @@ pub struct VkWriteDescriptorSetAccelerationStructureKHR {
   pub pNext: *const c_void,
   pub accelerationStructureCount: u32,
   /// * Optional: false,true
-  /// * Len: accelerationStructureCount
+  /// * Len: `accelerationStructureCount`
   pub pAccelerationStructures: *const VkAccelerationStructureKHR,
 }
 
@@ -15357,7 +15275,7 @@ pub struct VkWriteDescriptorSetAccelerationStructureNV {
   pub pNext: *const c_void,
   pub accelerationStructureCount: u32,
   /// * Optional: false,true
-  /// * Len: accelerationStructureCount
+  /// * Len: `accelerationStructureCount`
   pub pAccelerationStructures: *const VkAccelerationStructureNV,
 }
 
@@ -15372,7 +15290,7 @@ pub struct VkWriteDescriptorSetInlineUniformBlock {
   /// * Optional: true
   pub pNext: *const c_void,
   pub dataSize: u32,
-  /// * Len: dataSize
+  /// * Len: `dataSize`
   pub pData: *const c_void,
 }
 
@@ -15412,7 +15330,7 @@ pub struct VkXlibSurfaceCreateInfoKHR {
   /// * Optional: true
   pub flags: VkXlibSurfaceCreateFlagsKHR,
   /// * No Auto-Validity
-  pub dpy: *mut c_int,
-  pub window: c_int,
+  pub dpy: *mut XlibDisplay,
+  pub window: XlibWindow,
 }
 
