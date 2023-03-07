@@ -8,12 +8,18 @@
 //!
 //! ## Naming
 //!
-//! Some types in this library wrap a "raw" vulkan value with "extra stuff". The
-//! details of the stuff vary, but the naming scheme is always the same: When a
-//! raw Vulkan type is wrapped the "rusty" type will be the same name with the
-//! leading `Vk` stripped. So an [`Instance`] wraps a [`VkInstance`] with extra
-//! stuff, a [`PhysicalDevice`] wraps a [`VkPhysicalDevice`] with extra stuff,
-//! and so on.
+//! By default, constants and type names will be the same as the official Vulkan
+//! names for the types and constants.
+//!
+//! Some of the types in this library wrap a "raw" vulkan value with "extra
+//! stuff". The details of the stuff vary, but the naming scheme is always the
+//! same: When a raw Vulkan type is wrapped the "rusty" type will be the same
+//! name with the leading `Vk` stripped. So an `Instance` wraps a
+//! [`VkInstance`][rvh-i] with extra stuff, a `PhysicalDevice` wraps a
+//! [`VkPhysicalDevice`][rvh-pd] with extra stuff, and so on.
+//!
+//! [rvh-i]: raw_vulkan_handle::VkInstance
+//! [rvh-pd]: raw_vulkan_handle::VkPhysicalDevice
 
 extern crate alloc;
 

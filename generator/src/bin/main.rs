@@ -11,4 +11,13 @@ fn main() {
   //
   let bitmasks = gather_bitmasks(&registry);
   write_out_bitmasks("../src/generated/bitmasks.rs", &bitmasks);
+  //
+  let unions = gather_unions(&registry);
+  write_out_unions("../src/generated/unions.rs", &unions);
+  //
+  let structures = gather_structures(&registry);
+  write_out_structures("../src/generated/structures.rs", &structures);
+  //
+  let aliases = gather_aliases(&registry);
+  write_out_aliases("../src/generated/aliases.rs", &aliases);
 }

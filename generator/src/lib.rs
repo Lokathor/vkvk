@@ -1,4 +1,5 @@
 #![allow(clippy::from_str_radix_10)]
+#![allow(clippy::useless_format)]
 
 use core::fmt::Display;
 use std::{
@@ -14,6 +15,15 @@ pub use enumerations::*;
 
 mod bitmasks;
 pub use bitmasks::*;
+
+mod unions;
+pub use unions::*;
+
+mod structures;
+pub use structures::*;
+
+mod aliases;
+pub use aliases::*;
 
 /// Given an `api` attribute, is this item "vulkan" compatible?
 ///
@@ -44,3 +54,89 @@ pub fn break_number(item: &str) -> (&str, Option<&str>) {
   }
   (item, None)
 }
+
+pub fn format_ty_and_variant(ty: &str, ty_variant: TypeVariant) -> String {
+  match ty_variant {
+    TypeVariant::Normal => format!("{ty}"),
+    TypeVariant::ConstPtr => format!("*const {ty}"),
+    TypeVariant::MutPtr => format!("*mut {ty}"),
+    TypeVariant::ArraySym(s) => format!("[{ty}; {s}]"),
+    TypeVariant::ArrayInt(n) => format!("[{ty}; {n}]"),
+    TypeVariant::ArrayArrayInt(j, k) => format!("[[{ty}; {j}]; {k}]"),
+    TypeVariant::ConstPtrConstPtr => format!("*const *const {ty}"),
+    TypeVariant::MutPtrMutPtr => format!("*mut *mut {ty}"),
+    TypeVariant::ConstPtrArrayInt(n) => format!("*const [{ty}; {n}]"),
+  }
+}
+
+pub fn filter_ty(ty: &str) -> &str {
+  match ty {
+    "int" => "c_int",
+    "char" => "u8",
+    "int8_t" => "i8",
+    "uint8_t" => "u8",
+    "uint16_t" => "u16",
+    "int32_t" => "i32",
+    "int64_t" => "i64",
+    "uint32_t" => "u32",
+    "uint64_t" => "u64",
+    "size_t" => "c_size_t",
+    "float" => "c_float",
+    "double" => "c_double",
+    "void" => "c_void",
+    // temp hacks!
+    "dummy_entry_for_rust_fmt_start"
+    | "_screen_context"
+    | "_screen_window"
+    | "Display"
+    | "IDirectFB"
+    | "IDirectFBSurface"
+    | "NvSciBufAttrList"
+    | "NvSciBufObj"
+    | "NvSciSyncAttrList"
+    | "NvSciSyncFence"
+    | "NvSciSyncObj"
+    | "Window"
+    | "zx_handle_t"
+    | "dummy_entry_for_rustfmt_end" => "c_int",
+    other => other,
+  }
+}
+
+const BLOCKED_TYPES: &[&str] = &[
+  // Blocked because they're part of the private Google Games Platform. Since that was
+  // part of Stadia, and Stadia was shut down, they will probably never matter.
+  "GgpFrameToken",
+  "GgpStreamDescriptor",
+  // TODO: handle bitfiles in struct members properly so that we can allow these types
+  // back in.
+  "VkAccelerationStructureInstanceKHR",
+  "VkAccelerationStructureSRTMotionInstanceNV",
+  "VkAccelerationStructureMotionInstanceDataNV",
+  // TODO: (maybe) Support the "Vulkan Video" API?
+  "StdVideoDecodeH264PictureInfo",
+  "StdVideoDecodeH264ReferenceInfo",
+  "StdVideoDecodeH265PictureInfo",
+  "StdVideoDecodeH265ReferenceInfo",
+  "StdVideoEncodeH264PictureInfo",
+  "StdVideoEncodeH264ReferenceInfo",
+  "StdVideoEncodeH264RefMemMgmtCtrlOperations",
+  "StdVideoEncodeH264SliceHeader",
+  "StdVideoEncodeH265PictureInfo",
+  "StdVideoEncodeH265ReferenceInfo",
+  "StdVideoEncodeH265ReferenceModifications",
+  "StdVideoEncodeH265SliceSegmentHeader",
+  "StdVideoH264LevelIdc",
+  "StdVideoH264PictureParameterSet",
+  "StdVideoH264ProfileIdc",
+  "StdVideoH264SequenceParameterSet",
+  "StdVideoH265LevelIdc",
+  "StdVideoH265PictureParameterSet",
+  "StdVideoH265ProfileIdc",
+  "StdVideoH265SequenceParameterSet",
+  "StdVideoH265VideoParameterSet",
+  "VkVideoEncodeH264SessionParametersAddInfoEXT",
+  "VkVideoEncodeH265SessionParametersAddInfoEXT",
+  "VkVideoDecodeH264SessionParametersAddInfoKHR",
+  "VkVideoDecodeH265SessionParametersAddInfoKHR",
+];

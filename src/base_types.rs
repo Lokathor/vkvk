@@ -3,12 +3,45 @@
 
 //! Various base types which don't fit elsewhere.
 
-use crate::prelude::*;
+pub use core::ffi::c_void;
+
+/// Mild fudge until <https://github.com/rust-lang/rust/issues/88345>
+#[allow(non_camel_case_types)]
+pub type c_size_t = usize;
 
 /// Android Native Window
 pub type ANativeWindow = c_void;
 /// Android Hardware Buffer
 pub type AHardwareBuffer = c_void;
+/// Part of [XcbDisplayHandle](raw_window_handle::XcbDisplayHandle)
+pub type xcb_connection_t = *mut c_void;
+/// Part of [XcbWindowHandle](raw_window_handle::XcbWindowHandle)
+pub type xcb_window_t = u32;
+/// Part of [WaylandDisplayHandle](raw_window_handle::WaylandDisplayHandle)
+pub type wl_display = *mut c_void;
+/// Part of [WaylandWindowHandle](raw_window_handle::WaylandWindowHandle)
+pub type wl_surface = *mut c_void;
+/// A [Win32](https://learn.microsoft.com/en-us/windows/win32/winprog/windows-data-types) data type.
+///
+/// Part of [Win32WindowHandle](raw_window_handle::Win32WindowHandle)
+pub type HWND = *mut c_void;
+/// A [Win32](https://learn.microsoft.com/en-us/windows/win32/winprog/windows-data-types) data type.
+///
+/// Part of [Win32WindowHandle](raw_window_handle::Win32WindowHandle)
+pub type HINSTANCE = *mut c_void;
+/// A [Win32](https://learn.microsoft.com/en-us/windows/win32/winprog/windows-data-types) data type.
+pub type HANDLE = *mut c_void;
+/// A [Win32](https://learn.microsoft.com/en-us/windows/win32/winprog/windows-data-types) data type.
+pub type HMONITOR = *mut c_void;
+/// A [Win32](https://learn.microsoft.com/en-us/windows/win32/winprog/windows-data-types) data type.
+pub type DWORD = u32;
+/// A [Win32](https://learn.microsoft.com/en-us/windows/win32/winprog/windows-data-types) data type.
+pub type LPCWSTR = *const u16;
+/// MSDN: [SECURITY_ATTRIBUTES](https://learn.microsoft.com/en-us/previous-versions/windows/desktop/legacy/aa379560(v=vs.85))
+///
+/// Defined as `c_void` in this crate since it's only ever passed via pointer in
+/// Vulkan, and you can just cast the pointer.
+pub type SECURITY_ATTRIBUTES = c_void;
 
 pub type CAMetalLayer = c_void;
 pub type MTLDevice_id = *mut c_void;
@@ -16,12 +49,23 @@ pub type MTLCommandQueue_id = *mut c_void;
 pub type MTLBuffer_id = *mut c_void;
 pub type MTLTexture_id = *mut c_void;
 pub type MTLSharedEvent_id = *mut c_void;
-
 pub type IOSurfaceRef = *mut c_void;
+pub type GgpFrameToken = u64;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[repr(transparent)]
 pub struct VkSampleMask(pub u32);
+
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[repr(transparent)]
+pub struct VkDeviceSize(pub u64);
+// TODO: it would be neat if the debug printing here could automatically shift
+// from showing bytes up to kilobytes, megabytes, or gigabytes, depending on how
+// big the value is.
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[repr(transparent)]
+pub struct VkDeviceAddress(pub u64);
 
 #[derive(Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[repr(transparent)]
@@ -54,22 +98,6 @@ impl core::fmt::Display for VkBool32 {
     core::fmt::Display::fmt(&bool::from(*self), f)
   }
 }
-
-#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[repr(transparent)]
-pub struct VkDeviceSize(pub u64);
-// TODO: it would be neat if the debug printing here could automatically shift
-// from showing bytes up to kilobytes, megabytes, or gigabytes, depending on how
-// big the value is.
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[repr(transparent)]
-pub struct VkDeviceAddress(pub u64);
-
-/// Khronos: [VkResult](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkResult.html) (enumeration)
-#[derive(Clone, Copy, PartialEq, Eq)]
-#[repr(transparent)]
-pub struct VkResult(pub Option<NonZeroI32>);
 
 /// A vulkan version value.
 ///
@@ -113,8 +141,7 @@ impl VkVersion {
   #[inline]
   #[must_use]
   pub const fn major_minor_patch(major: u32, minor: u32, patch: u32) -> Self {
-    let patch_and_minor = u32_with_value(12, 21, patch, minor);
-    Self(u32_with_value(22, 28, patch_and_minor, major))
+    Self::variant_major_minor_patch(0, major, minor, patch)
   }
   #[inline]
   #[must_use]
@@ -135,7 +162,7 @@ impl core::fmt::Debug for VkVersion {
     write!(f, "{major}.{minor}.{patch}")?;
     match self.variant() {
       0 => Ok(()),
-      variant => write!(f, " [variant {variant}]"),
+      variant => write!(f, " +variant.{variant}"),
     }
   }
 }
@@ -195,52 +222,3 @@ const fn u32_region_mask(low: u32, high: u32) -> u32 {
   assert!(low < high);
   (<u32>::MAX >> ((<u32>::BITS - 1) - (high - low))) << low
 }
-
-#[allow(nonstandard_style)]
-pub type vkVoidFunction_t = unsafe extern "system" fn();
-#[allow(nonstandard_style)]
-pub type vkAllocationFunction_t = unsafe extern "system" fn(
-  user_data: *mut c_void,
-  size: usize,
-  alignment: usize,
-  allocation_scope: VkSystemAllocationScope,
-);
-#[allow(nonstandard_style)]
-pub type vkReallocationFunction_t = unsafe extern "system" fn(
-  user_data: *mut c_void,
-  original: *mut c_void,
-  size: usize,
-  alignment: usize,
-  allocation_scope: VkSystemAllocationScope,
-);
-#[allow(nonstandard_style)]
-pub type vkFreeFunction_t =
-  unsafe extern "system" fn(pUserData: *mut c_void, pMemory: *mut c_void);
-#[allow(nonstandard_style)]
-pub type vkInternalAllocationNotification_t = unsafe extern "system" fn(
-  user_data: *mut c_void,
-  size: usize,
-  allocation_type: VkInternalAllocationType,
-  allocation_scope: VkSystemAllocationScope,
-);
-#[allow(nonstandard_style)]
-pub type vkInternalFreeNotification_t = unsafe extern "system" fn(
-  user_data: *mut c_void,
-  size: usize,
-  allocation_type: VkInternalAllocationType,
-  allocation_scope: VkSystemAllocationScope,
-);
-
-#[allow(nonstandard_style)]
-pub type PFN_vkVoidFunction = Option<vkVoidFunction_t>;
-#[allow(nonstandard_style)]
-pub type PFN_vkAllocationFunction = Option<vkAllocationFunction_t>;
-#[allow(nonstandard_style)]
-pub type PFN_vkReallocationFunction = Option<vkReallocationFunction_t>;
-#[allow(nonstandard_style)]
-pub type PFN_vkFreeFunction = Option<vkFreeFunction_t>;
-#[allow(nonstandard_style)]
-pub type PFN_vkInternalAllocationNotification =
-  Option<vkInternalAllocationNotification_t>;
-#[allow(nonstandard_style)]
-pub type PFN_vkInternalFreeNotification = Option<vkInternalFreeNotification_t>;
