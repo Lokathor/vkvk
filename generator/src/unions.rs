@@ -28,6 +28,28 @@ impl Display for RustUnion {
       core::fmt::Display::fmt(m, f)?;
     }
     writeln!(f, "}}")?;
+    writeln!(f, "impl Default for {name} {{")?;
+    writeln!(f, "  #[inline]")?;
+    writeln!(f, "  #[must_use]")?;
+    writeln!(f, "  fn default() -> Self {{")?;
+    let default_field_name = members
+      .iter()
+      .find(|m| {
+        // "is not a pointer"
+        !matches!(
+          m.ty_variant,
+          TypeVariant::ConstPtr
+            | TypeVariant::MutPtr
+            | TypeVariant::ConstPtrConstPtr
+            | TypeVariant::MutPtrMutPtr
+            | TypeVariant::ConstPtrArrayInt(_)
+        )
+      })
+      .unwrap()
+      .name;
+    writeln!(f, "    Self {{ {default_field_name}: Default::default() }}")?;
+    writeln!(f, "  }}")?;
+    writeln!(f, "}}")?;
     Ok(())
   }
 }

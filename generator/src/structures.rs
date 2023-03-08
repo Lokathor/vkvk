@@ -46,7 +46,59 @@ impl Display for RustStructure {
       core::fmt::Display::fmt(m, f)?;
     }
     writeln!(f, "}}")?;
+    writeln!(f, "impl Default for {name} {{")?;
+    writeln!(f, "  #[inline]")?;
+    writeln!(f, "  #[must_use]")?;
+    writeln!(f, "  fn default() -> Self {{")?;
+    if members.iter().any(|m| m.deprecated.is_some()) {
+      writeln!(f, "    #[allow(deprecated)]")?;
+    }
+    writeln!(f, "    Self {{")?;
+    for m in members.iter() {
+      let member_name = m.name;
+      let default_expr: String = if let Some(const_name) = m.value {
+        const_name.to_string()
+      } else {
+        format_default_expr(m.ty, m.ty_variant)
+      };
+      writeln!(f, "      {member_name}: {default_expr},")?;
+    }
+    writeln!(f, "    }}")?;
+    writeln!(f, "  }}")?;
+    writeln!(f, "}}")?;
     Ok(())
+  }
+}
+
+fn format_default_expr(ty: StaticStr, ty_variant: TypeVariant) -> String {
+  if [
+    "HWND",
+    "HINSTANCE",
+    "HMONITOR",
+    "LPCWSTR",
+    "HANDLE",
+    "MTLTexture_id",
+    "MTLSharedEvent_id",
+    "MTLBuffer_id",
+    "MTLCommandQueue_id",
+    "MTLDevice_id",
+    "IOSurfaceRef",
+  ]
+  .contains(&ty)
+  {
+    return "core::ptr::null_mut()".to_string();
+  }
+  match ty_variant {
+    TypeVariant::Normal => "Default::default()".to_string(),
+    TypeVariant::ArraySym(s) => format!("[Default::default(); {s}]"),
+    TypeVariant::ArrayInt(n) => format!("[Default::default(); {n}]"),
+    TypeVariant::ArrayArrayInt(j, k) => format!("[[Default::default(); {j}]; {k}]"),
+    TypeVariant::ConstPtr
+    | TypeVariant::ConstPtrConstPtr
+    | TypeVariant::ConstPtrArrayInt(_) => "core::ptr::null()".to_string(),
+    TypeVariant::MutPtr | TypeVariant::MutPtrMutPtr => {
+      "core::ptr::null_mut()".to_string()
+    }
   }
 }
 

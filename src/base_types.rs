@@ -63,7 +63,7 @@ pub type LPCWSTR = *const u16;
 /// Vulkan, and you can just cast the pointer.
 pub type SECURITY_ATTRIBUTES = c_void;
 
-// TODO: docs links for these?
+// TODO: docs for these?
 
 pub type CAMetalLayer = c_void;
 pub type MTLDevice_id = *mut c_void;
@@ -91,7 +91,7 @@ pub struct VkDeviceSize(pub u64);
 // from showing bytes up to kilobytes, megabytes, or gigabytes, depending on how
 // big the value is.
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[repr(transparent)]
 pub struct VkDeviceAddress(pub u64);
 

@@ -93,13 +93,6 @@ pub type vkDeviceMemoryReportCallbackEXT_t = unsafe extern "system" fn(
   user_data: *mut c_void,
 );
 
-/// non-null version of Khronos: [PFN_vkFaultCallbackFunction](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkFaultCallbackFunction.html)
-pub type vkFaultCallbackFunction_t = unsafe extern "system" fn(
-  unrecorded_faults: VkBool32,
-  fault_count: u32,
-  faults: *const VkFaultData,
-);
-
 /// non-null version of Khronos: [PFN_vkGetInstanceProcAddrLUNARG](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkGetInstanceProcAddrLUNARG.html)
 pub type vkGetInstanceProcAddrLUNARG_t =
   unsafe extern "system" fn(instance: VkInstance, name: *const u8) -> PFN_vkVoidFunction;
@@ -133,8 +126,17 @@ pub type PFN_vkDebugUtilsMessengerCallbackEXT =
 /// Khronos: [PFN_vkDeviceMemoryReportCallbackEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkDeviceMemoryReportCallbackEXT.html)
 pub type PFN_vkDeviceMemoryReportCallbackEXT = Option<vkDeviceMemoryReportCallbackEXT_t>;
 
-/// Khronos: [PFN_vkFaultCallbackFunction](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkFaultCallbackFunction.html)
-pub type PFN_vkFaultCallbackFunction = Option<vkFaultCallbackFunction_t>;
-
 /// Khronos: [PFN_vkGetInstanceProcAddrLUNARG](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkGetInstanceProcAddrLUNARG.html)
 pub type PFN_vkGetInstanceProcAddrLUNARG = Option<vkGetInstanceProcAddrLUNARG_t>;
+
+/// non-null version of Khronos: [PFN_vkFaultCallbackFunction](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkFaultCallbackFunction.html)
+#[cfg(feature = "vulkansc")]
+pub type vkFaultCallbackFunction_t = unsafe extern "system" fn(
+  unrecorded_faults: VkBool32,
+  fault_count: u32,
+  faults: *const VkFaultData,
+);
+
+/// Khronos: [PFN_vkFaultCallbackFunction](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkFaultCallbackFunction.html)
+#[cfg(feature = "vulkansc")]
+pub type PFN_vkFaultCallbackFunction = Option<vkFaultCallbackFunction_t>;

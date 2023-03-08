@@ -25,12 +25,6 @@ pub use structures::*;
 mod aliases;
 pub use aliases::*;
 
-// TODO: union defaults
-
-// TODO: struct defaults
-
-// TODO: struct debug
-
 /// Given an `api` attribute, is this item "vulkan" compatible?
 ///
 /// The logic is that if "vulkan" is in the comma separated list then it's
@@ -106,6 +100,19 @@ const BLOCKED_TYPES: &[&str] = &[
   "VkAccelerationStructureInstanceKHR",
   "VkAccelerationStructureSRTMotionInstanceNV",
   "VkAccelerationStructureMotionInstanceDataNV",
+  // beta types
+  "VkPhysicalDevicePortabilitySubsetPropertiesKHR",
+  "VkPhysicalDevicePortabilitySubsetFeaturesKHR",
+  // vulkansc types i'm not sure how to filter out any other obvious way.
+  "VkPipelinePoolSize",
+  "VkPipelineOfflineCreateInfo",
+  "VkPhysicalDeviceVulkanSC10Properties",
+  "VkPhysicalDeviceVulkanSC10Features",
+  "VkPerformanceQueryReservationInfoKHR",
+  "VkFaultData",
+  "VkDeviceSemaphoreSciSyncPoolReservationCreateInfoNV",
+  "VkCommandPoolMemoryReservationCreateInfo",
+  "VkCommandPoolMemoryConsumption",
   // TODO: (maybe) Support the "Vulkan Video" API?
   "StdVideoDecodeH264PictureInfo",
   "StdVideoDecodeH264ReferenceInfo",
@@ -132,6 +139,18 @@ const BLOCKED_TYPES: &[&str] = &[
   "VkVideoEncodeH265SessionParametersAddInfoEXT",
   "VkVideoDecodeH264SessionParametersAddInfoKHR",
   "VkVideoDecodeH265SessionParametersAddInfoKHR",
+  "VkVideoEncodeUsageInfoKHR",
+  "VkVideoEncodeRateControlLayerInfoKHR",
+  "VkVideoEncodeInfoKHR",
+  "VkVideoEncodeH265RateControlLayerInfoEXT",
+  "VkVideoEncodeH265CapabilitiesEXT",
+  "VkVideoEncodeH265RateControlInfoEXT",
+  "VkVideoEncodeH265EmitPictureParametersInfoEXT",
+  "VkVideoEncodeH264RateControlLayerInfoEXT",
+  "VkVideoEncodeH264RateControlInfoEXT",
+  "VkVideoEncodeH264EmitPictureParametersInfoEXT",
+  "VkVideoEncodeH264CapabilitiesEXT",
+  "VkVideoEncodeCapabilitiesKHR",
   // TODO: support whatever nvidia thing this stuff is for.
   "NvSciBufAttrList",
   "NvSciBufObj",

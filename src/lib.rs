@@ -1,7 +1,4 @@
 #![no_std]
-#![allow(dead_code)]
-#![allow(non_snake_case)]
-#![allow(clippy::unit_arg)]
 #![warn(missing_docs)]
 
 //! A library for interacting with the Vulkan graphical and compute API.

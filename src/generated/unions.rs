@@ -13,6 +13,13 @@ pub union VkAccelerationStructureGeometryDataKHR {
   /// * Selection: [`VK_GEOMETRY_TYPE_INSTANCES_KHR`]
   pub instances: VkAccelerationStructureGeometryInstancesDataKHR,
 }
+impl Default for VkAccelerationStructureGeometryDataKHR {
+  #[inline]
+  #[must_use]
+  fn default() -> Self {
+    Self { triangles: Default::default() }
+  }
+}
 
 /// Khronos: [VkClearColorValue](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkClearColorValue.html)
 ///
@@ -24,6 +31,13 @@ pub union VkClearColorValue {
   pub int32: [i32; 4],
   pub uint32: [u32; 4],
 }
+impl Default for VkClearColorValue {
+  #[inline]
+  #[must_use]
+  fn default() -> Self {
+    Self { float32: Default::default() }
+  }
+}
 
 /// Khronos: [VkClearValue](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkClearValue.html)
 ///
@@ -34,6 +48,13 @@ pub union VkClearValue {
   /// * No Auto Validity
   pub color: VkClearColorValue,
   pub depthStencil: VkClearDepthStencilValue,
+}
+impl Default for VkClearValue {
+  #[inline]
+  #[must_use]
+  fn default() -> Self {
+    Self { color: Default::default() }
+  }
 }
 
 /// Khronos: [VkDescriptorDataEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDescriptorDataEXT.html)
@@ -68,6 +89,13 @@ pub union VkDescriptorDataEXT {
   /// * Selection: [`VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_NV`]
   pub accelerationStructure: VkDeviceAddress,
 }
+impl Default for VkDescriptorDataEXT {
+  #[inline]
+  #[must_use]
+  fn default() -> Self {
+    Self { accelerationStructure: Default::default() }
+  }
+}
 
 /// Khronos: [VkDeviceOrHostAddressConstKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDeviceOrHostAddressConstKHR.html)
 #[derive(Clone, Copy)]
@@ -78,6 +106,13 @@ pub union VkDeviceOrHostAddressConstKHR {
   /// * No Auto Validity
   pub hostAddress: *const c_void,
 }
+impl Default for VkDeviceOrHostAddressConstKHR {
+  #[inline]
+  #[must_use]
+  fn default() -> Self {
+    Self { deviceAddress: Default::default() }
+  }
+}
 
 /// Khronos: [VkDeviceOrHostAddressKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDeviceOrHostAddressKHR.html)
 #[derive(Clone, Copy)]
@@ -87,6 +122,13 @@ pub union VkDeviceOrHostAddressKHR {
   pub deviceAddress: VkDeviceAddress,
   /// * No Auto Validity
   pub hostAddress: *mut c_void,
+}
+impl Default for VkDeviceOrHostAddressKHR {
+  #[inline]
+  #[must_use]
+  fn default() -> Self {
+    Self { deviceAddress: Default::default() }
+  }
 }
 
 /// Khronos: [VkPerformanceCounterResultKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPerformanceCounterResultKHR.html)
@@ -101,6 +143,13 @@ pub union VkPerformanceCounterResultKHR {
   pub uint64: u64,
   pub float32: c_float,
   pub float64: c_double,
+}
+impl Default for VkPerformanceCounterResultKHR {
+  #[inline]
+  #[must_use]
+  fn default() -> Self {
+    Self { int32: Default::default() }
+  }
 }
 
 /// Khronos: [VkPerformanceValueDataINTEL](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPerformanceValueDataINTEL.html)
@@ -119,6 +168,13 @@ pub union VkPerformanceValueDataINTEL {
   /// * Len: null-terminated
   pub valueString: *const u8,
 }
+impl Default for VkPerformanceValueDataINTEL {
+  #[inline]
+  #[must_use]
+  fn default() -> Self {
+    Self { value32: Default::default() }
+  }
+}
 
 /// Khronos: [VkPipelineExecutableStatisticValueKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineExecutableStatisticValueKHR.html)
 ///
@@ -134,5 +190,12 @@ pub union VkPipelineExecutableStatisticValueKHR {
   pub u64: u64,
   /// * Selection: [`VK_PIPELINE_EXECUTABLE_STATISTIC_FORMAT_FLOAT64_KHR`]
   pub f64: c_double,
+}
+impl Default for VkPipelineExecutableStatisticValueKHR {
+  #[inline]
+  #[must_use]
+  fn default() -> Self {
+    Self { b32: Default::default() }
+  }
 }
 
