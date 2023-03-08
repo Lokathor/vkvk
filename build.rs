@@ -1,6 +1,8 @@
 use std::env::var;
 
 fn main() {
+  println!("cargo:rerun-if-changed=build.rs");
+  println!("cargo:rerun-if-env-changed=VULKAN_SDK");
   let target_family = var("CARGO_CFG_TARGET_FAMILY").unwrap();
   let target_pointer_width = var("CARGO_CFG_TARGET_POINTER_WIDTH").unwrap();
   if let Ok(sdk) = var("VULKAN_SDK") {
@@ -12,5 +14,4 @@ fn main() {
     let search_path = std::path::Path::new(&sdk).join(std::path::Path::new(&sub_folder));
     println!("cargo:rustc-link-search={}", search_path.display());
   }
-  println!("cargo:rerun-if-env-changed=VULKAN_SDK");
 }
