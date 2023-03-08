@@ -78,6 +78,8 @@ pub type IDirectFB = c_void;
 pub type IDirectFBSurface = c_void;
 pub type zx_handle_t = u32;
 
+pub type VkBool32 = bool32::Bool32;
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[repr(transparent)]
 pub struct VkSampleMask(pub u32);
@@ -92,38 +94,6 @@ pub struct VkDeviceSize(pub u64);
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[repr(transparent)]
 pub struct VkDeviceAddress(pub u64);
-
-#[derive(Clone, Copy, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
-#[repr(transparent)]
-pub struct VkBool32(u32);
-impl VkBool32 {
-  pub const FALSE: Self = Self(0);
-  pub const TRUE: Self = Self(1);
-}
-impl From<bool> for VkBool32 {
-  #[inline]
-  #[must_use]
-  fn from(value: bool) -> Self {
-    Self(value as _)
-  }
-}
-impl From<VkBool32> for bool {
-  #[inline]
-  #[must_use]
-  fn from(value: VkBool32) -> Self {
-    value.0 != 0
-  }
-}
-impl core::fmt::Debug for VkBool32 {
-  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-    core::fmt::Debug::fmt(&bool::from(*self), f)
-  }
-}
-impl core::fmt::Display for VkBool32 {
-  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-    core::fmt::Display::fmt(&bool::from(*self), f)
-  }
-}
 
 /// A vulkan version value.
 ///
