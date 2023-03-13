@@ -12,14 +12,10 @@ env:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v3
-    - name: Get SDL2 (used in examples)
-      run: |
-        sudo apt-get update -y -qq
-        sudo apt-get install libsdl2-dev
     - name: Build
       run: cargo build --verbose
     - name: Run tests

@@ -1,0 +1,3 @@
+# just needed to speed up CI, until this becomes the default
+[registries.crates-io]
+protocol = 'sparse'
