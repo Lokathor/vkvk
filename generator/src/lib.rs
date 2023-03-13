@@ -201,3 +201,8 @@ const BLOCKED_TYPES: &[&str] = &[
   "GgpStreamDescriptor",
   "VkStreamDescriptorSurfaceCreateInfoGGP",
 ];
+
+const BLOCKED_EXTENSIONS: &[&str] = &[
+  // creates an alias to a vulkansc bit
+  "VK_GOOGLE_extension_196",
+];

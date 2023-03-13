@@ -211,8 +211,11 @@ pub fn gather_bitmasks(
     .iter()
     .filter(|f| api_vulkan(Some(f.api)))
     .flat_map(|f| f.requirements.iter());
-  let extension_requirements =
-    registry.extensions.iter().flat_map(|x| x.requirements.iter());
+  let extension_requirements = registry
+    .extensions
+    .iter()
+    .filter(|x| !BLOCKED_EXTENSIONS.contains(&x.name))
+    .flat_map(|x| x.requirements.iter());
   let all_requirements = feature_requirements.chain(extension_requirements);
 
   for requirement in all_requirements {
