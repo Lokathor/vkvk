@@ -39,6 +39,7 @@ mod macros;
 pub mod api_constants;
 pub mod base_types;
 pub mod entry;
+pub mod instance;
 pub mod prelude;
 
 #[allow(missing_docs)]
