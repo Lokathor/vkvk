@@ -4130,7 +4130,7 @@ pub struct VkDeviceFaultInfoEXT {
   pub next: *mut c_void,
   /// Free-form description of the fault
   /// * No Auto-Validity
-  pub description: [u8; VK_MAX_DESCRIPTION_SIZE],
+  pub description: zstring::ArrayZString<VK_MAX_DESCRIPTION_SIZE>,
   /// * Optional: true
   pub address_infos: *mut VkDeviceFaultAddressInfoEXT,
   /// * Optional: true
@@ -4145,7 +4145,7 @@ impl Default for VkDeviceFaultInfoEXT {
     Self {
       struct_ty: VK_STRUCTURE_TYPE_DEVICE_FAULT_INFO_EXT,
       next: core::ptr::null_mut(),
-      description: [Default::default(); VK_MAX_DESCRIPTION_SIZE],
+      description: Default::default(),
       address_infos: core::ptr::null_mut(),
       vendor_infos: core::ptr::null_mut(),
       vendor_binary_data: core::ptr::null_mut(),
@@ -4194,7 +4194,7 @@ impl Default for VkDeviceFaultVendorBinaryHeaderVersionOneEXT {
 pub struct VkDeviceFaultVendorInfoEXT {
   /// Free-form description of the fault
   /// * No Auto-Validity
-  pub description: [u8; VK_MAX_DESCRIPTION_SIZE],
+  pub description: zstring::ArrayZString<VK_MAX_DESCRIPTION_SIZE>,
   pub vendor_fault_code: u64,
   pub vendor_fault_data: u64,
 }
@@ -4203,7 +4203,7 @@ impl Default for VkDeviceFaultVendorInfoEXT {
   #[must_use]
   fn default() -> Self {
     Self {
-      description: [Default::default(); VK_MAX_DESCRIPTION_SIZE],
+      description: Default::default(),
       vendor_fault_code: Default::default(),
       vendor_fault_data: Default::default(),
     }
@@ -5860,7 +5860,7 @@ impl Default for VkExportSemaphoreWin32HandleInfoKHR {
 #[repr(C)]
 pub struct VkExtensionProperties {
   /// extension name
-  pub extension_name: [u8; VK_MAX_EXTENSION_NAME_SIZE],
+  pub extension_name: zstring::ArrayZString<VK_MAX_EXTENSION_NAME_SIZE>,
   /// version of the extension specification implemented
   pub spec_version: u32,
 }
@@ -5868,10 +5868,7 @@ impl Default for VkExtensionProperties {
   #[inline]
   #[must_use]
   fn default() -> Self {
-    Self {
-      extension_name: [Default::default(); VK_MAX_EXTENSION_NAME_SIZE],
-      spec_version: Default::default(),
-    }
+    Self { extension_name: Default::default(), spec_version: Default::default() }
   }
 }
 
@@ -8844,23 +8841,23 @@ impl Default for VkInstanceCreateInfo {
 #[repr(C)]
 pub struct VkLayerProperties {
   /// layer name
-  pub layer_name: [u8; VK_MAX_EXTENSION_NAME_SIZE],
+  pub layer_name: zstring::ArrayZString<VK_MAX_EXTENSION_NAME_SIZE>,
   /// version of the layer specification implemented
-  pub spec_version: u32,
+  pub spec_version: VkVersion,
   /// build or release version of the layer's library
   pub implementation_version: u32,
   /// Free-form description of the layer
-  pub description: [u8; VK_MAX_DESCRIPTION_SIZE],
+  pub description: zstring::ArrayZString<VK_MAX_DESCRIPTION_SIZE>,
 }
 impl Default for VkLayerProperties {
   #[inline]
   #[must_use]
   fn default() -> Self {
     Self {
-      layer_name: [Default::default(); VK_MAX_EXTENSION_NAME_SIZE],
+      layer_name: Default::default(),
       spec_version: Default::default(),
       implementation_version: Default::default(),
-      description: [Default::default(); VK_MAX_DESCRIPTION_SIZE],
+      description: Default::default(),
     }
   }
 }
@@ -10168,9 +10165,9 @@ pub struct VkPerformanceCounterDescriptionKHR {
   pub next: *mut c_void,
   /// * Optional: true
   pub flags: VkPerformanceCounterDescriptionFlagsKHR,
-  pub name: [u8; VK_MAX_DESCRIPTION_SIZE],
-  pub category: [u8; VK_MAX_DESCRIPTION_SIZE],
-  pub description: [u8; VK_MAX_DESCRIPTION_SIZE],
+  pub name: zstring::ArrayZString<VK_MAX_DESCRIPTION_SIZE>,
+  pub category: zstring::ArrayZString<VK_MAX_DESCRIPTION_SIZE>,
+  pub description: zstring::ArrayZString<VK_MAX_DESCRIPTION_SIZE>,
 }
 impl Default for VkPerformanceCounterDescriptionKHR {
   #[inline]
@@ -10180,9 +10177,9 @@ impl Default for VkPerformanceCounterDescriptionKHR {
       struct_ty: VK_STRUCTURE_TYPE_PERFORMANCE_COUNTER_DESCRIPTION_KHR,
       next: core::ptr::null_mut(),
       flags: Default::default(),
-      name: [Default::default(); VK_MAX_DESCRIPTION_SIZE],
-      category: [Default::default(); VK_MAX_DESCRIPTION_SIZE],
-      description: [Default::default(); VK_MAX_DESCRIPTION_SIZE],
+      name: Default::default(),
+      category: Default::default(),
+      description: Default::default(),
     }
   }
 }
@@ -11902,9 +11899,9 @@ pub struct VkPhysicalDeviceDriverProperties {
   /// * Limit Type: exact
   pub driver_id: VkDriverId,
   /// * Limit Type: exact
-  pub driver_name: [u8; VK_MAX_DRIVER_NAME_SIZE],
+  pub driver_name: zstring::ArrayZString<VK_MAX_DRIVER_NAME_SIZE>,
   /// * Limit Type: exact
-  pub driver_info: [u8; VK_MAX_DRIVER_INFO_SIZE],
+  pub driver_info: zstring::ArrayZString<VK_MAX_DRIVER_INFO_SIZE>,
   /// * Limit Type: exact
   pub conformance_version: VkConformanceVersion,
 }
@@ -11916,8 +11913,8 @@ impl Default for VkPhysicalDeviceDriverProperties {
       struct_ty: VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DRIVER_PROPERTIES,
       next: core::ptr::null_mut(),
       driver_id: Default::default(),
-      driver_name: [Default::default(); VK_MAX_DRIVER_NAME_SIZE],
-      driver_info: [Default::default(); VK_MAX_DRIVER_INFO_SIZE],
+      driver_name: Default::default(),
+      driver_info: Default::default(),
       conformance_version: Default::default(),
     }
   }
@@ -13370,7 +13367,7 @@ pub struct VkPhysicalDeviceIDProperties {
   /// * Limit Type: noauto
   pub driver_uuid: [u8; VK_UUID_SIZE],
   /// * Limit Type: noauto
-  pub device_luid: [u8; VK_LUID_SIZE],
+  pub device_luid: zstring::ArrayZString<VK_LUID_SIZE>,
   /// * Limit Type: noauto
   pub device_node_mask: u32,
   /// * Limit Type: noauto
@@ -13385,7 +13382,7 @@ impl Default for VkPhysicalDeviceIDProperties {
       next: core::ptr::null_mut(),
       device_uuid: [Default::default(); VK_UUID_SIZE],
       driver_uuid: [Default::default(); VK_UUID_SIZE],
-      device_luid: [Default::default(); VK_LUID_SIZE],
+      device_luid: Default::default(),
       device_node_mask: Default::default(),
       device_luid_valid: Default::default(),
     }
@@ -15992,7 +15989,7 @@ pub struct VkPhysicalDeviceProperties {
   /// * Limit Type: noauto
   pub device_type: VkPhysicalDeviceType,
   /// * Limit Type: noauto
-  pub device_name: [u8; VK_MAX_PHYSICAL_DEVICE_NAME_SIZE],
+  pub device_name: zstring::ArrayZString<VK_MAX_PHYSICAL_DEVICE_NAME_SIZE>,
   /// * Limit Type: noauto
   pub pipeline_cache_uuid: [u8; VK_UUID_SIZE],
   /// * Limit Type: struct
@@ -16010,7 +16007,7 @@ impl Default for VkPhysicalDeviceProperties {
       vendor_id: Default::default(),
       device_id: Default::default(),
       device_type: Default::default(),
-      device_name: [Default::default(); VK_MAX_PHYSICAL_DEVICE_NAME_SIZE],
+      device_name: Default::default(),
       pipeline_cache_uuid: [Default::default(); VK_UUID_SIZE],
       limits: Default::default(),
       sparse_properties: Default::default(),
@@ -18218,11 +18215,11 @@ pub struct VkPhysicalDeviceToolProperties {
   pub struct_ty: VkStructureType,
   /// * Optional: true
   pub next: *mut c_void,
-  pub name: [u8; VK_MAX_EXTENSION_NAME_SIZE],
-  pub version: [u8; VK_MAX_EXTENSION_NAME_SIZE],
+  pub name: zstring::ArrayZString<VK_MAX_EXTENSION_NAME_SIZE>,
+  pub version: zstring::ArrayZString<VK_MAX_EXTENSION_NAME_SIZE>,
   pub purposes: VkToolPurposeFlags,
-  pub description: [u8; VK_MAX_DESCRIPTION_SIZE],
-  pub layer: [u8; VK_MAX_EXTENSION_NAME_SIZE],
+  pub description: zstring::ArrayZString<VK_MAX_DESCRIPTION_SIZE>,
+  pub layer: zstring::ArrayZString<VK_MAX_EXTENSION_NAME_SIZE>,
 }
 impl Default for VkPhysicalDeviceToolProperties {
   #[inline]
@@ -18231,11 +18228,11 @@ impl Default for VkPhysicalDeviceToolProperties {
     Self {
       struct_ty: VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TOOL_PROPERTIES,
       next: core::ptr::null_mut(),
-      name: [Default::default(); VK_MAX_EXTENSION_NAME_SIZE],
-      version: [Default::default(); VK_MAX_EXTENSION_NAME_SIZE],
+      name: Default::default(),
+      version: Default::default(),
       purposes: Default::default(),
-      description: [Default::default(); VK_MAX_DESCRIPTION_SIZE],
-      layer: [Default::default(); VK_MAX_EXTENSION_NAME_SIZE],
+      description: Default::default(),
+      layer: Default::default(),
     }
   }
 }
@@ -18558,7 +18555,7 @@ pub struct VkPhysicalDeviceVulkan11Properties {
   /// * Limit Type: exact
   pub driver_uuid: [u8; VK_UUID_SIZE],
   /// * Limit Type: exact
-  pub device_luid: [u8; VK_LUID_SIZE],
+  pub device_luid: zstring::ArrayZString<VK_LUID_SIZE>,
   /// * Limit Type: exact
   pub device_node_mask: u32,
   /// * Limit Type: exact
@@ -18603,7 +18600,7 @@ impl Default for VkPhysicalDeviceVulkan11Properties {
       next: core::ptr::null_mut(),
       device_uuid: [Default::default(); VK_UUID_SIZE],
       driver_uuid: [Default::default(); VK_UUID_SIZE],
-      device_luid: [Default::default(); VK_LUID_SIZE],
+      device_luid: Default::default(),
       device_node_mask: Default::default(),
       device_luid_valid: Default::default(),
       subgroup_size: Default::default(),
@@ -18757,9 +18754,9 @@ pub struct VkPhysicalDeviceVulkan12Properties {
   /// * Limit Type: noauto
   pub driver_id: VkDriverId,
   /// * Limit Type: noauto
-  pub driver_name: [u8; VK_MAX_DRIVER_NAME_SIZE],
+  pub driver_name: zstring::ArrayZString<VK_MAX_DRIVER_NAME_SIZE>,
   /// * Limit Type: noauto
-  pub driver_info: [u8; VK_MAX_DRIVER_INFO_SIZE],
+  pub driver_info: zstring::ArrayZString<VK_MAX_DRIVER_INFO_SIZE>,
   /// * Limit Type: noauto
   pub conformance_version: VkConformanceVersion,
   /// * Limit Type: exact
@@ -18888,8 +18885,8 @@ impl Default for VkPhysicalDeviceVulkan12Properties {
       struct_ty: VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_2_PROPERTIES,
       next: core::ptr::null_mut(),
       driver_id: Default::default(),
-      driver_name: [Default::default(); VK_MAX_DRIVER_NAME_SIZE],
-      driver_info: [Default::default(); VK_MAX_DRIVER_INFO_SIZE],
+      driver_name: Default::default(),
+      driver_info: Default::default(),
       conformance_version: Default::default(),
       denorm_behavior_independence: Default::default(),
       rounding_mode_independence: Default::default(),
@@ -19896,8 +19893,8 @@ pub struct VkPipelineExecutableInternalRepresentationKHR {
   pub struct_ty: VkStructureType,
   /// * Optional: true
   pub next: *mut c_void,
-  pub name: [u8; VK_MAX_DESCRIPTION_SIZE],
-  pub description: [u8; VK_MAX_DESCRIPTION_SIZE],
+  pub name: zstring::ArrayZString<VK_MAX_DESCRIPTION_SIZE>,
+  pub description: zstring::ArrayZString<VK_MAX_DESCRIPTION_SIZE>,
   pub is_text: VkBool32,
   pub data_size: c_size_t,
   /// * Optional: true
@@ -19911,8 +19908,8 @@ impl Default for VkPipelineExecutableInternalRepresentationKHR {
     Self {
       struct_ty: VK_STRUCTURE_TYPE_PIPELINE_EXECUTABLE_INTERNAL_REPRESENTATION_KHR,
       next: core::ptr::null_mut(),
-      name: [Default::default(); VK_MAX_DESCRIPTION_SIZE],
-      description: [Default::default(); VK_MAX_DESCRIPTION_SIZE],
+      name: Default::default(),
+      description: Default::default(),
       is_text: Default::default(),
       data_size: Default::default(),
       data: core::ptr::null_mut(),
@@ -19931,8 +19928,8 @@ pub struct VkPipelineExecutablePropertiesKHR {
   /// * Optional: true
   pub next: *mut c_void,
   pub stages: VkShaderStageFlags,
-  pub name: [u8; VK_MAX_DESCRIPTION_SIZE],
-  pub description: [u8; VK_MAX_DESCRIPTION_SIZE],
+  pub name: zstring::ArrayZString<VK_MAX_DESCRIPTION_SIZE>,
+  pub description: zstring::ArrayZString<VK_MAX_DESCRIPTION_SIZE>,
   pub subgroup_size: u32,
 }
 impl Default for VkPipelineExecutablePropertiesKHR {
@@ -19943,8 +19940,8 @@ impl Default for VkPipelineExecutablePropertiesKHR {
       struct_ty: VK_STRUCTURE_TYPE_PIPELINE_EXECUTABLE_PROPERTIES_KHR,
       next: core::ptr::null_mut(),
       stages: Default::default(),
-      name: [Default::default(); VK_MAX_DESCRIPTION_SIZE],
-      description: [Default::default(); VK_MAX_DESCRIPTION_SIZE],
+      name: Default::default(),
+      description: Default::default(),
       subgroup_size: Default::default(),
     }
   }
@@ -22257,7 +22254,7 @@ impl Default for VkRenderPassSubpassFeedbackCreateInfoEXT {
 #[repr(C)]
 pub struct VkRenderPassSubpassFeedbackInfoEXT {
   pub subpass_merge_status: VkSubpassMergeStatusEXT,
-  pub description: [u8; VK_MAX_DESCRIPTION_SIZE],
+  pub description: zstring::ArrayZString<VK_MAX_DESCRIPTION_SIZE>,
   pub post_merge_index: u32,
 }
 impl Default for VkRenderPassSubpassFeedbackInfoEXT {
@@ -22266,7 +22263,7 @@ impl Default for VkRenderPassSubpassFeedbackInfoEXT {
   fn default() -> Self {
     Self {
       subpass_merge_status: Default::default(),
-      description: [Default::default(); VK_MAX_DESCRIPTION_SIZE],
+      description: Default::default(),
       post_merge_index: Default::default(),
     }
   }
@@ -23129,7 +23126,7 @@ pub struct VkShaderModuleIdentifierEXT {
   pub next: *mut c_void,
   /// * No Auto-Validity
   pub identifier_size: u32,
-  pub identifier: [u8; VK_MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT],
+  pub identifier: zstring::ArrayZString<VK_MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT>,
 }
 impl Default for VkShaderModuleIdentifierEXT {
   #[inline]
@@ -23139,7 +23136,7 @@ impl Default for VkShaderModuleIdentifierEXT {
       struct_ty: VK_STRUCTURE_TYPE_SHADER_MODULE_IDENTIFIER_EXT,
       next: core::ptr::null_mut(),
       identifier_size: Default::default(),
-      identifier: [Default::default(); VK_MAX_SHADER_MODULE_IDENTIFIER_SIZE_EXT],
+      identifier: Default::default(),
     }
   }
 }

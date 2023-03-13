@@ -96,6 +96,9 @@ fn format_default_expr(ty: StaticStr, ty_variant: TypeVariant) -> String {
   }
   match ty_variant {
     TypeVariant::Normal => "Default::default()".to_string(),
+    TypeVariant::ArraySym(s) if ty == "u8" && s != "VK_UUID_SIZE" => {
+      "Default::default()".to_string()
+    }
     TypeVariant::ArraySym(s) => format!("[Default::default(); {s}]"),
     TypeVariant::ArrayInt(n) => format!("[Default::default(); {n}]"),
     TypeVariant::ArrayArrayInt(j, k) => format!("[[Default::default(); {j}]; {k}]"),
@@ -210,7 +213,7 @@ pub fn gather_structures(
     s.struct_extends = *struct_extends;
     s.allow_duplicate = *allow_duplicate;
     for Member {
-      name,
+      name: member_name,
       ty,
       ty_variant,
       optional,
@@ -233,12 +236,17 @@ pub fn gather_structures(
         continue;
       }
       assert!(selection.is_none());
+      let ty = if *name == "VkLayerProperties" && member_name == "specVersion" {
+        "VkVersion"
+      } else {
+        ty
+      };
       s.members.push(RustStructureMember {
-        name: match name {
+        name: match member_name {
           "type" => "ty",
           otherwise => otherwise,
         },
-        ty: filter_ty(ty),
+        ty: fix_ty(ty),
         ty_variant,
         comment,
         optional,

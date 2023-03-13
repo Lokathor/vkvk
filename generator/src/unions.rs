@@ -139,7 +139,7 @@ pub fn gather_unions(registry: &VulkanRegistry) -> BTreeMap<StaticStr, RustUnion
       assert!(bitfields.is_none());
       u.members.push(RustUnionMember {
         name,
-        ty: filter_ty(ty),
+        ty: fix_ty(ty),
         ty_variant,
         optional,
         no_auto_validity,

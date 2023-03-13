@@ -66,6 +66,9 @@ pub fn format_ty_and_variant(ty: &str, ty_variant: TypeVariant) -> String {
     TypeVariant::Normal => format!("{ty}"),
     TypeVariant::ConstPtr => format!("*const {ty}"),
     TypeVariant::MutPtr => format!("*mut {ty}"),
+    TypeVariant::ArraySym(s) if ty == "u8" && s != "VK_UUID_SIZE" => {
+      format!("zstring::ArrayZString<{s}>")
+    }
     TypeVariant::ArraySym(s) => format!("[{ty}; {s}]"),
     TypeVariant::ArrayInt(n) => format!("[{ty}; {n}]"),
     TypeVariant::ArrayArrayInt(j, k) => format!("[[{ty}; {j}]; {k}]"),
@@ -75,7 +78,7 @@ pub fn format_ty_and_variant(ty: &str, ty_variant: TypeVariant) -> String {
   }
 }
 
-pub fn filter_ty(ty: &str) -> &str {
+pub fn fix_ty(ty: &str) -> &str {
   match ty {
     "int" => "c_int",
     "char" => "u8",
