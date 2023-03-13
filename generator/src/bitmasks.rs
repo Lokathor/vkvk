@@ -61,12 +61,6 @@ impl Display for Flags {
       core::fmt::Display::fmt(alias, f)?;
     }
 
-    use convert_case::{Case, Casing};
-    let screaming_core = format!("{core_name}{digits}")
-      .to_case(Case::ScreamingSnake)
-      .replace("H_264", "H264")
-      .replace("H_265", "H265");
-
     writeln!(f, "impl core::fmt::Debug for {core_name}FlagBits{digits}{vendor} {{")?;
     writeln!(
       f,
@@ -77,13 +71,7 @@ impl Display for Flags {
       writeln!(f, "    for (bit_val, bit_name) in [")?;
       for position in positions.values() {
         let bit_val = 1_u64 << position.bit;
-        let no_type_words =
-          position.name.strip_prefix(&screaming_core).unwrap().strip_prefix('_').unwrap();
-        let no_vendor = no_type_words
-          .strip_suffix(vendor)
-          .and_then(|s| s.strip_suffix('_'))
-          .unwrap_or(no_type_words);
-        let bit_name = no_vendor.strip_suffix("_BIT").unwrap_or(no_vendor);
+        let bit_name = position.bit_name;
         writeln!(f, "      ({bit_val}, \"{bit_name}\"),")?;
       }
       writeln!(f, "    ] {{")?;
@@ -104,11 +92,12 @@ pub struct ConstBitPos {
   pub name: StaticStr,
   pub ty: StaticStr,
   pub bit: u32,
+  pub bit_name: StaticStr,
   pub comment: Option<StaticStr>,
 }
 impl Display for ConstBitPos {
   fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-    let ConstBitPos { name, bit, comment, ty } = self;
+    let ConstBitPos { name, bit, comment, ty, bit_name: _ } = self;
     if let Some(comment) = comment {
       writeln!(f, r#"/// {comment}"#)?;
     }
@@ -166,8 +155,20 @@ pub fn gather_bitmasks(
     flags.comment = *comment;
     assert_eq!(*is_64_bit, flags.is_64_bit, "{group_name}");
 
+    use convert_case::{Case, Casing};
+    let screaming_core = format!("{core_name}{}", digits.unwrap_or(""))
+      .to_case(Case::ScreamingSnake)
+      .replace("H_264", "H264")
+      .replace("H_265", "H265");
+
     for EnumBitPosition { name, bit, comment } in bit_positions.iter().cloned() {
-      let pos = ConstBitPos { name, ty: group_name, bit, comment };
+      let no_type_words =
+        name.strip_prefix(&screaming_core).unwrap().strip_prefix('_').unwrap();
+      let (no_vendor, _) = break_vendor(registry, no_type_words);
+      let no_vendor = no_vendor.strip_suffix('_').unwrap_or(no_vendor);
+      let bit_name = no_vendor.strip_suffix("_BIT").unwrap_or(no_vendor);
+      //
+      let pos = ConstBitPos { name, ty: group_name, bit, comment, bit_name };
       match flags.positions.entry(name) {
         Entry::Vacant(ve) => {
           ve.insert(pos);
@@ -259,7 +260,18 @@ pub fn gather_bitmasks(
       let (numberless, digits) = break_number(vendorless);
       let core_name = numberless.strip_suffix("FlagBits").unwrap();
       let flags = output.get_mut(&(core_name, digits, vendor)).unwrap();
-      let pos = ConstBitPos { name, ty: extends, bit: bitpos, comment };
+      use convert_case::{Case, Casing};
+      let screaming_core = format!("{core_name}{}", digits.unwrap_or(""))
+        .to_case(Case::ScreamingSnake)
+        .replace("H_264", "H264")
+        .replace("H_265", "H265");
+      let no_type_words =
+        name.strip_prefix(&screaming_core).unwrap().strip_prefix('_').unwrap();
+      let (no_vendor, _) = break_vendor(registry, no_type_words);
+      let no_vendor = no_vendor.strip_suffix('_').unwrap_or(no_vendor);
+      let bit_name = no_vendor.strip_suffix("_BIT").unwrap_or(no_vendor);
+      //
+      let pos = ConstBitPos { name, ty: extends, bit: bitpos, comment, bit_name };
       match flags.positions.entry(name) {
         Entry::Vacant(ve) => {
           ve.insert(pos);
