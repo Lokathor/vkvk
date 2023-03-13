@@ -2,7 +2,7 @@
 name = "vkvk"
 description = "A vulkan library."
 repository = "https://github.com/Lokathor/vkvk"
-version = "0.1.0+vk1.3.242"
+version = "0.1.0+vk1.3.243"
 edition = "2021"
 license = "Zlib OR Apache-2.0 OR MIT"
 
