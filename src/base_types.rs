@@ -6,6 +6,7 @@
 // Note(Lokathor): this import makes the doc links work properly without having
 // to specify the full path on all of them.
 #[allow(unused_imports)]
+#[cfg(feature = "raw-window-handle")]
 use raw_window_handle::*;
 
 pub use core::ffi::c_void;

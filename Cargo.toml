@@ -6,11 +6,18 @@ version = "0.1.0+vk1.3.243"
 edition = "2021"
 license = "Zlib OR Apache-2.0 OR MIT"
 
-[dev-dependencies]
-beryllium = "0.10.0"
-
 [dependencies]
-raw-window-handle = "0.5.0"
 raw_vulkan_handle = "0.1.1"
-zstring = "0.2.1"
 bool32 = "0.1.1"
+zstring = "0.2.4"
+
+# this isn't used by the crate, but is used during docs.rs documentation
+# generation so that doc links to the crate's types can be used.
+raw-window-handle = { version = "0.5.0", optional = true }
+
+[dev-dependencies]
+beryllium = { version = "0.12.1", features = ["vulkan"] }
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg","docs_rs"]
