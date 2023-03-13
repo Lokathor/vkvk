@@ -5938,317 +5938,783 @@ const vkWriteMicromapsPropertiesEXT_NAME: &str = "vkWriteMicromapsPropertiesEXT\
 #[repr(C)]
 pub(crate) struct InstanceFns {
   /// Khronos: [vkAcquireDrmDisplayEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireDrmDisplayEXT.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_INITIALIZATION_FAILED`
+  /// * `physical_device`
+  /// * `drm_fd`
+  /// * `display`
   pub AcquireDrmDisplayEXT: PFN_vkAcquireDrmDisplayEXT,
+
   /// Khronos: [vkAcquireWinrtDisplayNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireWinrtDisplayNV.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_DEVICE_LOST`,
+  ///   `VK_ERROR_INITIALIZATION_FAILED`
+  /// * `physical_device`
+  /// * `display`
   pub AcquireWinrtDisplayNV: PFN_vkAcquireWinrtDisplayNV,
+
   /// Khronos: [vkAcquireXlibDisplayEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireXlibDisplayEXT.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_INITIALIZATION_FAILED`
+  /// * `physical_device`
+  /// * `dpy`
+  /// * `display`
   pub AcquireXlibDisplayEXT: PFN_vkAcquireXlibDisplayEXT,
+
   /// Khronos: [vkCreateAndroidSurfaceKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateAndroidSurfaceKHR.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_NATIVE_WINDOW_IN_USE_KHR`
+  /// * `instance`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `surface`
   pub CreateAndroidSurfaceKHR: PFN_vkCreateAndroidSurfaceKHR,
+
   /// Khronos: [vkCreateDebugReportCallbackEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDebugReportCallbackEXT.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `instance`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `callback`
   pub CreateDebugReportCallbackEXT: PFN_vkCreateDebugReportCallbackEXT,
+
   /// Khronos: [vkCreateDebugUtilsMessengerEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDebugUtilsMessengerEXT.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `instance`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `messenger`
   pub CreateDebugUtilsMessengerEXT: PFN_vkCreateDebugUtilsMessengerEXT,
+
   /// Khronos: [vkCreateDevice](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDevice.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_INITIALIZATION_FAILED`, `VK_ERROR_EXTENSION_NOT_PRESENT`,
+  ///   `VK_ERROR_FEATURE_NOT_PRESENT`, `VK_ERROR_TOO_MANY_OBJECTS`,
+  ///   `VK_ERROR_DEVICE_LOST`
+  /// * `physical_device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `device`
   pub CreateDevice: PFN_vkCreateDevice,
+
   /// Khronos: [vkCreateDirectFBSurfaceEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDirectFBSurfaceEXT.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `instance`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `surface`
   pub CreateDirectFBSurfaceEXT: PFN_vkCreateDirectFBSurfaceEXT,
+
   /// Khronos: [vkCreateDisplayModeKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDisplayModeKHR.html)
-  /// * `display` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_INITIALIZATION_FAILED`
+  /// * `physical_device`
+  /// * `display`, Extern Sync: true
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `mode`
   pub CreateDisplayModeKHR: PFN_vkCreateDisplayModeKHR,
+
   /// Khronos: [vkCreateDisplayPlaneSurfaceKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDisplayPlaneSurfaceKHR.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `instance`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `surface`
   pub CreateDisplayPlaneSurfaceKHR: PFN_vkCreateDisplayPlaneSurfaceKHR,
+
   /// Khronos: [vkCreateHeadlessSurfaceEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateHeadlessSurfaceEXT.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `instance`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `surface`
   pub CreateHeadlessSurfaceEXT: PFN_vkCreateHeadlessSurfaceEXT,
+
   /// Khronos: [vkCreateIOSSurfaceMVK](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateIOSSurfaceMVK.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_NATIVE_WINDOW_IN_USE_KHR`
+  /// * `instance`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `surface`
   pub CreateIOSSurfaceMVK: PFN_vkCreateIOSSurfaceMVK,
+
   /// Khronos: [vkCreateImagePipeSurfaceFUCHSIA](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateImagePipeSurfaceFUCHSIA.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `instance`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `surface`
   pub CreateImagePipeSurfaceFUCHSIA: PFN_vkCreateImagePipeSurfaceFUCHSIA,
+
   /// Khronos: [vkCreateMacOSSurfaceMVK](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateMacOSSurfaceMVK.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_NATIVE_WINDOW_IN_USE_KHR`
+  /// * `instance`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `surface`
   pub CreateMacOSSurfaceMVK: PFN_vkCreateMacOSSurfaceMVK,
+
   /// Khronos: [vkCreateMetalSurfaceEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateMetalSurfaceEXT.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_NATIVE_WINDOW_IN_USE_KHR`
+  /// * `instance`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `surface`
   pub CreateMetalSurfaceEXT: PFN_vkCreateMetalSurfaceEXT,
+
   /// Khronos: [vkCreateScreenSurfaceQNX](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateScreenSurfaceQNX.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `instance`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `surface`
   pub CreateScreenSurfaceQNX: PFN_vkCreateScreenSurfaceQNX,
+
   /// Khronos: [vkCreateViSurfaceNN](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateViSurfaceNN.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_NATIVE_WINDOW_IN_USE_KHR`
+  /// * `instance`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `surface`
   pub CreateViSurfaceNN: PFN_vkCreateViSurfaceNN,
+
   /// Khronos: [vkCreateWaylandSurfaceKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateWaylandSurfaceKHR.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `instance`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `surface`
   pub CreateWaylandSurfaceKHR: PFN_vkCreateWaylandSurfaceKHR,
+
   /// Khronos: [vkCreateWin32SurfaceKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateWin32SurfaceKHR.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `instance`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `surface`
   pub CreateWin32SurfaceKHR: PFN_vkCreateWin32SurfaceKHR,
+
   /// Khronos: [vkCreateXcbSurfaceKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateXcbSurfaceKHR.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `instance`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `surface`
   pub CreateXcbSurfaceKHR: PFN_vkCreateXcbSurfaceKHR,
+
   /// Khronos: [vkCreateXlibSurfaceKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateXlibSurfaceKHR.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `instance`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `surface`
   pub CreateXlibSurfaceKHR: PFN_vkCreateXlibSurfaceKHR,
+
   /// Khronos: [vkDebugReportMessageEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDebugReportMessageEXT.html)
+  /// * `instance`
+  /// * `flags`
+  /// * `object_type`
+  /// * `object`, Object Type: objectType
+  /// * `location`
+  /// * `message_code`
+  /// * `layer_prefix`, Len: `null_terminated`
+  /// * `message`, Len: `null_terminated`
   pub DebugReportMessageEXT: PFN_vkDebugReportMessageEXT,
+
   /// Khronos: [vkDestroyDebugReportCallbackEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDebugReportCallbackEXT.html)
-  /// * `callback` Optional: true
-  /// * `callback` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `instance`
+  /// * `callback`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyDebugReportCallbackEXT: PFN_vkDestroyDebugReportCallbackEXT,
+
   /// Khronos: [vkDestroyDebugUtilsMessengerEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDebugUtilsMessengerEXT.html)
-  /// * `messenger` Optional: true
-  /// * `messenger` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `instance`
+  /// * `messenger`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyDebugUtilsMessengerEXT: PFN_vkDestroyDebugUtilsMessengerEXT,
+
   /// Khronos: [vkDestroyInstance](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyInstance.html)
-  /// * Implicit Extern Sync: all sname:VkPhysicalDevice objects enumerated from
-  ///   pname:instance
-  /// * `instance` Optional: true
-  /// * `instance` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * Implicit Extern Sync: all [VkPhysicalDevice] objects enumerated from
+  ///   `instance`
+  /// * `instance`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyInstance: PFN_vkDestroyInstance,
+
   /// Khronos: [vkDestroySurfaceKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroySurfaceKHR.html)
-  /// * `surface` Optional: true
-  /// * `surface` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `instance`
+  /// * `surface`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroySurfaceKHR: PFN_vkDestroySurfaceKHR,
+
   /// Khronos: [vkEnumerateDeviceExtensionProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateDeviceExtensionProperties.html)
-  /// * `pLayerName` Optional: true
-  /// * `pPropertyCount` Optional: false,true
-  /// * `pProperties` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_LAYER_NOT_PRESENT`
+  /// * `physical_device`
+  /// * `layer_name`, Optional: true, Len: `null_terminated`
+  /// * `property_count`, Optional: false,true
+  /// * `properties`, Optional: true, Len: `property_count`
   pub EnumerateDeviceExtensionProperties: PFN_vkEnumerateDeviceExtensionProperties,
+
   /// Khronos: [vkEnumerateDeviceLayerProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateDeviceLayerProperties.html)
-  /// * `pPropertyCount` Optional: false,true
-  /// * `pProperties` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `physical_device`
+  /// * `property_count`, Optional: false,true
+  /// * `properties`, Optional: true, Len: `property_count`
   pub EnumerateDeviceLayerProperties: PFN_vkEnumerateDeviceLayerProperties,
+
   /// Khronos: [vkEnumeratePhysicalDeviceGroups](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumeratePhysicalDeviceGroups.html)
-  /// * `pPhysicalDeviceGroupCount` Optional: false,true
-  /// * `pPhysicalDeviceGroupProperties` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_INITIALIZATION_FAILED`
+  /// * `instance`
+  /// * `physical_device_group_count`, Optional: false,true
+  /// * `physical_device_group_properties`, Optional: true, Len:
+  ///   `physical_device_group_count`
   pub EnumeratePhysicalDeviceGroups: PFN_vkEnumeratePhysicalDeviceGroups,
+
   /// Khronos: [vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR.html)
-  /// * `pCounterCount` Optional: false,true
-  /// * `pCounters` Optional: true
-  /// * `pCounterDescriptions` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_INITIALIZATION_FAILED`
+  /// * `physical_device`
+  /// * `queue_family_index`
+  /// * `counter_count`, Optional: false,true
+  /// * `counters`, Optional: true, Len: `counter_count`
+  /// * `counter_descriptions`, Optional: true, Len: `counter_count`
   pub EnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR:
     PFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR,
+
   /// Khronos: [vkEnumeratePhysicalDevices](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumeratePhysicalDevices.html)
-  /// * `pPhysicalDeviceCount` Optional: false,true
-  /// * `pPhysicalDevices` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_INITIALIZATION_FAILED`
+  /// * `instance`
+  /// * `physical_device_count`, Optional: false,true
+  /// * `physical_devices`, Optional: true, Len: `physical_device_count`
   pub EnumeratePhysicalDevices: PFN_vkEnumeratePhysicalDevices,
+
   /// Khronos: [vkGetDisplayModeProperties2KHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDisplayModeProperties2KHR.html)
-  /// * `pPropertyCount` Optional: false,true
-  /// * `pProperties` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `physical_device`
+  /// * `display`
+  /// * `property_count`, Optional: false,true
+  /// * `properties`, Optional: true, Len: `property_count`
   pub GetDisplayModeProperties2KHR: PFN_vkGetDisplayModeProperties2KHR,
+
   /// Khronos: [vkGetDisplayModePropertiesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDisplayModePropertiesKHR.html)
-  /// * `pPropertyCount` Optional: false,true
-  /// * `pProperties` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `physical_device`
+  /// * `display`
+  /// * `property_count`, Optional: false,true
+  /// * `properties`, Optional: true, Len: `property_count`
   pub GetDisplayModePropertiesKHR: PFN_vkGetDisplayModePropertiesKHR,
+
   /// Khronos: [vkGetDisplayPlaneCapabilities2KHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDisplayPlaneCapabilities2KHR.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `physical_device`
+  /// * `display_plane_info`
+  /// * `capabilities`
   pub GetDisplayPlaneCapabilities2KHR: PFN_vkGetDisplayPlaneCapabilities2KHR,
+
   /// Khronos: [vkGetDisplayPlaneCapabilitiesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDisplayPlaneCapabilitiesKHR.html)
-  /// * `mode` Extern Sync: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `physical_device`
+  /// * `mode`, Extern Sync: true
+  /// * `plane_index`
+  /// * `capabilities`
   pub GetDisplayPlaneCapabilitiesKHR: PFN_vkGetDisplayPlaneCapabilitiesKHR,
+
   /// Khronos: [vkGetDisplayPlaneSupportedDisplaysKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDisplayPlaneSupportedDisplaysKHR.html)
-  /// * `pDisplayCount` Optional: false,true
-  /// * `pDisplays` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `physical_device`
+  /// * `plane_index`
+  /// * `display_count`, Optional: false,true
+  /// * `displays`, Optional: true, Len: `display_count`
   pub GetDisplayPlaneSupportedDisplaysKHR: PFN_vkGetDisplayPlaneSupportedDisplaysKHR,
+
   /// Khronos: [vkGetDrmDisplayEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDrmDisplayEXT.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_INITIALIZATION_FAILED`, `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `physical_device`
+  /// * `drm_fd`
+  /// * `connector_id`
+  /// * `display`
   pub GetDrmDisplayEXT: PFN_vkGetDrmDisplayEXT,
+
   /// Khronos: [vkGetInstanceProcAddr](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetInstanceProcAddr.html)
-  /// * `instance` Optional: true
+  /// * `instance`, Optional: true
+  /// * `name`, Len: `null_terminated`
   pub GetInstanceProcAddr: PFN_vkGetInstanceProcAddr,
+
   /// Khronos: [vkGetPhysicalDeviceCalibrateableTimeDomainsEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceCalibrateableTimeDomainsEXT.html)
-  /// * `pTimeDomainCount` Optional: false,true
-  /// * `pTimeDomains` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `physical_device`
+  /// * `time_domain_count`, Optional: false,true
+  /// * `time_domains`, Optional: true, Len: `time_domain_count`
   pub GetPhysicalDeviceCalibrateableTimeDomainsEXT:
     PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsEXT,
+
   /// Khronos: [vkGetPhysicalDeviceCooperativeMatrixPropertiesNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceCooperativeMatrixPropertiesNV.html)
-  /// * `pPropertyCount` Optional: false,true
-  /// * `pProperties` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `physical_device`
+  /// * `property_count`, Optional: false,true
+  /// * `properties`, Optional: true, Len: `property_count`
   pub GetPhysicalDeviceCooperativeMatrixPropertiesNV:
     PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesNV,
+
   /// Khronos: [vkGetPhysicalDeviceDirectFBPresentationSupportEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceDirectFBPresentationSupportEXT.html)
+  /// * `physical_device`
+  /// * `queue_family_index`
+  /// * `dfb`
   pub GetPhysicalDeviceDirectFBPresentationSupportEXT:
     PFN_vkGetPhysicalDeviceDirectFBPresentationSupportEXT,
+
   /// Khronos: [vkGetPhysicalDeviceDisplayPlaneProperties2KHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceDisplayPlaneProperties2KHR.html)
-  /// * `pPropertyCount` Optional: false,true
-  /// * `pProperties` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `physical_device`
+  /// * `property_count`, Optional: false,true
+  /// * `properties`, Optional: true, Len: `property_count`
   pub GetPhysicalDeviceDisplayPlaneProperties2KHR:
     PFN_vkGetPhysicalDeviceDisplayPlaneProperties2KHR,
+
   /// Khronos: [vkGetPhysicalDeviceDisplayPlanePropertiesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceDisplayPlanePropertiesKHR.html)
-  /// * `pPropertyCount` Optional: false,true
-  /// * `pProperties` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `physical_device`
+  /// * `property_count`, Optional: false,true
+  /// * `properties`, Optional: true, Len: `property_count`
   pub GetPhysicalDeviceDisplayPlanePropertiesKHR:
     PFN_vkGetPhysicalDeviceDisplayPlanePropertiesKHR,
+
   /// Khronos: [vkGetPhysicalDeviceDisplayProperties2KHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceDisplayProperties2KHR.html)
-  /// * `pPropertyCount` Optional: false,true
-  /// * `pProperties` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `physical_device`
+  /// * `property_count`, Optional: false,true
+  /// * `properties`, Optional: true, Len: `property_count`
   pub GetPhysicalDeviceDisplayProperties2KHR:
     PFN_vkGetPhysicalDeviceDisplayProperties2KHR,
+
   /// Khronos: [vkGetPhysicalDeviceDisplayPropertiesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceDisplayPropertiesKHR.html)
-  /// * `pPropertyCount` Optional: false,true
-  /// * `pProperties` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `physical_device`
+  /// * `property_count`, Optional: false,true
+  /// * `properties`, Optional: true, Len: `property_count`
   pub GetPhysicalDeviceDisplayPropertiesKHR: PFN_vkGetPhysicalDeviceDisplayPropertiesKHR,
+
   /// Khronos: [vkGetPhysicalDeviceExternalBufferProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceExternalBufferProperties.html)
+  /// * `physical_device`
+  /// * `external_buffer_info`
+  /// * `external_buffer_properties`
   pub GetPhysicalDeviceExternalBufferProperties:
     PFN_vkGetPhysicalDeviceExternalBufferProperties,
+
   /// Khronos: [vkGetPhysicalDeviceExternalFenceProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceExternalFenceProperties.html)
+  /// * `physical_device`
+  /// * `external_fence_info`
+  /// * `external_fence_properties`
   pub GetPhysicalDeviceExternalFenceProperties:
     PFN_vkGetPhysicalDeviceExternalFenceProperties,
+
   /// Khronos: [vkGetPhysicalDeviceExternalImageFormatPropertiesNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceExternalImageFormatPropertiesNV.html)
-  /// * `flags` Optional: true
-  /// * `externalHandleType` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_FORMAT_NOT_SUPPORTED`
+  /// * `physical_device`
+  /// * `format`
+  /// * `ty`
+  /// * `tiling`
+  /// * `usage`
+  /// * `flags`, Optional: true
+  /// * `external_handle_type`, Optional: true
+  /// * `external_image_format_properties`
   pub GetPhysicalDeviceExternalImageFormatPropertiesNV:
     PFN_vkGetPhysicalDeviceExternalImageFormatPropertiesNV,
+
   /// Khronos: [vkGetPhysicalDeviceExternalSemaphoreProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceExternalSemaphoreProperties.html)
+  /// * `physical_device`
+  /// * `external_semaphore_info`
+  /// * `external_semaphore_properties`
   pub GetPhysicalDeviceExternalSemaphoreProperties:
     PFN_vkGetPhysicalDeviceExternalSemaphoreProperties,
+
   /// Khronos: [vkGetPhysicalDeviceFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceFeatures.html)
+  /// * `physical_device`
+  /// * `features`
   pub GetPhysicalDeviceFeatures: PFN_vkGetPhysicalDeviceFeatures,
+
   /// Khronos: [vkGetPhysicalDeviceFeatures2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceFeatures2.html)
+  /// * `physical_device`
+  /// * `features`
   pub GetPhysicalDeviceFeatures2: PFN_vkGetPhysicalDeviceFeatures2,
+
   /// Khronos: [vkGetPhysicalDeviceFormatProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceFormatProperties.html)
+  /// * `physical_device`
+  /// * `format`
+  /// * `format_properties`
   pub GetPhysicalDeviceFormatProperties: PFN_vkGetPhysicalDeviceFormatProperties,
+
   /// Khronos: [vkGetPhysicalDeviceFormatProperties2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceFormatProperties2.html)
+  /// * `physical_device`
+  /// * `format`
+  /// * `format_properties`
   pub GetPhysicalDeviceFormatProperties2: PFN_vkGetPhysicalDeviceFormatProperties2,
+
   /// Khronos: [vkGetPhysicalDeviceFragmentShadingRatesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceFragmentShadingRatesKHR.html)
-  /// * `pFragmentShadingRateCount` Optional: false,true
-  /// * `pFragmentShadingRates` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `physical_device`
+  /// * `fragment_shading_rate_count`, Optional: false,true
+  /// * `fragment_shading_rates`, Optional: true, Len:
+  ///   `fragment_shading_rate_count`
   pub GetPhysicalDeviceFragmentShadingRatesKHR:
     PFN_vkGetPhysicalDeviceFragmentShadingRatesKHR,
+
   /// Khronos: [vkGetPhysicalDeviceImageFormatProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceImageFormatProperties.html)
-  /// * `flags` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_FORMAT_NOT_SUPPORTED`
+  /// * `physical_device`
+  /// * `format`
+  /// * `ty`
+  /// * `tiling`
+  /// * `usage`
+  /// * `flags`, Optional: true
+  /// * `image_format_properties`
   pub GetPhysicalDeviceImageFormatProperties:
     PFN_vkGetPhysicalDeviceImageFormatProperties,
+
   /// Khronos: [vkGetPhysicalDeviceImageFormatProperties2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceImageFormatProperties2.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_FORMAT_NOT_SUPPORTED`,
+  ///   `VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR`,
+  ///   `VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR`,
+  ///   `VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR`,
+  ///   `VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR`,
+  ///   `VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR`
+  /// * `physical_device`
+  /// * `image_format_info`
+  /// * `image_format_properties`
   pub GetPhysicalDeviceImageFormatProperties2:
     PFN_vkGetPhysicalDeviceImageFormatProperties2,
+
   /// Khronos: [vkGetPhysicalDeviceMemoryProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceMemoryProperties.html)
+  /// * `physical_device`
+  /// * `memory_properties`
   pub GetPhysicalDeviceMemoryProperties: PFN_vkGetPhysicalDeviceMemoryProperties,
+
   /// Khronos: [vkGetPhysicalDeviceMemoryProperties2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceMemoryProperties2.html)
+  /// * `physical_device`
+  /// * `memory_properties`
   pub GetPhysicalDeviceMemoryProperties2: PFN_vkGetPhysicalDeviceMemoryProperties2,
+
   /// Khronos: [vkGetPhysicalDeviceMultisamplePropertiesEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceMultisamplePropertiesEXT.html)
+  /// * `physical_device`
+  /// * `samples`
+  /// * `multisample_properties`
   pub GetPhysicalDeviceMultisamplePropertiesEXT:
     PFN_vkGetPhysicalDeviceMultisamplePropertiesEXT,
+
   /// Khronos: [vkGetPhysicalDeviceOpticalFlowImageFormatsNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceOpticalFlowImageFormatsNV.html)
-  /// * `pFormatCount` Optional: false,true
-  /// * `pImageFormatProperties` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_EXTENSION_NOT_PRESENT`,
+  ///   `VK_ERROR_INITIALIZATION_FAILED`, `VK_ERROR_FORMAT_NOT_SUPPORTED`
+  /// * `physical_device`
+  /// * `optical_flow_image_format_info`
+  /// * `format_count`, Optional: false,true
+  /// * `image_format_properties`, Optional: true, Len: `format_count`
   pub GetPhysicalDeviceOpticalFlowImageFormatsNV:
     PFN_vkGetPhysicalDeviceOpticalFlowImageFormatsNV,
+
   /// Khronos: [vkGetPhysicalDevicePresentRectanglesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDevicePresentRectanglesKHR.html)
-  /// * `surface` Extern Sync: true
-  /// * `pRectCount` Optional: false,true
-  /// * `pRects` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `physical_device`
+  /// * `surface`, Extern Sync: true
+  /// * `rect_count`, Optional: false,true
+  /// * `rects`, Optional: true, Len: `rect_count`
   pub GetPhysicalDevicePresentRectanglesKHR: PFN_vkGetPhysicalDevicePresentRectanglesKHR,
+
   /// Khronos: [vkGetPhysicalDeviceProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceProperties.html)
+  /// * `physical_device`
+  /// * `properties`
   pub GetPhysicalDeviceProperties: PFN_vkGetPhysicalDeviceProperties,
+
   /// Khronos: [vkGetPhysicalDeviceProperties2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceProperties2.html)
+  /// * `physical_device`
+  /// * `properties`
   pub GetPhysicalDeviceProperties2: PFN_vkGetPhysicalDeviceProperties2,
+
   /// Khronos: [vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR.html)
+  /// * `physical_device`
+  /// * `performance_query_create_info`
+  /// * `num_passes`
   pub GetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR:
     PFN_vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR,
+
   /// Khronos: [vkGetPhysicalDeviceQueueFamilyProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceQueueFamilyProperties.html)
-  /// * `pQueueFamilyPropertyCount` Optional: false,true
-  /// * `pQueueFamilyProperties` Optional: true
+  /// * `physical_device`
+  /// * `queue_family_property_count`, Optional: false,true
+  /// * `queue_family_properties`, Optional: true, Len:
+  ///   `queue_family_property_count`
   pub GetPhysicalDeviceQueueFamilyProperties:
     PFN_vkGetPhysicalDeviceQueueFamilyProperties,
+
   /// Khronos: [vkGetPhysicalDeviceQueueFamilyProperties2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceQueueFamilyProperties2.html)
-  /// * `pQueueFamilyPropertyCount` Optional: false,true
-  /// * `pQueueFamilyProperties` Optional: true
+  /// * `physical_device`
+  /// * `queue_family_property_count`, Optional: false,true
+  /// * `queue_family_properties`, Optional: true, Len:
+  ///   `queue_family_property_count`
   pub GetPhysicalDeviceQueueFamilyProperties2:
     PFN_vkGetPhysicalDeviceQueueFamilyProperties2,
+
   /// Khronos: [vkGetPhysicalDeviceRefreshableObjectTypesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceRefreshableObjectTypesKHR.html)
-  /// * `pRefreshableObjectTypeCount` Optional: false,true
-  /// * `pRefreshableObjectTypes` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * `physical_device`
+  /// * `refreshable_object_type_count`, Optional: false,true
+  /// * `refreshable_object_types`, Optional: true, Len:
+  ///   `refreshable_object_type_count`
   pub GetPhysicalDeviceRefreshableObjectTypesKHR:
     PFN_vkGetPhysicalDeviceRefreshableObjectTypesKHR,
+
   /// Khronos: [vkGetPhysicalDeviceScreenPresentationSupportQNX](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceScreenPresentationSupportQNX.html)
+  /// * `physical_device`
+  /// * `queue_family_index`
+  /// * `window`
   pub GetPhysicalDeviceScreenPresentationSupportQNX:
     PFN_vkGetPhysicalDeviceScreenPresentationSupportQNX,
+
   /// Khronos: [vkGetPhysicalDeviceSparseImageFormatProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSparseImageFormatProperties.html)
-  /// * `pPropertyCount` Optional: false,true
-  /// * `pProperties` Optional: true
+  /// * `physical_device`
+  /// * `format`
+  /// * `ty`
+  /// * `samples`
+  /// * `usage`
+  /// * `tiling`
+  /// * `property_count`, Optional: false,true
+  /// * `properties`, Optional: true, Len: `property_count`
   pub GetPhysicalDeviceSparseImageFormatProperties:
     PFN_vkGetPhysicalDeviceSparseImageFormatProperties,
+
   /// Khronos: [vkGetPhysicalDeviceSparseImageFormatProperties2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSparseImageFormatProperties2.html)
-  /// * `pPropertyCount` Optional: false,true
-  /// * `pProperties` Optional: true
+  /// * `physical_device`
+  /// * `format_info`
+  /// * `property_count`, Optional: false,true
+  /// * `properties`, Optional: true, Len: `property_count`
   pub GetPhysicalDeviceSparseImageFormatProperties2:
     PFN_vkGetPhysicalDeviceSparseImageFormatProperties2,
+
   /// Khronos: [vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV.html)
-  /// * `pCombinationCount` Optional: false,true
-  /// * `pCombinations` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `physical_device`
+  /// * `combination_count`, Optional: false,true
+  /// * `combinations`, Optional: true, Len: `combination_count`
   pub GetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV:
     PFN_vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV,
+
   /// Khronos: [vkGetPhysicalDeviceSurfaceCapabilities2EXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilities2EXT.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_SURFACE_LOST_KHR`
+  /// * `physical_device`
+  /// * `surface`
+  /// * `surface_capabilities`
   pub GetPhysicalDeviceSurfaceCapabilities2EXT:
     PFN_vkGetPhysicalDeviceSurfaceCapabilities2EXT,
+
   /// Khronos: [vkGetPhysicalDeviceSurfaceCapabilities2KHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilities2KHR.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_SURFACE_LOST_KHR`
+  /// * `physical_device`
+  /// * `surface_info`
+  /// * `surface_capabilities`
   pub GetPhysicalDeviceSurfaceCapabilities2KHR:
     PFN_vkGetPhysicalDeviceSurfaceCapabilities2KHR,
+
   /// Khronos: [vkGetPhysicalDeviceSurfaceCapabilitiesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_SURFACE_LOST_KHR`
+  /// * `physical_device`
+  /// * `surface`
+  /// * `surface_capabilities`
   pub GetPhysicalDeviceSurfaceCapabilitiesKHR:
     PFN_vkGetPhysicalDeviceSurfaceCapabilitiesKHR,
+
   /// Khronos: [vkGetPhysicalDeviceSurfaceFormats2KHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceFormats2KHR.html)
-  /// * `pSurfaceFormatCount` Optional: false,true
-  /// * `pSurfaceFormats` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_SURFACE_LOST_KHR`
+  /// * `physical_device`
+  /// * `surface_info`
+  /// * `surface_format_count`, Optional: false,true
+  /// * `surface_formats`, Optional: true, Len: `surface_format_count`
   pub GetPhysicalDeviceSurfaceFormats2KHR: PFN_vkGetPhysicalDeviceSurfaceFormats2KHR,
+
   /// Khronos: [vkGetPhysicalDeviceSurfaceFormatsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceFormatsKHR.html)
-  /// * `surface` Optional: true
-  /// * `pSurfaceFormatCount` Optional: false,true
-  /// * `pSurfaceFormats` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_SURFACE_LOST_KHR`
+  /// * `physical_device`
+  /// * `surface`, Optional: true
+  /// * `surface_format_count`, Optional: false,true
+  /// * `surface_formats`, Optional: true, Len: `surface_format_count`
   pub GetPhysicalDeviceSurfaceFormatsKHR: PFN_vkGetPhysicalDeviceSurfaceFormatsKHR,
+
   /// Khronos: [vkGetPhysicalDeviceSurfacePresentModes2EXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfacePresentModes2EXT.html)
-  /// * `pPresentModeCount` Optional: false,true
-  /// * `pPresentModes` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_SURFACE_LOST_KHR`
+  /// * `physical_device`
+  /// * `surface_info`
+  /// * `present_mode_count`, Optional: false,true
+  /// * `present_modes`, Optional: true, Len: `present_mode_count`
   pub GetPhysicalDeviceSurfacePresentModes2EXT:
     PFN_vkGetPhysicalDeviceSurfacePresentModes2EXT,
+
   /// Khronos: [vkGetPhysicalDeviceSurfacePresentModesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfacePresentModesKHR.html)
-  /// * `surface` Optional: true
-  /// * `pPresentModeCount` Optional: false,true
-  /// * `pPresentModes` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_SURFACE_LOST_KHR`
+  /// * `physical_device`
+  /// * `surface`, Optional: true
+  /// * `present_mode_count`, Optional: false,true
+  /// * `present_modes`, Optional: true, Len: `present_mode_count`
   pub GetPhysicalDeviceSurfacePresentModesKHR:
     PFN_vkGetPhysicalDeviceSurfacePresentModesKHR,
+
   /// Khronos: [vkGetPhysicalDeviceSurfaceSupportKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceSupportKHR.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_SURFACE_LOST_KHR`
+  /// * `physical_device`
+  /// * `queue_family_index`
+  /// * `surface`
+  /// * `supported`
   pub GetPhysicalDeviceSurfaceSupportKHR: PFN_vkGetPhysicalDeviceSurfaceSupportKHR,
+
   /// Khronos: [vkGetPhysicalDeviceToolProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceToolProperties.html)
-  /// * `pToolCount` Optional: false,true
-  /// * `pToolProperties` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `physical_device`
+  /// * `tool_count`, Optional: false,true
+  /// * `tool_properties`, Optional: true, Len: `tool_count`
   pub GetPhysicalDeviceToolProperties: PFN_vkGetPhysicalDeviceToolProperties,
+
   /// Khronos: [vkGetPhysicalDeviceVideoCapabilitiesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceVideoCapabilitiesKHR.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR`,
+  ///   `VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR`,
+  ///   `VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR`,
+  ///   `VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR`
+  /// * `physical_device`
+  /// * `video_profile`
+  /// * `capabilities`
   pub GetPhysicalDeviceVideoCapabilitiesKHR: PFN_vkGetPhysicalDeviceVideoCapabilitiesKHR,
+
   /// Khronos: [vkGetPhysicalDeviceVideoFormatPropertiesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceVideoFormatPropertiesKHR.html)
-  /// * `pVideoFormatPropertyCount` Optional: false,true
-  /// * `pVideoFormatProperties` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR`,
+  ///   `VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR`,
+  ///   `VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR`,
+  ///   `VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR`,
+  ///   `VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR`
+  /// * `physical_device`
+  /// * `video_format_info`
+  /// * `video_format_property_count`, Optional: false,true
+  /// * `video_format_properties`, Optional: true, Len:
+  ///   `video_format_property_count`
   pub GetPhysicalDeviceVideoFormatPropertiesKHR:
     PFN_vkGetPhysicalDeviceVideoFormatPropertiesKHR,
+
   /// Khronos: [vkGetPhysicalDeviceWaylandPresentationSupportKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceWaylandPresentationSupportKHR.html)
+  /// * `physical_device`
+  /// * `queue_family_index`
+  /// * `display`
   pub GetPhysicalDeviceWaylandPresentationSupportKHR:
     PFN_vkGetPhysicalDeviceWaylandPresentationSupportKHR,
+
   /// Khronos: [vkGetPhysicalDeviceWin32PresentationSupportKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceWin32PresentationSupportKHR.html)
+  /// * `physical_device`
+  /// * `queue_family_index`
   pub GetPhysicalDeviceWin32PresentationSupportKHR:
     PFN_vkGetPhysicalDeviceWin32PresentationSupportKHR,
+
   /// Khronos: [vkGetPhysicalDeviceXcbPresentationSupportKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceXcbPresentationSupportKHR.html)
+  /// * `physical_device`
+  /// * `queue_family_index`
+  /// * `connection`
+  /// * `visual_id`
   pub GetPhysicalDeviceXcbPresentationSupportKHR:
     PFN_vkGetPhysicalDeviceXcbPresentationSupportKHR,
+
   /// Khronos: [vkGetPhysicalDeviceXlibPresentationSupportKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceXlibPresentationSupportKHR.html)
+  /// * `physical_device`
+  /// * `queue_family_index`
+  /// * `dpy`
+  /// * `visual_id`
   pub GetPhysicalDeviceXlibPresentationSupportKHR:
     PFN_vkGetPhysicalDeviceXlibPresentationSupportKHR,
+
   /// Khronos: [vkGetWinrtDisplayNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetWinrtDisplayNV.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_DEVICE_LOST`,
+  ///   `VK_ERROR_INITIALIZATION_FAILED`
+  /// * `physical_device`
+  /// * `device_relative_id`
+  /// * `display`
   pub GetWinrtDisplayNV: PFN_vkGetWinrtDisplayNV,
+
   /// Khronos: [vkReleaseDisplayEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkReleaseDisplayEXT.html)
+  /// * Success: `VK_SUCCESS`
+  /// * `physical_device`
+  /// * `display`
   pub ReleaseDisplayEXT: PFN_vkReleaseDisplayEXT,
+
   /// Khronos: [vkSubmitDebugUtilsMessageEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSubmitDebugUtilsMessageEXT.html)
+  /// * `instance`
+  /// * `message_severity`
+  /// * `message_types`
+  /// * `callback_data`
   pub SubmitDebugUtilsMessageEXT: PFN_vkSubmitDebugUtilsMessageEXT,
 }
 impl InstanceFns {
@@ -6496,794 +6962,4120 @@ impl InstanceFns {
   }
 }
 
-/// pointers for 254 fns.
+/// pointers for 447 fns.
 #[allow(dead_code)]
 #[derive(Clone, Copy)]
 #[repr(C)]
 pub(crate) struct DeviceFns {
   /// Khronos: [vkAcquireFullScreenExclusiveModeEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireFullScreenExclusiveModeEXT.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_INITIALIZATION_FAILED`, `VK_ERROR_SURFACE_LOST_KHR`
+  /// * `device`
+  /// * `swapchain`
   pub AcquireFullScreenExclusiveModeEXT: PFN_vkAcquireFullScreenExclusiveModeEXT,
+
   /// Khronos: [vkAcquireImageANDROID](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireImageANDROID.html)
+  /// * `device`
+  /// * `image`
+  /// * `native_fence_fd`
+  /// * `semaphore`
+  /// * `fence`
   pub AcquireImageANDROID: PFN_vkAcquireImageANDROID,
+
   /// Khronos: [vkAcquireNextImage2KHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireNextImage2KHR.html)
+  /// * Success: `VK_SUCCESS`, `VK_TIMEOUT`, `VK_NOT_READY`, `VK_SUBOPTIMAL_KHR`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_DEVICE_LOST`, `VK_ERROR_OUT_OF_DATE_KHR`,
+  ///   `VK_ERROR_SURFACE_LOST_KHR`,
+  ///   `VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT`
+  /// * `device`
+  /// * `acquire_info`
+  /// * `image_index`
   pub AcquireNextImage2KHR: PFN_vkAcquireNextImage2KHR,
+
   /// Khronos: [vkAcquireNextImageKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireNextImageKHR.html)
-  /// * `swapchain` Extern Sync: true
-  /// * `semaphore` Optional: true
-  /// * `semaphore` Extern Sync: true
-  /// * `fence` Optional: true
-  /// * `fence` Extern Sync: true
+  /// * Success: `VK_SUCCESS`, `VK_TIMEOUT`, `VK_NOT_READY`, `VK_SUBOPTIMAL_KHR`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_DEVICE_LOST`, `VK_ERROR_OUT_OF_DATE_KHR`,
+  ///   `VK_ERROR_SURFACE_LOST_KHR`,
+  ///   `VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT`
+  /// * `device`
+  /// * `swapchain`, Extern Sync: true
+  /// * `timeout`
+  /// * `semaphore`, Optional: true, Extern Sync: true
+  /// * `fence`, Optional: true, Extern Sync: true
+  /// * `image_index`
   pub AcquireNextImageKHR: PFN_vkAcquireNextImageKHR,
+
   /// Khronos: [vkAcquirePerformanceConfigurationINTEL](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquirePerformanceConfigurationINTEL.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_TOO_MANY_OBJECTS`, `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `device`
+  /// * `acquire_info`
+  /// * `configuration`
   pub AcquirePerformanceConfigurationINTEL: PFN_vkAcquirePerformanceConfigurationINTEL,
+
   /// Khronos: [vkAcquireProfilingLockKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireProfilingLockKHR.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_TIMEOUT`
+  /// * `device`
+  /// * `info`
   pub AcquireProfilingLockKHR: PFN_vkAcquireProfilingLockKHR,
+
   /// Khronos: [vkAllocateCommandBuffers](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAllocateCommandBuffers.html)
-  /// * `pAllocateInfo` Extern Sync: pAllocateInfo-&gt;commandPool
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `allocate_info`, Extern Sync: pAllocateInfo-&gt;commandPool
+  /// * `command_buffers`, Len: `allocate_info_&gt;command_buffer_count`
   pub AllocateCommandBuffers: PFN_vkAllocateCommandBuffers,
+
   /// Khronos: [vkAllocateDescriptorSets](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAllocateDescriptorSets.html)
-  /// * `pAllocateInfo` Extern Sync: pAllocateInfo-&gt;descriptorPool
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_FRAGMENTED_POOL`, `VK_ERROR_OUT_OF_POOL_MEMORY`
+  /// * `device`
+  /// * `allocate_info`, Extern Sync: pAllocateInfo-&gt;descriptorPool
+  /// * `descriptor_sets`, Len: `allocate_info_&gt;descriptor_set_count`
   pub AllocateDescriptorSets: PFN_vkAllocateDescriptorSets,
+
   /// Khronos: [vkAllocateMemory](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAllocateMemory.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_INVALID_EXTERNAL_HANDLE`,
+  ///   `VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
+  /// * `device`
+  /// * `allocate_info`
+  /// * `allocator`, Optional: true
+  /// * `memory`
   pub AllocateMemory: PFN_vkAllocateMemory,
+
+  /// Khronos: [vkBeginCommandBuffer](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBeginCommandBuffer.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * Implicit Extern Sync: the [VkCommandPool] that `commandBuffer` was
+  ///   allocated from
+  /// * `command_buffer`, Extern Sync: true
+  /// * `begin_info`
+  pub BeginCommandBuffer: PFN_vkBeginCommandBuffer,
+
   /// Khronos: [vkBindAccelerationStructureMemoryNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindAccelerationStructureMemoryNV.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `bind_info_count`
+  /// * `bind_infos`, Len: `bind_info_count`
   pub BindAccelerationStructureMemoryNV: PFN_vkBindAccelerationStructureMemoryNV,
+
   /// Khronos: [vkBindBufferMemory](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindBufferMemory.html)
-  /// * `buffer` Extern Sync: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
+  /// * `device`
+  /// * `buffer`, Extern Sync: true
+  /// * `memory`
+  /// * `memory_offset`
   pub BindBufferMemory: PFN_vkBindBufferMemory,
+
   /// Khronos: [vkBindBufferMemory2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindBufferMemory2.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
+  /// * `device`
+  /// * `bind_info_count`
+  /// * `bind_infos`, Len: `bind_info_count`
   pub BindBufferMemory2: PFN_vkBindBufferMemory2,
+
   /// Khronos: [vkBindImageMemory](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindImageMemory.html)
-  /// * `image` Extern Sync: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `image`, Extern Sync: true
+  /// * `memory`
+  /// * `memory_offset`
   pub BindImageMemory: PFN_vkBindImageMemory,
+
   /// Khronos: [vkBindImageMemory2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindImageMemory2.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `bind_info_count`
+  /// * `bind_infos`, Len: `bind_info_count`
   pub BindImageMemory2: PFN_vkBindImageMemory2,
+
   /// Khronos: [vkBindOpticalFlowSessionImageNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindOpticalFlowSessionImageNV.html)
-  /// * `view` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_INITIALIZATION_FAILED`
+  /// * `device`
+  /// * `session`
+  /// * `binding_point`
+  /// * `view`, Optional: true
+  /// * `layout`
   pub BindOpticalFlowSessionImageNV: PFN_vkBindOpticalFlowSessionImageNV,
+
   /// Khronos: [vkBindVideoSessionMemoryKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindVideoSessionMemoryKHR.html)
-  /// * `videoSession` Extern Sync: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `video_session`, Extern Sync: true
+  /// * `bind_session_memory_info_count`
+  /// * `bind_session_memory_infos`, Len: `bind_session_memory_info_count`
   pub BindVideoSessionMemoryKHR: PFN_vkBindVideoSessionMemoryKHR,
+
+  /// Khronos: [vkCmdBeginConditionalRenderingEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginConditionalRenderingEXT.html)
+  /// * Queues: graphics, compute
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action, state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `conditional_rendering_begin`
+  pub CmdBeginConditionalRenderingEXT: PFN_vkCmdBeginConditionalRenderingEXT,
+
+  /// Khronos: [vkCmdBeginDebugUtilsLabelEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginDebugUtilsLabelEXT.html)
+  /// * Queues: graphics, compute
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action, state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `label_info`
+  pub CmdBeginDebugUtilsLabelEXT: PFN_vkCmdBeginDebugUtilsLabelEXT,
+
+  /// Khronos: [vkCmdBeginQuery](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginQuery.html)
+  /// * Queues: graphics, compute, decode, encode
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action, state
+  /// * Video Coding: both
+  /// * `command_buffer`, Extern Sync: true
+  /// * `query_pool`
+  /// * `query`
+  /// * `flags`, Optional: true
+  pub CmdBeginQuery: PFN_vkCmdBeginQuery,
+
+  /// Khronos: [vkCmdBeginQueryIndexedEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginQueryIndexedEXT.html)
+  /// * Queues: graphics, compute, decode, encode
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action, state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `query_pool`
+  /// * `query`
+  /// * `flags`, Optional: true
+  /// * `index`
+  pub CmdBeginQueryIndexedEXT: PFN_vkCmdBeginQueryIndexedEXT,
+
+  /// Khronos: [vkCmdBeginRenderPass](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginRenderPass.html)
+  /// * Queues: graphics
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary
+  /// * Tasks: action, state, synchronization
+  /// * `command_buffer`, Extern Sync: true
+  /// * `render_pass_begin`
+  /// * `contents`
+  pub CmdBeginRenderPass: PFN_vkCmdBeginRenderPass,
+
+  /// Khronos: [vkCmdBeginRenderPass2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginRenderPass2.html)
+  /// * Queues: graphics
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary
+  /// * Tasks: action, state, synchronization
+  /// * `command_buffer`, Extern Sync: true
+  /// * `render_pass_begin`
+  /// * `subpass_begin_info`
+  pub CmdBeginRenderPass2: PFN_vkCmdBeginRenderPass2,
+
+  /// Khronos: [vkCmdBeginRendering](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginRendering.html)
+  /// * Queues: graphics
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action, state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `rendering_info`
+  pub CmdBeginRendering: PFN_vkCmdBeginRendering,
+
+  /// Khronos: [vkCmdBeginTransformFeedbackEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginTransformFeedbackEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: inside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `first_counter_buffer`
+  /// * `counter_buffer_count`, Optional: true
+  /// * `counter_buffers`, Len: `counter_buffer_count`, true
+  /// * `counter_buffer_offsets`, Optional: true, Len: `counter_buffer_count`
+  pub CmdBeginTransformFeedbackEXT: PFN_vkCmdBeginTransformFeedbackEXT,
+
+  /// Khronos: [vkCmdBeginVideoCodingKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginVideoCodingKHR.html)
+  /// * Queues: decode, encode
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary
+  /// * Tasks: action, state
+  /// * Video Coding: outside
+  /// * `command_buffer`, Extern Sync: true
+  /// * `begin_info`
+  pub CmdBeginVideoCodingKHR: PFN_vkCmdBeginVideoCodingKHR,
+
+  /// Khronos: [vkCmdBindDescriptorBufferEmbeddedSamplersEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindDescriptorBufferEmbeddedSamplersEXT.html)
+  /// * Queues: graphics, compute
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `pipeline_bind_point`
+  /// * `layout`
+  /// * `set`
+  pub CmdBindDescriptorBufferEmbeddedSamplersEXT:
+    PFN_vkCmdBindDescriptorBufferEmbeddedSamplersEXT,
+
+  /// Khronos: [vkCmdBindDescriptorBuffersEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindDescriptorBuffersEXT.html)
+  /// * Queues: graphics, compute
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `buffer_count`
+  /// * `binding_infos`, Len: `buffer_count`
+  pub CmdBindDescriptorBuffersEXT: PFN_vkCmdBindDescriptorBuffersEXT,
+
+  /// Khronos: [vkCmdBindDescriptorSets](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindDescriptorSets.html)
+  /// * Queues: graphics, compute
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `pipeline_bind_point`
+  /// * `layout`
+  /// * `first_set`
+  /// * `descriptor_set_count`
+  /// * `descriptor_sets`, Optional: false,true, Len: `descriptor_set_count`
+  /// * `dynamic_offset_count`, Optional: true
+  /// * `dynamic_offsets`, Len: `dynamic_offset_count`
+  pub CmdBindDescriptorSets: PFN_vkCmdBindDescriptorSets,
+
+  /// Khronos: [vkCmdBindIndexBuffer](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindIndexBuffer.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `buffer`
+  /// * `offset`
+  /// * `index_type`
+  pub CmdBindIndexBuffer: PFN_vkCmdBindIndexBuffer,
+
+  /// Khronos: [vkCmdBindInvocationMaskHUAWEI](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindInvocationMaskHUAWEI.html)
+  /// * Queues: compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `image_view`, Optional: true
+  /// * `image_layout`
+  pub CmdBindInvocationMaskHUAWEI: PFN_vkCmdBindInvocationMaskHUAWEI,
+
+  /// Khronos: [vkCmdBindPipeline](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindPipeline.html)
+  /// * Queues: graphics, compute
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `pipeline_bind_point`
+  /// * `pipeline`
+  pub CmdBindPipeline: PFN_vkCmdBindPipeline,
+
+  /// Khronos: [vkCmdBindPipelineShaderGroupNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindPipelineShaderGroupNV.html)
+  /// * Queues: graphics, compute
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `pipeline_bind_point`
+  /// * `pipeline`
+  /// * `group_index`
+  pub CmdBindPipelineShaderGroupNV: PFN_vkCmdBindPipelineShaderGroupNV,
+
+  /// Khronos: [vkCmdBindShadingRateImageNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindShadingRateImageNV.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `image_view`, Optional: true
+  /// * `image_layout`
+  pub CmdBindShadingRateImageNV: PFN_vkCmdBindShadingRateImageNV,
+
+  /// Khronos: [vkCmdBindTransformFeedbackBuffersEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindTransformFeedbackBuffersEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `first_binding`
+  /// * `binding_count`
+  /// * `buffers`, Len: `binding_count`
+  /// * `offsets`, Len: `binding_count`
+  /// * `sizes`, Optional: true, Len: `binding_count`, true
+  pub CmdBindTransformFeedbackBuffersEXT: PFN_vkCmdBindTransformFeedbackBuffersEXT,
+
+  /// Khronos: [vkCmdBindVertexBuffers](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindVertexBuffers.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `first_binding`
+  /// * `binding_count`
+  /// * `buffers`, Optional: false,true, Len: `binding_count`
+  /// * `offsets`, Len: `binding_count`
+  pub CmdBindVertexBuffers: PFN_vkCmdBindVertexBuffers,
+
+  /// Khronos: [vkCmdBindVertexBuffers2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindVertexBuffers2.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `first_binding`
+  /// * `binding_count`
+  /// * `buffers`, Optional: false,true, Len: `binding_count`
+  /// * `offsets`, Len: `binding_count`
+  /// * `sizes`, Optional: true, Len: `binding_count`
+  /// * `strides`, Optional: true, Len: `binding_count`
+  pub CmdBindVertexBuffers2: PFN_vkCmdBindVertexBuffers2,
+
+  /// Khronos: [vkCmdBlitImage](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBlitImage.html)
+  /// * Queues: graphics
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `src_image`
+  /// * `src_image_layout`
+  /// * `dst_image`
+  /// * `dst_image_layout`
+  /// * `region_count`
+  /// * `regions`, Len: `region_count`
+  /// * `filter`
+  pub CmdBlitImage: PFN_vkCmdBlitImage,
+
+  /// Khronos: [vkCmdBlitImage2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBlitImage2.html)
+  /// * Queues: graphics
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `blit_image_info`
+  pub CmdBlitImage2: PFN_vkCmdBlitImage2,
+
+  /// Khronos: [vkCmdBuildAccelerationStructureNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBuildAccelerationStructureNV.html)
+  /// * Queues: compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `info`
+  /// * `instance_data`, Optional: true
+  /// * `instance_offset`
+  /// * `update`
+  /// * `dst`
+  /// * `src`, Optional: true
+  /// * `scratch`
+  /// * `scratch_offset`
+  pub CmdBuildAccelerationStructureNV: PFN_vkCmdBuildAccelerationStructureNV,
+
+  /// Khronos: [vkCmdClearAttachments](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdClearAttachments.html)
+  /// * Queues: graphics
+  /// * Render Pass: inside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `attachment_count`
+  /// * `attachments`, Len: `attachment_count`
+  /// * `rect_count`
+  /// * `rects`, Len: `rect_count`
+  pub CmdClearAttachments: PFN_vkCmdClearAttachments,
+
+  /// Khronos: [vkCmdClearColorImage](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdClearColorImage.html)
+  /// * Queues: graphics, compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `image`
+  /// * `image_layout`
+  /// * `color`, true
+  /// * `range_count`
+  /// * `ranges`, Len: `range_count`
+  pub CmdClearColorImage: PFN_vkCmdClearColorImage,
+
+  /// Khronos: [vkCmdClearDepthStencilImage](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdClearDepthStencilImage.html)
+  /// * Queues: graphics
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `image`
+  /// * `image_layout`
+  /// * `depth_stencil`
+  /// * `range_count`
+  /// * `ranges`, Len: `range_count`
+  pub CmdClearDepthStencilImage: PFN_vkCmdClearDepthStencilImage,
+
+  /// Khronos: [vkCmdControlVideoCodingKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdControlVideoCodingKHR.html)
+  /// * Queues: decode, encode
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary
+  /// * Tasks: action
+  /// * Video Coding: inside
+  /// * `command_buffer`, Extern Sync: true
+  /// * `coding_control_info`
+  pub CmdControlVideoCodingKHR: PFN_vkCmdControlVideoCodingKHR,
+
+  /// Khronos: [vkCmdCopyAccelerationStructureKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyAccelerationStructureKHR.html)
+  /// * Queues: compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `info`
+  pub CmdCopyAccelerationStructureKHR: PFN_vkCmdCopyAccelerationStructureKHR,
+
+  /// Khronos: [vkCmdCopyAccelerationStructureNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyAccelerationStructureNV.html)
+  /// * Queues: compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `dst`
+  /// * `src`
+  /// * `mode`
+  pub CmdCopyAccelerationStructureNV: PFN_vkCmdCopyAccelerationStructureNV,
+
+  /// Khronos: [vkCmdCopyBuffer](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyBuffer.html)
+  /// * Queues: transfer, graphics, compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `src_buffer`
+  /// * `dst_buffer`
+  /// * `region_count`
+  /// * `regions`, Len: `region_count`
+  pub CmdCopyBuffer: PFN_vkCmdCopyBuffer,
+
+  /// Khronos: [vkCmdCopyBuffer2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyBuffer2.html)
+  /// * Queues: transfer, graphics, compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `copy_buffer_info`
+  pub CmdCopyBuffer2: PFN_vkCmdCopyBuffer2,
+
+  /// Khronos: [vkCmdCopyBufferToImage](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyBufferToImage.html)
+  /// * Queues: transfer, graphics, compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `src_buffer`
+  /// * `dst_image`
+  /// * `dst_image_layout`
+  /// * `region_count`
+  /// * `regions`, Len: `region_count`
+  pub CmdCopyBufferToImage: PFN_vkCmdCopyBufferToImage,
+
+  /// Khronos: [vkCmdCopyBufferToImage2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyBufferToImage2.html)
+  /// * Queues: transfer, graphics, compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `copy_buffer_to_image_info`
+  pub CmdCopyBufferToImage2: PFN_vkCmdCopyBufferToImage2,
+
+  /// Khronos: [vkCmdCopyImage](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyImage.html)
+  /// * Queues: transfer, graphics, compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `src_image`
+  /// * `src_image_layout`
+  /// * `dst_image`
+  /// * `dst_image_layout`
+  /// * `region_count`
+  /// * `regions`, Len: `region_count`
+  pub CmdCopyImage: PFN_vkCmdCopyImage,
+
+  /// Khronos: [vkCmdCopyImage2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyImage2.html)
+  /// * Queues: transfer, graphics, compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `copy_image_info`
+  pub CmdCopyImage2: PFN_vkCmdCopyImage2,
+
+  /// Khronos: [vkCmdCopyImageToBuffer](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyImageToBuffer.html)
+  /// * Queues: transfer, graphics, compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `src_image`
+  /// * `src_image_layout`
+  /// * `dst_buffer`
+  /// * `region_count`
+  /// * `regions`, Len: `region_count`
+  pub CmdCopyImageToBuffer: PFN_vkCmdCopyImageToBuffer,
+
+  /// Khronos: [vkCmdCopyImageToBuffer2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyImageToBuffer2.html)
+  /// * Queues: transfer, graphics, compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `copy_image_to_buffer_info`
+  pub CmdCopyImageToBuffer2: PFN_vkCmdCopyImageToBuffer2,
+
+  /// Khronos: [vkCmdCopyMemoryIndirectNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyMemoryIndirectNV.html)
+  /// * Queues: transfer, graphics, compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `copy_buffer_address`
+  /// * `copy_count`
+  /// * `stride`
+  pub CmdCopyMemoryIndirectNV: PFN_vkCmdCopyMemoryIndirectNV,
+
+  /// Khronos: [vkCmdCopyMemoryToImageIndirectNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyMemoryToImageIndirectNV.html)
+  /// * Queues: transfer, graphics, compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `copy_buffer_address`
+  /// * `copy_count`
+  /// * `stride`
+  /// * `dst_image`
+  /// * `dst_image_layout`
+  /// * `image_subresources`, Len: `copy_count`
+  pub CmdCopyMemoryToImageIndirectNV: PFN_vkCmdCopyMemoryToImageIndirectNV,
+
+  /// Khronos: [vkCmdCopyMicromapEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyMicromapEXT.html)
+  /// * Queues: compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `info`
+  pub CmdCopyMicromapEXT: PFN_vkCmdCopyMicromapEXT,
+
+  /// Khronos: [vkCmdCopyQueryPoolResults](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyQueryPoolResults.html)
+  /// * Queues: graphics, compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `query_pool`
+  /// * `first_query`
+  /// * `query_count`
+  /// * `dst_buffer`
+  /// * `dst_offset`
+  /// * `stride`
+  /// * `flags`, Optional: true
+  pub CmdCopyQueryPoolResults: PFN_vkCmdCopyQueryPoolResults,
+
+  /// Khronos: [vkCmdCuLaunchKernelNVX](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCuLaunchKernelNVX.html)
+  /// * Queues: graphics, compute
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`
+  /// * `launch_info`
+  pub CmdCuLaunchKernelNVX: PFN_vkCmdCuLaunchKernelNVX,
+
+  /// Khronos: [vkCmdDebugMarkerBeginEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDebugMarkerBeginEXT.html)
+  /// * Queues: graphics, compute
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `marker_info`
+  pub CmdDebugMarkerBeginEXT: PFN_vkCmdDebugMarkerBeginEXT,
+
+  /// Khronos: [vkCmdDebugMarkerEndEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDebugMarkerEndEXT.html)
+  /// * Queues: graphics, compute
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  pub CmdDebugMarkerEndEXT: PFN_vkCmdDebugMarkerEndEXT,
+
+  /// Khronos: [vkCmdDebugMarkerInsertEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDebugMarkerInsertEXT.html)
+  /// * Queues: graphics, compute
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `marker_info`
+  pub CmdDebugMarkerInsertEXT: PFN_vkCmdDebugMarkerInsertEXT,
+
+  /// Khronos: [vkCmdDecodeVideoKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDecodeVideoKHR.html)
+  /// * Queues: decode
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary
+  /// * Tasks: action
+  /// * Video Coding: inside
+  /// * `command_buffer`, Extern Sync: true
+  /// * `decode_info`
+  pub CmdDecodeVideoKHR: PFN_vkCmdDecodeVideoKHR,
+
+  /// Khronos: [vkCmdDecompressMemoryIndirectCountNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDecompressMemoryIndirectCountNV.html)
+  /// * Queues: graphics, compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `indirect_commands_address`
+  /// * `indirect_commands_count_address`
+  /// * `stride`
+  pub CmdDecompressMemoryIndirectCountNV: PFN_vkCmdDecompressMemoryIndirectCountNV,
+
+  /// Khronos: [vkCmdDecompressMemoryNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDecompressMemoryNV.html)
+  /// * Queues: graphics, compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `decompress_region_count`
+  /// * `decompress_memory_regions`, Len: `decompress_region_count`
+  pub CmdDecompressMemoryNV: PFN_vkCmdDecompressMemoryNV,
+
+  /// Khronos: [vkCmdDispatch](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDispatch.html)
+  /// * Queues: compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `group_count_x`
+  /// * `group_count_y`
+  /// * `group_count_z`
+  pub CmdDispatch: PFN_vkCmdDispatch,
+
+  /// Khronos: [vkCmdDispatchBase](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDispatchBase.html)
+  /// * Queues: compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `base_group_x`
+  /// * `base_group_y`
+  /// * `base_group_z`
+  /// * `group_count_x`
+  /// * `group_count_y`
+  /// * `group_count_z`
+  pub CmdDispatchBase: PFN_vkCmdDispatchBase,
+
+  /// Khronos: [vkCmdDispatchIndirect](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDispatchIndirect.html)
+  /// * Queues: compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `buffer`
+  /// * `offset`
+  pub CmdDispatchIndirect: PFN_vkCmdDispatchIndirect,
+
+  /// Khronos: [vkCmdDraw](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDraw.html)
+  /// * Queues: graphics
+  /// * Render Pass: inside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `vertex_count`
+  /// * `instance_count`
+  /// * `first_vertex`
+  /// * `first_instance`
+  pub CmdDraw: PFN_vkCmdDraw,
+
+  /// Khronos: [vkCmdDrawClusterHUAWEI](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawClusterHUAWEI.html)
+  /// * Queues: graphics
+  /// * Render Pass: inside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `group_count_x`
+  /// * `group_count_y`
+  /// * `group_count_z`
+  pub CmdDrawClusterHUAWEI: PFN_vkCmdDrawClusterHUAWEI,
+
+  /// Khronos: [vkCmdDrawClusterIndirectHUAWEI](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawClusterIndirectHUAWEI.html)
+  /// * Queues: graphics
+  /// * Render Pass: inside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `buffer`
+  /// * `offset`
+  pub CmdDrawClusterIndirectHUAWEI: PFN_vkCmdDrawClusterIndirectHUAWEI,
+
+  /// Khronos: [vkCmdDrawIndexed](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndexed.html)
+  /// * Queues: graphics
+  /// * Render Pass: inside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `index_count`
+  /// * `instance_count`
+  /// * `first_index`
+  /// * `vertex_offset`
+  /// * `first_instance`
+  pub CmdDrawIndexed: PFN_vkCmdDrawIndexed,
+
+  /// Khronos: [vkCmdDrawIndexedIndirect](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndexedIndirect.html)
+  /// * Queues: graphics
+  /// * Render Pass: inside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `buffer`
+  /// * `offset`
+  /// * `draw_count`
+  /// * `stride`
+  pub CmdDrawIndexedIndirect: PFN_vkCmdDrawIndexedIndirect,
+
+  /// Khronos: [vkCmdDrawIndexedIndirectCount](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndexedIndirectCount.html)
+  /// * Queues: graphics
+  /// * Render Pass: inside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `buffer`
+  /// * `offset`
+  /// * `count_buffer`
+  /// * `count_buffer_offset`
+  /// * `max_draw_count`
+  /// * `stride`
+  pub CmdDrawIndexedIndirectCount: PFN_vkCmdDrawIndexedIndirectCount,
+
+  /// Khronos: [vkCmdDrawIndirect](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndirect.html)
+  /// * Queues: graphics
+  /// * Render Pass: inside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `buffer`
+  /// * `offset`
+  /// * `draw_count`
+  /// * `stride`
+  pub CmdDrawIndirect: PFN_vkCmdDrawIndirect,
+
+  /// Khronos: [vkCmdDrawIndirectByteCountEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndirectByteCountEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: inside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `instance_count`
+  /// * `first_instance`
+  /// * `counter_buffer`
+  /// * `counter_buffer_offset`
+  /// * `counter_offset`
+  /// * `vertex_stride`
+  pub CmdDrawIndirectByteCountEXT: PFN_vkCmdDrawIndirectByteCountEXT,
+
+  /// Khronos: [vkCmdDrawIndirectCount](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndirectCount.html)
+  /// * Queues: graphics
+  /// * Render Pass: inside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `buffer`
+  /// * `offset`
+  /// * `count_buffer`
+  /// * `count_buffer_offset`
+  /// * `max_draw_count`
+  /// * `stride`
+  pub CmdDrawIndirectCount: PFN_vkCmdDrawIndirectCount,
+
+  /// Khronos: [vkCmdDrawMeshTasksEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMeshTasksEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: inside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `group_count_x`
+  /// * `group_count_y`
+  /// * `group_count_z`
+  pub CmdDrawMeshTasksEXT: PFN_vkCmdDrawMeshTasksEXT,
+
+  /// Khronos: [vkCmdDrawMeshTasksIndirectCountEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMeshTasksIndirectCountEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: inside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `buffer`
+  /// * `offset`
+  /// * `count_buffer`
+  /// * `count_buffer_offset`
+  /// * `max_draw_count`
+  /// * `stride`
+  pub CmdDrawMeshTasksIndirectCountEXT: PFN_vkCmdDrawMeshTasksIndirectCountEXT,
+
+  /// Khronos: [vkCmdDrawMeshTasksIndirectCountNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMeshTasksIndirectCountNV.html)
+  /// * Queues: graphics
+  /// * Render Pass: inside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `buffer`
+  /// * `offset`
+  /// * `count_buffer`
+  /// * `count_buffer_offset`
+  /// * `max_draw_count`
+  /// * `stride`
+  pub CmdDrawMeshTasksIndirectCountNV: PFN_vkCmdDrawMeshTasksIndirectCountNV,
+
+  /// Khronos: [vkCmdDrawMeshTasksIndirectEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMeshTasksIndirectEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: inside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `buffer`
+  /// * `offset`
+  /// * `draw_count`
+  /// * `stride`
+  pub CmdDrawMeshTasksIndirectEXT: PFN_vkCmdDrawMeshTasksIndirectEXT,
+
+  /// Khronos: [vkCmdDrawMeshTasksIndirectNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMeshTasksIndirectNV.html)
+  /// * Queues: graphics
+  /// * Render Pass: inside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `buffer`
+  /// * `offset`
+  /// * `draw_count`
+  /// * `stride`
+  pub CmdDrawMeshTasksIndirectNV: PFN_vkCmdDrawMeshTasksIndirectNV,
+
+  /// Khronos: [vkCmdDrawMeshTasksNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMeshTasksNV.html)
+  /// * Queues: graphics
+  /// * Render Pass: inside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `task_count`
+  /// * `first_task`
+  pub CmdDrawMeshTasksNV: PFN_vkCmdDrawMeshTasksNV,
+
+  /// Khronos: [vkCmdDrawMultiEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMultiEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: inside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `draw_count`, Optional: true
+  /// * `vertex_info`, Len: `draw_count`, true, Stride: stride
+  /// * `instance_count`
+  /// * `first_instance`
+  /// * `stride`
+  pub CmdDrawMultiEXT: PFN_vkCmdDrawMultiEXT,
+
+  /// Khronos: [vkCmdDrawMultiIndexedEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMultiIndexedEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: inside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `draw_count`, Optional: true
+  /// * `index_info`, Len: `draw_count`, true, Stride: stride
+  /// * `instance_count`
+  /// * `first_instance`
+  /// * `stride`
+  /// * `vertex_offset`, Optional: true
+  pub CmdDrawMultiIndexedEXT: PFN_vkCmdDrawMultiIndexedEXT,
+
+  /// Khronos: [vkCmdEndConditionalRenderingEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndConditionalRenderingEXT.html)
+  /// * Queues: graphics, compute
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action, state
+  /// * `command_buffer`, Extern Sync: true
+  pub CmdEndConditionalRenderingEXT: PFN_vkCmdEndConditionalRenderingEXT,
+
+  /// Khronos: [vkCmdEndDebugUtilsLabelEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndDebugUtilsLabelEXT.html)
+  /// * Queues: graphics, compute
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action, state
+  /// * `command_buffer`, Extern Sync: true
+  pub CmdEndDebugUtilsLabelEXT: PFN_vkCmdEndDebugUtilsLabelEXT,
+
+  /// Khronos: [vkCmdEndQuery](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndQuery.html)
+  /// * Queues: graphics, compute, decode, encode
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action, state
+  /// * Video Coding: both
+  /// * `command_buffer`, Extern Sync: true
+  /// * `query_pool`
+  /// * `query`
+  pub CmdEndQuery: PFN_vkCmdEndQuery,
+
+  /// Khronos: [vkCmdEndQueryIndexedEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndQueryIndexedEXT.html)
+  /// * Queues: graphics, compute, decode, encode
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action, state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `query_pool`
+  /// * `query`
+  /// * `index`
+  pub CmdEndQueryIndexedEXT: PFN_vkCmdEndQueryIndexedEXT,
+
+  /// Khronos: [vkCmdEndRenderPass](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndRenderPass.html)
+  /// * Queues: graphics
+  /// * Render Pass: inside
+  /// * Command Buffer Level: primary
+  /// * Tasks: action, state, synchronization
+  /// * `command_buffer`, Extern Sync: true
+  pub CmdEndRenderPass: PFN_vkCmdEndRenderPass,
+
+  /// Khronos: [vkCmdEndRenderPass2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndRenderPass2.html)
+  /// * Queues: graphics
+  /// * Render Pass: inside
+  /// * Command Buffer Level: primary
+  /// * Tasks: action, state, synchronization
+  /// * `command_buffer`, Extern Sync: true
+  /// * `subpass_end_info`
+  pub CmdEndRenderPass2: PFN_vkCmdEndRenderPass2,
+
+  /// Khronos: [vkCmdEndRendering](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndRendering.html)
+  /// * Queues: graphics
+  /// * Render Pass: inside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action, state
+  /// * `command_buffer`, Extern Sync: true
+  pub CmdEndRendering: PFN_vkCmdEndRendering,
+
+  /// Khronos: [vkCmdEndTransformFeedbackEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndTransformFeedbackEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: inside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `first_counter_buffer`
+  /// * `counter_buffer_count`, Optional: true
+  /// * `counter_buffers`, Len: `counter_buffer_count`, true
+  /// * `counter_buffer_offsets`, Optional: true, Len: `counter_buffer_count`
+  pub CmdEndTransformFeedbackEXT: PFN_vkCmdEndTransformFeedbackEXT,
+
+  /// Khronos: [vkCmdEndVideoCodingKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndVideoCodingKHR.html)
+  /// * Queues: decode, encode
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary
+  /// * Tasks: action, state
+  /// * Video Coding: inside
+  /// * `command_buffer`, Extern Sync: true
+  /// * `end_coding_info`
+  pub CmdEndVideoCodingKHR: PFN_vkCmdEndVideoCodingKHR,
+
+  /// Khronos: [vkCmdExecuteCommands](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdExecuteCommands.html)
+  /// * Queues: transfer, graphics, compute
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary
+  /// * Tasks: indirection
+  /// * `command_buffer`, Extern Sync: true
+  /// * `command_buffer_count`
+  /// * `command_buffers`, Len: `command_buffer_count`
+  pub CmdExecuteCommands: PFN_vkCmdExecuteCommands,
+
+  /// Khronos: [vkCmdExecuteGeneratedCommandsNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdExecuteGeneratedCommandsNV.html)
+  /// * Queues: graphics, compute
+  /// * Render Pass: inside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action, indirection
+  /// * `command_buffer`, Extern Sync: true
+  /// * `is_preprocessed`
+  /// * `generated_commands_info`
+  pub CmdExecuteGeneratedCommandsNV: PFN_vkCmdExecuteGeneratedCommandsNV,
+
+  /// Khronos: [vkCmdFillBuffer](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdFillBuffer.html)
+  ///
+  /// transfer support is only available when VK_KHR_maintenance1 is enabled, as
+  /// documented in valid usage language in the specification
+  /// * Queues: transfer, graphics, compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `dst_buffer`
+  /// * `dst_offset`
+  /// * `size`
+  /// * `data`
+  pub CmdFillBuffer: PFN_vkCmdFillBuffer,
+
+  /// Khronos: [vkCmdInsertDebugUtilsLabelEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdInsertDebugUtilsLabelEXT.html)
+  /// * Queues: graphics, compute
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `label_info`
+  pub CmdInsertDebugUtilsLabelEXT: PFN_vkCmdInsertDebugUtilsLabelEXT,
+
+  /// Khronos: [vkCmdNextSubpass](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdNextSubpass.html)
+  /// * Queues: graphics
+  /// * Render Pass: inside
+  /// * Command Buffer Level: primary
+  /// * Tasks: action, state, synchronization
+  /// * `command_buffer`, Extern Sync: true
+  /// * `contents`
+  pub CmdNextSubpass: PFN_vkCmdNextSubpass,
+
+  /// Khronos: [vkCmdNextSubpass2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdNextSubpass2.html)
+  /// * Queues: graphics
+  /// * Render Pass: inside
+  /// * Command Buffer Level: primary
+  /// * Tasks: action, state, synchronization
+  /// * `command_buffer`, Extern Sync: true
+  /// * `subpass_begin_info`
+  /// * `subpass_end_info`
+  pub CmdNextSubpass2: PFN_vkCmdNextSubpass2,
+
+  /// Khronos: [vkCmdOpticalFlowExecuteNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdOpticalFlowExecuteNV.html)
+  /// * Queues: opticalflow
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`
+  /// * `session`
+  /// * `execute_info`
+  pub CmdOpticalFlowExecuteNV: PFN_vkCmdOpticalFlowExecuteNV,
+
+  /// Khronos: [vkCmdPipelineBarrier](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPipelineBarrier.html)
+  /// * Queues: transfer, graphics, compute, decode, encode
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: synchronization
+  /// * Video Coding: both
+  /// * `command_buffer`, Extern Sync: true
+  /// * `src_stage_mask`, Optional: true
+  /// * `dst_stage_mask`, Optional: true
+  /// * `dependency_flags`, Optional: true
+  /// * `memory_barrier_count`, Optional: true
+  /// * `memory_barriers`, Len: `memory_barrier_count`
+  /// * `buffer_memory_barrier_count`, Optional: true
+  /// * `buffer_memory_barriers`, Len: `buffer_memory_barrier_count`
+  /// * `image_memory_barrier_count`, Optional: true
+  /// * `image_memory_barriers`, Len: `image_memory_barrier_count`
+  pub CmdPipelineBarrier: PFN_vkCmdPipelineBarrier,
+
+  /// Khronos: [vkCmdPipelineBarrier2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPipelineBarrier2.html)
+  /// * Queues: transfer, graphics, compute, decode, encode
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: synchronization
+  /// * Video Coding: both
+  /// * `command_buffer`, Extern Sync: true
+  /// * `dependency_info`
+  pub CmdPipelineBarrier2: PFN_vkCmdPipelineBarrier2,
+
+  /// Khronos: [vkCmdPreprocessGeneratedCommandsNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPreprocessGeneratedCommandsNV.html)
+  /// * Queues: graphics, compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `generated_commands_info`
+  pub CmdPreprocessGeneratedCommandsNV: PFN_vkCmdPreprocessGeneratedCommandsNV,
+
+  /// Khronos: [vkCmdPushConstants](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPushConstants.html)
+  /// * Queues: graphics, compute
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `layout`
+  /// * `stage_flags`
+  /// * `offset`
+  /// * `size`
+  /// * `values`, Len: `size`
+  pub CmdPushConstants: PFN_vkCmdPushConstants,
+
+  /// Khronos: [vkCmdPushDescriptorSetKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPushDescriptorSetKHR.html)
+  /// * Queues: graphics, compute
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `pipeline_bind_point`
+  /// * `layout`
+  /// * `set`
+  /// * `descriptor_write_count`
+  /// * `descriptor_writes`, Len: `descriptor_write_count`
+  pub CmdPushDescriptorSetKHR: PFN_vkCmdPushDescriptorSetKHR,
+
+  /// Khronos: [vkCmdPushDescriptorSetWithTemplateKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPushDescriptorSetWithTemplateKHR.html)
+  /// * Queues: graphics, compute
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `descriptor_update_template`
+  /// * `layout`
+  /// * `set`
+  /// * `data`, true
+  pub CmdPushDescriptorSetWithTemplateKHR: PFN_vkCmdPushDescriptorSetWithTemplateKHR,
+
+  /// Khronos: [vkCmdRefreshObjectsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdRefreshObjectsKHR.html)
+  /// * Queues: graphics, compute, transfer
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `refresh_objects`
+  pub CmdRefreshObjectsKHR: PFN_vkCmdRefreshObjectsKHR,
+
+  /// Khronos: [vkCmdResetEvent](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdResetEvent.html)
+  /// * Queues: graphics, compute, decode, encode
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: synchronization
+  /// * Video Coding: both
+  /// * `command_buffer`, Extern Sync: true
+  /// * `event`
+  /// * `stage_mask`, Optional: true
+  pub CmdResetEvent: PFN_vkCmdResetEvent,
+
+  /// Khronos: [vkCmdResetEvent2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdResetEvent2.html)
+  /// * Queues: graphics, compute, decode, encode
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: synchronization
+  /// * Video Coding: both
+  /// * `command_buffer`, Extern Sync: true
+  /// * `event`
+  /// * `stage_mask`, Optional: true
+  pub CmdResetEvent2: PFN_vkCmdResetEvent2,
+
+  /// Khronos: [vkCmdResetQueryPool](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdResetQueryPool.html)
+  /// * Queues: graphics, compute, decode, encode, opticalflow
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `query_pool`
+  /// * `first_query`
+  /// * `query_count`
+  pub CmdResetQueryPool: PFN_vkCmdResetQueryPool,
+
+  /// Khronos: [vkCmdResolveImage](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdResolveImage.html)
+  /// * Queues: graphics
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `src_image`
+  /// * `src_image_layout`
+  /// * `dst_image`
+  /// * `dst_image_layout`
+  /// * `region_count`
+  /// * `regions`, Len: `region_count`
+  pub CmdResolveImage: PFN_vkCmdResolveImage,
+
+  /// Khronos: [vkCmdResolveImage2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdResolveImage2.html)
+  /// * Queues: graphics
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `resolve_image_info`
+  pub CmdResolveImage2: PFN_vkCmdResolveImage2,
+
+  /// Khronos: [vkCmdSetAlphaToCoverageEnableEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetAlphaToCoverageEnableEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `alpha_to_coverage_enable`
+  pub CmdSetAlphaToCoverageEnableEXT: PFN_vkCmdSetAlphaToCoverageEnableEXT,
+
+  /// Khronos: [vkCmdSetAlphaToOneEnableEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetAlphaToOneEnableEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `alpha_to_one_enable`
+  pub CmdSetAlphaToOneEnableEXT: PFN_vkCmdSetAlphaToOneEnableEXT,
+
+  /// Khronos: [vkCmdSetBlendConstants](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetBlendConstants.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `blend_constants`
+  pub CmdSetBlendConstants: PFN_vkCmdSetBlendConstants,
+
+  /// Khronos: [vkCmdSetCheckpointNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCheckpointNV.html)
+  /// * Queues: graphics, compute, transfer
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `checkpoint_marker`, true
+  pub CmdSetCheckpointNV: PFN_vkCmdSetCheckpointNV,
+
+  /// Khronos: [vkCmdSetCoarseSampleOrderNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoarseSampleOrderNV.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `sample_order_type`
+  /// * `custom_sample_order_count`, Optional: true
+  /// * `custom_sample_orders`, Len: `custom_sample_order_count`
+  pub CmdSetCoarseSampleOrderNV: PFN_vkCmdSetCoarseSampleOrderNV,
+
+  /// Khronos: [vkCmdSetColorBlendAdvancedEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorBlendAdvancedEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `first_attachment`
+  /// * `attachment_count`
+  /// * `color_blend_advanced`, Len: `attachment_count`
+  pub CmdSetColorBlendAdvancedEXT: PFN_vkCmdSetColorBlendAdvancedEXT,
+
+  /// Khronos: [vkCmdSetColorBlendEnableEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorBlendEnableEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `first_attachment`
+  /// * `attachment_count`
+  /// * `color_blend_enables`, Len: `attachment_count`
+  pub CmdSetColorBlendEnableEXT: PFN_vkCmdSetColorBlendEnableEXT,
+
+  /// Khronos: [vkCmdSetColorBlendEquationEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorBlendEquationEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `first_attachment`
+  /// * `attachment_count`
+  /// * `color_blend_equations`, Len: `attachment_count`
+  pub CmdSetColorBlendEquationEXT: PFN_vkCmdSetColorBlendEquationEXT,
+
+  /// Khronos: [vkCmdSetColorWriteEnableEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorWriteEnableEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `attachment_count`
+  /// * `color_write_enables`, Len: `attachment_count`
+  pub CmdSetColorWriteEnableEXT: PFN_vkCmdSetColorWriteEnableEXT,
+
+  /// Khronos: [vkCmdSetColorWriteMaskEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorWriteMaskEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `first_attachment`
+  /// * `attachment_count`
+  /// * `color_write_masks`, Optional: false,true, Len: `attachment_count`
+  pub CmdSetColorWriteMaskEXT: PFN_vkCmdSetColorWriteMaskEXT,
+
+  /// Khronos: [vkCmdSetConservativeRasterizationModeEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetConservativeRasterizationModeEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `conservative_rasterization_mode`
+  pub CmdSetConservativeRasterizationModeEXT:
+    PFN_vkCmdSetConservativeRasterizationModeEXT,
+
+  /// Khronos: [vkCmdSetCoverageModulationModeNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoverageModulationModeNV.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `coverage_modulation_mode`
+  pub CmdSetCoverageModulationModeNV: PFN_vkCmdSetCoverageModulationModeNV,
+
+  /// Khronos: [vkCmdSetCoverageModulationTableEnableNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoverageModulationTableEnableNV.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `coverage_modulation_table_enable`
+  pub CmdSetCoverageModulationTableEnableNV: PFN_vkCmdSetCoverageModulationTableEnableNV,
+
+  /// Khronos: [vkCmdSetCoverageModulationTableNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoverageModulationTableNV.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `coverage_modulation_table_count`
+  /// * `coverage_modulation_table`, Len: `coverage_modulation_table_count`
+  pub CmdSetCoverageModulationTableNV: PFN_vkCmdSetCoverageModulationTableNV,
+
+  /// Khronos: [vkCmdSetCoverageReductionModeNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoverageReductionModeNV.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `coverage_reduction_mode`
+  pub CmdSetCoverageReductionModeNV: PFN_vkCmdSetCoverageReductionModeNV,
+
+  /// Khronos: [vkCmdSetCoverageToColorEnableNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoverageToColorEnableNV.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `coverage_to_color_enable`
+  pub CmdSetCoverageToColorEnableNV: PFN_vkCmdSetCoverageToColorEnableNV,
+
+  /// Khronos: [vkCmdSetCoverageToColorLocationNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoverageToColorLocationNV.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `coverage_to_color_location`
+  pub CmdSetCoverageToColorLocationNV: PFN_vkCmdSetCoverageToColorLocationNV,
+
+  /// Khronos: [vkCmdSetCullMode](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCullMode.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `cull_mode`, Optional: true
+  pub CmdSetCullMode: PFN_vkCmdSetCullMode,
+
+  /// Khronos: [vkCmdSetDepthBias](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthBias.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `depth_bias_constant_factor`
+  /// * `depth_bias_clamp`
+  /// * `depth_bias_slope_factor`
+  pub CmdSetDepthBias: PFN_vkCmdSetDepthBias,
+
+  /// Khronos: [vkCmdSetDepthBiasEnable](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthBiasEnable.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `depth_bias_enable`
+  pub CmdSetDepthBiasEnable: PFN_vkCmdSetDepthBiasEnable,
+
+  /// Khronos: [vkCmdSetDepthBounds](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthBounds.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `min_depth_bounds`
+  /// * `max_depth_bounds`
+  pub CmdSetDepthBounds: PFN_vkCmdSetDepthBounds,
+
+  /// Khronos: [vkCmdSetDepthBoundsTestEnable](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthBoundsTestEnable.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `depth_bounds_test_enable`
+  pub CmdSetDepthBoundsTestEnable: PFN_vkCmdSetDepthBoundsTestEnable,
+
+  /// Khronos: [vkCmdSetDepthClampEnableEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthClampEnableEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `depth_clamp_enable`
+  pub CmdSetDepthClampEnableEXT: PFN_vkCmdSetDepthClampEnableEXT,
+
+  /// Khronos: [vkCmdSetDepthClipEnableEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthClipEnableEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `depth_clip_enable`
+  pub CmdSetDepthClipEnableEXT: PFN_vkCmdSetDepthClipEnableEXT,
+
+  /// Khronos: [vkCmdSetDepthClipNegativeOneToOneEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthClipNegativeOneToOneEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `negative_one_to_one`
+  pub CmdSetDepthClipNegativeOneToOneEXT: PFN_vkCmdSetDepthClipNegativeOneToOneEXT,
+
+  /// Khronos: [vkCmdSetDepthCompareOp](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthCompareOp.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `depth_compare_op`
+  pub CmdSetDepthCompareOp: PFN_vkCmdSetDepthCompareOp,
+
+  /// Khronos: [vkCmdSetDepthTestEnable](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthTestEnable.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `depth_test_enable`
+  pub CmdSetDepthTestEnable: PFN_vkCmdSetDepthTestEnable,
+
+  /// Khronos: [vkCmdSetDepthWriteEnable](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthWriteEnable.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `depth_write_enable`
+  pub CmdSetDepthWriteEnable: PFN_vkCmdSetDepthWriteEnable,
+
+  /// Khronos: [vkCmdSetDescriptorBufferOffsetsEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDescriptorBufferOffsetsEXT.html)
+  /// * Queues: graphics, compute
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `pipeline_bind_point`
+  /// * `layout`
+  /// * `first_set`
+  /// * `set_count`
+  /// * `buffer_indices`, Len: `set_count`
+  /// * `offsets`, Len: `set_count`
+  pub CmdSetDescriptorBufferOffsetsEXT: PFN_vkCmdSetDescriptorBufferOffsetsEXT,
+
+  /// Khronos: [vkCmdSetDeviceMask](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDeviceMask.html)
+  /// * Queues: graphics, compute, transfer
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * Video Coding: both
+  /// * `command_buffer`, Extern Sync: true
+  /// * `device_mask`
+  pub CmdSetDeviceMask: PFN_vkCmdSetDeviceMask,
+
+  /// Khronos: [vkCmdSetDiscardRectangleEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDiscardRectangleEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `first_discard_rectangle`
+  /// * `discard_rectangle_count`
+  /// * `discard_rectangles`, Len: `discard_rectangle_count`
+  pub CmdSetDiscardRectangleEXT: PFN_vkCmdSetDiscardRectangleEXT,
+
+  /// Khronos: [vkCmdSetDiscardRectangleEnableEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDiscardRectangleEnableEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `discard_rectangle_enable`
+  pub CmdSetDiscardRectangleEnableEXT: PFN_vkCmdSetDiscardRectangleEnableEXT,
+
+  /// Khronos: [vkCmdSetDiscardRectangleModeEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDiscardRectangleModeEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `discard_rectangle_mode`
+  pub CmdSetDiscardRectangleModeEXT: PFN_vkCmdSetDiscardRectangleModeEXT,
+
+  /// Khronos: [vkCmdSetEvent](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetEvent.html)
+  /// * Queues: graphics, compute, decode, encode
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: synchronization
+  /// * Video Coding: both
+  /// * `command_buffer`, Extern Sync: true
+  /// * `event`
+  /// * `stage_mask`, Optional: true
+  pub CmdSetEvent: PFN_vkCmdSetEvent,
+
+  /// Khronos: [vkCmdSetEvent2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetEvent2.html)
+  /// * Queues: graphics, compute, decode, encode
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: synchronization
+  /// * Video Coding: both
+  /// * `command_buffer`, Extern Sync: true
+  /// * `event`
+  /// * `dependency_info`
+  pub CmdSetEvent2: PFN_vkCmdSetEvent2,
+
+  /// Khronos: [vkCmdSetExclusiveScissorEnableNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetExclusiveScissorEnableNV.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `first_exclusive_scissor`
+  /// * `exclusive_scissor_count`
+  /// * `exclusive_scissor_enables`, Len: `exclusive_scissor_count`
+  pub CmdSetExclusiveScissorEnableNV: PFN_vkCmdSetExclusiveScissorEnableNV,
+
+  /// Khronos: [vkCmdSetExclusiveScissorNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetExclusiveScissorNV.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `first_exclusive_scissor`
+  /// * `exclusive_scissor_count`
+  /// * `exclusive_scissors`, Len: `exclusive_scissor_count`
+  pub CmdSetExclusiveScissorNV: PFN_vkCmdSetExclusiveScissorNV,
+
+  /// Khronos: [vkCmdSetExtraPrimitiveOverestimationSizeEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetExtraPrimitiveOverestimationSizeEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `extra_primitive_overestimation_size`
+  pub CmdSetExtraPrimitiveOverestimationSizeEXT:
+    PFN_vkCmdSetExtraPrimitiveOverestimationSizeEXT,
+
+  /// Khronos: [vkCmdSetFragmentShadingRateEnumNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetFragmentShadingRateEnumNV.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `shading_rate`
+  /// * `combiner_ops`
+  pub CmdSetFragmentShadingRateEnumNV: PFN_vkCmdSetFragmentShadingRateEnumNV,
+
+  /// Khronos: [vkCmdSetFragmentShadingRateKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetFragmentShadingRateKHR.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `fragment_size`
+  /// * `combiner_ops`
+  pub CmdSetFragmentShadingRateKHR: PFN_vkCmdSetFragmentShadingRateKHR,
+
+  /// Khronos: [vkCmdSetFrontFace](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetFrontFace.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `front_face`
+  pub CmdSetFrontFace: PFN_vkCmdSetFrontFace,
+
+  /// Khronos: [vkCmdSetLineRasterizationModeEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineRasterizationModeEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `line_rasterization_mode`
+  pub CmdSetLineRasterizationModeEXT: PFN_vkCmdSetLineRasterizationModeEXT,
+
+  /// Khronos: [vkCmdSetLineStippleEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineStippleEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `line_stipple_factor`
+  /// * `line_stipple_pattern`
+  pub CmdSetLineStippleEXT: PFN_vkCmdSetLineStippleEXT,
+
+  /// Khronos: [vkCmdSetLineStippleEnableEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineStippleEnableEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `stippled_line_enable`
+  pub CmdSetLineStippleEnableEXT: PFN_vkCmdSetLineStippleEnableEXT,
+
+  /// Khronos: [vkCmdSetLineWidth](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineWidth.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `line_width`
+  pub CmdSetLineWidth: PFN_vkCmdSetLineWidth,
+
+  /// Khronos: [vkCmdSetLogicOpEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLogicOpEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `logic_op`
+  pub CmdSetLogicOpEXT: PFN_vkCmdSetLogicOpEXT,
+
+  /// Khronos: [vkCmdSetLogicOpEnableEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLogicOpEnableEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `logic_op_enable`
+  pub CmdSetLogicOpEnableEXT: PFN_vkCmdSetLogicOpEnableEXT,
+
+  /// Khronos: [vkCmdSetPatchControlPointsEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPatchControlPointsEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `patch_control_points`
+  pub CmdSetPatchControlPointsEXT: PFN_vkCmdSetPatchControlPointsEXT,
+
+  /// Khronos: [vkCmdSetPerformanceMarkerINTEL](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPerformanceMarkerINTEL.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_TOO_MANY_OBJECTS`, `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * Queues: graphics, compute, transfer
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action, state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `marker_info`
+  pub CmdSetPerformanceMarkerINTEL: PFN_vkCmdSetPerformanceMarkerINTEL,
+
+  /// Khronos: [vkCmdSetPerformanceOverrideINTEL](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPerformanceOverrideINTEL.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_TOO_MANY_OBJECTS`, `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * Queues: graphics, compute, transfer
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `override_info`
+  pub CmdSetPerformanceOverrideINTEL: PFN_vkCmdSetPerformanceOverrideINTEL,
+
+  /// Khronos: [vkCmdSetPerformanceStreamMarkerINTEL](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPerformanceStreamMarkerINTEL.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_TOO_MANY_OBJECTS`, `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * Queues: graphics, compute, transfer
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action, state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `marker_info`
+  pub CmdSetPerformanceStreamMarkerINTEL: PFN_vkCmdSetPerformanceStreamMarkerINTEL,
+
+  /// Khronos: [vkCmdSetPolygonModeEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPolygonModeEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `polygon_mode`
+  pub CmdSetPolygonModeEXT: PFN_vkCmdSetPolygonModeEXT,
+
+  /// Khronos: [vkCmdSetPrimitiveRestartEnable](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPrimitiveRestartEnable.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `primitive_restart_enable`
+  pub CmdSetPrimitiveRestartEnable: PFN_vkCmdSetPrimitiveRestartEnable,
+
+  /// Khronos: [vkCmdSetPrimitiveTopology](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPrimitiveTopology.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `primitive_topology`
+  pub CmdSetPrimitiveTopology: PFN_vkCmdSetPrimitiveTopology,
+
+  /// Khronos: [vkCmdSetProvokingVertexModeEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetProvokingVertexModeEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `provoking_vertex_mode`
+  pub CmdSetProvokingVertexModeEXT: PFN_vkCmdSetProvokingVertexModeEXT,
+
+  /// Khronos: [vkCmdSetRasterizationSamplesEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetRasterizationSamplesEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `rasterization_samples`
+  pub CmdSetRasterizationSamplesEXT: PFN_vkCmdSetRasterizationSamplesEXT,
+
+  /// Khronos: [vkCmdSetRasterizationStreamEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetRasterizationStreamEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `rasterization_stream`
+  pub CmdSetRasterizationStreamEXT: PFN_vkCmdSetRasterizationStreamEXT,
+
+  /// Khronos: [vkCmdSetRasterizerDiscardEnable](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetRasterizerDiscardEnable.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `rasterizer_discard_enable`
+  pub CmdSetRasterizerDiscardEnable: PFN_vkCmdSetRasterizerDiscardEnable,
+
+  /// Khronos: [vkCmdSetRayTracingPipelineStackSizeKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetRayTracingPipelineStackSizeKHR.html)
+  /// * Queues: compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `pipeline_stack_size`
+  pub CmdSetRayTracingPipelineStackSizeKHR: PFN_vkCmdSetRayTracingPipelineStackSizeKHR,
+
+  /// Khronos: [vkCmdSetRepresentativeFragmentTestEnableNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetRepresentativeFragmentTestEnableNV.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `representative_fragment_test_enable`
+  pub CmdSetRepresentativeFragmentTestEnableNV:
+    PFN_vkCmdSetRepresentativeFragmentTestEnableNV,
+
+  /// Khronos: [vkCmdSetSampleLocationsEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetSampleLocationsEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `sample_locations_info`
+  pub CmdSetSampleLocationsEXT: PFN_vkCmdSetSampleLocationsEXT,
+
+  /// Khronos: [vkCmdSetSampleLocationsEnableEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetSampleLocationsEnableEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `sample_locations_enable`
+  pub CmdSetSampleLocationsEnableEXT: PFN_vkCmdSetSampleLocationsEnableEXT,
+
+  /// Khronos: [vkCmdSetSampleMaskEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetSampleMaskEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `samples`
+  /// * `sample_mask`, Len: `(samples + 31) / 32`
+  pub CmdSetSampleMaskEXT: PFN_vkCmdSetSampleMaskEXT,
+
+  /// Khronos: [vkCmdSetScissor](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetScissor.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `first_scissor`
+  /// * `scissor_count`
+  /// * `scissors`, Len: `scissor_count`
+  pub CmdSetScissor: PFN_vkCmdSetScissor,
+
+  /// Khronos: [vkCmdSetScissorWithCount](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetScissorWithCount.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `scissor_count`
+  /// * `scissors`, Len: `scissor_count`
+  pub CmdSetScissorWithCount: PFN_vkCmdSetScissorWithCount,
+
+  /// Khronos: [vkCmdSetShadingRateImageEnableNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetShadingRateImageEnableNV.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `shading_rate_image_enable`
+  pub CmdSetShadingRateImageEnableNV: PFN_vkCmdSetShadingRateImageEnableNV,
+
+  /// Khronos: [vkCmdSetStencilCompareMask](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilCompareMask.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `face_mask`
+  /// * `compare_mask`
+  pub CmdSetStencilCompareMask: PFN_vkCmdSetStencilCompareMask,
+
+  /// Khronos: [vkCmdSetStencilOp](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilOp.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `face_mask`
+  /// * `fail_op`
+  /// * `pass_op`
+  /// * `depth_fail_op`
+  /// * `compare_op`
+  pub CmdSetStencilOp: PFN_vkCmdSetStencilOp,
+
+  /// Khronos: [vkCmdSetStencilReference](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilReference.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `face_mask`
+  /// * `reference`
+  pub CmdSetStencilReference: PFN_vkCmdSetStencilReference,
+
+  /// Khronos: [vkCmdSetStencilTestEnable](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilTestEnable.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `stencil_test_enable`
+  pub CmdSetStencilTestEnable: PFN_vkCmdSetStencilTestEnable,
+
+  /// Khronos: [vkCmdSetStencilWriteMask](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilWriteMask.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `face_mask`
+  /// * `write_mask`
+  pub CmdSetStencilWriteMask: PFN_vkCmdSetStencilWriteMask,
+
+  /// Khronos: [vkCmdSetTessellationDomainOriginEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetTessellationDomainOriginEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `domain_origin`
+  pub CmdSetTessellationDomainOriginEXT: PFN_vkCmdSetTessellationDomainOriginEXT,
+
+  /// Khronos: [vkCmdSetVertexInputEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetVertexInputEXT.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `vertex_binding_description_count`, Optional: true
+  /// * `vertex_binding_descriptions`, Len: `vertex_binding_description_count`
+  /// * `vertex_attribute_description_count`, Optional: true
+  /// * `vertex_attribute_descriptions`, Len:
+  ///   `vertex_attribute_description_count`
+  pub CmdSetVertexInputEXT: PFN_vkCmdSetVertexInputEXT,
+
+  /// Khronos: [vkCmdSetViewport](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewport.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `first_viewport`
+  /// * `viewport_count`
+  /// * `viewports`, Len: `viewport_count`
+  pub CmdSetViewport: PFN_vkCmdSetViewport,
+
+  /// Khronos: [vkCmdSetViewportShadingRatePaletteNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewportShadingRatePaletteNV.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `first_viewport`
+  /// * `viewport_count`
+  /// * `shading_rate_palettes`, Len: `viewport_count`
+  pub CmdSetViewportShadingRatePaletteNV: PFN_vkCmdSetViewportShadingRatePaletteNV,
+
+  /// Khronos: [vkCmdSetViewportSwizzleNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewportSwizzleNV.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `first_viewport`
+  /// * `viewport_count`
+  /// * `viewport_swizzles`, Len: `viewport_count`
+  pub CmdSetViewportSwizzleNV: PFN_vkCmdSetViewportSwizzleNV,
+
+  /// Khronos: [vkCmdSetViewportWScalingEnableNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewportWScalingEnableNV.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `viewport_w_scaling_enable`
+  pub CmdSetViewportWScalingEnableNV: PFN_vkCmdSetViewportWScalingEnableNV,
+
+  /// Khronos: [vkCmdSetViewportWScalingNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewportWScalingNV.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `first_viewport`
+  /// * `viewport_count`
+  /// * `viewport_w_scalings`, Len: `viewport_count`
+  pub CmdSetViewportWScalingNV: PFN_vkCmdSetViewportWScalingNV,
+
+  /// Khronos: [vkCmdSetViewportWithCount](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewportWithCount.html)
+  /// * Queues: graphics
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: state
+  /// * `command_buffer`, Extern Sync: true
+  /// * `viewport_count`
+  /// * `viewports`, Len: `viewport_count`
+  pub CmdSetViewportWithCount: PFN_vkCmdSetViewportWithCount,
+
+  /// Khronos: [vkCmdSubpassShadingHUAWEI](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSubpassShadingHUAWEI.html)
+  /// * Queues: graphics
+  /// * Render Pass: inside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  pub CmdSubpassShadingHUAWEI: PFN_vkCmdSubpassShadingHUAWEI,
+
+  /// Khronos: [vkCmdTraceRaysIndirect2KHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdTraceRaysIndirect2KHR.html)
+  /// * Queues: compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `indirect_device_address`
+  pub CmdTraceRaysIndirect2KHR: PFN_vkCmdTraceRaysIndirect2KHR,
+
+  /// Khronos: [vkCmdTraceRaysIndirectKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdTraceRaysIndirectKHR.html)
+  /// * Queues: compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `raygen_shader_binding_table`
+  /// * `miss_shader_binding_table`
+  /// * `hit_shader_binding_table`
+  /// * `callable_shader_binding_table`
+  /// * `indirect_device_address`
+  pub CmdTraceRaysIndirectKHR: PFN_vkCmdTraceRaysIndirectKHR,
+
+  /// Khronos: [vkCmdTraceRaysKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdTraceRaysKHR.html)
+  /// * Queues: compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `raygen_shader_binding_table`
+  /// * `miss_shader_binding_table`
+  /// * `hit_shader_binding_table`
+  /// * `callable_shader_binding_table`
+  /// * `width`
+  /// * `height`
+  /// * `depth`
+  pub CmdTraceRaysKHR: PFN_vkCmdTraceRaysKHR,
+
+  /// Khronos: [vkCmdTraceRaysNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdTraceRaysNV.html)
+  /// * Queues: compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `raygen_shader_binding_table_buffer`
+  /// * `raygen_shader_binding_offset`
+  /// * `miss_shader_binding_table_buffer`, Optional: true
+  /// * `miss_shader_binding_offset`
+  /// * `miss_shader_binding_stride`
+  /// * `hit_shader_binding_table_buffer`, Optional: true
+  /// * `hit_shader_binding_offset`
+  /// * `hit_shader_binding_stride`
+  /// * `callable_shader_binding_table_buffer`, Optional: true
+  /// * `callable_shader_binding_offset`
+  /// * `callable_shader_binding_stride`
+  /// * `width`
+  /// * `height`
+  /// * `depth`
+  pub CmdTraceRaysNV: PFN_vkCmdTraceRaysNV,
+
+  /// Khronos: [vkCmdUpdateBuffer](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdUpdateBuffer.html)
+  /// * Queues: transfer, graphics, compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `dst_buffer`
+  /// * `dst_offset`
+  /// * `data_size`
+  /// * `data`, Len: `data_size`
+  pub CmdUpdateBuffer: PFN_vkCmdUpdateBuffer,
+
+  /// Khronos: [vkCmdWaitEvents](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWaitEvents.html)
+  /// * Queues: graphics, compute, decode, encode
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: synchronization
+  /// * Video Coding: both
+  /// * `command_buffer`, Extern Sync: true
+  /// * `event_count`
+  /// * `events`, Len: `event_count`
+  /// * `src_stage_mask`, Optional: true
+  /// * `dst_stage_mask`, Optional: true
+  /// * `memory_barrier_count`, Optional: true
+  /// * `memory_barriers`, Len: `memory_barrier_count`
+  /// * `buffer_memory_barrier_count`, Optional: true
+  /// * `buffer_memory_barriers`, Len: `buffer_memory_barrier_count`
+  /// * `image_memory_barrier_count`, Optional: true
+  /// * `image_memory_barriers`, Len: `image_memory_barrier_count`
+  pub CmdWaitEvents: PFN_vkCmdWaitEvents,
+
+  /// Khronos: [vkCmdWaitEvents2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWaitEvents2.html)
+  /// * Queues: graphics, compute, decode, encode
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: synchronization
+  /// * Video Coding: both
+  /// * `command_buffer`, Extern Sync: true
+  /// * `event_count`
+  /// * `events`, Len: `event_count`
+  /// * `dependency_infos`, Len: `event_count`
+  pub CmdWaitEvents2: PFN_vkCmdWaitEvents2,
+
+  /// Khronos: [vkCmdWriteAccelerationStructuresPropertiesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWriteAccelerationStructuresPropertiesKHR.html)
+  /// * Queues: compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `acceleration_structure_count`
+  /// * `acceleration_structures`, Len: `acceleration_structure_count`
+  /// * `query_type`
+  /// * `query_pool`
+  /// * `first_query`
+  pub CmdWriteAccelerationStructuresPropertiesKHR:
+    PFN_vkCmdWriteAccelerationStructuresPropertiesKHR,
+
+  /// Khronos: [vkCmdWriteAccelerationStructuresPropertiesNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWriteAccelerationStructuresPropertiesNV.html)
+  /// * Queues: compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `acceleration_structure_count`
+  /// * `acceleration_structures`, Len: `acceleration_structure_count`
+  /// * `query_type`
+  /// * `query_pool`
+  /// * `first_query`
+  pub CmdWriteAccelerationStructuresPropertiesNV:
+    PFN_vkCmdWriteAccelerationStructuresPropertiesNV,
+
+  /// Khronos: [vkCmdWriteBufferMarker2AMD](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWriteBufferMarker2AMD.html)
+  /// * Queues: transfer, graphics, compute
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `stage`, Optional: true
+  /// * `dst_buffer`
+  /// * `dst_offset`
+  /// * `marker`
+  pub CmdWriteBufferMarker2AMD: PFN_vkCmdWriteBufferMarker2AMD,
+
+  /// Khronos: [vkCmdWriteBufferMarkerAMD](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWriteBufferMarkerAMD.html)
+  /// * Queues: transfer, graphics, compute
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `pipeline_stage`, Optional: true
+  /// * `dst_buffer`
+  /// * `dst_offset`
+  /// * `marker`
+  pub CmdWriteBufferMarkerAMD: PFN_vkCmdWriteBufferMarkerAMD,
+
+  /// Khronos: [vkCmdWriteMicromapsPropertiesEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWriteMicromapsPropertiesEXT.html)
+  /// * Queues: compute
+  /// * Render Pass: outside
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * `command_buffer`, Extern Sync: true
+  /// * `micromap_count`
+  /// * `micromaps`, Len: `micromap_count`
+  /// * `query_type`
+  /// * `query_pool`
+  /// * `first_query`
+  pub CmdWriteMicromapsPropertiesEXT: PFN_vkCmdWriteMicromapsPropertiesEXT,
+
+  /// Khronos: [vkCmdWriteTimestamp](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWriteTimestamp.html)
+  /// * Queues: transfer, graphics, compute, decode, encode, opticalflow
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * Video Coding: both
+  /// * `command_buffer`, Extern Sync: true
+  /// * `pipeline_stage`
+  /// * `query_pool`
+  /// * `query`
+  pub CmdWriteTimestamp: PFN_vkCmdWriteTimestamp,
+
+  /// Khronos: [vkCmdWriteTimestamp2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWriteTimestamp2.html)
+  /// * Queues: transfer, graphics, compute, decode, encode
+  /// * Render Pass: both
+  /// * Command Buffer Level: primary, secondary
+  /// * Tasks: action
+  /// * Video Coding: both
+  /// * `command_buffer`, Extern Sync: true
+  /// * `stage`, Optional: true
+  /// * `query_pool`
+  /// * `query`
+  pub CmdWriteTimestamp2: PFN_vkCmdWriteTimestamp2,
+
   /// Khronos: [vkCompileDeferredNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCompileDeferredNV.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `pipeline`
+  /// * `shader`
   pub CompileDeferredNV: PFN_vkCompileDeferredNV,
+
   /// Khronos: [vkCopyAccelerationStructureKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCopyAccelerationStructureKHR.html)
-  /// * `deferredOperation` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_OPERATION_DEFERRED_KHR`,
+  ///   `VK_OPERATION_NOT_DEFERRED_KHR`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `deferred_operation`, Optional: true
+  /// * `info`
   pub CopyAccelerationStructureKHR: PFN_vkCopyAccelerationStructureKHR,
+
   /// Khronos: [vkCopyMicromapEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCopyMicromapEXT.html)
-  /// * `deferredOperation` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_OPERATION_DEFERRED_KHR`,
+  ///   `VK_OPERATION_NOT_DEFERRED_KHR`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `deferred_operation`, Optional: true
+  /// * `info`
   pub CopyMicromapEXT: PFN_vkCopyMicromapEXT,
+
   /// Khronos: [vkCreateAccelerationStructureKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateAccelerationStructureKHR.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`,
+  ///   `VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `acceleration_structure`
   pub CreateAccelerationStructureKHR: PFN_vkCreateAccelerationStructureKHR,
+
   /// Khronos: [vkCreateAccelerationStructureNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateAccelerationStructureNV.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `acceleration_structure`
   pub CreateAccelerationStructureNV: PFN_vkCreateAccelerationStructureNV,
+
   /// Khronos: [vkCreateBuffer](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateBuffer.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `buffer`
   pub CreateBuffer: PFN_vkCreateBuffer,
+
   /// Khronos: [vkCreateBufferCollectionFUCHSIA](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateBufferCollectionFUCHSIA.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`,
+  ///   `VK_ERROR_INVALID_EXTERNAL_HANDLE`, `VK_ERROR_INITIALIZATION_FAILED`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `collection`
   pub CreateBufferCollectionFUCHSIA: PFN_vkCreateBufferCollectionFUCHSIA,
+
   /// Khronos: [vkCreateBufferView](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateBufferView.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `view`
   pub CreateBufferView: PFN_vkCreateBufferView,
+
   /// Khronos: [vkCreateCommandPool](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateCommandPool.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `command_pool`
   pub CreateCommandPool: PFN_vkCreateCommandPool,
+
   /// Khronos: [vkCreateComputePipelines](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateComputePipelines.html)
-  /// * `pipelineCache` Optional: true
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_PIPELINE_COMPILE_REQUIRED_EXT`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_INVALID_SHADER_NV`
+  /// * `device`
+  /// * `pipeline_cache`, Optional: true
+  /// * `create_info_count`
+  /// * `create_infos`, Len: `create_info_count`
+  /// * `allocator`, Optional: true
+  /// * `pipelines`, Len: `create_info_count`
   pub CreateComputePipelines: PFN_vkCreateComputePipelines,
+
   /// Khronos: [vkCreateCuFunctionNVX](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateCuFunctionNVX.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_INITIALIZATION_FAILED`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `function`
   pub CreateCuFunctionNVX: PFN_vkCreateCuFunctionNVX,
+
   /// Khronos: [vkCreateCuModuleNVX](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateCuModuleNVX.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_INITIALIZATION_FAILED`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `module`
   pub CreateCuModuleNVX: PFN_vkCreateCuModuleNVX,
+
   /// Khronos: [vkCreateDeferredOperationKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDeferredOperationKHR.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `device`
+  /// * `allocator`, Optional: true
+  /// * `deferred_operation`
   pub CreateDeferredOperationKHR: PFN_vkCreateDeferredOperationKHR,
+
   /// Khronos: [vkCreateDescriptorPool](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDescriptorPool.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_FRAGMENTATION_EXT`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `descriptor_pool`
   pub CreateDescriptorPool: PFN_vkCreateDescriptorPool,
+
   /// Khronos: [vkCreateDescriptorSetLayout](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDescriptorSetLayout.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `set_layout`
   pub CreateDescriptorSetLayout: PFN_vkCreateDescriptorSetLayout,
+
   /// Khronos: [vkCreateDescriptorUpdateTemplate](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDescriptorUpdateTemplate.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `descriptor_update_template`
   pub CreateDescriptorUpdateTemplate: PFN_vkCreateDescriptorUpdateTemplate,
+
   /// Khronos: [vkCreateEvent](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateEvent.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `event`
   pub CreateEvent: PFN_vkCreateEvent,
+
   /// Khronos: [vkCreateFence](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateFence.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `fence`
   pub CreateFence: PFN_vkCreateFence,
+
   /// Khronos: [vkCreateFramebuffer](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateFramebuffer.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `framebuffer`
   pub CreateFramebuffer: PFN_vkCreateFramebuffer,
+
   /// Khronos: [vkCreateGraphicsPipelines](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateGraphicsPipelines.html)
-  /// * `pipelineCache` Optional: true
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_PIPELINE_COMPILE_REQUIRED_EXT`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_INVALID_SHADER_NV`
+  /// * `device`
+  /// * `pipeline_cache`, Optional: true
+  /// * `create_info_count`
+  /// * `create_infos`, Len: `create_info_count`
+  /// * `allocator`, Optional: true
+  /// * `pipelines`, Len: `create_info_count`
   pub CreateGraphicsPipelines: PFN_vkCreateGraphicsPipelines,
+
   /// Khronos: [vkCreateImage](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateImage.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_COMPRESSION_EXHAUSTED_EXT`,
+  ///   `VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `image`
   pub CreateImage: PFN_vkCreateImage,
+
   /// Khronos: [vkCreateImageView](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateImageView.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `view`
   pub CreateImageView: PFN_vkCreateImageView,
+
   /// Khronos: [vkCreateIndirectCommandsLayoutNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateIndirectCommandsLayoutNV.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `indirect_commands_layout`
   pub CreateIndirectCommandsLayoutNV: PFN_vkCreateIndirectCommandsLayoutNV,
+
   /// Khronos: [vkCreateMicromapEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateMicromapEXT.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`,
+  ///   `VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `micromap`
   pub CreateMicromapEXT: PFN_vkCreateMicromapEXT,
+
   /// Khronos: [vkCreateOpticalFlowSessionNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateOpticalFlowSessionNV.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_INITIALIZATION_FAILED`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `session`
   pub CreateOpticalFlowSessionNV: PFN_vkCreateOpticalFlowSessionNV,
+
   /// Khronos: [vkCreatePipelineCache](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreatePipelineCache.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `pipeline_cache`
   pub CreatePipelineCache: PFN_vkCreatePipelineCache,
+
   /// Khronos: [vkCreatePipelineLayout](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreatePipelineLayout.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `pipeline_layout`
   pub CreatePipelineLayout: PFN_vkCreatePipelineLayout,
+
   /// Khronos: [vkCreatePrivateDataSlot](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreatePrivateDataSlot.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `private_data_slot`
   pub CreatePrivateDataSlot: PFN_vkCreatePrivateDataSlot,
+
   /// Khronos: [vkCreateQueryPool](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateQueryPool.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `query_pool`
   pub CreateQueryPool: PFN_vkCreateQueryPool,
+
   /// Khronos: [vkCreateRayTracingPipelinesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateRayTracingPipelinesKHR.html)
-  /// * `deferredOperation` Optional: true
-  /// * `pipelineCache` Optional: true
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_OPERATION_DEFERRED_KHR`,
+  ///   `VK_OPERATION_NOT_DEFERRED_KHR`, `VK_PIPELINE_COMPILE_REQUIRED_EXT`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS`
+  /// * `device`
+  /// * `deferred_operation`, Optional: true
+  /// * `pipeline_cache`, Optional: true
+  /// * `create_info_count`
+  /// * `create_infos`, Len: `create_info_count`
+  /// * `allocator`, Optional: true
+  /// * `pipelines`, Len: `create_info_count`
   pub CreateRayTracingPipelinesKHR: PFN_vkCreateRayTracingPipelinesKHR,
+
   /// Khronos: [vkCreateRayTracingPipelinesNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateRayTracingPipelinesNV.html)
-  /// * `pipelineCache` Optional: true
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_PIPELINE_COMPILE_REQUIRED_EXT`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_INVALID_SHADER_NV`
+  /// * `device`
+  /// * `pipeline_cache`, Optional: true
+  /// * `create_info_count`
+  /// * `create_infos`, Len: `create_info_count`
+  /// * `allocator`, Optional: true
+  /// * `pipelines`, Len: `create_info_count`
   pub CreateRayTracingPipelinesNV: PFN_vkCreateRayTracingPipelinesNV,
+
   /// Khronos: [vkCreateRenderPass](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateRenderPass.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `render_pass`
   pub CreateRenderPass: PFN_vkCreateRenderPass,
+
   /// Khronos: [vkCreateRenderPass2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateRenderPass2.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `render_pass`
   pub CreateRenderPass2: PFN_vkCreateRenderPass2,
+
   /// Khronos: [vkCreateSampler](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateSampler.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `sampler`
   pub CreateSampler: PFN_vkCreateSampler,
+
   /// Khronos: [vkCreateSamplerYcbcrConversion](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateSamplerYcbcrConversion.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `ycbcr_conversion`
   pub CreateSamplerYcbcrConversion: PFN_vkCreateSamplerYcbcrConversion,
+
   /// Khronos: [vkCreateSemaphore](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateSemaphore.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `semaphore`
   pub CreateSemaphore: PFN_vkCreateSemaphore,
+
   /// Khronos: [vkCreateShaderModule](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateShaderModule.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_INVALID_SHADER_NV`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `shader_module`
   pub CreateShaderModule: PFN_vkCreateShaderModule,
+
   /// Khronos: [vkCreateSharedSwapchainsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateSharedSwapchainsKHR.html)
-  /// * `pCreateInfos` Extern Sync:
-  ///   pCreateInfos[].surface,pCreateInfos[].oldSwapchain
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_INCOMPATIBLE_DISPLAY_KHR`, `VK_ERROR_DEVICE_LOST`,
+  ///   `VK_ERROR_SURFACE_LOST_KHR`
+  /// * `device`
+  /// * `swapchain_count`
+  /// * `create_infos`, Extern Sync:
+  ///   pCreateInfos[].surface,pCreateInfos[].oldSwapchain, Len:
+  ///   `swapchain_count`
+  /// * `allocator`, Optional: true
+  /// * `swapchains`, Len: `swapchain_count`
   pub CreateSharedSwapchainsKHR: PFN_vkCreateSharedSwapchainsKHR,
+
   /// Khronos: [vkCreateSwapchainKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateSwapchainKHR.html)
-  /// * `pCreateInfo` Extern Sync:
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_DEVICE_LOST`, `VK_ERROR_SURFACE_LOST_KHR`,
+  ///   `VK_ERROR_NATIVE_WINDOW_IN_USE_KHR`, `VK_ERROR_INITIALIZATION_FAILED`,
+  ///   `VK_ERROR_COMPRESSION_EXHAUSTED_EXT`
+  /// * `device`
+  /// * `create_info`, Extern Sync:
   ///   pCreateInfo-&gt;surface,pCreateInfo-&gt;oldSwapchain
-  /// * `pAllocator` Optional: true
+  /// * `allocator`, Optional: true
+  /// * `swapchain`
   pub CreateSwapchainKHR: PFN_vkCreateSwapchainKHR,
+
   /// Khronos: [vkCreateValidationCacheEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateValidationCacheEXT.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `validation_cache`
   pub CreateValidationCacheEXT: PFN_vkCreateValidationCacheEXT,
+
   /// Khronos: [vkCreateVideoSessionKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateVideoSessionKHR.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_INITIALIZATION_FAILED`,
+  ///   `VK_ERROR_VIDEO_STD_VERSION_NOT_SUPPORTED_KHR`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `video_session`
   pub CreateVideoSessionKHR: PFN_vkCreateVideoSessionKHR,
+
   /// Khronos: [vkCreateVideoSessionParametersKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateVideoSessionParametersKHR.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_INITIALIZATION_FAILED`
+  /// * `device`
+  /// * `create_info`
+  /// * `allocator`, Optional: true
+  /// * `video_session_parameters`
   pub CreateVideoSessionParametersKHR: PFN_vkCreateVideoSessionParametersKHR,
+
   /// Khronos: [vkDebugMarkerSetObjectNameEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDebugMarkerSetObjectNameEXT.html)
-  /// * `pNameInfo` Extern Sync: pNameInfo-&gt;object
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `name_info`, Extern Sync: pNameInfo-&gt;object
   pub DebugMarkerSetObjectNameEXT: PFN_vkDebugMarkerSetObjectNameEXT,
+
   /// Khronos: [vkDebugMarkerSetObjectTagEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDebugMarkerSetObjectTagEXT.html)
-  /// * `pTagInfo` Extern Sync: pTagInfo-&gt;object
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `tag_info`, Extern Sync: pTagInfo-&gt;object
   pub DebugMarkerSetObjectTagEXT: PFN_vkDebugMarkerSetObjectTagEXT,
+
   /// Khronos: [vkDeferredOperationJoinKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDeferredOperationJoinKHR.html)
+  /// * Success: `VK_SUCCESS`, `VK_THREAD_DONE_KHR`, `VK_THREAD_IDLE_KHR`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `operation`
   pub DeferredOperationJoinKHR: PFN_vkDeferredOperationJoinKHR,
+
   /// Khronos: [vkDestroyAccelerationStructureKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyAccelerationStructureKHR.html)
-  /// * `accelerationStructure` Optional: true
-  /// * `accelerationStructure` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `acceleration_structure`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyAccelerationStructureKHR: PFN_vkDestroyAccelerationStructureKHR,
+
   /// Khronos: [vkDestroyAccelerationStructureNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyAccelerationStructureNV.html)
-  /// * `accelerationStructure` Optional: true
-  /// * `accelerationStructure` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `acceleration_structure`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyAccelerationStructureNV: PFN_vkDestroyAccelerationStructureNV,
+
   /// Khronos: [vkDestroyBuffer](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyBuffer.html)
-  /// * `buffer` Optional: true
-  /// * `buffer` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `buffer`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyBuffer: PFN_vkDestroyBuffer,
+
   /// Khronos: [vkDestroyBufferCollectionFUCHSIA](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyBufferCollectionFUCHSIA.html)
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `collection`
+  /// * `allocator`, Optional: true
   pub DestroyBufferCollectionFUCHSIA: PFN_vkDestroyBufferCollectionFUCHSIA,
+
   /// Khronos: [vkDestroyBufferView](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyBufferView.html)
-  /// * `bufferView` Optional: true
-  /// * `bufferView` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `buffer_view`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyBufferView: PFN_vkDestroyBufferView,
+
   /// Khronos: [vkDestroyCommandPool](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyCommandPool.html)
-  /// * `commandPool` Optional: true
-  /// * `commandPool` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `command_pool`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyCommandPool: PFN_vkDestroyCommandPool,
+
   /// Khronos: [vkDestroyCuFunctionNVX](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyCuFunctionNVX.html)
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `function`
+  /// * `allocator`, Optional: true
   pub DestroyCuFunctionNVX: PFN_vkDestroyCuFunctionNVX,
+
   /// Khronos: [vkDestroyCuModuleNVX](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyCuModuleNVX.html)
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `module`
+  /// * `allocator`, Optional: true
   pub DestroyCuModuleNVX: PFN_vkDestroyCuModuleNVX,
+
   /// Khronos: [vkDestroyDeferredOperationKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDeferredOperationKHR.html)
-  /// * `operation` Optional: true
-  /// * `operation` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `operation`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyDeferredOperationKHR: PFN_vkDestroyDeferredOperationKHR,
+
   /// Khronos: [vkDestroyDescriptorPool](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDescriptorPool.html)
-  /// * `descriptorPool` Optional: true
-  /// * `descriptorPool` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `descriptor_pool`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyDescriptorPool: PFN_vkDestroyDescriptorPool,
+
   /// Khronos: [vkDestroyDescriptorSetLayout](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDescriptorSetLayout.html)
-  /// * `descriptorSetLayout` Optional: true
-  /// * `descriptorSetLayout` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `descriptor_set_layout`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyDescriptorSetLayout: PFN_vkDestroyDescriptorSetLayout,
+
   /// Khronos: [vkDestroyDescriptorUpdateTemplate](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDescriptorUpdateTemplate.html)
-  /// * `descriptorUpdateTemplate` Optional: true
-  /// * `descriptorUpdateTemplate` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `descriptor_update_template`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyDescriptorUpdateTemplate: PFN_vkDestroyDescriptorUpdateTemplate,
+
   /// Khronos: [vkDestroyDevice](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDevice.html)
-  /// * Implicit Extern Sync: all sname:VkQueue objects created from
-  ///   pname:device
-  /// * `device` Optional: true
-  /// * `device` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * Implicit Extern Sync: all [VkQueue] objects created from `device`
+  /// * `device`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyDevice: PFN_vkDestroyDevice,
+
   /// Khronos: [vkDestroyEvent](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyEvent.html)
-  /// * `event` Optional: true
-  /// * `event` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `event`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyEvent: PFN_vkDestroyEvent,
+
   /// Khronos: [vkDestroyFence](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyFence.html)
-  /// * `fence` Optional: true
-  /// * `fence` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `fence`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyFence: PFN_vkDestroyFence,
+
   /// Khronos: [vkDestroyFramebuffer](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyFramebuffer.html)
-  /// * `framebuffer` Optional: true
-  /// * `framebuffer` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `framebuffer`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyFramebuffer: PFN_vkDestroyFramebuffer,
+
   /// Khronos: [vkDestroyImage](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyImage.html)
-  /// * `image` Optional: true
-  /// * `image` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `image`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyImage: PFN_vkDestroyImage,
+
   /// Khronos: [vkDestroyImageView](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyImageView.html)
-  /// * `imageView` Optional: true
-  /// * `imageView` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `image_view`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyImageView: PFN_vkDestroyImageView,
+
   /// Khronos: [vkDestroyIndirectCommandsLayoutNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyIndirectCommandsLayoutNV.html)
-  /// * `indirectCommandsLayout` Optional: true
-  /// * `indirectCommandsLayout` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `indirect_commands_layout`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyIndirectCommandsLayoutNV: PFN_vkDestroyIndirectCommandsLayoutNV,
+
   /// Khronos: [vkDestroyMicromapEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyMicromapEXT.html)
-  /// * `micromap` Optional: true
-  /// * `micromap` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `micromap`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyMicromapEXT: PFN_vkDestroyMicromapEXT,
+
   /// Khronos: [vkDestroyOpticalFlowSessionNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyOpticalFlowSessionNV.html)
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `session`
+  /// * `allocator`, Optional: true
   pub DestroyOpticalFlowSessionNV: PFN_vkDestroyOpticalFlowSessionNV,
+
   /// Khronos: [vkDestroyPipeline](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyPipeline.html)
-  /// * `pipeline` Optional: true
-  /// * `pipeline` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `pipeline`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyPipeline: PFN_vkDestroyPipeline,
+
   /// Khronos: [vkDestroyPipelineCache](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyPipelineCache.html)
-  /// * `pipelineCache` Optional: true
-  /// * `pipelineCache` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `pipeline_cache`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyPipelineCache: PFN_vkDestroyPipelineCache,
+
   /// Khronos: [vkDestroyPipelineLayout](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyPipelineLayout.html)
-  /// * `pipelineLayout` Optional: true
-  /// * `pipelineLayout` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `pipeline_layout`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyPipelineLayout: PFN_vkDestroyPipelineLayout,
+
   /// Khronos: [vkDestroyPrivateDataSlot](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyPrivateDataSlot.html)
-  /// * `privateDataSlot` Optional: true
-  /// * `privateDataSlot` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `private_data_slot`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyPrivateDataSlot: PFN_vkDestroyPrivateDataSlot,
+
   /// Khronos: [vkDestroyQueryPool](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyQueryPool.html)
-  /// * `queryPool` Optional: true
-  /// * `queryPool` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `query_pool`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyQueryPool: PFN_vkDestroyQueryPool,
+
   /// Khronos: [vkDestroyRenderPass](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyRenderPass.html)
-  /// * `renderPass` Optional: true
-  /// * `renderPass` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `render_pass`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyRenderPass: PFN_vkDestroyRenderPass,
+
   /// Khronos: [vkDestroySampler](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroySampler.html)
-  /// * `sampler` Optional: true
-  /// * `sampler` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `sampler`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroySampler: PFN_vkDestroySampler,
+
   /// Khronos: [vkDestroySamplerYcbcrConversion](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroySamplerYcbcrConversion.html)
-  /// * `ycbcrConversion` Optional: true
-  /// * `ycbcrConversion` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `ycbcr_conversion`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroySamplerYcbcrConversion: PFN_vkDestroySamplerYcbcrConversion,
+
   /// Khronos: [vkDestroySemaphore](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroySemaphore.html)
-  /// * `semaphore` Optional: true
-  /// * `semaphore` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `semaphore`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroySemaphore: PFN_vkDestroySemaphore,
+
   /// Khronos: [vkDestroySemaphoreSciSyncPoolNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroySemaphoreSciSyncPoolNV.html)
-  /// * `semaphorePool` Optional: true
-  /// * `semaphorePool` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `semaphore_pool`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroySemaphoreSciSyncPoolNV: PFN_vkDestroySemaphoreSciSyncPoolNV,
+
   /// Khronos: [vkDestroyShaderModule](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyShaderModule.html)
-  /// * `shaderModule` Optional: true
-  /// * `shaderModule` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `shader_module`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyShaderModule: PFN_vkDestroyShaderModule,
+
   /// Khronos: [vkDestroySwapchainKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroySwapchainKHR.html)
-  /// * `swapchain` Optional: true
-  /// * `swapchain` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `swapchain`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroySwapchainKHR: PFN_vkDestroySwapchainKHR,
+
   /// Khronos: [vkDestroyValidationCacheEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyValidationCacheEXT.html)
-  /// * `validationCache` Optional: true
-  /// * `validationCache` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `validation_cache`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyValidationCacheEXT: PFN_vkDestroyValidationCacheEXT,
+
   /// Khronos: [vkDestroyVideoSessionKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyVideoSessionKHR.html)
-  /// * `videoSession` Optional: true
-  /// * `videoSession` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `video_session`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyVideoSessionKHR: PFN_vkDestroyVideoSessionKHR,
+
   /// Khronos: [vkDestroyVideoSessionParametersKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyVideoSessionParametersKHR.html)
-  /// * `videoSessionParameters` Optional: true
-  /// * `videoSessionParameters` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `video_session_parameters`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub DestroyVideoSessionParametersKHR: PFN_vkDestroyVideoSessionParametersKHR,
+
   /// Khronos: [vkDeviceWaitIdle](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDeviceWaitIdle.html)
-  /// * Implicit Extern Sync: all sname:VkQueue objects created from
-  ///   pname:device
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_DEVICE_LOST`
+  /// * Implicit Extern Sync: all [VkQueue] objects created from `device`
+  /// * `device`
   pub DeviceWaitIdle: PFN_vkDeviceWaitIdle,
+
   /// Khronos: [vkDisplayPowerControlEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDisplayPowerControlEXT.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `device`
+  /// * `display`
+  /// * `display_power_info`
   pub DisplayPowerControlEXT: PFN_vkDisplayPowerControlEXT,
+
+  /// Khronos: [vkEndCommandBuffer](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEndCommandBuffer.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * Implicit Extern Sync: the [VkCommandPool] that `commandBuffer` was
+  ///   allocated from
+  /// * `command_buffer`, Extern Sync: true
+  pub EndCommandBuffer: PFN_vkEndCommandBuffer,
+
   /// Khronos: [vkExportMetalObjectsEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkExportMetalObjectsEXT.html)
+  /// * `device`
+  /// * `metal_objects_info`
   pub ExportMetalObjectsEXT: PFN_vkExportMetalObjectsEXT,
+
   /// Khronos: [vkFlushMappedMemoryRanges](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkFlushMappedMemoryRanges.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `memory_range_count`
+  /// * `memory_ranges`, Len: `memory_range_count`
   pub FlushMappedMemoryRanges: PFN_vkFlushMappedMemoryRanges,
+
   /// Khronos: [vkFreeCommandBuffers](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkFreeCommandBuffers.html)
-  /// * `commandPool` Extern Sync: true
-  /// * `pCommandBuffers` Extern Sync: true
+  /// * `device`
+  /// * `command_pool`, Extern Sync: true
+  /// * `command_buffer_count`
+  /// * `command_buffers`, Extern Sync: true, Len: `command_buffer_count`, true
   pub FreeCommandBuffers: PFN_vkFreeCommandBuffers,
+
   /// Khronos: [vkFreeDescriptorSets](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkFreeDescriptorSets.html)
-  /// * `descriptorPool` Extern Sync: true
-  /// * `pDescriptorSets` Extern Sync: true
+  /// * Success: `VK_SUCCESS`
+  /// * `device`
+  /// * `descriptor_pool`, Extern Sync: true
+  /// * `descriptor_set_count`
+  /// * `descriptor_sets`, Extern Sync: true, Len: `descriptor_set_count`, true
   pub FreeDescriptorSets: PFN_vkFreeDescriptorSets,
+
   /// Khronos: [vkFreeMemory](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkFreeMemory.html)
-  /// * `memory` Optional: true
-  /// * `memory` Extern Sync: true
-  /// * `pAllocator` Optional: true
+  /// * `device`
+  /// * `memory`, Optional: true, Extern Sync: true
+  /// * `allocator`, Optional: true
   pub FreeMemory: PFN_vkFreeMemory,
+
   /// Khronos: [vkGetAccelerationStructureDeviceAddressKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetAccelerationStructureDeviceAddressKHR.html)
+  /// * `device`
+  /// * `info`
   pub GetAccelerationStructureDeviceAddressKHR:
     PFN_vkGetAccelerationStructureDeviceAddressKHR,
+
   /// Khronos: [vkGetAccelerationStructureHandleNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetAccelerationStructureHandleNV.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `acceleration_structure`
+  /// * `data_size`
+  /// * `data`, Len: `data_size`
   pub GetAccelerationStructureHandleNV: PFN_vkGetAccelerationStructureHandleNV,
+
   /// Khronos: [vkGetAccelerationStructureMemoryRequirementsNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetAccelerationStructureMemoryRequirementsNV.html)
+  /// * `device`
+  /// * `info`
+  /// * `memory_requirements`
   pub GetAccelerationStructureMemoryRequirementsNV:
     PFN_vkGetAccelerationStructureMemoryRequirementsNV,
+
   /// Khronos: [vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `info`
+  /// * `data`
   pub GetAccelerationStructureOpaqueCaptureDescriptorDataEXT:
     PFN_vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT,
+
   /// Khronos: [vkGetAndroidHardwareBufferPropertiesANDROID](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetAndroidHardwareBufferPropertiesANDROID.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`,
+  ///   `VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR`
+  /// * `device`
+  /// * `buffer`
+  /// * `properties`
   pub GetAndroidHardwareBufferPropertiesANDROID:
     PFN_vkGetAndroidHardwareBufferPropertiesANDROID,
+
   /// Khronos: [vkGetBufferCollectionPropertiesFUCHSIA](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetBufferCollectionPropertiesFUCHSIA.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_INITIALIZATION_FAILED`
+  /// * `device`
+  /// * `collection`
+  /// * `properties`
   pub GetBufferCollectionPropertiesFUCHSIA: PFN_vkGetBufferCollectionPropertiesFUCHSIA,
+
   /// Khronos: [vkGetBufferDeviceAddress](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetBufferDeviceAddress.html)
+  /// * `device`
+  /// * `info`
   pub GetBufferDeviceAddress: PFN_vkGetBufferDeviceAddress,
+
   /// Khronos: [vkGetBufferMemoryRequirements](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetBufferMemoryRequirements.html)
+  /// * `device`
+  /// * `buffer`
+  /// * `memory_requirements`
   pub GetBufferMemoryRequirements: PFN_vkGetBufferMemoryRequirements,
+
   /// Khronos: [vkGetBufferMemoryRequirements2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetBufferMemoryRequirements2.html)
+  /// * `device`
+  /// * `info`
+  /// * `memory_requirements`
   pub GetBufferMemoryRequirements2: PFN_vkGetBufferMemoryRequirements2,
+
   /// Khronos: [vkGetBufferOpaqueCaptureAddress](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetBufferOpaqueCaptureAddress.html)
+  /// * `device`
+  /// * `info`
   pub GetBufferOpaqueCaptureAddress: PFN_vkGetBufferOpaqueCaptureAddress,
+
   /// Khronos: [vkGetBufferOpaqueCaptureDescriptorDataEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetBufferOpaqueCaptureDescriptorDataEXT.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `info`
+  /// * `data`
   pub GetBufferOpaqueCaptureDescriptorDataEXT:
     PFN_vkGetBufferOpaqueCaptureDescriptorDataEXT,
+
   /// Khronos: [vkGetCalibratedTimestampsEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetCalibratedTimestampsEXT.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `timestamp_count`
+  /// * `timestamp_infos`, Len: `timestamp_count`
+  /// * `timestamps`, Len: `timestamp_count`
+  /// * `max_deviation`
   pub GetCalibratedTimestampsEXT: PFN_vkGetCalibratedTimestampsEXT,
+
   /// Khronos: [vkGetDeferredOperationMaxConcurrencyKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeferredOperationMaxConcurrencyKHR.html)
+  /// * `device`
+  /// * `operation`
   pub GetDeferredOperationMaxConcurrencyKHR: PFN_vkGetDeferredOperationMaxConcurrencyKHR,
+
   /// Khronos: [vkGetDeferredOperationResultKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeferredOperationResultKHR.html)
+  /// * Success: `VK_SUCCESS`, `VK_NOT_READY`
+  /// * `device`
+  /// * `operation`
   pub GetDeferredOperationResultKHR: PFN_vkGetDeferredOperationResultKHR,
+
   /// Khronos: [vkGetDescriptorSetHostMappingVALVE](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDescriptorSetHostMappingVALVE.html)
+  /// * `device`
+  /// * `descriptor_set`
+  /// * `data`
   pub GetDescriptorSetHostMappingVALVE: PFN_vkGetDescriptorSetHostMappingVALVE,
+
   /// Khronos: [vkGetDescriptorSetLayoutBindingOffsetEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDescriptorSetLayoutBindingOffsetEXT.html)
+  /// * `device`
+  /// * `layout`
+  /// * `binding`
+  /// * `offset`
   pub GetDescriptorSetLayoutBindingOffsetEXT:
     PFN_vkGetDescriptorSetLayoutBindingOffsetEXT,
+
   /// Khronos: [vkGetDescriptorSetLayoutHostMappingInfoVALVE](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDescriptorSetLayoutHostMappingInfoVALVE.html)
+  /// * `device`
+  /// * `binding_reference`
+  /// * `host_mapping`
   pub GetDescriptorSetLayoutHostMappingInfoVALVE:
     PFN_vkGetDescriptorSetLayoutHostMappingInfoVALVE,
+
   /// Khronos: [vkGetDescriptorSetLayoutSizeEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDescriptorSetLayoutSizeEXT.html)
+  /// * `device`
+  /// * `layout`
+  /// * `layout_size_in_bytes`
   pub GetDescriptorSetLayoutSizeEXT: PFN_vkGetDescriptorSetLayoutSizeEXT,
+
   /// Khronos: [vkGetDescriptorSetLayoutSupport](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDescriptorSetLayoutSupport.html)
+  /// * `device`
+  /// * `create_info`
+  /// * `support`
   pub GetDescriptorSetLayoutSupport: PFN_vkGetDescriptorSetLayoutSupport,
+
   /// Khronos: [vkGetDeviceAccelerationStructureCompatibilityKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceAccelerationStructureCompatibilityKHR.html)
+  /// * `device`
+  /// * `version_info`
+  /// * `compatibility`
   pub GetDeviceAccelerationStructureCompatibilityKHR:
     PFN_vkGetDeviceAccelerationStructureCompatibilityKHR,
+
   /// Khronos: [vkGetDeviceBufferMemoryRequirements](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceBufferMemoryRequirements.html)
+  /// * `device`
+  /// * `info`
+  /// * `memory_requirements`
   pub GetDeviceBufferMemoryRequirements: PFN_vkGetDeviceBufferMemoryRequirements,
+
   /// Khronos: [vkGetDeviceFaultInfoEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceFaultInfoEXT.html)
-  /// * `pFaultInfo` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `device`
+  /// * `fault_counts`
+  /// * `fault_info`, Optional: true
   pub GetDeviceFaultInfoEXT: PFN_vkGetDeviceFaultInfoEXT,
+
   /// Khronos: [vkGetDeviceGroupPeerMemoryFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceGroupPeerMemoryFeatures.html)
+  /// * `device`
+  /// * `heap_index`
+  /// * `local_device_index`
+  /// * `remote_device_index`
+  /// * `peer_memory_features`
   pub GetDeviceGroupPeerMemoryFeatures: PFN_vkGetDeviceGroupPeerMemoryFeatures,
+
   /// Khronos: [vkGetDeviceGroupPresentCapabilitiesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceGroupPresentCapabilitiesKHR.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `device_group_present_capabilities`
   pub GetDeviceGroupPresentCapabilitiesKHR: PFN_vkGetDeviceGroupPresentCapabilitiesKHR,
+
   /// Khronos: [vkGetDeviceGroupSurfacePresentModes2EXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceGroupSurfacePresentModes2EXT.html)
-  /// * `pModes` Optional: false,true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_SURFACE_LOST_KHR`
+  /// * `device`
+  /// * `surface_info`
+  /// * `modes`, Optional: false,true
   pub GetDeviceGroupSurfacePresentModes2EXT: PFN_vkGetDeviceGroupSurfacePresentModes2EXT,
+
   /// Khronos: [vkGetDeviceGroupSurfacePresentModesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceGroupSurfacePresentModesKHR.html)
-  /// * `surface` Extern Sync: true
-  /// * `pModes` Optional: false,true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_SURFACE_LOST_KHR`
+  /// * `device`
+  /// * `surface`, Extern Sync: true
+  /// * `modes`, Optional: false,true
   pub GetDeviceGroupSurfacePresentModesKHR: PFN_vkGetDeviceGroupSurfacePresentModesKHR,
+
   /// Khronos: [vkGetDeviceImageMemoryRequirements](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceImageMemoryRequirements.html)
+  /// * `device`
+  /// * `info`
+  /// * `memory_requirements`
   pub GetDeviceImageMemoryRequirements: PFN_vkGetDeviceImageMemoryRequirements,
+
   /// Khronos: [vkGetDeviceImageSparseMemoryRequirements](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceImageSparseMemoryRequirements.html)
-  /// * `pSparseMemoryRequirementCount` Optional: false,true
-  /// * `pSparseMemoryRequirements` Optional: true
+  /// * `device`
+  /// * `info`
+  /// * `sparse_memory_requirement_count`, Optional: false,true
+  /// * `sparse_memory_requirements`, Optional: true, Len:
+  ///   `sparse_memory_requirement_count`
   pub GetDeviceImageSparseMemoryRequirements:
     PFN_vkGetDeviceImageSparseMemoryRequirements,
+
   /// Khronos: [vkGetDeviceMemoryCommitment](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceMemoryCommitment.html)
+  /// * `device`
+  /// * `memory`
+  /// * `committed_memory_in_bytes`
   pub GetDeviceMemoryCommitment: PFN_vkGetDeviceMemoryCommitment,
+
   /// Khronos: [vkGetDeviceMemoryOpaqueCaptureAddress](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceMemoryOpaqueCaptureAddress.html)
+  /// * `device`
+  /// * `info`
   pub GetDeviceMemoryOpaqueCaptureAddress: PFN_vkGetDeviceMemoryOpaqueCaptureAddress,
+
   /// Khronos: [vkGetDeviceMicromapCompatibilityEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceMicromapCompatibilityEXT.html)
+  /// * `device`
+  /// * `version_info`
+  /// * `compatibility`
   pub GetDeviceMicromapCompatibilityEXT: PFN_vkGetDeviceMicromapCompatibilityEXT,
+
   /// Khronos: [vkGetDeviceProcAddr](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceProcAddr.html)
+  /// * `device`
+  /// * `name`, Len: `null_terminated`
   pub GetDeviceProcAddr: PFN_vkGetDeviceProcAddr,
+
   /// Khronos: [vkGetDeviceQueue](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceQueue.html)
+  /// * `device`
+  /// * `queue_family_index`
+  /// * `queue_index`
+  /// * `queue`
   pub GetDeviceQueue: PFN_vkGetDeviceQueue,
+
   /// Khronos: [vkGetDeviceQueue2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceQueue2.html)
+  /// * `device`
+  /// * `queue_info`
+  /// * `queue`
   pub GetDeviceQueue2: PFN_vkGetDeviceQueue2,
+
   /// Khronos: [vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI.html)
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_SURFACE_LOST_KHR`
+  /// * `device`
+  /// * `renderpass`
+  /// * `max_workgroup_size`
   pub GetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI:
     PFN_vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI,
+
   /// Khronos: [vkGetDynamicRenderingTilePropertiesQCOM](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDynamicRenderingTilePropertiesQCOM.html)
+  /// * Success: `VK_SUCCESS`
+  /// * `device`
+  /// * `rendering_info`
+  /// * `properties`
   pub GetDynamicRenderingTilePropertiesQCOM: PFN_vkGetDynamicRenderingTilePropertiesQCOM,
+
   /// Khronos: [vkGetEventStatus](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetEventStatus.html)
+  /// * Success: `VK_EVENT_SET`, `VK_EVENT_RESET`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_DEVICE_LOST`
+  /// * `device`
+  /// * `event`
   pub GetEventStatus: PFN_vkGetEventStatus,
+
   /// Khronos: [vkGetFenceFdKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetFenceFdKHR.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_TOO_MANY_OBJECTS`, `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `device`
+  /// * `get_fd_info`
+  /// * `fd`
   pub GetFenceFdKHR: PFN_vkGetFenceFdKHR,
+
   /// Khronos: [vkGetFenceSciSyncFenceNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetFenceSciSyncFenceNV.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_INVALID_EXTERNAL_HANDLE`, `VK_ERROR_NOT_PERMITTED_EXT`
+  /// * `device`
+  /// * `get_sci_sync_handle_info`
+  /// * `handle`
   pub GetFenceSciSyncFenceNV: PFN_vkGetFenceSciSyncFenceNV,
+
   /// Khronos: [vkGetFenceSciSyncObjNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetFenceSciSyncObjNV.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_INVALID_EXTERNAL_HANDLE`, `VK_ERROR_NOT_PERMITTED_EXT`
+  /// * `device`
+  /// * `get_sci_sync_handle_info`
+  /// * `handle`
   pub GetFenceSciSyncObjNV: PFN_vkGetFenceSciSyncObjNV,
+
   /// Khronos: [vkGetFenceStatus](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetFenceStatus.html)
+  /// * Success: `VK_SUCCESS`, `VK_NOT_READY`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_DEVICE_LOST`
+  /// * `device`
+  /// * `fence`
   pub GetFenceStatus: PFN_vkGetFenceStatus,
+
   /// Khronos: [vkGetFenceWin32HandleKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetFenceWin32HandleKHR.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_TOO_MANY_OBJECTS`, `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `device`
+  /// * `get_win_32_handle_info`
+  /// * `handle`
   pub GetFenceWin32HandleKHR: PFN_vkGetFenceWin32HandleKHR,
+
   /// Khronos: [vkGetFramebufferTilePropertiesQCOM](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetFramebufferTilePropertiesQCOM.html)
-  /// * `pPropertiesCount` Optional: false,true
-  /// * `pProperties` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * `device`
+  /// * `framebuffer`
+  /// * `properties_count`, Optional: false,true
+  /// * `properties`, Optional: true, Len: `properties_count`
   pub GetFramebufferTilePropertiesQCOM: PFN_vkGetFramebufferTilePropertiesQCOM,
+
   /// Khronos: [vkGetGeneratedCommandsMemoryRequirementsNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetGeneratedCommandsMemoryRequirementsNV.html)
+  /// * `device`
+  /// * `info`
+  /// * `memory_requirements`
   pub GetGeneratedCommandsMemoryRequirementsNV:
     PFN_vkGetGeneratedCommandsMemoryRequirementsNV,
+
   /// Khronos: [vkGetImageDrmFormatModifierPropertiesEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageDrmFormatModifierPropertiesEXT.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `device`
+  /// * `image`
+  /// * `properties`
   pub GetImageDrmFormatModifierPropertiesEXT:
     PFN_vkGetImageDrmFormatModifierPropertiesEXT,
+
   /// Khronos: [vkGetImageMemoryRequirements](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageMemoryRequirements.html)
+  /// * `device`
+  /// * `image`
+  /// * `memory_requirements`
   pub GetImageMemoryRequirements: PFN_vkGetImageMemoryRequirements,
+
   /// Khronos: [vkGetImageMemoryRequirements2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageMemoryRequirements2.html)
+  /// * `device`
+  /// * `info`
+  /// * `memory_requirements`
   pub GetImageMemoryRequirements2: PFN_vkGetImageMemoryRequirements2,
+
   /// Khronos: [vkGetImageOpaqueCaptureDescriptorDataEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageOpaqueCaptureDescriptorDataEXT.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `info`
+  /// * `data`
   pub GetImageOpaqueCaptureDescriptorDataEXT:
     PFN_vkGetImageOpaqueCaptureDescriptorDataEXT,
+
   /// Khronos: [vkGetImageSparseMemoryRequirements](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageSparseMemoryRequirements.html)
-  /// * `pSparseMemoryRequirementCount` Optional: false,true
-  /// * `pSparseMemoryRequirements` Optional: true
+  /// * `device`
+  /// * `image`
+  /// * `sparse_memory_requirement_count`, Optional: false,true
+  /// * `sparse_memory_requirements`, Optional: true, Len:
+  ///   `sparse_memory_requirement_count`
   pub GetImageSparseMemoryRequirements: PFN_vkGetImageSparseMemoryRequirements,
+
   /// Khronos: [vkGetImageSparseMemoryRequirements2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageSparseMemoryRequirements2.html)
-  /// * `pSparseMemoryRequirementCount` Optional: false,true
-  /// * `pSparseMemoryRequirements` Optional: true
+  /// * `device`
+  /// * `info`
+  /// * `sparse_memory_requirement_count`, Optional: false,true
+  /// * `sparse_memory_requirements`, Optional: true, Len:
+  ///   `sparse_memory_requirement_count`
   pub GetImageSparseMemoryRequirements2: PFN_vkGetImageSparseMemoryRequirements2,
+
   /// Khronos: [vkGetImageSubresourceLayout](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageSubresourceLayout.html)
+  /// * `device`
+  /// * `image`
+  /// * `subresource`
+  /// * `layout`
   pub GetImageSubresourceLayout: PFN_vkGetImageSubresourceLayout,
+
   /// Khronos: [vkGetImageSubresourceLayout2EXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageSubresourceLayout2EXT.html)
+  /// * `device`
+  /// * `image`
+  /// * `subresource`
+  /// * `layout`
   pub GetImageSubresourceLayout2EXT: PFN_vkGetImageSubresourceLayout2EXT,
+
   /// Khronos: [vkGetImageViewAddressNVX](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageViewAddressNVX.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_UNKNOWN`
+  /// * `device`
+  /// * `image_view`
+  /// * `properties`
   pub GetImageViewAddressNVX: PFN_vkGetImageViewAddressNVX,
+
   /// Khronos: [vkGetImageViewHandleNVX](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageViewHandleNVX.html)
+  /// * `device`
+  /// * `info`
   pub GetImageViewHandleNVX: PFN_vkGetImageViewHandleNVX,
+
   /// Khronos: [vkGetImageViewOpaqueCaptureDescriptorDataEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageViewOpaqueCaptureDescriptorDataEXT.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `info`
+  /// * `data`
   pub GetImageViewOpaqueCaptureDescriptorDataEXT:
     PFN_vkGetImageViewOpaqueCaptureDescriptorDataEXT,
+
   /// Khronos: [vkGetMemoryAndroidHardwareBufferANDROID](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryAndroidHardwareBufferANDROID.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_TOO_MANY_OBJECTS`, `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `device`
+  /// * `info`
+  /// * `buffer`
   pub GetMemoryAndroidHardwareBufferANDROID: PFN_vkGetMemoryAndroidHardwareBufferANDROID,
+
   /// Khronos: [vkGetMemoryFdKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryFdKHR.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_TOO_MANY_OBJECTS`, `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `device`
+  /// * `get_fd_info`
+  /// * `fd`
   pub GetMemoryFdKHR: PFN_vkGetMemoryFdKHR,
+
   /// Khronos: [vkGetMemoryFdPropertiesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryFdPropertiesKHR.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+  /// * `device`
+  /// * `handle_type`
+  /// * `fd`
+  /// * `memory_fd_properties`
   pub GetMemoryFdPropertiesKHR: PFN_vkGetMemoryFdPropertiesKHR,
+
   /// Khronos: [vkGetMemoryHostPointerPropertiesEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryHostPointerPropertiesEXT.html)
-  /// * `pHostPointer` Optional: false
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+  /// * `device`
+  /// * `handle_type`
+  /// * `host_pointer`, Optional: false
+  /// * `memory_host_pointer_properties`
   pub GetMemoryHostPointerPropertiesEXT: PFN_vkGetMemoryHostPointerPropertiesEXT,
+
   /// Khronos: [vkGetMemoryRemoteAddressNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryRemoteAddressNV.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+  /// * `device`
+  /// * `memory_get_remote_address_info`
+  /// * `address`
   pub GetMemoryRemoteAddressNV: PFN_vkGetMemoryRemoteAddressNV,
+
   /// Khronos: [vkGetMemoryWin32HandleKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryWin32HandleKHR.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_TOO_MANY_OBJECTS`, `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `device`
+  /// * `get_win_32_handle_info`
+  /// * `handle`
   pub GetMemoryWin32HandleKHR: PFN_vkGetMemoryWin32HandleKHR,
+
   /// Khronos: [vkGetMemoryWin32HandleNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryWin32HandleNV.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_TOO_MANY_OBJECTS`, `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `device`
+  /// * `memory`
+  /// * `handle_type`
+  /// * `handle`
   pub GetMemoryWin32HandleNV: PFN_vkGetMemoryWin32HandleNV,
+
   /// Khronos: [vkGetMemoryWin32HandlePropertiesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryWin32HandlePropertiesKHR.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+  /// * `device`
+  /// * `handle_type`
+  /// * `handle`
+  /// * `memory_win_32_handle_properties`
   pub GetMemoryWin32HandlePropertiesKHR: PFN_vkGetMemoryWin32HandlePropertiesKHR,
+
   /// Khronos: [vkGetMemoryZirconHandleFUCHSIA](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryZirconHandleFUCHSIA.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_TOO_MANY_OBJECTS`, `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `device`
+  /// * `get_zircon_handle_info`
+  /// * `zircon_handle`
   pub GetMemoryZirconHandleFUCHSIA: PFN_vkGetMemoryZirconHandleFUCHSIA,
+
   /// Khronos: [vkGetMemoryZirconHandlePropertiesFUCHSIA](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryZirconHandlePropertiesFUCHSIA.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+  /// * `device`
+  /// * `handle_type`
+  /// * `zircon_handle`
+  /// * `memory_zircon_handle_properties`
   pub GetMemoryZirconHandlePropertiesFUCHSIA:
     PFN_vkGetMemoryZirconHandlePropertiesFUCHSIA,
+
   /// Khronos: [vkGetPastPresentationTimingGOOGLE](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPastPresentationTimingGOOGLE.html)
-  /// * `swapchain` Extern Sync: true
-  /// * `pPresentationTimingCount` Optional: false,true
-  /// * `pPresentationTimings` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_DEVICE_LOST`,
+  ///   `VK_ERROR_OUT_OF_DATE_KHR`, `VK_ERROR_SURFACE_LOST_KHR`
+  /// * `device`
+  /// * `swapchain`, Extern Sync: true
+  /// * `presentation_timing_count`, Optional: false,true
+  /// * `presentation_timings`, Optional: true, Len: `presentation_timing_count`
   pub GetPastPresentationTimingGOOGLE: PFN_vkGetPastPresentationTimingGOOGLE,
+
   /// Khronos: [vkGetPipelineCacheData](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPipelineCacheData.html)
-  /// * `pDataSize` Optional: false,true
-  /// * `pData` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `pipeline_cache`
+  /// * `data_size`, Optional: false,true
+  /// * `data`, Optional: true, Len: `data_size`
   pub GetPipelineCacheData: PFN_vkGetPipelineCacheData,
+
   /// Khronos: [vkGetPipelineExecutableInternalRepresentationsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPipelineExecutableInternalRepresentationsKHR.html)
-  /// * `pInternalRepresentationCount` Optional: false,true
-  /// * `pInternalRepresentations` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `executable_info`
+  /// * `internal_representation_count`, Optional: false,true
+  /// * `internal_representations`, Optional: true, Len:
+  ///   `internal_representation_count`
   pub GetPipelineExecutableInternalRepresentationsKHR:
     PFN_vkGetPipelineExecutableInternalRepresentationsKHR,
+
   /// Khronos: [vkGetPipelineExecutablePropertiesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPipelineExecutablePropertiesKHR.html)
-  /// * `pExecutableCount` Optional: false,true
-  /// * `pProperties` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `pipeline_info`
+  /// * `executable_count`, Optional: false,true
+  /// * `properties`, Optional: true, Len: `executable_count`
   pub GetPipelineExecutablePropertiesKHR: PFN_vkGetPipelineExecutablePropertiesKHR,
+
   /// Khronos: [vkGetPipelinePropertiesEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPipelinePropertiesEXT.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `device`
+  /// * `pipeline_info`
+  /// * `pipeline_properties`, true, Valid Structs:
+  ///   VkPipelinePropertiesIdentifierEXT
   pub GetPipelinePropertiesEXT: PFN_vkGetPipelinePropertiesEXT,
+
   /// Khronos: [vkGetPrivateData](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPrivateData.html)
+  /// * `device`
+  /// * `object_type`
+  /// * `object_handle`, Object Type: objectType
+  /// * `private_data_slot`
+  /// * `data`
   pub GetPrivateData: PFN_vkGetPrivateData,
+
   /// Khronos: [vkGetQueryPoolResults](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetQueryPoolResults.html)
-  /// * `flags` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_NOT_READY`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_DEVICE_LOST`
+  /// * `device`
+  /// * `query_pool`
+  /// * `first_query`
+  /// * `query_count`
+  /// * `data_size`
+  /// * `data`, Len: `data_size`
+  /// * `stride`
+  /// * `flags`, Optional: true
   pub GetQueryPoolResults: PFN_vkGetQueryPoolResults,
+
   /// Khronos: [vkGetQueueCheckpointData2NV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetQueueCheckpointData2NV.html)
-  /// * `pCheckpointDataCount` Optional: false,true
-  /// * `pCheckpointData` Optional: true
+  /// * `queue`
+  /// * `checkpoint_data_count`, Optional: false,true
+  /// * `checkpoint_data`, Optional: true, Len: `checkpoint_data_count`
   pub GetQueueCheckpointData2NV: PFN_vkGetQueueCheckpointData2NV,
+
   /// Khronos: [vkGetQueueCheckpointDataNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetQueueCheckpointDataNV.html)
-  /// * `pCheckpointDataCount` Optional: false,true
-  /// * `pCheckpointData` Optional: true
+  /// * `queue`
+  /// * `checkpoint_data_count`, Optional: false,true
+  /// * `checkpoint_data`, Optional: true, Len: `checkpoint_data_count`
   pub GetQueueCheckpointDataNV: PFN_vkGetQueueCheckpointDataNV,
+
   /// Khronos: [vkGetRayTracingCaptureReplayShaderGroupHandlesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetRayTracingCaptureReplayShaderGroupHandlesKHR.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `pipeline`
+  /// * `first_group`
+  /// * `group_count`
+  /// * `data_size`
+  /// * `data`, Len: `data_size`
   pub GetRayTracingCaptureReplayShaderGroupHandlesKHR:
     PFN_vkGetRayTracingCaptureReplayShaderGroupHandlesKHR,
+
   /// Khronos: [vkGetRayTracingShaderGroupHandlesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetRayTracingShaderGroupHandlesKHR.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `pipeline`
+  /// * `first_group`
+  /// * `group_count`
+  /// * `data_size`
+  /// * `data`, Len: `data_size`
   pub GetRayTracingShaderGroupHandlesKHR: PFN_vkGetRayTracingShaderGroupHandlesKHR,
+
   /// Khronos: [vkGetRayTracingShaderGroupStackSizeKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetRayTracingShaderGroupStackSizeKHR.html)
+  /// * `device`
+  /// * `pipeline`
+  /// * `group`
+  /// * `group_shader`
   pub GetRayTracingShaderGroupStackSizeKHR: PFN_vkGetRayTracingShaderGroupStackSizeKHR,
+
   /// Khronos: [vkGetRefreshCycleDurationGOOGLE](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetRefreshCycleDurationGOOGLE.html)
-  /// * `swapchain` Extern Sync: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_DEVICE_LOST`,
+  ///   `VK_ERROR_SURFACE_LOST_KHR`
+  /// * `device`
+  /// * `swapchain`, Extern Sync: true
+  /// * `display_timing_properties`
   pub GetRefreshCycleDurationGOOGLE: PFN_vkGetRefreshCycleDurationGOOGLE,
+
   /// Khronos: [vkGetRenderAreaGranularity](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetRenderAreaGranularity.html)
+  /// * `device`
+  /// * `render_pass`
+  /// * `granularity`
   pub GetRenderAreaGranularity: PFN_vkGetRenderAreaGranularity,
+
   /// Khronos: [vkGetSamplerOpaqueCaptureDescriptorDataEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSamplerOpaqueCaptureDescriptorDataEXT.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `info`
+  /// * `data`
   pub GetSamplerOpaqueCaptureDescriptorDataEXT:
     PFN_vkGetSamplerOpaqueCaptureDescriptorDataEXT,
+
   /// Khronos: [vkGetSemaphoreCounterValue](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSemaphoreCounterValue.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_DEVICE_LOST`
+  /// * `device`
+  /// * `semaphore`
+  /// * `value`
   pub GetSemaphoreCounterValue: PFN_vkGetSemaphoreCounterValue,
+
   /// Khronos: [vkGetSemaphoreFdKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSemaphoreFdKHR.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_TOO_MANY_OBJECTS`, `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `device`
+  /// * `get_fd_info`
+  /// * `fd`
   pub GetSemaphoreFdKHR: PFN_vkGetSemaphoreFdKHR,
+
   /// Khronos: [vkGetSemaphoreSciSyncObjNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSemaphoreSciSyncObjNV.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_INVALID_EXTERNAL_HANDLE`, `VK_ERROR_NOT_PERMITTED_EXT`
+  /// * `device`
+  /// * `get_sci_sync_info`
+  /// * `handle`
   pub GetSemaphoreSciSyncObjNV: PFN_vkGetSemaphoreSciSyncObjNV,
+
   /// Khronos: [vkGetSemaphoreWin32HandleKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSemaphoreWin32HandleKHR.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_TOO_MANY_OBJECTS`, `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `device`
+  /// * `get_win_32_handle_info`
+  /// * `handle`
   pub GetSemaphoreWin32HandleKHR: PFN_vkGetSemaphoreWin32HandleKHR,
+
   /// Khronos: [vkGetSemaphoreZirconHandleFUCHSIA](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSemaphoreZirconHandleFUCHSIA.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_TOO_MANY_OBJECTS`, `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `device`
+  /// * `get_zircon_handle_info`
+  /// * `zircon_handle`
   pub GetSemaphoreZirconHandleFUCHSIA: PFN_vkGetSemaphoreZirconHandleFUCHSIA,
+
   /// Khronos: [vkGetShaderInfoAMD](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetShaderInfoAMD.html)
-  /// * `pInfoSize` Optional: false,true
-  /// * `pInfo` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_FEATURE_NOT_PRESENT`, `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `device`
+  /// * `pipeline`
+  /// * `shader_stage`
+  /// * `info_type`
+  /// * `info_size`, Optional: false,true
+  /// * `info`, Optional: true, Len: `info_size`
   pub GetShaderInfoAMD: PFN_vkGetShaderInfoAMD,
+
   /// Khronos: [vkGetShaderModuleCreateInfoIdentifierEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetShaderModuleCreateInfoIdentifierEXT.html)
+  /// * `device`
+  /// * `create_info`
+  /// * `identifier`
   pub GetShaderModuleCreateInfoIdentifierEXT:
     PFN_vkGetShaderModuleCreateInfoIdentifierEXT,
+
   /// Khronos: [vkGetShaderModuleIdentifierEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetShaderModuleIdentifierEXT.html)
+  /// * `device`
+  /// * `shader_module`
+  /// * `identifier`
   pub GetShaderModuleIdentifierEXT: PFN_vkGetShaderModuleIdentifierEXT,
+
   /// Khronos: [vkGetSwapchainCounterEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSwapchainCounterEXT.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_DEVICE_LOST`,
+  ///   `VK_ERROR_OUT_OF_DATE_KHR`
+  /// * `device`
+  /// * `swapchain`
+  /// * `counter`
+  /// * `counter_value`
   pub GetSwapchainCounterEXT: PFN_vkGetSwapchainCounterEXT,
+
   /// Khronos: [vkGetSwapchainGrallocUsage2ANDROID](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSwapchainGrallocUsage2ANDROID.html)
+  /// * `device`
+  /// * `format`
+  /// * `image_usage`
+  /// * `swapchain_image_usage`
+  /// * `gralloc_consumer_usage`
+  /// * `gralloc_producer_usage`
   pub GetSwapchainGrallocUsage2ANDROID: PFN_vkGetSwapchainGrallocUsage2ANDROID,
+
   /// Khronos: [vkGetSwapchainGrallocUsageANDROID](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSwapchainGrallocUsageANDROID.html)
+  /// * `device`
+  /// * `format`
+  /// * `image_usage`
+  /// * `gralloc_usage`
   pub GetSwapchainGrallocUsageANDROID: PFN_vkGetSwapchainGrallocUsageANDROID,
+
   /// Khronos: [vkGetSwapchainImagesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSwapchainImagesKHR.html)
-  /// * `pSwapchainImageCount` Optional: false,true
-  /// * `pSwapchainImages` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `swapchain`
+  /// * `swapchain_image_count`, Optional: false,true
+  /// * `swapchain_images`, Optional: true, Len: `swapchain_image_count`
   pub GetSwapchainImagesKHR: PFN_vkGetSwapchainImagesKHR,
+
   /// Khronos: [vkGetSwapchainStatusKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSwapchainStatusKHR.html)
-  /// * `swapchain` Extern Sync: true
+  /// * Success: `VK_SUCCESS`, `VK_SUBOPTIMAL_KHR`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_DEVICE_LOST`, `VK_ERROR_OUT_OF_DATE_KHR`,
+  ///   `VK_ERROR_SURFACE_LOST_KHR`,
+  ///   `VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT`
+  /// * `device`
+  /// * `swapchain`, Extern Sync: true
   pub GetSwapchainStatusKHR: PFN_vkGetSwapchainStatusKHR,
+
   /// Khronos: [vkGetValidationCacheDataEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetValidationCacheDataEXT.html)
-  /// * `pDataSize` Optional: false,true
-  /// * `pData` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `validation_cache`
+  /// * `data_size`, Optional: false,true
+  /// * `data`, Optional: true, Len: `data_size`
   pub GetValidationCacheDataEXT: PFN_vkGetValidationCacheDataEXT,
+
   /// Khronos: [vkGetVideoSessionMemoryRequirementsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetVideoSessionMemoryRequirementsKHR.html)
-  /// * `pMemoryRequirementsCount` Optional: false,true
-  /// * `pMemoryRequirements` Optional: true
+  /// * Success: `VK_SUCCESS`, `VK_INCOMPLETE`
+  /// * `device`
+  /// * `video_session`
+  /// * `memory_requirements_count`, Optional: false,true
+  /// * `memory_requirements`, Optional: true, Len: `memory_requirements_count`
   pub GetVideoSessionMemoryRequirementsKHR: PFN_vkGetVideoSessionMemoryRequirementsKHR,
+
   /// Khronos: [vkImportFenceFdKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkImportFenceFdKHR.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+  /// * `device`
+  /// * `import_fence_fd_info`
   pub ImportFenceFdKHR: PFN_vkImportFenceFdKHR,
+
   /// Khronos: [vkImportFenceSciSyncFenceNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkImportFenceSciSyncFenceNV.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_INVALID_EXTERNAL_HANDLE`, `VK_ERROR_NOT_PERMITTED_EXT`
+  /// * `device`
+  /// * `import_fence_sci_sync_info`
   pub ImportFenceSciSyncFenceNV: PFN_vkImportFenceSciSyncFenceNV,
+
   /// Khronos: [vkImportFenceSciSyncObjNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkImportFenceSciSyncObjNV.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_INVALID_EXTERNAL_HANDLE`, `VK_ERROR_NOT_PERMITTED_EXT`
+  /// * `device`
+  /// * `import_fence_sci_sync_info`
   pub ImportFenceSciSyncObjNV: PFN_vkImportFenceSciSyncObjNV,
+
   /// Khronos: [vkImportFenceWin32HandleKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkImportFenceWin32HandleKHR.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+  /// * `device`
+  /// * `import_fence_win_32_handle_info`
   pub ImportFenceWin32HandleKHR: PFN_vkImportFenceWin32HandleKHR,
+
   /// Khronos: [vkImportSemaphoreFdKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkImportSemaphoreFdKHR.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+  /// * `device`
+  /// * `import_semaphore_fd_info`
   pub ImportSemaphoreFdKHR: PFN_vkImportSemaphoreFdKHR,
+
   /// Khronos: [vkImportSemaphoreSciSyncObjNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkImportSemaphoreSciSyncObjNV.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_INVALID_EXTERNAL_HANDLE`, `VK_ERROR_NOT_PERMITTED_EXT`,
+  ///   `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `device`
+  /// * `import_semaphore_sci_sync_info`
   pub ImportSemaphoreSciSyncObjNV: PFN_vkImportSemaphoreSciSyncObjNV,
+
   /// Khronos: [vkImportSemaphoreWin32HandleKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkImportSemaphoreWin32HandleKHR.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+  /// * `device`
+  /// * `import_semaphore_win_32_handle_info`
   pub ImportSemaphoreWin32HandleKHR: PFN_vkImportSemaphoreWin32HandleKHR,
+
   /// Khronos: [vkImportSemaphoreZirconHandleFUCHSIA](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkImportSemaphoreZirconHandleFUCHSIA.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_INVALID_EXTERNAL_HANDLE`
+  /// * `device`
+  /// * `import_semaphore_zircon_handle_info`
   pub ImportSemaphoreZirconHandleFUCHSIA: PFN_vkImportSemaphoreZirconHandleFUCHSIA,
+
   /// Khronos: [vkInitializePerformanceApiINTEL](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkInitializePerformanceApiINTEL.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_TOO_MANY_OBJECTS`, `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `device`
+  /// * `initialize_info`
   pub InitializePerformanceApiINTEL: PFN_vkInitializePerformanceApiINTEL,
+
   /// Khronos: [vkInvalidateMappedMemoryRanges](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkInvalidateMappedMemoryRanges.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `memory_range_count`
+  /// * `memory_ranges`, Len: `memory_range_count`
   pub InvalidateMappedMemoryRanges: PFN_vkInvalidateMappedMemoryRanges,
+
   /// Khronos: [vkMapMemory](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkMapMemory.html)
-  /// * `memory` Extern Sync: true
-  /// * `flags` Optional: true
-  /// * `ppData` Optional: false,true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_MEMORY_MAP_FAILED`
+  /// * `device`
+  /// * `memory`, Extern Sync: true
+  /// * `offset`
+  /// * `size`
+  /// * `flags`, Optional: true
+  /// * `data`, Optional: false,true
   pub MapMemory: PFN_vkMapMemory,
+
   /// Khronos: [vkMergePipelineCaches](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkMergePipelineCaches.html)
-  /// * `dstCache` Extern Sync: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `dst_cache`, Extern Sync: true
+  /// * `src_cache_count`
+  /// * `src_caches`, Len: `src_cache_count`
   pub MergePipelineCaches: PFN_vkMergePipelineCaches,
+
   /// Khronos: [vkMergeValidationCachesEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkMergeValidationCachesEXT.html)
-  /// * `dstCache` Extern Sync: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `dst_cache`, Extern Sync: true
+  /// * `src_cache_count`
+  /// * `src_caches`, Len: `src_cache_count`
   pub MergeValidationCachesEXT: PFN_vkMergeValidationCachesEXT,
+
   /// Khronos: [vkQueueBeginDebugUtilsLabelEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueBeginDebugUtilsLabelEXT.html)
+  /// * `queue`
+  /// * `label_info`
   pub QueueBeginDebugUtilsLabelEXT: PFN_vkQueueBeginDebugUtilsLabelEXT,
+
   /// Khronos: [vkQueueBindSparse](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueBindSparse.html)
-  /// * `queue` Extern Sync: true
-  /// * `bindInfoCount` Optional: true
-  /// * `fence` Optional: true
-  /// * `fence` Extern Sync: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_DEVICE_LOST`
+  /// * Queues: sparse_binding
+  /// * `queue`, Extern Sync: true
+  /// * `bind_info_count`, Optional: true
+  /// * `bind_info`, Len: `bind_info_count`
+  /// * `fence`, Optional: true, Extern Sync: true
   pub QueueBindSparse: PFN_vkQueueBindSparse,
+
   /// Khronos: [vkQueueEndDebugUtilsLabelEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueEndDebugUtilsLabelEXT.html)
+  /// * `queue`
   pub QueueEndDebugUtilsLabelEXT: PFN_vkQueueEndDebugUtilsLabelEXT,
+
   /// Khronos: [vkQueueInsertDebugUtilsLabelEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueInsertDebugUtilsLabelEXT.html)
+  /// * `queue`
+  /// * `label_info`
   pub QueueInsertDebugUtilsLabelEXT: PFN_vkQueueInsertDebugUtilsLabelEXT,
+
   /// Khronos: [vkQueuePresentKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueuePresentKHR.html)
-  /// * `queue` Extern Sync: true
-  /// * `pPresentInfo` Extern Sync:
+  /// * Success: `VK_SUCCESS`, `VK_SUBOPTIMAL_KHR`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_DEVICE_LOST`, `VK_ERROR_OUT_OF_DATE_KHR`,
+  ///   `VK_ERROR_SURFACE_LOST_KHR`,
+  ///   `VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT`
+  /// * `queue`, Extern Sync: true
+  /// * `present_info`, Extern Sync:
   ///   pPresentInfo-&gt;pWaitSemaphores[],pPresentInfo-&gt;pSwapchains[]
   pub QueuePresentKHR: PFN_vkQueuePresentKHR,
+
   /// Khronos: [vkQueueSetPerformanceConfigurationINTEL](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueSetPerformanceConfigurationINTEL.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_TOO_MANY_OBJECTS`, `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `queue`
+  /// * `configuration`
   pub QueueSetPerformanceConfigurationINTEL: PFN_vkQueueSetPerformanceConfigurationINTEL,
+
   /// Khronos: [vkQueueSignalReleaseImageANDROID](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueSignalReleaseImageANDROID.html)
+  /// * `queue`
+  /// * `wait_semaphore_count`
+  /// * `wait_semaphores`, Len: `wait_semaphore_count`
+  /// * `image`
+  /// * `native_fence_fd`
   pub QueueSignalReleaseImageANDROID: PFN_vkQueueSignalReleaseImageANDROID,
+
   /// Khronos: [vkQueueSubmit](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueSubmit.html)
-  /// * `queue` Extern Sync: true
-  /// * `submitCount` Optional: true
-  /// * `fence` Optional: true
-  /// * `fence` Extern Sync: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_DEVICE_LOST`
+  /// * `queue`, Extern Sync: true
+  /// * `submit_count`, Optional: true
+  /// * `submits`, Len: `submit_count`
+  /// * `fence`, Optional: true, Extern Sync: true
   pub QueueSubmit: PFN_vkQueueSubmit,
+
   /// Khronos: [vkQueueSubmit2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueSubmit2.html)
-  /// * `queue` Extern Sync: true
-  /// * `submitCount` Optional: true
-  /// * `fence` Optional: true
-  /// * `fence` Extern Sync: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_DEVICE_LOST`
+  /// * `queue`, Extern Sync: true
+  /// * `submit_count`, Optional: true
+  /// * `submits`, Len: `submit_count`
+  /// * `fence`, Optional: true, Extern Sync: true
   pub QueueSubmit2: PFN_vkQueueSubmit2,
+
   /// Khronos: [vkQueueWaitIdle](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueWaitIdle.html)
-  /// * `queue` Extern Sync: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_DEVICE_LOST`
+  /// * `queue`, Extern Sync: true
   pub QueueWaitIdle: PFN_vkQueueWaitIdle,
+
   /// Khronos: [vkRegisterDeviceEventEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkRegisterDeviceEventEXT.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `device`
+  /// * `device_event_info`
+  /// * `allocator`, Optional: true
+  /// * `fence`
   pub RegisterDeviceEventEXT: PFN_vkRegisterDeviceEventEXT,
+
   /// Khronos: [vkRegisterDisplayEventEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkRegisterDisplayEventEXT.html)
-  /// * `pAllocator` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `device`
+  /// * `display`
+  /// * `display_event_info`
+  /// * `allocator`, Optional: true
+  /// * `fence`
   pub RegisterDisplayEventEXT: PFN_vkRegisterDisplayEventEXT,
+
   /// Khronos: [vkReleaseFullScreenExclusiveModeEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkReleaseFullScreenExclusiveModeEXT.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_SURFACE_LOST_KHR`
+  /// * `device`
+  /// * `swapchain`
   pub ReleaseFullScreenExclusiveModeEXT: PFN_vkReleaseFullScreenExclusiveModeEXT,
+
   /// Khronos: [vkReleasePerformanceConfigurationINTEL](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkReleasePerformanceConfigurationINTEL.html)
-  /// * `configuration` Optional: true
-  /// * `configuration` Extern Sync: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_TOO_MANY_OBJECTS`, `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `device`
+  /// * `configuration`, Optional: true, Extern Sync: true
   pub ReleasePerformanceConfigurationINTEL: PFN_vkReleasePerformanceConfigurationINTEL,
+
   /// Khronos: [vkReleaseProfilingLockKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkReleaseProfilingLockKHR.html)
+  /// * `device`
   pub ReleaseProfilingLockKHR: PFN_vkReleaseProfilingLockKHR,
+
   /// Khronos: [vkReleaseSwapchainImagesEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkReleaseSwapchainImagesEXT.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_SURFACE_LOST_KHR`
+  /// * `device`
+  /// * `release_info`
   pub ReleaseSwapchainImagesEXT: PFN_vkReleaseSwapchainImagesEXT,
+
+  /// Khronos: [vkResetCommandBuffer](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetCommandBuffer.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * Implicit Extern Sync: the [VkCommandPool] that `commandBuffer` was
+  ///   allocated from
+  /// * `command_buffer`, Extern Sync: true
+  /// * `flags`, Optional: true
+  pub ResetCommandBuffer: PFN_vkResetCommandBuffer,
+
   /// Khronos: [vkResetCommandPool](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetCommandPool.html)
-  /// * `commandPool` Extern Sync: true
-  /// * `flags` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `command_pool`, Extern Sync: true
+  /// * `flags`, Optional: true
   pub ResetCommandPool: PFN_vkResetCommandPool,
+
   /// Khronos: [vkResetDescriptorPool](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetDescriptorPool.html)
-  /// * Implicit Extern Sync: any sname:VkDescriptorSet objects allocated from
-  ///   pname:descriptorPool
-  /// * `descriptorPool` Extern Sync: true
-  /// * `flags` Optional: true
+  /// * Success: `VK_SUCCESS`
+  /// * Implicit Extern Sync: any [VkDescriptorSet] objects allocated from
+  ///   `descriptorPool`
+  /// * `device`
+  /// * `descriptor_pool`, Extern Sync: true
+  /// * `flags`, Optional: true
   pub ResetDescriptorPool: PFN_vkResetDescriptorPool,
+
   /// Khronos: [vkResetEvent](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetEvent.html)
-  /// * `event` Extern Sync: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `event`, Extern Sync: true
   pub ResetEvent: PFN_vkResetEvent,
+
   /// Khronos: [vkResetFences](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetFences.html)
-  /// * `pFences` Extern Sync: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `fence_count`
+  /// * `fences`, Extern Sync: true, Len: `fence_count`
   pub ResetFences: PFN_vkResetFences,
+
   /// Khronos: [vkResetQueryPool](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetQueryPool.html)
+  /// * `device`
+  /// * `query_pool`
+  /// * `first_query`
+  /// * `query_count`
   pub ResetQueryPool: PFN_vkResetQueryPool,
+
   /// Khronos: [vkSetBufferCollectionBufferConstraintsFUCHSIA](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetBufferCollectionBufferConstraintsFUCHSIA.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_INITIALIZATION_FAILED`, `VK_ERROR_OUT_OF_HOST_MEMORY`,
+  ///   `VK_ERROR_FORMAT_NOT_SUPPORTED`
+  /// * `device`
+  /// * `collection`
+  /// * `buffer_constraints_info`
   pub SetBufferCollectionBufferConstraintsFUCHSIA:
     PFN_vkSetBufferCollectionBufferConstraintsFUCHSIA,
+
   /// Khronos: [vkSetBufferCollectionImageConstraintsFUCHSIA](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetBufferCollectionImageConstraintsFUCHSIA.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_INITIALIZATION_FAILED`, `VK_ERROR_OUT_OF_HOST_MEMORY`,
+  ///   `VK_ERROR_FORMAT_NOT_SUPPORTED`
+  /// * `device`
+  /// * `collection`
+  /// * `image_constraints_info`
   pub SetBufferCollectionImageConstraintsFUCHSIA:
     PFN_vkSetBufferCollectionImageConstraintsFUCHSIA,
+
   /// Khronos: [vkSetDebugUtilsObjectNameEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetDebugUtilsObjectNameEXT.html)
-  /// * `pNameInfo` Extern Sync: pNameInfo-&gt;objectHandle
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `name_info`, Extern Sync: pNameInfo-&gt;objectHandle
   pub SetDebugUtilsObjectNameEXT: PFN_vkSetDebugUtilsObjectNameEXT,
+
   /// Khronos: [vkSetDebugUtilsObjectTagEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetDebugUtilsObjectTagEXT.html)
-  /// * `pTagInfo` Extern Sync: pTagInfo-&gt;objectHandle
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `tag_info`, Extern Sync: pTagInfo-&gt;objectHandle
   pub SetDebugUtilsObjectTagEXT: PFN_vkSetDebugUtilsObjectTagEXT,
+
   /// Khronos: [vkSetDeviceMemoryPriorityEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetDeviceMemoryPriorityEXT.html)
+  /// * `device`
+  /// * `memory`
+  /// * `priority`
   pub SetDeviceMemoryPriorityEXT: PFN_vkSetDeviceMemoryPriorityEXT,
+
   /// Khronos: [vkSetEvent](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetEvent.html)
-  /// * `event` Extern Sync: true
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `event`, Extern Sync: true
   pub SetEvent: PFN_vkSetEvent,
+
   /// Khronos: [vkSetHdrMetadataEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetHdrMetadataEXT.html)
+  /// * `device`
+  /// * `swapchain_count`
+  /// * `swapchains`, Len: `swapchain_count`
+  /// * `metadata`, Len: `swapchain_count`
   pub SetHdrMetadataEXT: PFN_vkSetHdrMetadataEXT,
+
   /// Khronos: [vkSetLocalDimmingAMD](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetLocalDimmingAMD.html)
+  /// * `device`
+  /// * `swap_chain`
+  /// * `local_dimming_enable`
   pub SetLocalDimmingAMD: PFN_vkSetLocalDimmingAMD,
+
   /// Khronos: [vkSetPrivateData](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetPrivateData.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`
+  /// * `device`
+  /// * `object_type`
+  /// * `object_handle`, Object Type: objectType
+  /// * `private_data_slot`
+  /// * `data`
   pub SetPrivateData: PFN_vkSetPrivateData,
+
   /// Khronos: [vkSignalSemaphore](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSignalSemaphore.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `signal_info`
   pub SignalSemaphore: PFN_vkSignalSemaphore,
+
   /// Khronos: [vkTrimCommandPool](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkTrimCommandPool.html)
-  /// * `commandPool` Extern Sync: true
-  /// * `flags` Optional: true
+  /// * `device`
+  /// * `command_pool`, Extern Sync: true
+  /// * `flags`, Optional: true
   pub TrimCommandPool: PFN_vkTrimCommandPool,
+
   /// Khronos: [vkUninitializePerformanceApiINTEL](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUninitializePerformanceApiINTEL.html)
+  /// * `device`
   pub UninitializePerformanceApiINTEL: PFN_vkUninitializePerformanceApiINTEL,
+
   /// Khronos: [vkUnmapMemory](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUnmapMemory.html)
-  /// * `memory` Extern Sync: true
+  /// * `device`
+  /// * `memory`, Extern Sync: true
   pub UnmapMemory: PFN_vkUnmapMemory,
+
   /// Khronos: [vkUpdateDescriptorSetWithTemplate](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUpdateDescriptorSetWithTemplate.html)
+  /// * `device`
+  /// * `descriptor_set`
+  /// * `descriptor_update_template`
+  /// * `data`, true
   pub UpdateDescriptorSetWithTemplate: PFN_vkUpdateDescriptorSetWithTemplate,
+
   /// Khronos: [vkUpdateDescriptorSets](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUpdateDescriptorSets.html)
-  /// * `descriptorWriteCount` Optional: true
-  /// * `descriptorCopyCount` Optional: true
+  /// * `device`
+  /// * `descriptor_write_count`, Optional: true
+  /// * `descriptor_writes`, Len: `descriptor_write_count`
+  /// * `descriptor_copy_count`, Optional: true
+  /// * `descriptor_copies`, Len: `descriptor_copy_count`
   pub UpdateDescriptorSets: PFN_vkUpdateDescriptorSets,
+
   /// Khronos: [vkUpdateVideoSessionParametersKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUpdateVideoSessionParametersKHR.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `video_session_parameters`
+  /// * `update_info`
   pub UpdateVideoSessionParametersKHR: PFN_vkUpdateVideoSessionParametersKHR,
+
   /// Khronos: [vkWaitForFences](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkWaitForFences.html)
+  /// * Success: `VK_SUCCESS`, `VK_TIMEOUT`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_DEVICE_LOST`
+  /// * `device`
+  /// * `fence_count`
+  /// * `fences`, Len: `fence_count`
+  /// * `wait_all`
+  /// * `timeout`
   pub WaitForFences: PFN_vkWaitForFences,
+
   /// Khronos: [vkWaitForPresentKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkWaitForPresentKHR.html)
-  /// * `swapchain` Extern Sync: true
+  /// * Success: `VK_SUCCESS`, `VK_TIMEOUT`, `VK_SUBOPTIMAL_KHR`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_DEVICE_LOST`, `VK_ERROR_OUT_OF_DATE_KHR`,
+  ///   `VK_ERROR_SURFACE_LOST_KHR`,
+  ///   `VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT`
+  /// * `device`
+  /// * `swapchain`, Extern Sync: true
+  /// * `present_id`
+  /// * `timeout`
   pub WaitForPresentKHR: PFN_vkWaitForPresentKHR,
+
   /// Khronos: [vkWaitSemaphores](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkWaitSemaphores.html)
+  /// * Success: `VK_SUCCESS`, `VK_TIMEOUT`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_DEVICE_LOST`
+  /// * `device`
+  /// * `wait_info`
+  /// * `timeout`
   pub WaitSemaphores: PFN_vkWaitSemaphores,
+
   /// Khronos: [vkWriteAccelerationStructuresPropertiesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkWriteAccelerationStructuresPropertiesKHR.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `acceleration_structure_count`
+  /// * `acceleration_structures`, Len: `acceleration_structure_count`
+  /// * `query_type`
+  /// * `data_size`
+  /// * `data`, Len: `data_size`
+  /// * `stride`
   pub WriteAccelerationStructuresPropertiesKHR:
     PFN_vkWriteAccelerationStructuresPropertiesKHR,
+
   /// Khronos: [vkWriteMicromapsPropertiesEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkWriteMicromapsPropertiesEXT.html)
+  /// * Success: `VK_SUCCESS`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * `device`
+  /// * `micromap_count`
+  /// * `micromaps`, Len: `micromap_count`
+  /// * `query_type`
+  /// * `data_size`
+  /// * `data`, Len: `data_size`
+  /// * `stride`
   pub WriteMicromapsPropertiesEXT: PFN_vkWriteMicromapsPropertiesEXT,
 }
 impl DeviceFns {
@@ -7306,6 +11098,8 @@ impl DeviceFns {
     self.AllocateDescriptorSets =
       transmute(loader(device, vkAllocateDescriptorSets_NAME.as_ptr()));
     self.AllocateMemory = transmute(loader(device, vkAllocateMemory_NAME.as_ptr()));
+    self.BeginCommandBuffer =
+      transmute(loader(device, vkBeginCommandBuffer_NAME.as_ptr()));
     self.BindAccelerationStructureMemoryNV =
       transmute(loader(device, vkBindAccelerationStructureMemoryNV_NAME.as_ptr()));
     self.BindBufferMemory = transmute(loader(device, vkBindBufferMemory_NAME.as_ptr()));
@@ -7316,6 +11110,347 @@ impl DeviceFns {
       transmute(loader(device, vkBindOpticalFlowSessionImageNV_NAME.as_ptr()));
     self.BindVideoSessionMemoryKHR =
       transmute(loader(device, vkBindVideoSessionMemoryKHR_NAME.as_ptr()));
+    self.CmdBeginConditionalRenderingEXT =
+      transmute(loader(device, vkCmdBeginConditionalRenderingEXT_NAME.as_ptr()));
+    self.CmdBeginDebugUtilsLabelEXT =
+      transmute(loader(device, vkCmdBeginDebugUtilsLabelEXT_NAME.as_ptr()));
+    self.CmdBeginQuery = transmute(loader(device, vkCmdBeginQuery_NAME.as_ptr()));
+    self.CmdBeginQueryIndexedEXT =
+      transmute(loader(device, vkCmdBeginQueryIndexedEXT_NAME.as_ptr()));
+    self.CmdBeginRenderPass =
+      transmute(loader(device, vkCmdBeginRenderPass_NAME.as_ptr()));
+    self.CmdBeginRenderPass2 =
+      transmute(loader(device, vkCmdBeginRenderPass2_NAME.as_ptr()));
+    self.CmdBeginRendering = transmute(loader(device, vkCmdBeginRendering_NAME.as_ptr()));
+    self.CmdBeginTransformFeedbackEXT =
+      transmute(loader(device, vkCmdBeginTransformFeedbackEXT_NAME.as_ptr()));
+    self.CmdBeginVideoCodingKHR =
+      transmute(loader(device, vkCmdBeginVideoCodingKHR_NAME.as_ptr()));
+    self.CmdBindDescriptorBufferEmbeddedSamplersEXT = transmute(loader(
+      device,
+      vkCmdBindDescriptorBufferEmbeddedSamplersEXT_NAME.as_ptr(),
+    ));
+    self.CmdBindDescriptorBuffersEXT =
+      transmute(loader(device, vkCmdBindDescriptorBuffersEXT_NAME.as_ptr()));
+    self.CmdBindDescriptorSets =
+      transmute(loader(device, vkCmdBindDescriptorSets_NAME.as_ptr()));
+    self.CmdBindIndexBuffer =
+      transmute(loader(device, vkCmdBindIndexBuffer_NAME.as_ptr()));
+    self.CmdBindInvocationMaskHUAWEI =
+      transmute(loader(device, vkCmdBindInvocationMaskHUAWEI_NAME.as_ptr()));
+    self.CmdBindPipeline = transmute(loader(device, vkCmdBindPipeline_NAME.as_ptr()));
+    self.CmdBindPipelineShaderGroupNV =
+      transmute(loader(device, vkCmdBindPipelineShaderGroupNV_NAME.as_ptr()));
+    self.CmdBindShadingRateImageNV =
+      transmute(loader(device, vkCmdBindShadingRateImageNV_NAME.as_ptr()));
+    self.CmdBindTransformFeedbackBuffersEXT =
+      transmute(loader(device, vkCmdBindTransformFeedbackBuffersEXT_NAME.as_ptr()));
+    self.CmdBindVertexBuffers =
+      transmute(loader(device, vkCmdBindVertexBuffers_NAME.as_ptr()));
+    self.CmdBindVertexBuffers2 =
+      transmute(loader(device, vkCmdBindVertexBuffers2_NAME.as_ptr()));
+    self.CmdBlitImage = transmute(loader(device, vkCmdBlitImage_NAME.as_ptr()));
+    self.CmdBlitImage2 = transmute(loader(device, vkCmdBlitImage2_NAME.as_ptr()));
+    self.CmdBuildAccelerationStructureNV =
+      transmute(loader(device, vkCmdBuildAccelerationStructureNV_NAME.as_ptr()));
+    self.CmdClearAttachments =
+      transmute(loader(device, vkCmdClearAttachments_NAME.as_ptr()));
+    self.CmdClearColorImage =
+      transmute(loader(device, vkCmdClearColorImage_NAME.as_ptr()));
+    self.CmdClearDepthStencilImage =
+      transmute(loader(device, vkCmdClearDepthStencilImage_NAME.as_ptr()));
+    self.CmdControlVideoCodingKHR =
+      transmute(loader(device, vkCmdControlVideoCodingKHR_NAME.as_ptr()));
+    self.CmdCopyAccelerationStructureKHR =
+      transmute(loader(device, vkCmdCopyAccelerationStructureKHR_NAME.as_ptr()));
+    self.CmdCopyAccelerationStructureNV =
+      transmute(loader(device, vkCmdCopyAccelerationStructureNV_NAME.as_ptr()));
+    self.CmdCopyBuffer = transmute(loader(device, vkCmdCopyBuffer_NAME.as_ptr()));
+    self.CmdCopyBuffer2 = transmute(loader(device, vkCmdCopyBuffer2_NAME.as_ptr()));
+    self.CmdCopyBufferToImage =
+      transmute(loader(device, vkCmdCopyBufferToImage_NAME.as_ptr()));
+    self.CmdCopyBufferToImage2 =
+      transmute(loader(device, vkCmdCopyBufferToImage2_NAME.as_ptr()));
+    self.CmdCopyImage = transmute(loader(device, vkCmdCopyImage_NAME.as_ptr()));
+    self.CmdCopyImage2 = transmute(loader(device, vkCmdCopyImage2_NAME.as_ptr()));
+    self.CmdCopyImageToBuffer =
+      transmute(loader(device, vkCmdCopyImageToBuffer_NAME.as_ptr()));
+    self.CmdCopyImageToBuffer2 =
+      transmute(loader(device, vkCmdCopyImageToBuffer2_NAME.as_ptr()));
+    self.CmdCopyMemoryIndirectNV =
+      transmute(loader(device, vkCmdCopyMemoryIndirectNV_NAME.as_ptr()));
+    self.CmdCopyMemoryToImageIndirectNV =
+      transmute(loader(device, vkCmdCopyMemoryToImageIndirectNV_NAME.as_ptr()));
+    self.CmdCopyMicromapEXT =
+      transmute(loader(device, vkCmdCopyMicromapEXT_NAME.as_ptr()));
+    self.CmdCopyQueryPoolResults =
+      transmute(loader(device, vkCmdCopyQueryPoolResults_NAME.as_ptr()));
+    self.CmdCuLaunchKernelNVX =
+      transmute(loader(device, vkCmdCuLaunchKernelNVX_NAME.as_ptr()));
+    self.CmdDebugMarkerBeginEXT =
+      transmute(loader(device, vkCmdDebugMarkerBeginEXT_NAME.as_ptr()));
+    self.CmdDebugMarkerEndEXT =
+      transmute(loader(device, vkCmdDebugMarkerEndEXT_NAME.as_ptr()));
+    self.CmdDebugMarkerInsertEXT =
+      transmute(loader(device, vkCmdDebugMarkerInsertEXT_NAME.as_ptr()));
+    self.CmdDecodeVideoKHR = transmute(loader(device, vkCmdDecodeVideoKHR_NAME.as_ptr()));
+    self.CmdDecompressMemoryIndirectCountNV =
+      transmute(loader(device, vkCmdDecompressMemoryIndirectCountNV_NAME.as_ptr()));
+    self.CmdDecompressMemoryNV =
+      transmute(loader(device, vkCmdDecompressMemoryNV_NAME.as_ptr()));
+    self.CmdDispatch = transmute(loader(device, vkCmdDispatch_NAME.as_ptr()));
+    self.CmdDispatchBase = transmute(loader(device, vkCmdDispatchBase_NAME.as_ptr()));
+    self.CmdDispatchIndirect =
+      transmute(loader(device, vkCmdDispatchIndirect_NAME.as_ptr()));
+    self.CmdDraw = transmute(loader(device, vkCmdDraw_NAME.as_ptr()));
+    self.CmdDrawClusterHUAWEI =
+      transmute(loader(device, vkCmdDrawClusterHUAWEI_NAME.as_ptr()));
+    self.CmdDrawClusterIndirectHUAWEI =
+      transmute(loader(device, vkCmdDrawClusterIndirectHUAWEI_NAME.as_ptr()));
+    self.CmdDrawIndexed = transmute(loader(device, vkCmdDrawIndexed_NAME.as_ptr()));
+    self.CmdDrawIndexedIndirect =
+      transmute(loader(device, vkCmdDrawIndexedIndirect_NAME.as_ptr()));
+    self.CmdDrawIndexedIndirectCount =
+      transmute(loader(device, vkCmdDrawIndexedIndirectCount_NAME.as_ptr()));
+    self.CmdDrawIndirect = transmute(loader(device, vkCmdDrawIndirect_NAME.as_ptr()));
+    self.CmdDrawIndirectByteCountEXT =
+      transmute(loader(device, vkCmdDrawIndirectByteCountEXT_NAME.as_ptr()));
+    self.CmdDrawIndirectCount =
+      transmute(loader(device, vkCmdDrawIndirectCount_NAME.as_ptr()));
+    self.CmdDrawMeshTasksEXT =
+      transmute(loader(device, vkCmdDrawMeshTasksEXT_NAME.as_ptr()));
+    self.CmdDrawMeshTasksIndirectCountEXT =
+      transmute(loader(device, vkCmdDrawMeshTasksIndirectCountEXT_NAME.as_ptr()));
+    self.CmdDrawMeshTasksIndirectCountNV =
+      transmute(loader(device, vkCmdDrawMeshTasksIndirectCountNV_NAME.as_ptr()));
+    self.CmdDrawMeshTasksIndirectEXT =
+      transmute(loader(device, vkCmdDrawMeshTasksIndirectEXT_NAME.as_ptr()));
+    self.CmdDrawMeshTasksIndirectNV =
+      transmute(loader(device, vkCmdDrawMeshTasksIndirectNV_NAME.as_ptr()));
+    self.CmdDrawMeshTasksNV =
+      transmute(loader(device, vkCmdDrawMeshTasksNV_NAME.as_ptr()));
+    self.CmdDrawMultiEXT = transmute(loader(device, vkCmdDrawMultiEXT_NAME.as_ptr()));
+    self.CmdDrawMultiIndexedEXT =
+      transmute(loader(device, vkCmdDrawMultiIndexedEXT_NAME.as_ptr()));
+    self.CmdEndConditionalRenderingEXT =
+      transmute(loader(device, vkCmdEndConditionalRenderingEXT_NAME.as_ptr()));
+    self.CmdEndDebugUtilsLabelEXT =
+      transmute(loader(device, vkCmdEndDebugUtilsLabelEXT_NAME.as_ptr()));
+    self.CmdEndQuery = transmute(loader(device, vkCmdEndQuery_NAME.as_ptr()));
+    self.CmdEndQueryIndexedEXT =
+      transmute(loader(device, vkCmdEndQueryIndexedEXT_NAME.as_ptr()));
+    self.CmdEndRenderPass = transmute(loader(device, vkCmdEndRenderPass_NAME.as_ptr()));
+    self.CmdEndRenderPass2 = transmute(loader(device, vkCmdEndRenderPass2_NAME.as_ptr()));
+    self.CmdEndRendering = transmute(loader(device, vkCmdEndRendering_NAME.as_ptr()));
+    self.CmdEndTransformFeedbackEXT =
+      transmute(loader(device, vkCmdEndTransformFeedbackEXT_NAME.as_ptr()));
+    self.CmdEndVideoCodingKHR =
+      transmute(loader(device, vkCmdEndVideoCodingKHR_NAME.as_ptr()));
+    self.CmdExecuteCommands =
+      transmute(loader(device, vkCmdExecuteCommands_NAME.as_ptr()));
+    self.CmdExecuteGeneratedCommandsNV =
+      transmute(loader(device, vkCmdExecuteGeneratedCommandsNV_NAME.as_ptr()));
+    self.CmdFillBuffer = transmute(loader(device, vkCmdFillBuffer_NAME.as_ptr()));
+    self.CmdInsertDebugUtilsLabelEXT =
+      transmute(loader(device, vkCmdInsertDebugUtilsLabelEXT_NAME.as_ptr()));
+    self.CmdNextSubpass = transmute(loader(device, vkCmdNextSubpass_NAME.as_ptr()));
+    self.CmdNextSubpass2 = transmute(loader(device, vkCmdNextSubpass2_NAME.as_ptr()));
+    self.CmdOpticalFlowExecuteNV =
+      transmute(loader(device, vkCmdOpticalFlowExecuteNV_NAME.as_ptr()));
+    self.CmdPipelineBarrier =
+      transmute(loader(device, vkCmdPipelineBarrier_NAME.as_ptr()));
+    self.CmdPipelineBarrier2 =
+      transmute(loader(device, vkCmdPipelineBarrier2_NAME.as_ptr()));
+    self.CmdPreprocessGeneratedCommandsNV =
+      transmute(loader(device, vkCmdPreprocessGeneratedCommandsNV_NAME.as_ptr()));
+    self.CmdPushConstants = transmute(loader(device, vkCmdPushConstants_NAME.as_ptr()));
+    self.CmdPushDescriptorSetKHR =
+      transmute(loader(device, vkCmdPushDescriptorSetKHR_NAME.as_ptr()));
+    self.CmdPushDescriptorSetWithTemplateKHR =
+      transmute(loader(device, vkCmdPushDescriptorSetWithTemplateKHR_NAME.as_ptr()));
+    self.CmdRefreshObjectsKHR =
+      transmute(loader(device, vkCmdRefreshObjectsKHR_NAME.as_ptr()));
+    self.CmdResetEvent = transmute(loader(device, vkCmdResetEvent_NAME.as_ptr()));
+    self.CmdResetEvent2 = transmute(loader(device, vkCmdResetEvent2_NAME.as_ptr()));
+    self.CmdResetQueryPool = transmute(loader(device, vkCmdResetQueryPool_NAME.as_ptr()));
+    self.CmdResolveImage = transmute(loader(device, vkCmdResolveImage_NAME.as_ptr()));
+    self.CmdResolveImage2 = transmute(loader(device, vkCmdResolveImage2_NAME.as_ptr()));
+    self.CmdSetAlphaToCoverageEnableEXT =
+      transmute(loader(device, vkCmdSetAlphaToCoverageEnableEXT_NAME.as_ptr()));
+    self.CmdSetAlphaToOneEnableEXT =
+      transmute(loader(device, vkCmdSetAlphaToOneEnableEXT_NAME.as_ptr()));
+    self.CmdSetBlendConstants =
+      transmute(loader(device, vkCmdSetBlendConstants_NAME.as_ptr()));
+    self.CmdSetCheckpointNV =
+      transmute(loader(device, vkCmdSetCheckpointNV_NAME.as_ptr()));
+    self.CmdSetCoarseSampleOrderNV =
+      transmute(loader(device, vkCmdSetCoarseSampleOrderNV_NAME.as_ptr()));
+    self.CmdSetColorBlendAdvancedEXT =
+      transmute(loader(device, vkCmdSetColorBlendAdvancedEXT_NAME.as_ptr()));
+    self.CmdSetColorBlendEnableEXT =
+      transmute(loader(device, vkCmdSetColorBlendEnableEXT_NAME.as_ptr()));
+    self.CmdSetColorBlendEquationEXT =
+      transmute(loader(device, vkCmdSetColorBlendEquationEXT_NAME.as_ptr()));
+    self.CmdSetColorWriteEnableEXT =
+      transmute(loader(device, vkCmdSetColorWriteEnableEXT_NAME.as_ptr()));
+    self.CmdSetColorWriteMaskEXT =
+      transmute(loader(device, vkCmdSetColorWriteMaskEXT_NAME.as_ptr()));
+    self.CmdSetConservativeRasterizationModeEXT =
+      transmute(loader(device, vkCmdSetConservativeRasterizationModeEXT_NAME.as_ptr()));
+    self.CmdSetCoverageModulationModeNV =
+      transmute(loader(device, vkCmdSetCoverageModulationModeNV_NAME.as_ptr()));
+    self.CmdSetCoverageModulationTableEnableNV =
+      transmute(loader(device, vkCmdSetCoverageModulationTableEnableNV_NAME.as_ptr()));
+    self.CmdSetCoverageModulationTableNV =
+      transmute(loader(device, vkCmdSetCoverageModulationTableNV_NAME.as_ptr()));
+    self.CmdSetCoverageReductionModeNV =
+      transmute(loader(device, vkCmdSetCoverageReductionModeNV_NAME.as_ptr()));
+    self.CmdSetCoverageToColorEnableNV =
+      transmute(loader(device, vkCmdSetCoverageToColorEnableNV_NAME.as_ptr()));
+    self.CmdSetCoverageToColorLocationNV =
+      transmute(loader(device, vkCmdSetCoverageToColorLocationNV_NAME.as_ptr()));
+    self.CmdSetCullMode = transmute(loader(device, vkCmdSetCullMode_NAME.as_ptr()));
+    self.CmdSetDepthBias = transmute(loader(device, vkCmdSetDepthBias_NAME.as_ptr()));
+    self.CmdSetDepthBiasEnable =
+      transmute(loader(device, vkCmdSetDepthBiasEnable_NAME.as_ptr()));
+    self.CmdSetDepthBounds = transmute(loader(device, vkCmdSetDepthBounds_NAME.as_ptr()));
+    self.CmdSetDepthBoundsTestEnable =
+      transmute(loader(device, vkCmdSetDepthBoundsTestEnable_NAME.as_ptr()));
+    self.CmdSetDepthClampEnableEXT =
+      transmute(loader(device, vkCmdSetDepthClampEnableEXT_NAME.as_ptr()));
+    self.CmdSetDepthClipEnableEXT =
+      transmute(loader(device, vkCmdSetDepthClipEnableEXT_NAME.as_ptr()));
+    self.CmdSetDepthClipNegativeOneToOneEXT =
+      transmute(loader(device, vkCmdSetDepthClipNegativeOneToOneEXT_NAME.as_ptr()));
+    self.CmdSetDepthCompareOp =
+      transmute(loader(device, vkCmdSetDepthCompareOp_NAME.as_ptr()));
+    self.CmdSetDepthTestEnable =
+      transmute(loader(device, vkCmdSetDepthTestEnable_NAME.as_ptr()));
+    self.CmdSetDepthWriteEnable =
+      transmute(loader(device, vkCmdSetDepthWriteEnable_NAME.as_ptr()));
+    self.CmdSetDescriptorBufferOffsetsEXT =
+      transmute(loader(device, vkCmdSetDescriptorBufferOffsetsEXT_NAME.as_ptr()));
+    self.CmdSetDeviceMask = transmute(loader(device, vkCmdSetDeviceMask_NAME.as_ptr()));
+    self.CmdSetDiscardRectangleEXT =
+      transmute(loader(device, vkCmdSetDiscardRectangleEXT_NAME.as_ptr()));
+    self.CmdSetDiscardRectangleEnableEXT =
+      transmute(loader(device, vkCmdSetDiscardRectangleEnableEXT_NAME.as_ptr()));
+    self.CmdSetDiscardRectangleModeEXT =
+      transmute(loader(device, vkCmdSetDiscardRectangleModeEXT_NAME.as_ptr()));
+    self.CmdSetEvent = transmute(loader(device, vkCmdSetEvent_NAME.as_ptr()));
+    self.CmdSetEvent2 = transmute(loader(device, vkCmdSetEvent2_NAME.as_ptr()));
+    self.CmdSetExclusiveScissorEnableNV =
+      transmute(loader(device, vkCmdSetExclusiveScissorEnableNV_NAME.as_ptr()));
+    self.CmdSetExclusiveScissorNV =
+      transmute(loader(device, vkCmdSetExclusiveScissorNV_NAME.as_ptr()));
+    self.CmdSetExtraPrimitiveOverestimationSizeEXT = transmute(loader(
+      device,
+      vkCmdSetExtraPrimitiveOverestimationSizeEXT_NAME.as_ptr(),
+    ));
+    self.CmdSetFragmentShadingRateEnumNV =
+      transmute(loader(device, vkCmdSetFragmentShadingRateEnumNV_NAME.as_ptr()));
+    self.CmdSetFragmentShadingRateKHR =
+      transmute(loader(device, vkCmdSetFragmentShadingRateKHR_NAME.as_ptr()));
+    self.CmdSetFrontFace = transmute(loader(device, vkCmdSetFrontFace_NAME.as_ptr()));
+    self.CmdSetLineRasterizationModeEXT =
+      transmute(loader(device, vkCmdSetLineRasterizationModeEXT_NAME.as_ptr()));
+    self.CmdSetLineStippleEXT =
+      transmute(loader(device, vkCmdSetLineStippleEXT_NAME.as_ptr()));
+    self.CmdSetLineStippleEnableEXT =
+      transmute(loader(device, vkCmdSetLineStippleEnableEXT_NAME.as_ptr()));
+    self.CmdSetLineWidth = transmute(loader(device, vkCmdSetLineWidth_NAME.as_ptr()));
+    self.CmdSetLogicOpEXT = transmute(loader(device, vkCmdSetLogicOpEXT_NAME.as_ptr()));
+    self.CmdSetLogicOpEnableEXT =
+      transmute(loader(device, vkCmdSetLogicOpEnableEXT_NAME.as_ptr()));
+    self.CmdSetPatchControlPointsEXT =
+      transmute(loader(device, vkCmdSetPatchControlPointsEXT_NAME.as_ptr()));
+    self.CmdSetPerformanceMarkerINTEL =
+      transmute(loader(device, vkCmdSetPerformanceMarkerINTEL_NAME.as_ptr()));
+    self.CmdSetPerformanceOverrideINTEL =
+      transmute(loader(device, vkCmdSetPerformanceOverrideINTEL_NAME.as_ptr()));
+    self.CmdSetPerformanceStreamMarkerINTEL =
+      transmute(loader(device, vkCmdSetPerformanceStreamMarkerINTEL_NAME.as_ptr()));
+    self.CmdSetPolygonModeEXT =
+      transmute(loader(device, vkCmdSetPolygonModeEXT_NAME.as_ptr()));
+    self.CmdSetPrimitiveRestartEnable =
+      transmute(loader(device, vkCmdSetPrimitiveRestartEnable_NAME.as_ptr()));
+    self.CmdSetPrimitiveTopology =
+      transmute(loader(device, vkCmdSetPrimitiveTopology_NAME.as_ptr()));
+    self.CmdSetProvokingVertexModeEXT =
+      transmute(loader(device, vkCmdSetProvokingVertexModeEXT_NAME.as_ptr()));
+    self.CmdSetRasterizationSamplesEXT =
+      transmute(loader(device, vkCmdSetRasterizationSamplesEXT_NAME.as_ptr()));
+    self.CmdSetRasterizationStreamEXT =
+      transmute(loader(device, vkCmdSetRasterizationStreamEXT_NAME.as_ptr()));
+    self.CmdSetRasterizerDiscardEnable =
+      transmute(loader(device, vkCmdSetRasterizerDiscardEnable_NAME.as_ptr()));
+    self.CmdSetRayTracingPipelineStackSizeKHR =
+      transmute(loader(device, vkCmdSetRayTracingPipelineStackSizeKHR_NAME.as_ptr()));
+    self.CmdSetRepresentativeFragmentTestEnableNV =
+      transmute(loader(device, vkCmdSetRepresentativeFragmentTestEnableNV_NAME.as_ptr()));
+    self.CmdSetSampleLocationsEXT =
+      transmute(loader(device, vkCmdSetSampleLocationsEXT_NAME.as_ptr()));
+    self.CmdSetSampleLocationsEnableEXT =
+      transmute(loader(device, vkCmdSetSampleLocationsEnableEXT_NAME.as_ptr()));
+    self.CmdSetSampleMaskEXT =
+      transmute(loader(device, vkCmdSetSampleMaskEXT_NAME.as_ptr()));
+    self.CmdSetScissor = transmute(loader(device, vkCmdSetScissor_NAME.as_ptr()));
+    self.CmdSetScissorWithCount =
+      transmute(loader(device, vkCmdSetScissorWithCount_NAME.as_ptr()));
+    self.CmdSetShadingRateImageEnableNV =
+      transmute(loader(device, vkCmdSetShadingRateImageEnableNV_NAME.as_ptr()));
+    self.CmdSetStencilCompareMask =
+      transmute(loader(device, vkCmdSetStencilCompareMask_NAME.as_ptr()));
+    self.CmdSetStencilOp = transmute(loader(device, vkCmdSetStencilOp_NAME.as_ptr()));
+    self.CmdSetStencilReference =
+      transmute(loader(device, vkCmdSetStencilReference_NAME.as_ptr()));
+    self.CmdSetStencilTestEnable =
+      transmute(loader(device, vkCmdSetStencilTestEnable_NAME.as_ptr()));
+    self.CmdSetStencilWriteMask =
+      transmute(loader(device, vkCmdSetStencilWriteMask_NAME.as_ptr()));
+    self.CmdSetTessellationDomainOriginEXT =
+      transmute(loader(device, vkCmdSetTessellationDomainOriginEXT_NAME.as_ptr()));
+    self.CmdSetVertexInputEXT =
+      transmute(loader(device, vkCmdSetVertexInputEXT_NAME.as_ptr()));
+    self.CmdSetViewport = transmute(loader(device, vkCmdSetViewport_NAME.as_ptr()));
+    self.CmdSetViewportShadingRatePaletteNV =
+      transmute(loader(device, vkCmdSetViewportShadingRatePaletteNV_NAME.as_ptr()));
+    self.CmdSetViewportSwizzleNV =
+      transmute(loader(device, vkCmdSetViewportSwizzleNV_NAME.as_ptr()));
+    self.CmdSetViewportWScalingEnableNV =
+      transmute(loader(device, vkCmdSetViewportWScalingEnableNV_NAME.as_ptr()));
+    self.CmdSetViewportWScalingNV =
+      transmute(loader(device, vkCmdSetViewportWScalingNV_NAME.as_ptr()));
+    self.CmdSetViewportWithCount =
+      transmute(loader(device, vkCmdSetViewportWithCount_NAME.as_ptr()));
+    self.CmdSubpassShadingHUAWEI =
+      transmute(loader(device, vkCmdSubpassShadingHUAWEI_NAME.as_ptr()));
+    self.CmdTraceRaysIndirect2KHR =
+      transmute(loader(device, vkCmdTraceRaysIndirect2KHR_NAME.as_ptr()));
+    self.CmdTraceRaysIndirectKHR =
+      transmute(loader(device, vkCmdTraceRaysIndirectKHR_NAME.as_ptr()));
+    self.CmdTraceRaysKHR = transmute(loader(device, vkCmdTraceRaysKHR_NAME.as_ptr()));
+    self.CmdTraceRaysNV = transmute(loader(device, vkCmdTraceRaysNV_NAME.as_ptr()));
+    self.CmdUpdateBuffer = transmute(loader(device, vkCmdUpdateBuffer_NAME.as_ptr()));
+    self.CmdWaitEvents = transmute(loader(device, vkCmdWaitEvents_NAME.as_ptr()));
+    self.CmdWaitEvents2 = transmute(loader(device, vkCmdWaitEvents2_NAME.as_ptr()));
+    self.CmdWriteAccelerationStructuresPropertiesKHR = transmute(loader(
+      device,
+      vkCmdWriteAccelerationStructuresPropertiesKHR_NAME.as_ptr(),
+    ));
+    self.CmdWriteAccelerationStructuresPropertiesNV = transmute(loader(
+      device,
+      vkCmdWriteAccelerationStructuresPropertiesNV_NAME.as_ptr(),
+    ));
+    self.CmdWriteBufferMarker2AMD =
+      transmute(loader(device, vkCmdWriteBufferMarker2AMD_NAME.as_ptr()));
+    self.CmdWriteBufferMarkerAMD =
+      transmute(loader(device, vkCmdWriteBufferMarkerAMD_NAME.as_ptr()));
+    self.CmdWriteMicromapsPropertiesEXT =
+      transmute(loader(device, vkCmdWriteMicromapsPropertiesEXT_NAME.as_ptr()));
+    self.CmdWriteTimestamp = transmute(loader(device, vkCmdWriteTimestamp_NAME.as_ptr()));
+    self.CmdWriteTimestamp2 =
+      transmute(loader(device, vkCmdWriteTimestamp2_NAME.as_ptr()));
     self.CompileDeferredNV = transmute(loader(device, vkCompileDeferredNV_NAME.as_ptr()));
     self.CopyAccelerationStructureKHR =
       transmute(loader(device, vkCopyAccelerationStructureKHR_NAME.as_ptr()));
@@ -7452,6 +11587,7 @@ impl DeviceFns {
     self.DeviceWaitIdle = transmute(loader(device, vkDeviceWaitIdle_NAME.as_ptr()));
     self.DisplayPowerControlEXT =
       transmute(loader(device, vkDisplayPowerControlEXT_NAME.as_ptr()));
+    self.EndCommandBuffer = transmute(loader(device, vkEndCommandBuffer_NAME.as_ptr()));
     self.ExportMetalObjectsEXT =
       transmute(loader(device, vkExportMetalObjectsEXT_NAME.as_ptr()));
     self.FlushMappedMemoryRanges =
@@ -7710,6 +11846,8 @@ impl DeviceFns {
       transmute(loader(device, vkReleaseProfilingLockKHR_NAME.as_ptr()));
     self.ReleaseSwapchainImagesEXT =
       transmute(loader(device, vkReleaseSwapchainImagesEXT_NAME.as_ptr()));
+    self.ResetCommandBuffer =
+      transmute(loader(device, vkResetCommandBuffer_NAME.as_ptr()));
     self.ResetCommandPool = transmute(loader(device, vkResetCommandPool_NAME.as_ptr()));
     self.ResetDescriptorPool =
       transmute(loader(device, vkResetDescriptorPool_NAME.as_ptr()));

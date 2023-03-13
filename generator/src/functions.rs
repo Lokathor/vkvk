@@ -38,32 +38,170 @@ impl Display for RustFnType {
   ///   This has full docs, because that's what the programmer will most often
   ///   see via RA.
   fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-    let RustFnType { name, params, return_ty, .. } = self;
-    let param_tys_displays: Vec<String> = params
-      .iter()
-      .map(|p| {
-        format!(
-          "{}: {}",
-          fix_member_name(p.name),
-          format_ty_and_variant(filter_arg_ty(p.ty), p.ty_variant)
-        )
-      })
-      .collect();
-    let param_tys: String = param_tys_displays.join(",");
-    let return_arrow = match *return_ty {
-      "void" => String::new(),
-      "uint32_t" => String::from(" -> u32"),
-      "uint64_t" => String::from(" -> u64"),
-      other => format!(" -> {other}"),
-    };
-    writeln!(f, "/// Khronos: [{name}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{name}.html) (non-nullable)").unwrap();
-    writeln!(
-      f,
-      "pub type {name}_t = unsafe extern \"system\" fn({param_tys}){return_arrow};"
-    )?;
-    writeln!(f, "/// Khronos: [{name}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{name}.html) (nullable)").unwrap();
-    writeln!(f, "pub type PFN_{name} = Option<{name}_t>;")?;
-    writeln!(f, "const {name}_NAME:&str = \"{name}\\0\";")?;
+    let RustFnType {
+      name,
+      params,
+      return_ty,
+      comment,
+      success_codes,
+      error_codes,
+      implicit_extern_sync_params,
+      queues,
+      render_pass,
+      cmd_buffer_level,
+      tasks,
+      video_coding,
+    } = self;
+    if f.alternate() {
+      // this code path prints the fn table field (including field docs).
+      let short_name = name.strip_prefix("vk").unwrap();
+      writeln!(f, "/// Khronos: [{name}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{name}.html)")?;
+      if let Some(comment) = comment {
+        writeln!(f, "///")?;
+        writeln!(f, "/// {comment}")?;
+      }
+      if let Some(success_codes) = success_codes {
+        write!(f, "/// * Success: ")?;
+        for (i, s) in success_codes.split(',').enumerate() {
+          if i > 0 {
+            write!(f, ", ")?;
+          }
+          write!(f, "`{s}`")?;
+        }
+        writeln!(f)?;
+      }
+      if let Some(error_codes) = error_codes {
+        write!(f, "/// * Error: ")?;
+        for (i, s) in error_codes.split(',').enumerate() {
+          if i > 0 {
+            write!(f, ", ")?;
+          }
+          write!(f, "`{s}`")?;
+        }
+        writeln!(f)?;
+      }
+      if let Some(implicit_sync) = implicit_extern_sync_params {
+        write!(f, "/// * Implicit Extern Sync: ")?;
+        for (i, word) in implicit_sync.split_whitespace().enumerate() {
+          if i > 0 {
+            write!(f, " ")?;
+          }
+          if let Some(sname) = word.strip_prefix("sname:") {
+            write!(f, "[{sname}]")?;
+          } else if let Some(pname) = word.strip_prefix("pname:") {
+            write!(f, "`{pname}`")?;
+          } else {
+            write!(f, "{word}")?;
+          }
+        }
+        writeln!(f)?;
+      }
+      if let Some(queues) = queues {
+        write!(f, "/// * Queues: ")?;
+        for (i, s) in queues.split(',').enumerate() {
+          if i > 0 {
+            write!(f, ", ")?;
+          }
+          write!(f, "{s}")?;
+        }
+        writeln!(f)?;
+      }
+      if let Some(render_pass) = render_pass {
+        writeln!(f, "/// * Render Pass: {render_pass}")?;
+      }
+      if let Some(cmd_buffer_level) = cmd_buffer_level {
+        write!(f, "/// * Command Buffer Level: ")?;
+        for (i, s) in cmd_buffer_level.split(',').enumerate() {
+          if i > 0 {
+            write!(f, ", ")?;
+          }
+          write!(f, "{s}")?;
+        }
+        writeln!(f)?;
+      }
+      if let Some(tasks) = tasks {
+        write!(f, "/// * Tasks: ")?;
+        for (i, s) in tasks.split(',').enumerate() {
+          if i > 0 {
+            write!(f, ", ")?;
+          }
+          write!(f, "{s}")?;
+        }
+        writeln!(f)?;
+      }
+      if let Some(video_coding) = video_coding {
+        writeln!(f, "/// * Video Coding: {video_coding}")?;
+      }
+      for RustFnParam {
+        name,
+        ty: _,
+        ty_variant: _,
+        optional,
+        extern_sync,
+        len,
+        alt_len,
+        no_auto_validity,
+        stride,
+        object_type,
+        valid_structs,
+      } in params.iter()
+      {
+        let name = fix_member_name(name);
+        write!(f, "/// * `{name}`")?;
+        if let Some(optional) = optional {
+          write!(f, ", Optional: {optional}")?;
+        }
+        if let Some(extern_sync) = extern_sync {
+          write!(f, ", Extern Sync: {extern_sync}")?;
+        }
+        if let Some(len) = alt_len.or(*len) {
+          let chunks: Vec<String> = len.split_whitespace().map(fix_member_name).collect();
+          let len = chunks.join(" ");
+          write!(f, ", Len: `{len}`")?;
+        }
+        if *no_auto_validity {
+          write!(f, ", {no_auto_validity}")?;
+        }
+        if let Some(stride) = stride {
+          write!(f, ", Stride: {stride}")?;
+        }
+        if let Some(object_type) = object_type {
+          write!(f, ", Object Type: {object_type}")?;
+        }
+        if let Some(valid_structs) = valid_structs {
+          write!(f, ", Valid Structs: {valid_structs}")?;
+        }
+        writeln!(f)?;
+      }
+      writeln!(f, "  pub {short_name}: PFN_{name},")?;
+    } else {
+      // this code path prints the fn type aliases for the function.
+      let param_tys_displays: Vec<String> = params
+        .iter()
+        .map(|p| {
+          format!(
+            "{}: {}",
+            fix_member_name(p.name),
+            format_ty_and_variant(filter_arg_ty(p.ty), p.ty_variant)
+          )
+        })
+        .collect();
+      let param_tys: String = param_tys_displays.join(",");
+      let return_arrow = match *return_ty {
+        "void" => String::new(),
+        "uint32_t" => String::from(" -> u32"),
+        "uint64_t" => String::from(" -> u64"),
+        other => format!(" -> {other}"),
+      };
+      writeln!(f, "/// Khronos: [{name}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{name}.html) (non-nullable)").unwrap();
+      writeln!(
+        f,
+        "pub type {name}_t = unsafe extern \"system\" fn({param_tys}){return_arrow};"
+      )?;
+      writeln!(f, "/// Khronos: [{name}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{name}.html) (nullable)").unwrap();
+      writeln!(f, "pub type PFN_{name} = Option<{name}_t>;")?;
+      writeln!(f, "const {name}_NAME:&str = \"{name}\\0\";")?;
+    }
     Ok(())
   }
 }
@@ -194,22 +332,7 @@ pub fn write_out_fn_types<P: AsRef<Path>>(
   writeln!(f, "#[repr(C)]").unwrap();
   writeln!(f, "pub(crate) struct InstanceFns {{").unwrap();
   for instance_entry in instance_entries.iter() {
-    let name = instance_entry.name;
-    let short_name = name.strip_prefix("vk").unwrap();
-    writeln!(f, "  /// Khronos: [{name}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{name}.html)").unwrap();
-    if let Some(sync) = instance_entry.implicit_extern_sync_params {
-      writeln!(f, "  /// * Implicit Extern Sync: {sync}").unwrap();
-    }
-    for p in instance_entry.params.iter() {
-      let p_name = p.name;
-      if let Some(optional) = p.optional {
-        writeln!(f, "  /// * `{p_name}` Optional: {optional}").unwrap();
-      }
-      if let Some(sync) = p.extern_sync {
-        writeln!(f, "  /// * `{p_name}` Extern Sync: {sync}").unwrap();
-      }
-    }
-    writeln!(f, "  pub {short_name}: PFN_{name},").unwrap();
+    writeln!(f, "  {instance_entry:#}").unwrap();
   }
   writeln!(f, "}}").unwrap();
   writeln!(f, "impl InstanceFns {{").unwrap();
@@ -231,7 +354,7 @@ pub fn write_out_fn_types<P: AsRef<Path>>(
   let mut device_entries: Vec<RustFnType> = Vec::new();
   for fn_ty in fn_tys.values() {
     let p_ty = fn_ty.params.get(0).map(|p| p.ty).unwrap_or("");
-    if ["VkDevice", "VkCommandPool", "VkQueue"].contains(&p_ty) {
+    if ["VkDevice", "VkCommandBuffer", "VkQueue"].contains(&p_ty) {
       device_entries.push(fn_ty.clone());
     }
   }
@@ -241,22 +364,7 @@ pub fn write_out_fn_types<P: AsRef<Path>>(
   writeln!(f, "#[repr(C)]").unwrap();
   writeln!(f, "pub(crate) struct DeviceFns {{").unwrap();
   for device_entry in device_entries.iter() {
-    let name = device_entry.name;
-    let short_name = name.strip_prefix("vk").unwrap();
-    writeln!(f, "  /// Khronos: [{name}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{name}.html)").unwrap();
-    if let Some(sync) = device_entry.implicit_extern_sync_params {
-      writeln!(f, "  /// * Implicit Extern Sync: {sync}").unwrap();
-    }
-    for p in device_entry.params.iter() {
-      let p_name = p.name;
-      if let Some(optional) = p.optional {
-        writeln!(f, "  /// * `{p_name}` Optional: {optional}").unwrap();
-      }
-      if let Some(sync) = p.extern_sync {
-        writeln!(f, "  /// * `{p_name}` Extern Sync: {sync}").unwrap();
-      }
-    }
-    writeln!(f, "  pub {short_name}: PFN_{name},").unwrap();
+    writeln!(f, "  {device_entry:#}").unwrap();
   }
   writeln!(f, "}}").unwrap();
   writeln!(f, "impl DeviceFns {{").unwrap();
