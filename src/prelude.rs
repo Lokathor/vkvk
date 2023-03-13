@@ -23,11 +23,17 @@ pub use crate::{
   base_types::*,
   entry::*,
   generated::{aliases::*, bitmasks::*, enumerations::*, structures::*, unions::*},
+  instance::*,
 };
 
 // TODO: these type aliases need a better home. They are written by hand so they
 // don't go in the `generated` code files, but they also require the generated
 // data to work so they can't go into the `base_types` file.
+
+/// Vulkan error codes are non-zero values.
+///
+/// Generally: negative is unrecoverable, and positive is recoverable.
+pub type ErrorCode = NonZeroI32;
 
 /// non-null version of Khronos: [PFN_vkVoidFunction](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkVoidFunction.html)
 pub type vkVoidFunction_t = unsafe extern "system" fn();
