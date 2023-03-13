@@ -25,6 +25,12 @@ pub use structures::*;
 mod aliases;
 pub use aliases::*;
 
+mod ext_consts;
+pub use ext_consts::*;
+
+mod functions;
+pub use functions::*;
+
 /// Given an `api` attribute, is this item "vulkan" compatible?
 ///
 /// The logic is that if "vulkan" is in the comma separated list then it's
@@ -90,19 +96,49 @@ pub fn filter_ty(ty: &str) -> &str {
   }
 }
 
+pub fn fix_member_name(name: &str) -> String {
+  use convert_case::*;
+  let mut s = match name {
+    "sType" => "struct_ty",
+    "type" => "ty",
+    other => other,
+  }
+  .to_case(Case::Snake);
+  if let Some(x) = s.strip_prefix("p_") {
+    s = x.to_string()
+  }
+  if let Some(x) = s.strip_prefix("pp_") {
+    s = x.to_string()
+  }
+  s
+}
+
+const HANDWRITTEN_TYPES: &[&str] = &["VkClearAttachment"];
+
 const BLOCKED_TYPES: &[&str] = &[
-  // Blocked because they're part of the private Google Games Platform. Since that was
-  // part of Stadia, and Stadia was shut down, they will probably never matter.
-  "GgpFrameToken",
-  "GgpStreamDescriptor",
-  // TODO: handle bitfiles in struct members properly so that we can allow these types
-  // back in.
+  // these struct have bitpacked fields, currently unsupported.
   "VkAccelerationStructureInstanceKHR",
   "VkAccelerationStructureSRTMotionInstanceNV",
   "VkAccelerationStructureMotionInstanceDataNV",
-  // beta types
-  "VkPhysicalDevicePortabilitySubsetPropertiesKHR",
-  "VkPhysicalDevicePortabilitySubsetFeaturesKHR",
+  // these structs are blocked because they've got unions and so they're hard
+  // for the generator to handle automatically right now.
+  "VkAccelerationStructureBuildGeometryInfoKHR",
+  "VkAccelerationStructureGeometryAabbsDataKHR",
+  "VkAccelerationStructureGeometryInstancesDataKHR",
+  "VkAccelerationStructureGeometryKHR",
+  "VkAccelerationStructureGeometryMotionTrianglesDataNV",
+  "VkAccelerationStructureGeometryTrianglesDataKHR",
+  "VkAccelerationStructureMotionInstanceNV",
+  "VkAccelerationStructureTrianglesOpacityMicromapEXT",
+  "VkCopyAccelerationStructureToMemoryInfoKHR",
+  "VkCopyMemoryToAccelerationStructureInfoKHR",
+  "VkCopyMemoryToMicromapInfoEXT",
+  "VkCopyMicromapToMemoryInfoEXT",
+  "VkDescriptorGetInfoEXT",
+  "VkMicromapBuildInfoEXT",
+  "VkPerformanceValueINTEL",
+  "VkPipelineExecutableStatisticKHR",
+  "VkSamplerCustomBorderColorCreateInfoEXT",
   // vulkansc types i'm not sure how to filter out any other obvious way.
   "VkPipelinePoolSize",
   "VkPipelineOfflineCreateInfo",
@@ -113,6 +149,15 @@ const BLOCKED_TYPES: &[&str] = &[
   "VkDeviceSemaphoreSciSyncPoolReservationCreateInfoNV",
   "VkCommandPoolMemoryReservationCreateInfo",
   "VkCommandPoolMemoryConsumption",
+  //
+  "RROutput",
+  // TODO: support whatever nvidia thing this stuff is for?
+  "NvSciBufAttrList",
+  "NvSciBufObj",
+  "NvSciSyncAttrList",
+  "NvSciSyncFence",
+  "NvSciSyncObj",
+  "VkSemaphoreSciSyncPoolCreateInfoNV",
   // TODO: (maybe) Support the "Vulkan Video" API?
   "StdVideoDecodeH264PictureInfo",
   "StdVideoDecodeH264ReferenceInfo",
@@ -151,10 +196,8 @@ const BLOCKED_TYPES: &[&str] = &[
   "VkVideoEncodeH264EmitPictureParametersInfoEXT",
   "VkVideoEncodeH264CapabilitiesEXT",
   "VkVideoEncodeCapabilitiesKHR",
-  // TODO: support whatever nvidia thing this stuff is for.
-  "NvSciBufAttrList",
-  "NvSciBufObj",
-  "NvSciSyncAttrList",
-  "NvSciSyncFence",
-  "NvSciSyncObj",
+  // Blocked because they're part of the private Google Games Platform.
+  "GgpFrameToken",
+  "GgpStreamDescriptor",
+  "VkStreamDescriptorSurfaceCreateInfoGGP",
 ];

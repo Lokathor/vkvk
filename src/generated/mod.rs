@@ -7,5 +7,7 @@
 pub mod aliases;
 pub mod bitmasks;
 pub mod enumerations;
+pub mod ext_consts;
+pub mod fn_types;
 pub mod structures;
 pub mod unions;

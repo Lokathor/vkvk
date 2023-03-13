@@ -36,6 +36,8 @@ pub type XlibDisplay = *mut c_void;
 /// type from outsid this crate so we define it with a slightly better name.
 pub type XlibWindow = core::ffi::c_ulong;
 
+pub type XlibVisualID = core::ffi::c_uint;
+
 /// Part of [WaylandDisplayHandle]
 pub type wl_display = *mut c_void;
 /// Part of [WaylandWindowHandle]
@@ -77,6 +79,7 @@ pub type _screen_window = c_void;
 pub type IDirectFB = c_void;
 pub type IDirectFBSurface = c_void;
 pub type zx_handle_t = u32;
+pub type VkRemoteAddressNV = *mut c_void;
 
 pub type VkBool32 = bool32::Bool32;
 

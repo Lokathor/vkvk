@@ -11,7 +11,7 @@ impl Display for Enumeration {
   fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
     let Enumeration { name, values, aliases, signed } = self;
     writeln!(f, "define_enumeration!(")?;
-    writeln!(f, "  /// Khronos: [{name}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{name}.html)")?;
+    writeln!(f, "  /// Khronos: [{name}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{name}.html) (enumeration)")?;
     if *signed {
       writeln!(f, "  {name}(i32)")?;
     } else {
@@ -215,12 +215,9 @@ pub fn gather_enumerations(
       comment,
       is_negative,
       api,
-      protect,
+      protect: _,
     } in requirement.required_offset_enums.iter().cloned()
     {
-      if protect.is_some() {
-        continue;
-      }
       if !api_vulkan(api) {
         continue;
       }

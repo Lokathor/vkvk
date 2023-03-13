@@ -19,7 +19,7 @@ impl Display for RustStructure {
       struct_extends,
       allow_duplicate,
     } = self;
-    writeln!(f, "/// Khronos: [{name}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{name}.html)")?;
+    writeln!(f, "/// Khronos: [{name}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{name}.html) (structure)")?;
     if comment.is_some() || struct_extends.is_some() || *allow_duplicate || *returned_only
     {
       writeln!(f, "///")?;
@@ -40,6 +40,12 @@ impl Display for RustStructure {
       writeln!(f, "/// * Returned Only")?;
     }
     writeln!(f, "#[derive(Clone, Copy)]")?;
+    if !members.iter().any(|m| {
+      m.ty.starts_with("PFN_")
+        || (m.ty_variant == TypeVariant::Normal && m.ty == "VkClearValue")
+    }) {
+      writeln!(f, "#[derive(Debug)]")?;
+    }
     writeln!(f, "#[repr(C)]")?;
     writeln!(f, "pub struct {name} {{")?;
     for m in members.iter() {
@@ -55,7 +61,7 @@ impl Display for RustStructure {
     }
     writeln!(f, "    Self {{")?;
     for m in members.iter() {
-      let member_name = m.name;
+      let member_name = fix_member_name(m.name);
       let default_expr: String = if let Some(const_name) = m.value {
         const_name.to_string()
       } else {
@@ -154,6 +160,8 @@ impl Display for RustStructureMember {
       writeln!(f, "  /// * Intended Value: `{value}`")?;
     }
     if let Some(len) = alt_len.or(*len) {
+      let chunks: Vec<String> = len.split_whitespace().map(fix_member_name).collect();
+      let len = chunks.join(" ");
       // We favor Alt Len when available, because that's the one that (if present)
       // will look "like code" instead of being LaTeX or whatever.
       writeln!(f, "  /// * Len: `{len}`")?;
@@ -162,7 +170,8 @@ impl Display for RustStructureMember {
       writeln!(f, "  /// * Object Type: {object_type}")?;
     }
     if let Some(selector) = *selector {
-      writeln!(f, "  /// * Selector: {selector}")?;
+      let selector = fix_member_name(selector);
+      writeln!(f, "  /// * Active Variant Selected By: {selector}")?;
     }
     if let Some(extern_sync) = *extern_sync {
       writeln!(f, "  /// * Extern Sync: {extern_sync}")?;
@@ -174,6 +183,7 @@ impl Display for RustStructureMember {
       writeln!(f, "  #[deprecated = \"{deprecated}\"]")?;
     }
     let rust_ty = format_ty_and_variant(ty, *ty_variant);
+    let name = fix_member_name(name);
     writeln!(f, "  pub {name}: {rust_ty},")?;
     Ok(())
   }
@@ -260,7 +270,8 @@ pub fn write_out_structures<P: AsRef<Path>>(
   writeln!(f, "use crate::prelude::*;").unwrap();
   writeln!(f).unwrap();
   for s in structures.values() {
-    if BLOCKED_TYPES.contains(&s.name)
+    if HANDWRITTEN_TYPES.contains(&s.name)
+      || BLOCKED_TYPES.contains(&s.name)
       || s.members.iter().map(|m| m.ty).any(|m_ty| BLOCKED_TYPES.contains(&m_ty))
       || s.members.iter().any(|m| m.bits.is_some())
     {

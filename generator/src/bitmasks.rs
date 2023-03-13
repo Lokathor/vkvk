@@ -167,7 +167,7 @@ pub fn gather_bitmasks(
     assert_eq!(*is_64_bit, flags.is_64_bit, "{group_name}");
 
     for EnumBitPosition { name, bit, comment } in bit_positions.iter().cloned() {
-      let pos = ConstBitPos { name, ty: group_name, bit: bit.parse().unwrap(), comment };
+      let pos = ConstBitPos { name, ty: group_name, bit, comment };
       match flags.positions.entry(name) {
         Entry::Vacant(ve) => {
           ve.insert(pos);
@@ -256,7 +256,7 @@ pub fn gather_bitmasks(
       let (numberless, digits) = break_number(vendorless);
       let core_name = numberless.strip_suffix("FlagBits").unwrap();
       let flags = output.get_mut(&(core_name, digits, vendor)).unwrap();
-      let pos = ConstBitPos { name, ty: extends, bit: bitpos.parse().unwrap(), comment };
+      let pos = ConstBitPos { name, ty: extends, bit: bitpos, comment };
       match flags.positions.entry(name) {
         Entry::Vacant(ve) => {
           ve.insert(pos);

@@ -10,7 +10,7 @@ pub struct RustUnion {
 impl Display for RustUnion {
   fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
     let RustUnion { name, comment, returned_only, members } = self;
-    writeln!(f, "/// Khronos: [{name}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{name}.html)")?;
+    writeln!(f, "/// Khronos: [{name}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{name}.html) (union)")?;
     if comment.is_some() || self.returned_only {
       writeln!(f, "///")?;
     }
@@ -47,6 +47,7 @@ impl Display for RustUnion {
       })
       .unwrap()
       .name;
+    let default_field_name = fix_member_name(default_field_name);
     writeln!(f, "    Self {{ {default_field_name}: Default::default() }}")?;
     writeln!(f, "  }}")?;
     writeln!(f, "}}")?;
@@ -90,6 +91,7 @@ impl Display for RustUnionMember {
       writeln!(f, "  /// * No Auto Validity")?;
     }
     let rust_ty = format_ty_and_variant(ty, *ty_variant);
+    let name = fix_member_name(name);
     writeln!(f, "  pub {name}: {rust_ty},")?;
     Ok(())
   }

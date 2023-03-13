@@ -20,15 +20,10 @@ fn main() {
   //
   let aliases = gather_aliases(&registry);
   write_out_aliases("../src/generated/aliases.rs", &aliases);
-
-  // TODO: print constants that aren't enumerations or bitmasks (eg: strings)
-
-  // TODO: struct defaults need to handle union types!! selector field and union
-  // selection must match
-
-  // TODO: struct debug
-
-  // TODO: function types
-
-  // TODO: function tables
+  //
+  let ext_consts = gather_ext_consts(&registry);
+  write_out_strings("../src/generated/ext_consts.rs", &ext_consts);
+  //
+  let fn_types = gather_fn_types(&registry);
+  write_out_fn_types("../src/generated/fn_types.rs", &fn_types);
 }

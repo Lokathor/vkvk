@@ -66,7 +66,8 @@ pub type VkBufferMemoryBarrier2KHR = VkBufferMemoryBarrier2;
 pub type VkBufferMemoryRequirementsInfo2KHR = VkBufferMemoryRequirementsInfo2;
 
 /// (Alias) Khronos: [VkBufferOpaqueCaptureAddressCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkBufferOpaqueCaptureAddressCreateInfo.html)
-pub type VkBufferOpaqueCaptureAddressCreateInfoKHR = VkBufferOpaqueCaptureAddressCreateInfo;
+pub type VkBufferOpaqueCaptureAddressCreateInfoKHR =
+  VkBufferOpaqueCaptureAddressCreateInfo;
 
 /// (Alias) Khronos: [VkBuildAccelerationStructureFlagBitsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkBuildAccelerationStructureFlagBitsKHR.html)
 pub type VkBuildAccelerationStructureFlagBitsNV = VkBuildAccelerationStructureFlagBitsKHR;
@@ -78,7 +79,8 @@ pub type VkBuildAccelerationStructureFlagsNV = VkBuildAccelerationStructureFlags
 pub type VkChromaLocationKHR = VkChromaLocation;
 
 /// (Alias) Khronos: [VkCommandBufferInheritanceRenderingInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkCommandBufferInheritanceRenderingInfo.html)
-pub type VkCommandBufferInheritanceRenderingInfoKHR = VkCommandBufferInheritanceRenderingInfo;
+pub type VkCommandBufferInheritanceRenderingInfoKHR =
+  VkCommandBufferInheritanceRenderingInfo;
 
 /// (Alias) Khronos: [VkCommandBufferSubmitInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkCommandBufferSubmitInfo.html)
 pub type VkCommandBufferSubmitInfoKHR = VkCommandBufferSubmitInfo;
@@ -114,19 +116,23 @@ pub type VkDescriptorBindingFlagBitsEXT = VkDescriptorBindingFlagBits;
 pub type VkDescriptorBindingFlagsEXT = VkDescriptorBindingFlags;
 
 /// (Alias) Khronos: [VkDescriptorPoolInlineUniformBlockCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDescriptorPoolInlineUniformBlockCreateInfo.html)
-pub type VkDescriptorPoolInlineUniformBlockCreateInfoEXT = VkDescriptorPoolInlineUniformBlockCreateInfo;
+pub type VkDescriptorPoolInlineUniformBlockCreateInfoEXT =
+  VkDescriptorPoolInlineUniformBlockCreateInfo;
 
 /// (Alias) Khronos: [VkDescriptorSetLayoutBindingFlagsCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDescriptorSetLayoutBindingFlagsCreateInfo.html)
-pub type VkDescriptorSetLayoutBindingFlagsCreateInfoEXT = VkDescriptorSetLayoutBindingFlagsCreateInfo;
+pub type VkDescriptorSetLayoutBindingFlagsCreateInfoEXT =
+  VkDescriptorSetLayoutBindingFlagsCreateInfo;
 
 /// (Alias) Khronos: [VkDescriptorSetLayoutSupport](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDescriptorSetLayoutSupport.html)
 pub type VkDescriptorSetLayoutSupportKHR = VkDescriptorSetLayoutSupport;
 
 /// (Alias) Khronos: [VkDescriptorSetVariableDescriptorCountAllocateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDescriptorSetVariableDescriptorCountAllocateInfo.html)
-pub type VkDescriptorSetVariableDescriptorCountAllocateInfoEXT = VkDescriptorSetVariableDescriptorCountAllocateInfo;
+pub type VkDescriptorSetVariableDescriptorCountAllocateInfoEXT =
+  VkDescriptorSetVariableDescriptorCountAllocateInfo;
 
 /// (Alias) Khronos: [VkDescriptorSetVariableDescriptorCountLayoutSupport](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDescriptorSetVariableDescriptorCountLayoutSupport.html)
-pub type VkDescriptorSetVariableDescriptorCountLayoutSupportEXT = VkDescriptorSetVariableDescriptorCountLayoutSupport;
+pub type VkDescriptorSetVariableDescriptorCountLayoutSupportEXT =
+  VkDescriptorSetVariableDescriptorCountLayoutSupport;
 
 /// (Alias) Khronos: [VkDescriptorUpdateTemplateCreateFlags](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDescriptorUpdateTemplateCreateFlags.html)
 pub type VkDescriptorUpdateTemplateCreateFlagsKHR = VkDescriptorUpdateTemplateCreateFlags;
@@ -165,13 +171,15 @@ pub type VkDeviceGroupSubmitInfoKHR = VkDeviceGroupSubmitInfo;
 pub type VkDeviceImageMemoryRequirementsKHR = VkDeviceImageMemoryRequirements;
 
 /// (Alias) Khronos: [VkDeviceMemoryOpaqueCaptureAddressInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDeviceMemoryOpaqueCaptureAddressInfo.html)
-pub type VkDeviceMemoryOpaqueCaptureAddressInfoKHR = VkDeviceMemoryOpaqueCaptureAddressInfo;
+pub type VkDeviceMemoryOpaqueCaptureAddressInfoKHR =
+  VkDeviceMemoryOpaqueCaptureAddressInfo;
 
 /// (Alias) Khronos: [VkDevicePrivateDataCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDevicePrivateDataCreateInfo.html)
 pub type VkDevicePrivateDataCreateInfoEXT = VkDevicePrivateDataCreateInfo;
 
 /// (Alias) Khronos: [VkDeviceQueueGlobalPriorityCreateInfoKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDeviceQueueGlobalPriorityCreateInfoKHR.html)
-pub type VkDeviceQueueGlobalPriorityCreateInfoEXT = VkDeviceQueueGlobalPriorityCreateInfoKHR;
+pub type VkDeviceQueueGlobalPriorityCreateInfoEXT =
+  VkDeviceQueueGlobalPriorityCreateInfoKHR;
 
 /// (Alias) Khronos: [VkDriverId](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDriverId.html)
 pub type VkDriverIdKHR = VkDriverId;
@@ -336,7 +344,8 @@ pub type VkMemoryDedicatedAllocateInfoKHR = VkMemoryDedicatedAllocateInfo;
 pub type VkMemoryDedicatedRequirementsKHR = VkMemoryDedicatedRequirements;
 
 /// (Alias) Khronos: [VkMemoryOpaqueCaptureAddressAllocateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkMemoryOpaqueCaptureAddressAllocateInfo.html)
-pub type VkMemoryOpaqueCaptureAddressAllocateInfoKHR = VkMemoryOpaqueCaptureAddressAllocateInfo;
+pub type VkMemoryOpaqueCaptureAddressAllocateInfoKHR =
+  VkMemoryOpaqueCaptureAddressAllocateInfo;
 
 /// (Alias) Khronos: [VkMemoryRequirements2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkMemoryRequirements2.html)
 pub type VkMemoryRequirements2KHR = VkMemoryRequirements2;
@@ -360,25 +369,31 @@ pub type VkPhysicalDevice16BitStorageFeaturesKHR = VkPhysicalDevice16BitStorageF
 pub type VkPhysicalDevice8BitStorageFeaturesKHR = VkPhysicalDevice8BitStorageFeatures;
 
 /// (Alias) Khronos: [VkPhysicalDeviceBufferDeviceAddressFeaturesEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceBufferDeviceAddressFeaturesEXT.html)
-pub type VkPhysicalDeviceBufferAddressFeaturesEXT = VkPhysicalDeviceBufferDeviceAddressFeaturesEXT;
+pub type VkPhysicalDeviceBufferAddressFeaturesEXT =
+  VkPhysicalDeviceBufferDeviceAddressFeaturesEXT;
 
 /// (Alias) Khronos: [VkPhysicalDeviceBufferDeviceAddressFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceBufferDeviceAddressFeatures.html)
-pub type VkPhysicalDeviceBufferDeviceAddressFeaturesKHR = VkPhysicalDeviceBufferDeviceAddressFeatures;
+pub type VkPhysicalDeviceBufferDeviceAddressFeaturesKHR =
+  VkPhysicalDeviceBufferDeviceAddressFeatures;
 
 /// (Alias) Khronos: [VkPhysicalDeviceDepthStencilResolveProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceDepthStencilResolveProperties.html)
-pub type VkPhysicalDeviceDepthStencilResolvePropertiesKHR = VkPhysicalDeviceDepthStencilResolveProperties;
+pub type VkPhysicalDeviceDepthStencilResolvePropertiesKHR =
+  VkPhysicalDeviceDepthStencilResolveProperties;
 
 /// (Alias) Khronos: [VkPhysicalDeviceDescriptorIndexingFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceDescriptorIndexingFeatures.html)
-pub type VkPhysicalDeviceDescriptorIndexingFeaturesEXT = VkPhysicalDeviceDescriptorIndexingFeatures;
+pub type VkPhysicalDeviceDescriptorIndexingFeaturesEXT =
+  VkPhysicalDeviceDescriptorIndexingFeatures;
 
 /// (Alias) Khronos: [VkPhysicalDeviceDescriptorIndexingProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceDescriptorIndexingProperties.html)
-pub type VkPhysicalDeviceDescriptorIndexingPropertiesEXT = VkPhysicalDeviceDescriptorIndexingProperties;
+pub type VkPhysicalDeviceDescriptorIndexingPropertiesEXT =
+  VkPhysicalDeviceDescriptorIndexingProperties;
 
 /// (Alias) Khronos: [VkPhysicalDeviceDriverProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceDriverProperties.html)
 pub type VkPhysicalDeviceDriverPropertiesKHR = VkPhysicalDeviceDriverProperties;
 
 /// (Alias) Khronos: [VkPhysicalDeviceDynamicRenderingFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceDynamicRenderingFeatures.html)
-pub type VkPhysicalDeviceDynamicRenderingFeaturesKHR = VkPhysicalDeviceDynamicRenderingFeatures;
+pub type VkPhysicalDeviceDynamicRenderingFeaturesKHR =
+  VkPhysicalDeviceDynamicRenderingFeatures;
 
 /// (Alias) Khronos: [VkPhysicalDeviceExternalBufferInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceExternalBufferInfo.html)
 pub type VkPhysicalDeviceExternalBufferInfoKHR = VkPhysicalDeviceExternalBufferInfo;
@@ -387,10 +402,12 @@ pub type VkPhysicalDeviceExternalBufferInfoKHR = VkPhysicalDeviceExternalBufferI
 pub type VkPhysicalDeviceExternalFenceInfoKHR = VkPhysicalDeviceExternalFenceInfo;
 
 /// (Alias) Khronos: [VkPhysicalDeviceExternalImageFormatInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceExternalImageFormatInfo.html)
-pub type VkPhysicalDeviceExternalImageFormatInfoKHR = VkPhysicalDeviceExternalImageFormatInfo;
+pub type VkPhysicalDeviceExternalImageFormatInfoKHR =
+  VkPhysicalDeviceExternalImageFormatInfo;
 
 /// (Alias) Khronos: [VkPhysicalDeviceExternalMemorySciBufFeaturesNV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceExternalMemorySciBufFeaturesNV.html)
-pub type VkPhysicalDeviceExternalSciBufFeaturesNV = VkPhysicalDeviceExternalMemorySciBufFeaturesNV;
+pub type VkPhysicalDeviceExternalSciBufFeaturesNV =
+  VkPhysicalDeviceExternalMemorySciBufFeaturesNV;
 
 /// (Alias) Khronos: [VkPhysicalDeviceExternalSemaphoreInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceExternalSemaphoreInfo.html)
 pub type VkPhysicalDeviceExternalSemaphoreInfoKHR = VkPhysicalDeviceExternalSemaphoreInfo;
@@ -399,22 +416,27 @@ pub type VkPhysicalDeviceExternalSemaphoreInfoKHR = VkPhysicalDeviceExternalSema
 pub type VkPhysicalDeviceFeatures2KHR = VkPhysicalDeviceFeatures2;
 
 /// (Alias) Khronos: [VkPhysicalDeviceShaderFloat16Int8Features](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderFloat16Int8Features.html)
-pub type VkPhysicalDeviceFloat16Int8FeaturesKHR = VkPhysicalDeviceShaderFloat16Int8Features;
+pub type VkPhysicalDeviceFloat16Int8FeaturesKHR =
+  VkPhysicalDeviceShaderFloat16Int8Features;
 
 /// (Alias) Khronos: [VkPhysicalDeviceFloatControlsProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceFloatControlsProperties.html)
-pub type VkPhysicalDeviceFloatControlsPropertiesKHR = VkPhysicalDeviceFloatControlsProperties;
+pub type VkPhysicalDeviceFloatControlsPropertiesKHR =
+  VkPhysicalDeviceFloatControlsProperties;
 
 /// (Alias) Khronos: [VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR.html)
-pub type VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV = VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR;
+pub type VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV =
+  VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR;
 
 /// (Alias) Khronos: [VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR.html)
-pub type VkPhysicalDeviceGlobalPriorityQueryFeaturesEXT = VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR;
+pub type VkPhysicalDeviceGlobalPriorityQueryFeaturesEXT =
+  VkPhysicalDeviceGlobalPriorityQueryFeaturesKHR;
 
 /// (Alias) Khronos: [VkPhysicalDeviceGroupProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceGroupProperties.html)
 pub type VkPhysicalDeviceGroupPropertiesKHR = VkPhysicalDeviceGroupProperties;
 
 /// (Alias) Khronos: [VkPhysicalDeviceHostQueryResetFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceHostQueryResetFeatures.html)
-pub type VkPhysicalDeviceHostQueryResetFeaturesEXT = VkPhysicalDeviceHostQueryResetFeatures;
+pub type VkPhysicalDeviceHostQueryResetFeaturesEXT =
+  VkPhysicalDeviceHostQueryResetFeatures;
 
 /// (Alias) Khronos: [VkPhysicalDeviceIDProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceIDProperties.html)
 pub type VkPhysicalDeviceIDPropertiesKHR = VkPhysicalDeviceIDProperties;
@@ -423,25 +445,31 @@ pub type VkPhysicalDeviceIDPropertiesKHR = VkPhysicalDeviceIDProperties;
 pub type VkPhysicalDeviceImageFormatInfo2KHR = VkPhysicalDeviceImageFormatInfo2;
 
 /// (Alias) Khronos: [VkPhysicalDeviceImageRobustnessFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceImageRobustnessFeatures.html)
-pub type VkPhysicalDeviceImageRobustnessFeaturesEXT = VkPhysicalDeviceImageRobustnessFeatures;
+pub type VkPhysicalDeviceImageRobustnessFeaturesEXT =
+  VkPhysicalDeviceImageRobustnessFeatures;
 
 /// (Alias) Khronos: [VkPhysicalDeviceImagelessFramebufferFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceImagelessFramebufferFeatures.html)
-pub type VkPhysicalDeviceImagelessFramebufferFeaturesKHR = VkPhysicalDeviceImagelessFramebufferFeatures;
+pub type VkPhysicalDeviceImagelessFramebufferFeaturesKHR =
+  VkPhysicalDeviceImagelessFramebufferFeatures;
 
 /// (Alias) Khronos: [VkPhysicalDeviceInlineUniformBlockFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceInlineUniformBlockFeatures.html)
-pub type VkPhysicalDeviceInlineUniformBlockFeaturesEXT = VkPhysicalDeviceInlineUniformBlockFeatures;
+pub type VkPhysicalDeviceInlineUniformBlockFeaturesEXT =
+  VkPhysicalDeviceInlineUniformBlockFeatures;
 
 /// (Alias) Khronos: [VkPhysicalDeviceInlineUniformBlockProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceInlineUniformBlockProperties.html)
-pub type VkPhysicalDeviceInlineUniformBlockPropertiesEXT = VkPhysicalDeviceInlineUniformBlockProperties;
+pub type VkPhysicalDeviceInlineUniformBlockPropertiesEXT =
+  VkPhysicalDeviceInlineUniformBlockProperties;
 
 /// (Alias) Khronos: [VkPhysicalDeviceMaintenance3Properties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMaintenance3Properties.html)
-pub type VkPhysicalDeviceMaintenance3PropertiesKHR = VkPhysicalDeviceMaintenance3Properties;
+pub type VkPhysicalDeviceMaintenance3PropertiesKHR =
+  VkPhysicalDeviceMaintenance3Properties;
 
 /// (Alias) Khronos: [VkPhysicalDeviceMaintenance4Features](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMaintenance4Features.html)
 pub type VkPhysicalDeviceMaintenance4FeaturesKHR = VkPhysicalDeviceMaintenance4Features;
 
 /// (Alias) Khronos: [VkPhysicalDeviceMaintenance4Properties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMaintenance4Properties.html)
-pub type VkPhysicalDeviceMaintenance4PropertiesKHR = VkPhysicalDeviceMaintenance4Properties;
+pub type VkPhysicalDeviceMaintenance4PropertiesKHR =
+  VkPhysicalDeviceMaintenance4Properties;
 
 /// (Alias) Khronos: [VkPhysicalDeviceMemoryProperties2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMemoryProperties2.html)
 pub type VkPhysicalDeviceMemoryProperties2KHR = VkPhysicalDeviceMemoryProperties2;
@@ -453,13 +481,16 @@ pub type VkPhysicalDeviceMultiviewFeaturesKHR = VkPhysicalDeviceMultiviewFeature
 pub type VkPhysicalDeviceMultiviewPropertiesKHR = VkPhysicalDeviceMultiviewProperties;
 
 /// (Alias) Khronos: [VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.html)
-pub type VkPhysicalDeviceMutableDescriptorTypeFeaturesVALVE = VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT;
+pub type VkPhysicalDeviceMutableDescriptorTypeFeaturesVALVE =
+  VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT;
 
 /// (Alias) Khronos: [VkPhysicalDevicePipelineCreationCacheControlFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDevicePipelineCreationCacheControlFeatures.html)
-pub type VkPhysicalDevicePipelineCreationCacheControlFeaturesEXT = VkPhysicalDevicePipelineCreationCacheControlFeatures;
+pub type VkPhysicalDevicePipelineCreationCacheControlFeaturesEXT =
+  VkPhysicalDevicePipelineCreationCacheControlFeatures;
 
 /// (Alias) Khronos: [VkPhysicalDevicePointClippingProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDevicePointClippingProperties.html)
-pub type VkPhysicalDevicePointClippingPropertiesKHR = VkPhysicalDevicePointClippingProperties;
+pub type VkPhysicalDevicePointClippingPropertiesKHR =
+  VkPhysicalDevicePointClippingProperties;
 
 /// (Alias) Khronos: [VkPhysicalDevicePrivateDataFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDevicePrivateDataFeatures.html)
 pub type VkPhysicalDevicePrivateDataFeaturesEXT = VkPhysicalDevicePrivateDataFeatures;
@@ -468,88 +499,115 @@ pub type VkPhysicalDevicePrivateDataFeaturesEXT = VkPhysicalDevicePrivateDataFea
 pub type VkPhysicalDeviceProperties2KHR = VkPhysicalDeviceProperties2;
 
 /// (Alias) Khronos: [VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT.html)
-pub type VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesARM = VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT;
+pub type VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesARM =
+  VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT;
 
 /// (Alias) Khronos: [VkPhysicalDeviceSamplerFilterMinmaxProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceSamplerFilterMinmaxProperties.html)
-pub type VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT = VkPhysicalDeviceSamplerFilterMinmaxProperties;
+pub type VkPhysicalDeviceSamplerFilterMinmaxPropertiesEXT =
+  VkPhysicalDeviceSamplerFilterMinmaxProperties;
 
 /// (Alias) Khronos: [VkPhysicalDeviceSamplerYcbcrConversionFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceSamplerYcbcrConversionFeatures.html)
-pub type VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR = VkPhysicalDeviceSamplerYcbcrConversionFeatures;
+pub type VkPhysicalDeviceSamplerYcbcrConversionFeaturesKHR =
+  VkPhysicalDeviceSamplerYcbcrConversionFeatures;
 
 /// (Alias) Khronos: [VkPhysicalDeviceScalarBlockLayoutFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceScalarBlockLayoutFeatures.html)
-pub type VkPhysicalDeviceScalarBlockLayoutFeaturesEXT = VkPhysicalDeviceScalarBlockLayoutFeatures;
+pub type VkPhysicalDeviceScalarBlockLayoutFeaturesEXT =
+  VkPhysicalDeviceScalarBlockLayoutFeatures;
 
 /// (Alias) Khronos: [VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures.html)
-pub type VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR = VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures;
+pub type VkPhysicalDeviceSeparateDepthStencilLayoutsFeaturesKHR =
+  VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures;
 
 /// (Alias) Khronos: [VkPhysicalDeviceShaderAtomicInt64Features](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderAtomicInt64Features.html)
-pub type VkPhysicalDeviceShaderAtomicInt64FeaturesKHR = VkPhysicalDeviceShaderAtomicInt64Features;
+pub type VkPhysicalDeviceShaderAtomicInt64FeaturesKHR =
+  VkPhysicalDeviceShaderAtomicInt64Features;
 
 /// (Alias) Khronos: [VkPhysicalDeviceShaderDemoteToHelperInvocationFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderDemoteToHelperInvocationFeatures.html)
-pub type VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT = VkPhysicalDeviceShaderDemoteToHelperInvocationFeatures;
+pub type VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT =
+  VkPhysicalDeviceShaderDemoteToHelperInvocationFeatures;
 
 /// (Alias) Khronos: [VkPhysicalDeviceShaderDrawParametersFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderDrawParametersFeatures.html)
-pub type VkPhysicalDeviceShaderDrawParameterFeatures = VkPhysicalDeviceShaderDrawParametersFeatures;
+pub type VkPhysicalDeviceShaderDrawParameterFeatures =
+  VkPhysicalDeviceShaderDrawParametersFeatures;
 
 /// (Alias) Khronos: [VkPhysicalDeviceShaderFloat16Int8Features](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderFloat16Int8Features.html)
-pub type VkPhysicalDeviceShaderFloat16Int8FeaturesKHR = VkPhysicalDeviceShaderFloat16Int8Features;
+pub type VkPhysicalDeviceShaderFloat16Int8FeaturesKHR =
+  VkPhysicalDeviceShaderFloat16Int8Features;
 
 /// (Alias) Khronos: [VkPhysicalDeviceShaderIntegerDotProductFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderIntegerDotProductFeatures.html)
-pub type VkPhysicalDeviceShaderIntegerDotProductFeaturesKHR = VkPhysicalDeviceShaderIntegerDotProductFeatures;
+pub type VkPhysicalDeviceShaderIntegerDotProductFeaturesKHR =
+  VkPhysicalDeviceShaderIntegerDotProductFeatures;
 
 /// (Alias) Khronos: [VkPhysicalDeviceShaderIntegerDotProductProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderIntegerDotProductProperties.html)
-pub type VkPhysicalDeviceShaderIntegerDotProductPropertiesKHR = VkPhysicalDeviceShaderIntegerDotProductProperties;
+pub type VkPhysicalDeviceShaderIntegerDotProductPropertiesKHR =
+  VkPhysicalDeviceShaderIntegerDotProductProperties;
 
 /// (Alias) Khronos: [VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures.html)
-pub type VkPhysicalDeviceShaderSubgroupExtendedTypesFeaturesKHR = VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures;
+pub type VkPhysicalDeviceShaderSubgroupExtendedTypesFeaturesKHR =
+  VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures;
 
 /// (Alias) Khronos: [VkPhysicalDeviceShaderTerminateInvocationFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceShaderTerminateInvocationFeatures.html)
-pub type VkPhysicalDeviceShaderTerminateInvocationFeaturesKHR = VkPhysicalDeviceShaderTerminateInvocationFeatures;
+pub type VkPhysicalDeviceShaderTerminateInvocationFeaturesKHR =
+  VkPhysicalDeviceShaderTerminateInvocationFeatures;
 
 /// (Alias) Khronos: [VkPhysicalDeviceSparseImageFormatInfo2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceSparseImageFormatInfo2.html)
-pub type VkPhysicalDeviceSparseImageFormatInfo2KHR = VkPhysicalDeviceSparseImageFormatInfo2;
+pub type VkPhysicalDeviceSparseImageFormatInfo2KHR =
+  VkPhysicalDeviceSparseImageFormatInfo2;
 
 /// (Alias) Khronos: [VkPhysicalDeviceSubgroupSizeControlFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceSubgroupSizeControlFeatures.html)
-pub type VkPhysicalDeviceSubgroupSizeControlFeaturesEXT = VkPhysicalDeviceSubgroupSizeControlFeatures;
+pub type VkPhysicalDeviceSubgroupSizeControlFeaturesEXT =
+  VkPhysicalDeviceSubgroupSizeControlFeatures;
 
 /// (Alias) Khronos: [VkPhysicalDeviceSubgroupSizeControlProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceSubgroupSizeControlProperties.html)
-pub type VkPhysicalDeviceSubgroupSizeControlPropertiesEXT = VkPhysicalDeviceSubgroupSizeControlProperties;
+pub type VkPhysicalDeviceSubgroupSizeControlPropertiesEXT =
+  VkPhysicalDeviceSubgroupSizeControlProperties;
 
 /// (Alias) Khronos: [VkPhysicalDeviceSynchronization2Features](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceSynchronization2Features.html)
-pub type VkPhysicalDeviceSynchronization2FeaturesKHR = VkPhysicalDeviceSynchronization2Features;
+pub type VkPhysicalDeviceSynchronization2FeaturesKHR =
+  VkPhysicalDeviceSynchronization2Features;
 
 /// (Alias) Khronos: [VkPhysicalDeviceTexelBufferAlignmentProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceTexelBufferAlignmentProperties.html)
-pub type VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT = VkPhysicalDeviceTexelBufferAlignmentProperties;
+pub type VkPhysicalDeviceTexelBufferAlignmentPropertiesEXT =
+  VkPhysicalDeviceTexelBufferAlignmentProperties;
 
 /// (Alias) Khronos: [VkPhysicalDeviceTextureCompressionASTCHDRFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceTextureCompressionASTCHDRFeatures.html)
-pub type VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT = VkPhysicalDeviceTextureCompressionASTCHDRFeatures;
+pub type VkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT =
+  VkPhysicalDeviceTextureCompressionASTCHDRFeatures;
 
 /// (Alias) Khronos: [VkPhysicalDeviceTimelineSemaphoreFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceTimelineSemaphoreFeatures.html)
-pub type VkPhysicalDeviceTimelineSemaphoreFeaturesKHR = VkPhysicalDeviceTimelineSemaphoreFeatures;
+pub type VkPhysicalDeviceTimelineSemaphoreFeaturesKHR =
+  VkPhysicalDeviceTimelineSemaphoreFeatures;
 
 /// (Alias) Khronos: [VkPhysicalDeviceTimelineSemaphoreProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceTimelineSemaphoreProperties.html)
-pub type VkPhysicalDeviceTimelineSemaphorePropertiesKHR = VkPhysicalDeviceTimelineSemaphoreProperties;
+pub type VkPhysicalDeviceTimelineSemaphorePropertiesKHR =
+  VkPhysicalDeviceTimelineSemaphoreProperties;
 
 /// (Alias) Khronos: [VkPhysicalDeviceToolProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceToolProperties.html)
 pub type VkPhysicalDeviceToolPropertiesEXT = VkPhysicalDeviceToolProperties;
 
 /// (Alias) Khronos: [VkPhysicalDeviceUniformBufferStandardLayoutFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceUniformBufferStandardLayoutFeatures.html)
-pub type VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR = VkPhysicalDeviceUniformBufferStandardLayoutFeatures;
+pub type VkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR =
+  VkPhysicalDeviceUniformBufferStandardLayoutFeatures;
 
 /// (Alias) Khronos: [VkPhysicalDeviceVariablePointersFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceVariablePointersFeatures.html)
-pub type VkPhysicalDeviceVariablePointerFeatures = VkPhysicalDeviceVariablePointersFeatures;
+pub type VkPhysicalDeviceVariablePointerFeatures =
+  VkPhysicalDeviceVariablePointersFeatures;
 
 /// (Alias) Khronos: [VkPhysicalDeviceVariablePointersFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceVariablePointersFeatures.html)
-pub type VkPhysicalDeviceVariablePointerFeaturesKHR = VkPhysicalDeviceVariablePointersFeatures;
+pub type VkPhysicalDeviceVariablePointerFeaturesKHR =
+  VkPhysicalDeviceVariablePointersFeatures;
 
 /// (Alias) Khronos: [VkPhysicalDeviceVariablePointersFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceVariablePointersFeatures.html)
-pub type VkPhysicalDeviceVariablePointersFeaturesKHR = VkPhysicalDeviceVariablePointersFeatures;
+pub type VkPhysicalDeviceVariablePointersFeaturesKHR =
+  VkPhysicalDeviceVariablePointersFeatures;
 
 /// (Alias) Khronos: [VkPhysicalDeviceVulkanMemoryModelFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceVulkanMemoryModelFeatures.html)
-pub type VkPhysicalDeviceVulkanMemoryModelFeaturesKHR = VkPhysicalDeviceVulkanMemoryModelFeatures;
+pub type VkPhysicalDeviceVulkanMemoryModelFeaturesKHR =
+  VkPhysicalDeviceVulkanMemoryModelFeatures;
 
 /// (Alias) Khronos: [VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures.html)
-pub type VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR = VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures;
+pub type VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR =
+  VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures;
 
 /// (Alias) Khronos: [VkPipelineCreationFeedbackCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineCreationFeedbackCreateInfo.html)
 pub type VkPipelineCreationFeedbackCreateInfoEXT = VkPipelineCreationFeedbackCreateInfo;
@@ -570,7 +628,8 @@ pub type VkPipelineInfoEXT = VkPipelineInfoKHR;
 pub type VkPipelineRenderingCreateInfoKHR = VkPipelineRenderingCreateInfo;
 
 /// (Alias) Khronos: [VkPipelineShaderStageRequiredSubgroupSizeCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineShaderStageRequiredSubgroupSizeCreateInfo.html)
-pub type VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT = VkPipelineShaderStageRequiredSubgroupSizeCreateInfo;
+pub type VkPipelineShaderStageRequiredSubgroupSizeCreateInfoEXT =
+  VkPipelineShaderStageRequiredSubgroupSizeCreateInfo;
 
 /// (Alias) Khronos: [VkPipelineStageFlagBits2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineStageFlagBits2.html)
 pub type VkPipelineStageFlagBits2KHR = VkPipelineStageFlagBits2;
@@ -579,7 +638,8 @@ pub type VkPipelineStageFlagBits2KHR = VkPipelineStageFlagBits2;
 pub type VkPipelineStageFlags2KHR = VkPipelineStageFlags2;
 
 /// (Alias) Khronos: [VkPipelineTessellationDomainOriginStateCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineTessellationDomainOriginStateCreateInfo.html)
-pub type VkPipelineTessellationDomainOriginStateCreateInfoKHR = VkPipelineTessellationDomainOriginStateCreateInfo;
+pub type VkPipelineTessellationDomainOriginStateCreateInfoKHR =
+  VkPipelineTessellationDomainOriginStateCreateInfo;
 
 /// (Alias) Khronos: [VkPointClippingBehavior](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPointClippingBehavior.html)
 pub type VkPointClippingBehaviorKHR = VkPointClippingBehavior;
@@ -600,7 +660,8 @@ pub type VkPrivateDataSlotEXT = VkPrivateDataSlot;
 pub type VkQueryPoolCreateInfoINTEL = VkQueryPoolPerformanceQueryCreateInfoINTEL;
 
 /// (Alias) Khronos: [VkQueueFamilyGlobalPriorityPropertiesKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkQueueFamilyGlobalPriorityPropertiesKHR.html)
-pub type VkQueueFamilyGlobalPriorityPropertiesEXT = VkQueueFamilyGlobalPriorityPropertiesKHR;
+pub type VkQueueFamilyGlobalPriorityPropertiesEXT =
+  VkQueueFamilyGlobalPriorityPropertiesKHR;
 
 /// (Alias) Khronos: [VkQueueFamilyProperties2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkQueueFamilyProperties2.html)
 pub type VkQueueFamilyProperties2KHR = VkQueueFamilyProperties2;
@@ -618,7 +679,8 @@ pub type VkRenderPassAttachmentBeginInfoKHR = VkRenderPassAttachmentBeginInfo;
 pub type VkRenderPassCreateInfo2KHR = VkRenderPassCreateInfo2;
 
 /// (Alias) Khronos: [VkRenderPassInputAttachmentAspectCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkRenderPassInputAttachmentAspectCreateInfo.html)
-pub type VkRenderPassInputAttachmentAspectCreateInfoKHR = VkRenderPassInputAttachmentAspectCreateInfo;
+pub type VkRenderPassInputAttachmentAspectCreateInfoKHR =
+  VkRenderPassInputAttachmentAspectCreateInfo;
 
 /// (Alias) Khronos: [VkRenderPassMultiviewCreateInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkRenderPassMultiviewCreateInfo.html)
 pub type VkRenderPassMultiviewCreateInfoKHR = VkRenderPassMultiviewCreateInfo;
@@ -654,7 +716,8 @@ pub type VkSamplerReductionModeEXT = VkSamplerReductionMode;
 pub type VkSamplerYcbcrConversionCreateInfoKHR = VkSamplerYcbcrConversionCreateInfo;
 
 /// (Alias) Khronos: [VkSamplerYcbcrConversionImageFormatProperties](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSamplerYcbcrConversionImageFormatProperties.html)
-pub type VkSamplerYcbcrConversionImageFormatPropertiesKHR = VkSamplerYcbcrConversionImageFormatProperties;
+pub type VkSamplerYcbcrConversionImageFormatPropertiesKHR =
+  VkSamplerYcbcrConversionImageFormatProperties;
 
 /// (Alias) Khronos: [VkSamplerYcbcrConversionInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSamplerYcbcrConversionInfo.html)
 pub type VkSamplerYcbcrConversionInfoKHR = VkSamplerYcbcrConversionInfo;
@@ -723,7 +786,8 @@ pub type VkSubpassDependency2KHR = VkSubpassDependency2;
 pub type VkSubpassDescription2KHR = VkSubpassDescription2;
 
 /// (Alias) Khronos: [VkSubpassDescriptionDepthStencilResolve](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSubpassDescriptionDepthStencilResolve.html)
-pub type VkSubpassDescriptionDepthStencilResolveKHR = VkSubpassDescriptionDepthStencilResolve;
+pub type VkSubpassDescriptionDepthStencilResolveKHR =
+  VkSubpassDescriptionDepthStencilResolve;
 
 /// (Alias) Khronos: [VkSubpassEndInfo](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSubpassEndInfo.html)
 pub type VkSubpassEndInfoKHR = VkSubpassEndInfo;
@@ -744,5 +808,5 @@ pub type VkToolPurposeFlagsEXT = VkToolPurposeFlags;
 pub type VkTransformMatrixNV = VkTransformMatrixKHR;
 
 /// (Alias) Khronos: [VkWriteDescriptorSetInlineUniformBlock](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkWriteDescriptorSetInlineUniformBlock.html)
-pub type VkWriteDescriptorSetInlineUniformBlockEXT = VkWriteDescriptorSetInlineUniformBlock;
-
+pub type VkWriteDescriptorSetInlineUniformBlockEXT =
+  VkWriteDescriptorSetInlineUniformBlock;

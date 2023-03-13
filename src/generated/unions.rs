@@ -2,52 +2,36 @@
 
 use crate::prelude::*;
 
-/// Khronos: [VkAccelerationStructureGeometryDataKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkAccelerationStructureGeometryDataKHR.html)
-#[derive(Clone, Copy)]
-#[repr(C)]
-pub union VkAccelerationStructureGeometryDataKHR {
-  /// * Selection: [`VK_GEOMETRY_TYPE_TRIANGLES_KHR`]
-  pub triangles: VkAccelerationStructureGeometryTrianglesDataKHR,
-  /// * Selection: [`VK_GEOMETRY_TYPE_AABBS_KHR`]
-  pub aabbs: VkAccelerationStructureGeometryAabbsDataKHR,
-  /// * Selection: [`VK_GEOMETRY_TYPE_INSTANCES_KHR`]
-  pub instances: VkAccelerationStructureGeometryInstancesDataKHR,
-}
-impl Default for VkAccelerationStructureGeometryDataKHR {
-  #[inline]
-  #[must_use]
-  fn default() -> Self {
-    Self { triangles: Default::default() }
-  }
-}
-
-/// Khronos: [VkClearColorValue](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkClearColorValue.html)
+/// Khronos: [VkClearColorValue](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkClearColorValue.html) (union)
 ///
-/// Union allowing specification of floating point, integer, or unsigned integer color data. Actual value selected is based on image/attachment being cleared.
+/// Union allowing specification of floating point, integer, or unsigned integer
+/// color data. Actual value selected is based on image/attachment being
+/// cleared.
 #[derive(Clone, Copy)]
 #[repr(C)]
 pub union VkClearColorValue {
-  pub float32: [c_float; 4],
-  pub int32: [i32; 4],
-  pub uint32: [u32; 4],
+  pub float_32: [c_float; 4],
+  pub int_32: [i32; 4],
+  pub uint_32: [u32; 4],
 }
 impl Default for VkClearColorValue {
   #[inline]
   #[must_use]
   fn default() -> Self {
-    Self { float32: Default::default() }
+    Self { float_32: Default::default() }
   }
 }
 
-/// Khronos: [VkClearValue](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkClearValue.html)
+/// Khronos: [VkClearValue](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkClearValue.html) (union)
 ///
-/// Union allowing specification of color or depth and stencil values. Actual value selected is based on attachment being cleared.
+/// Union allowing specification of color or depth and stencil values. Actual
+/// value selected is based on attachment being cleared.
 #[derive(Clone, Copy)]
 #[repr(C)]
 pub union VkClearValue {
   /// * No Auto Validity
   pub color: VkClearColorValue,
-  pub depthStencil: VkClearDepthStencilValue,
+  pub depth_stencil: VkClearDepthStencilValue,
 }
 impl Default for VkClearValue {
   #[inline]
@@ -57,145 +41,144 @@ impl Default for VkClearValue {
   }
 }
 
-/// Khronos: [VkDescriptorDataEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDescriptorDataEXT.html)
+/// Khronos: [VkDescriptorDataEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDescriptorDataEXT.html) (union)
 #[derive(Clone, Copy)]
 #[repr(C)]
 pub union VkDescriptorDataEXT {
   /// * Selection: [`VK_DESCRIPTOR_TYPE_SAMPLER`]
-  pub pSampler: *const VkSampler,
+  pub sampler: *const VkSampler,
   /// * Selection: [`VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER`]
-  pub pCombinedImageSampler: *const VkDescriptorImageInfo,
+  pub combined_image_sampler: *const VkDescriptorImageInfo,
   /// * Selection: [`VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT`]
-  pub pInputAttachmentImage: *const VkDescriptorImageInfo,
+  pub input_attachment_image: *const VkDescriptorImageInfo,
   /// * Selection: [`VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE`]
   /// * Optional: true
-  pub pSampledImage: *const VkDescriptorImageInfo,
+  pub sampled_image: *const VkDescriptorImageInfo,
   /// * Selection: [`VK_DESCRIPTOR_TYPE_STORAGE_IMAGE`]
   /// * Optional: true
-  pub pStorageImage: *const VkDescriptorImageInfo,
+  pub storage_image: *const VkDescriptorImageInfo,
   /// * Selection: [`VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER`]
   /// * Optional: true
-  pub pUniformTexelBuffer: *const VkDescriptorAddressInfoEXT,
+  pub uniform_texel_buffer: *const VkDescriptorAddressInfoEXT,
   /// * Selection: [`VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER`]
   /// * Optional: true
-  pub pStorageTexelBuffer: *const VkDescriptorAddressInfoEXT,
+  pub storage_texel_buffer: *const VkDescriptorAddressInfoEXT,
   /// * Selection: [`VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER`]
   /// * Optional: true
-  pub pUniformBuffer: *const VkDescriptorAddressInfoEXT,
+  pub uniform_buffer: *const VkDescriptorAddressInfoEXT,
   /// * Selection: [`VK_DESCRIPTOR_TYPE_STORAGE_BUFFER`]
   /// * Optional: true
-  pub pStorageBuffer: *const VkDescriptorAddressInfoEXT,
+  pub storage_buffer: *const VkDescriptorAddressInfoEXT,
   /// * Selection: [`VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_KHR`]
   /// * Selection: [`VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_NV`]
-  pub accelerationStructure: VkDeviceAddress,
+  pub acceleration_structure: VkDeviceAddress,
 }
 impl Default for VkDescriptorDataEXT {
   #[inline]
   #[must_use]
   fn default() -> Self {
-    Self { accelerationStructure: Default::default() }
+    Self { acceleration_structure: Default::default() }
   }
 }
 
-/// Khronos: [VkDeviceOrHostAddressConstKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDeviceOrHostAddressConstKHR.html)
+/// Khronos: [VkDeviceOrHostAddressConstKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDeviceOrHostAddressConstKHR.html) (union)
 #[derive(Clone, Copy)]
 #[repr(C)]
 pub union VkDeviceOrHostAddressConstKHR {
   /// * No Auto Validity
-  pub deviceAddress: VkDeviceAddress,
+  pub device_address: VkDeviceAddress,
   /// * No Auto Validity
-  pub hostAddress: *const c_void,
+  pub host_address: *const c_void,
 }
 impl Default for VkDeviceOrHostAddressConstKHR {
   #[inline]
   #[must_use]
   fn default() -> Self {
-    Self { deviceAddress: Default::default() }
+    Self { device_address: Default::default() }
   }
 }
 
-/// Khronos: [VkDeviceOrHostAddressKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDeviceOrHostAddressKHR.html)
+/// Khronos: [VkDeviceOrHostAddressKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDeviceOrHostAddressKHR.html) (union)
 #[derive(Clone, Copy)]
 #[repr(C)]
 pub union VkDeviceOrHostAddressKHR {
   /// * No Auto Validity
-  pub deviceAddress: VkDeviceAddress,
+  pub device_address: VkDeviceAddress,
   /// * No Auto Validity
-  pub hostAddress: *mut c_void,
+  pub host_address: *mut c_void,
 }
 impl Default for VkDeviceOrHostAddressKHR {
   #[inline]
   #[must_use]
   fn default() -> Self {
-    Self { deviceAddress: Default::default() }
+    Self { device_address: Default::default() }
   }
 }
 
-/// Khronos: [VkPerformanceCounterResultKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPerformanceCounterResultKHR.html)
+/// Khronos: [VkPerformanceCounterResultKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPerformanceCounterResultKHR.html) (union)
 ///
 /// Union of all the possible return types a counter result could return
 #[derive(Clone, Copy)]
 #[repr(C)]
 pub union VkPerformanceCounterResultKHR {
-  pub int32: i32,
-  pub int64: i64,
-  pub uint32: u32,
-  pub uint64: u64,
-  pub float32: c_float,
-  pub float64: c_double,
+  pub int_32: i32,
+  pub int_64: i64,
+  pub uint_32: u32,
+  pub uint_64: u64,
+  pub float_32: c_float,
+  pub float_64: c_double,
 }
 impl Default for VkPerformanceCounterResultKHR {
   #[inline]
   #[must_use]
   fn default() -> Self {
-    Self { int32: Default::default() }
+    Self { int_32: Default::default() }
   }
 }
 
-/// Khronos: [VkPerformanceValueDataINTEL](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPerformanceValueDataINTEL.html)
+/// Khronos: [VkPerformanceValueDataINTEL](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPerformanceValueDataINTEL.html) (union)
 #[derive(Clone, Copy)]
 #[repr(C)]
 pub union VkPerformanceValueDataINTEL {
   /// * Selection: [`VK_PERFORMANCE_VALUE_TYPE_UINT32_INTEL`]
-  pub value32: u32,
+  pub value_32: u32,
   /// * Selection: [`VK_PERFORMANCE_VALUE_TYPE_UINT64_INTEL`]
-  pub value64: u64,
+  pub value_64: u64,
   /// * Selection: [`VK_PERFORMANCE_VALUE_TYPE_FLOAT_INTEL`]
-  pub valueFloat: c_float,
+  pub value_float: c_float,
   /// * Selection: [`VK_PERFORMANCE_VALUE_TYPE_BOOL_INTEL`]
-  pub valueBool: VkBool32,
+  pub value_bool: VkBool32,
   /// * Selection: [`VK_PERFORMANCE_VALUE_TYPE_STRING_INTEL`]
   /// * Len: null-terminated
-  pub valueString: *const u8,
+  pub value_string: *const u8,
 }
 impl Default for VkPerformanceValueDataINTEL {
   #[inline]
   #[must_use]
   fn default() -> Self {
-    Self { value32: Default::default() }
+    Self { value_32: Default::default() }
   }
 }
 
-/// Khronos: [VkPipelineExecutableStatisticValueKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineExecutableStatisticValueKHR.html)
+/// Khronos: [VkPipelineExecutableStatisticValueKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineExecutableStatisticValueKHR.html) (union)
 ///
 /// * Returned Only
 #[derive(Clone, Copy)]
 #[repr(C)]
 pub union VkPipelineExecutableStatisticValueKHR {
   /// * Selection: [`VK_PIPELINE_EXECUTABLE_STATISTIC_FORMAT_BOOL32_KHR`]
-  pub b32: VkBool32,
+  pub b_32: VkBool32,
   /// * Selection: [`VK_PIPELINE_EXECUTABLE_STATISTIC_FORMAT_INT64_KHR`]
-  pub i64: i64,
+  pub i_64: i64,
   /// * Selection: [`VK_PIPELINE_EXECUTABLE_STATISTIC_FORMAT_UINT64_KHR`]
-  pub u64: u64,
+  pub u_64: u64,
   /// * Selection: [`VK_PIPELINE_EXECUTABLE_STATISTIC_FORMAT_FLOAT64_KHR`]
-  pub f64: c_double,
+  pub f_64: c_double,
 }
 impl Default for VkPipelineExecutableStatisticValueKHR {
   #[inline]
   #[must_use]
   fn default() -> Self {
-    Self { b32: Default::default() }
+    Self { b_32: Default::default() }
   }
 }
-

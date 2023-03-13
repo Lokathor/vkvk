@@ -140,3 +140,89 @@ pub type vkFaultCallbackFunction_t = unsafe extern "system" fn(
 /// Khronos: [PFN_vkFaultCallbackFunction](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkFaultCallbackFunction.html)
 #[cfg(feature = "vulkansc")]
 pub type PFN_vkFaultCallbackFunction = Option<vkFaultCallbackFunction_t>;
+
+/// Khronos:
+/// [VkClearAttachment](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkClearAttachment.html)
+/// (structure)
+///
+/// The fields of this struct aren't `pub` because they have a slightly complex
+/// interaction. Instead, make a [ClearAttachment] value and then call
+/// `VkClearAttachment::from(clear_attachment)`.
+///
+/// ## Safety
+/// Unsafe code must take care that that the `clearValue` field (which is a
+/// `union`) is properly initialized according to the bits set in `aspectMask`.
+/// See [ClearAttachment] for the valid possible combinations.
+#[derive(Clone, Copy)]
+#[repr(C)]
+pub struct VkClearAttachment {
+  /// A mask selecting the color, depth and/or stencil aspects of the attachment
+  /// to be cleared. **must not be 0**
+  aspect_mask: VkImageAspectFlags,
+  /// Only meaningful if `VK_IMAGE_ASPECT_COLOR_BIT` is set in `aspectMask`, in
+  /// which case it is an index into the currently bound color attachments.
+  color_attachment: u32,
+  /// The color or depth/stencil value to clear the attachment to.
+  clear_value: VkClearValue,
+}
+impl Default for VkClearAttachment {
+  #[inline]
+  #[must_use]
+  fn default() -> Self {
+    Self::from(ClearAttachment::default())
+  }
+}
+impl From<ClearAttachment> for VkClearAttachment {
+  #[inline]
+  #[must_use]
+  fn from(value: ClearAttachment) -> Self {
+    match value {
+      ClearAttachment::Color(colorAttachment, color) => VkClearAttachment {
+        aspect_mask: VK_IMAGE_ASPECT_COLOR_BIT,
+        color_attachment: colorAttachment,
+        clear_value: VkClearValue { color },
+      },
+      ClearAttachment::Depth(depth) => VkClearAttachment {
+        aspect_mask: VK_IMAGE_ASPECT_DEPTH_BIT,
+        color_attachment: 0,
+        clear_value: VkClearValue {
+          depth_stencil: VkClearDepthStencilValue { depth, stencil: 0 },
+        },
+      },
+      ClearAttachment::Stencil(stencil) => VkClearAttachment {
+        aspect_mask: VK_IMAGE_ASPECT_STENCIL_BIT,
+        color_attachment: 0,
+        clear_value: VkClearValue {
+          depth_stencil: VkClearDepthStencilValue { depth: 0.0, stencil },
+        },
+      },
+      ClearAttachment::DepthAndStencil(depth, stencil) => VkClearAttachment {
+        aspect_mask: VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT,
+        color_attachment: 0,
+        clear_value: VkClearValue {
+          depth_stencil: VkClearDepthStencilValue { depth, stencil },
+        },
+      },
+    }
+  }
+}
+
+/// A Rust enum to model the valid forms of [VkClearAttachment](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkClearAttachment.html).
+#[derive(Clone, Copy)]
+pub enum ClearAttachment {
+  /// color attachment index and clear value
+  Color(u32, VkClearColorValue),
+  /// depth clear value
+  Depth(c_float),
+  /// stencil clear value
+  Stencil(u32),
+  /// depth clear value *and* stencil clear value
+  DepthAndStencil(c_float, u32),
+}
+impl Default for ClearAttachment {
+  #[inline]
+  #[must_use]
+  fn default() -> Self {
+    Self::Depth(0.0)
+  }
+}
