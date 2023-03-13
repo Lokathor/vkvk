@@ -149,7 +149,7 @@ const BLOCKED_TYPES: &[&str] = &[
   "VkDeviceSemaphoreSciSyncPoolReservationCreateInfoNV",
   "VkCommandPoolMemoryReservationCreateInfo",
   "VkCommandPoolMemoryConsumption",
-  //
+  // this is some windowing thing, i think?
   "RROutput",
   // TODO: support whatever nvidia thing this stuff is for?
   "NvSciBufAttrList",
