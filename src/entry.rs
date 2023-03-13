@@ -1,4 +1,6 @@
-//! Provides the [Entry] type, which lets you set up to create an [Instance].
+//! Provides the [Entry] type.
+
+use zstring::ZStr;
 
 use crate::prelude::*;
 
@@ -40,5 +42,66 @@ impl Entry {
   #[must_use]
   pub const unsafe fn new(get_instance_proc_addr: vkGetInstanceProcAddr_t) -> Self {
     Self(get_instance_proc_addr)
+  }
+
+  /// Gets the maximum instance version that this Vulkan loader supports.
+  #[inline]
+  #[must_use]
+  pub fn enumerate_max_instance_version(&self) -> VkVersion {
+    #[allow(non_upper_case_globals)]
+    const vkEnumerateInstanceVersion_NAME: ZStr<'static> =
+      ZStr::from_lit("vkEnumerateInstanceVersion\0");
+    let opt_f: PFN_vkEnumerateInstanceVersion = unsafe {
+      core::mem::transmute((self.0)(
+        VkInstance::NULL,
+        vkEnumerateInstanceVersion_NAME.as_ptr(),
+      ))
+    };
+    if let Some(f) = opt_f {
+      let mut version = VkVersion::default();
+      unsafe { f(&mut version as *mut VkVersion as *mut u32) };
+      version
+    } else {
+      VkVersion::API_1_0
+    }
+  }
+
+  /// Gets the properties of all available instance layers.
+  #[inline]
+  pub fn enumerate_instance_layer_properties(
+    &self,
+  ) -> Result<Vec<VkLayerProperties>, ErrorCode> {
+    #[allow(non_upper_case_globals)]
+    const vkEnumerateInstanceLayerProperties_NAME: ZStr<'static> =
+      ZStr::from_lit("vkEnumerateInstanceLayerProperties\0");
+    let opt_f: PFN_vkEnumerateInstanceLayerProperties = unsafe {
+      core::mem::transmute((self.0)(
+        VkInstance::NULL,
+        vkEnumerateInstanceLayerProperties_NAME.as_ptr(),
+      ))
+    };
+    if let Some(f) = opt_f {
+      'gather: loop {
+        let mut count = 0_u32;
+        let r = unsafe { f(&mut count, null_mut()) };
+        match r {
+          VK_SUCCESS => (),
+          other => return Err(ErrorCode::new(other.0).unwrap()),
+        }
+        let mut buf: Vec<VkLayerProperties> =
+          Vec::with_capacity(count.try_into().unwrap());
+        let r = unsafe { f(&mut count, buf.as_mut_ptr()) };
+        match r {
+          VK_SUCCESS => {
+            unsafe { buf.set_len(count.try_into().unwrap()) };
+            return Ok(buf);
+          }
+          VK_INCOMPLETE => continue 'gather,
+          other => return Err(ErrorCode::new(other.0).unwrap()),
+        }
+      }
+    } else {
+      Err(ErrorCode::new(VK_ERROR_UNKNOWN.0).unwrap())
+    }
   }
 }
