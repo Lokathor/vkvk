@@ -1194,6 +1194,8 @@ pub const VK_DESCRIPTOR_SET_LAYOUT_CREATE_PUSH_DESCRIPTOR_BIT_KHR:
   VkDescriptorSetLayoutCreateFlagBits = VkDescriptorSetLayoutCreateFlagBits(1 << 0);
 pub const VK_DESCRIPTOR_SET_LAYOUT_CREATE_RESERVED_3_BIT_AMD:
   VkDescriptorSetLayoutCreateFlagBits = VkDescriptorSetLayoutCreateFlagBits(1 << 3);
+pub const VK_DESCRIPTOR_SET_LAYOUT_CREATE_RESERVED_6_BIT_EXT:
+  VkDescriptorSetLayoutCreateFlagBits = VkDescriptorSetLayoutCreateFlagBits(1 << 6);
 pub const VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT:
   VkDescriptorSetLayoutCreateFlagBits = VkDescriptorSetLayoutCreateFlagBits(1 << 1);
 /// Alias of [`VK_DESCRIPTOR_SET_LAYOUT_CREATE_HOST_ONLY_POOL_BIT_EXT`]
@@ -1213,6 +1215,7 @@ impl core::fmt::Debug for VkDescriptorSetLayoutCreateFlagBits {
       (4, "HOST_ONLY_POOL_BIT_EXT"),
       (1, "PUSH_DESCRIPTOR_BIT_KHR"),
       (8, "RESERVED_3_BIT_AMD"),
+      (64, "RESERVED_6_BIT_EXT"),
       (2, "UPDATE_AFTER_BIND_POOL"),
     ] {
       if (self.0 & bit_val) != 0 {
@@ -3399,16 +3402,13 @@ define_bitmask!(
 pub type VkPipelineCacheCreateFlags = VkPipelineCacheCreateFlagBits;
 pub const VK_PIPELINE_CACHE_CREATE_EXTERNALLY_SYNCHRONIZED_BIT:
   VkPipelineCacheCreateFlagBits = VkPipelineCacheCreateFlagBits(1 << 0);
-pub const VK_PIPELINE_CACHE_CREATE_RESERVED_1_BIT_EXT: VkPipelineCacheCreateFlagBits =
-  VkPipelineCacheCreateFlagBits(1 << 1);
 /// Alias of [`VK_PIPELINE_CACHE_CREATE_EXTERNALLY_SYNCHRONIZED_BIT`]
 pub const VK_PIPELINE_CACHE_CREATE_EXTERNALLY_SYNCHRONIZED_BIT_EXT:
   VkPipelineCacheCreateFlagBits = VK_PIPELINE_CACHE_CREATE_EXTERNALLY_SYNCHRONIZED_BIT;
 impl core::fmt::Debug for VkPipelineCacheCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "EXTERNALLY_SYNCHRONIZED"), (2, "RESERVED_1_BIT_EXT")]
-    {
+    for (bit_val, bit_name) in [(1, "EXTERNALLY_SYNCHRONIZED")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
@@ -5650,6 +5650,30 @@ impl core::fmt::Debug for VkVideoEncodeContentFlagBitsKHR {
 }
 
 define_bitmask!(
+  /// Khronos: [VkVideoEncodeFeedbackFlagBitsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkVideoEncodeFeedbackFlagBitsKHR.html) (bitmask)
+  VkVideoEncodeFeedbackFlagBitsKHR(u32)
+);
+/// Khronos: [VkVideoEncodeFeedbackFlagBitsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkVideoEncodeFeedbackFlagBitsKHR.html) (bitmask)
+pub type VkVideoEncodeFeedbackFlagsKHR = VkVideoEncodeFeedbackFlagBitsKHR;
+pub const VK_VIDEO_ENCODE_FEEDBACK_BITSTREAM_BUFFER_OFFSET_BIT_KHR:
+  VkVideoEncodeFeedbackFlagBitsKHR = VkVideoEncodeFeedbackFlagBitsKHR(1 << 0);
+pub const VK_VIDEO_ENCODE_FEEDBACK_BITSTREAM_BYTES_WRITTEN_BIT_KHR:
+  VkVideoEncodeFeedbackFlagBitsKHR = VkVideoEncodeFeedbackFlagBitsKHR(1 << 1);
+impl core::fmt::Debug for VkVideoEncodeFeedbackFlagBitsKHR {
+  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+    let mut x = f.debug_set();
+    for (bit_val, bit_name) in
+      [(1, "BITSTREAM_BUFFER_OFFSET"), (2, "BITSTREAM_BYTES_WRITTEN")]
+    {
+      if (self.0 & bit_val) != 0 {
+        x.entry(&bit_name);
+      }
+    }
+    x.finish()
+  }
+}
+
+define_bitmask!(
   /// Khronos: [VkVideoEncodeH264CapabilityFlagBitsEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkVideoEncodeH264CapabilityFlagBitsEXT.html) (bitmask)
   VkVideoEncodeH264CapabilityFlagBitsEXT(u32)
 );
@@ -5675,6 +5699,9 @@ pub const VK_VIDEO_ENCODE_H264_CAPABILITY_DEBLOCKING_FILTER_ENABLED_BIT_EXT:
 pub const VK_VIDEO_ENCODE_H264_CAPABILITY_DEBLOCKING_FILTER_PARTIAL_BIT_EXT:
   VkVideoEncodeH264CapabilityFlagBitsEXT =
   VkVideoEncodeH264CapabilityFlagBitsEXT(1 << 18);
+pub const VK_VIDEO_ENCODE_H264_CAPABILITY_DIFFERENT_REFERENCE_FINAL_LISTS_BIT_EXT:
+  VkVideoEncodeH264CapabilityFlagBitsEXT =
+  VkVideoEncodeH264CapabilityFlagBitsEXT(1 << 25);
 pub const VK_VIDEO_ENCODE_H264_CAPABILITY_DIFFERENT_SLICE_TYPE_BIT_EXT:
   VkVideoEncodeH264CapabilityFlagBitsEXT =
   VkVideoEncodeH264CapabilityFlagBitsEXT(1 << 23);
@@ -5731,6 +5758,7 @@ impl core::fmt::Debug for VkVideoEncodeH264CapabilityFlagBitsEXT {
       (65536, "DEBLOCKING_FILTER_DISABLED"),
       (131072, "DEBLOCKING_FILTER_ENABLED"),
       (262144, "DEBLOCKING_FILTER_PARTIAL"),
+      (33554432, "DIFFERENT_REFERENCE_FINAL_LISTS"),
       (8388608, "DIFFERENT_SLICE_TYPE"),
       (2, "DIRECT_8X8_INFERENCE_DISABLED"),
       (1, "DIRECT_8X8_INFERENCE_ENABLED"),
@@ -5759,54 +5787,6 @@ impl core::fmt::Debug for VkVideoEncodeH264CapabilityFlagBitsEXT {
 }
 
 define_bitmask!(
-  /// Khronos: [VkVideoEncodeH264InputModeFlagBitsEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkVideoEncodeH264InputModeFlagBitsEXT.html) (bitmask)
-  VkVideoEncodeH264InputModeFlagBitsEXT(u32)
-);
-/// Khronos: [VkVideoEncodeH264InputModeFlagBitsEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkVideoEncodeH264InputModeFlagBitsEXT.html) (bitmask)
-pub type VkVideoEncodeH264InputModeFlagsEXT = VkVideoEncodeH264InputModeFlagBitsEXT;
-pub const VK_VIDEO_ENCODE_H264_INPUT_MODE_FRAME_BIT_EXT:
-  VkVideoEncodeH264InputModeFlagBitsEXT = VkVideoEncodeH264InputModeFlagBitsEXT(1 << 0);
-pub const VK_VIDEO_ENCODE_H264_INPUT_MODE_NON_VCL_BIT_EXT:
-  VkVideoEncodeH264InputModeFlagBitsEXT = VkVideoEncodeH264InputModeFlagBitsEXT(1 << 2);
-pub const VK_VIDEO_ENCODE_H264_INPUT_MODE_SLICE_BIT_EXT:
-  VkVideoEncodeH264InputModeFlagBitsEXT = VkVideoEncodeH264InputModeFlagBitsEXT(1 << 1);
-impl core::fmt::Debug for VkVideoEncodeH264InputModeFlagBitsEXT {
-  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-    let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "FRAME"), (4, "NON_VCL"), (2, "SLICE")] {
-      if (self.0 & bit_val) != 0 {
-        x.entry(&bit_name);
-      }
-    }
-    x.finish()
-  }
-}
-
-define_bitmask!(
-  /// Khronos: [VkVideoEncodeH264OutputModeFlagBitsEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkVideoEncodeH264OutputModeFlagBitsEXT.html) (bitmask)
-  VkVideoEncodeH264OutputModeFlagBitsEXT(u32)
-);
-/// Khronos: [VkVideoEncodeH264OutputModeFlagBitsEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkVideoEncodeH264OutputModeFlagBitsEXT.html) (bitmask)
-pub type VkVideoEncodeH264OutputModeFlagsEXT = VkVideoEncodeH264OutputModeFlagBitsEXT;
-pub const VK_VIDEO_ENCODE_H264_OUTPUT_MODE_FRAME_BIT_EXT:
-  VkVideoEncodeH264OutputModeFlagBitsEXT = VkVideoEncodeH264OutputModeFlagBitsEXT(1 << 0);
-pub const VK_VIDEO_ENCODE_H264_OUTPUT_MODE_NON_VCL_BIT_EXT:
-  VkVideoEncodeH264OutputModeFlagBitsEXT = VkVideoEncodeH264OutputModeFlagBitsEXT(1 << 2);
-pub const VK_VIDEO_ENCODE_H264_OUTPUT_MODE_SLICE_BIT_EXT:
-  VkVideoEncodeH264OutputModeFlagBitsEXT = VkVideoEncodeH264OutputModeFlagBitsEXT(1 << 1);
-impl core::fmt::Debug for VkVideoEncodeH264OutputModeFlagBitsEXT {
-  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-    let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "FRAME"), (4, "NON_VCL"), (2, "SLICE")] {
-      if (self.0 & bit_val) != 0 {
-        x.entry(&bit_name);
-      }
-    }
-    x.finish()
-  }
-}
-
-define_bitmask!(
   /// Khronos: [VkVideoEncodeH265CapabilityFlagBitsEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkVideoEncodeH265CapabilityFlagBitsEXT.html) (bitmask)
   VkVideoEncodeH265CapabilityFlagBitsEXT(u32)
 );
@@ -5821,6 +5801,9 @@ pub const VK_VIDEO_ENCODE_H265_CAPABILITY_DEBLOCKING_FILTER_OVERRIDE_ENABLED_BIT
 pub const VK_VIDEO_ENCODE_H265_CAPABILITY_DEPENDENT_SLICE_SEGMENT_BIT_EXT:
   VkVideoEncodeH265CapabilityFlagBitsEXT =
   VkVideoEncodeH265CapabilityFlagBitsEXT(1 << 23);
+pub const VK_VIDEO_ENCODE_H265_CAPABILITY_DIFFERENT_REFERENCE_FINAL_LISTS_BIT_EXT:
+  VkVideoEncodeH265CapabilityFlagBitsEXT =
+  VkVideoEncodeH265CapabilityFlagBitsEXT(1 << 26);
 pub const VK_VIDEO_ENCODE_H265_CAPABILITY_DIFFERENT_SLICE_TYPE_BIT_EXT:
   VkVideoEncodeH265CapabilityFlagBitsEXT =
   VkVideoEncodeH265CapabilityFlagBitsEXT(1 << 24);
@@ -5887,6 +5870,7 @@ impl core::fmt::Debug for VkVideoEncodeH265CapabilityFlagBitsEXT {
       (33554432, "B_FRAME_IN_L1_LIST"),
       (131072, "DEBLOCKING_FILTER_OVERRIDE_ENABLED"),
       (8388608, "DEPENDENT_SLICE_SEGMENT"),
+      (67108864, "DIFFERENT_REFERENCE_FINAL_LISTS"),
       (16777216, "DIFFERENT_SLICE_TYPE"),
       (65536, "ENTROPY_CODING_SYNC_ENABLED"),
       (32, "HRD_COMPLIANCE"),
@@ -5935,54 +5919,6 @@ impl core::fmt::Debug for VkVideoEncodeH265CtbSizeFlagBitsEXT {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "16"), (2, "32"), (4, "64")] {
-      if (self.0 & bit_val) != 0 {
-        x.entry(&bit_name);
-      }
-    }
-    x.finish()
-  }
-}
-
-define_bitmask!(
-  /// Khronos: [VkVideoEncodeH265InputModeFlagBitsEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkVideoEncodeH265InputModeFlagBitsEXT.html) (bitmask)
-  VkVideoEncodeH265InputModeFlagBitsEXT(u32)
-);
-/// Khronos: [VkVideoEncodeH265InputModeFlagBitsEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkVideoEncodeH265InputModeFlagBitsEXT.html) (bitmask)
-pub type VkVideoEncodeH265InputModeFlagsEXT = VkVideoEncodeH265InputModeFlagBitsEXT;
-pub const VK_VIDEO_ENCODE_H265_INPUT_MODE_FRAME_BIT_EXT:
-  VkVideoEncodeH265InputModeFlagBitsEXT = VkVideoEncodeH265InputModeFlagBitsEXT(1 << 0);
-pub const VK_VIDEO_ENCODE_H265_INPUT_MODE_NON_VCL_BIT_EXT:
-  VkVideoEncodeH265InputModeFlagBitsEXT = VkVideoEncodeH265InputModeFlagBitsEXT(1 << 2);
-pub const VK_VIDEO_ENCODE_H265_INPUT_MODE_SLICE_SEGMENT_BIT_EXT:
-  VkVideoEncodeH265InputModeFlagBitsEXT = VkVideoEncodeH265InputModeFlagBitsEXT(1 << 1);
-impl core::fmt::Debug for VkVideoEncodeH265InputModeFlagBitsEXT {
-  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-    let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "FRAME"), (4, "NON_VCL"), (2, "SLICE_SEGMENT")] {
-      if (self.0 & bit_val) != 0 {
-        x.entry(&bit_name);
-      }
-    }
-    x.finish()
-  }
-}
-
-define_bitmask!(
-  /// Khronos: [VkVideoEncodeH265OutputModeFlagBitsEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkVideoEncodeH265OutputModeFlagBitsEXT.html) (bitmask)
-  VkVideoEncodeH265OutputModeFlagBitsEXT(u32)
-);
-/// Khronos: [VkVideoEncodeH265OutputModeFlagBitsEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkVideoEncodeH265OutputModeFlagBitsEXT.html) (bitmask)
-pub type VkVideoEncodeH265OutputModeFlagsEXT = VkVideoEncodeH265OutputModeFlagBitsEXT;
-pub const VK_VIDEO_ENCODE_H265_OUTPUT_MODE_FRAME_BIT_EXT:
-  VkVideoEncodeH265OutputModeFlagBitsEXT = VkVideoEncodeH265OutputModeFlagBitsEXT(1 << 0);
-pub const VK_VIDEO_ENCODE_H265_OUTPUT_MODE_NON_VCL_BIT_EXT:
-  VkVideoEncodeH265OutputModeFlagBitsEXT = VkVideoEncodeH265OutputModeFlagBitsEXT(1 << 2);
-pub const VK_VIDEO_ENCODE_H265_OUTPUT_MODE_SLICE_SEGMENT_BIT_EXT:
-  VkVideoEncodeH265OutputModeFlagBitsEXT = VkVideoEncodeH265OutputModeFlagBitsEXT(1 << 1);
-impl core::fmt::Debug for VkVideoEncodeH265OutputModeFlagBitsEXT {
-  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-    let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "FRAME"), (4, "NON_VCL"), (2, "SLICE_SEGMENT")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
@@ -6042,14 +5978,24 @@ define_bitmask!(
 /// Khronos: [VkVideoEncodeRateControlModeFlagBitsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkVideoEncodeRateControlModeFlagBitsKHR.html) (bitmask)
 pub type VkVideoEncodeRateControlModeFlagsKHR = VkVideoEncodeRateControlModeFlagBitsKHR;
 pub const VK_VIDEO_ENCODE_RATE_CONTROL_MODE_CBR_BIT_KHR:
-  VkVideoEncodeRateControlModeFlagBitsKHR = VkVideoEncodeRateControlModeFlagBitsKHR(1);
-pub const VK_VIDEO_ENCODE_RATE_CONTROL_MODE_NONE_BIT_KHR:
-  VkVideoEncodeRateControlModeFlagBitsKHR = VkVideoEncodeRateControlModeFlagBitsKHR(0);
+  VkVideoEncodeRateControlModeFlagBitsKHR =
+  VkVideoEncodeRateControlModeFlagBitsKHR(1 << 1);
+pub const VK_VIDEO_ENCODE_RATE_CONTROL_MODE_DISABLED_BIT_KHR:
+  VkVideoEncodeRateControlModeFlagBitsKHR =
+  VkVideoEncodeRateControlModeFlagBitsKHR(1 << 0);
 pub const VK_VIDEO_ENCODE_RATE_CONTROL_MODE_VBR_BIT_KHR:
-  VkVideoEncodeRateControlModeFlagBitsKHR = VkVideoEncodeRateControlModeFlagBitsKHR(2);
+  VkVideoEncodeRateControlModeFlagBitsKHR =
+  VkVideoEncodeRateControlModeFlagBitsKHR(1 << 2);
+pub const VK_VIDEO_ENCODE_RATE_CONTROL_MODE_DEFAULT_KHR:
+  VkVideoEncodeRateControlModeFlagBitsKHR = VkVideoEncodeRateControlModeFlagBitsKHR(0);
 impl core::fmt::Debug for VkVideoEncodeRateControlModeFlagBitsKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
+    for (bit_val, bit_name) in [(2, "CBR"), (1, "DISABLED"), (4, "VBR")] {
+      if (self.0 & bit_val) != 0 {
+        x.entry(&bit_name);
+      }
+    }
     x.finish()
   }
 }

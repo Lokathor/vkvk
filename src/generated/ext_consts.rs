@@ -775,6 +775,16 @@ pub const VK_EXT_EXTENSION_509_EXTENSION_NAME: ZStr<'static> =
 
 pub const VK_EXT_EXTENSION_509_SPEC_VERSION: u32 = 0;
 
+pub const VK_EXT_EXTENSION_512_EXTENSION_NAME: ZStr<'static> =
+  ZStr::from_lit("VK_EXT_extension_512\0");
+
+pub const VK_EXT_EXTENSION_512_SPEC_VERSION: u32 = 0;
+
+pub const VK_EXT_EXTENSION_517_EXTENSION_NAME: ZStr<'static> =
+  ZStr::from_lit("VK_EXT_extension_517\0");
+
+pub const VK_EXT_EXTENSION_517_SPEC_VERSION: u32 = 0;
+
 pub const VK_EXT_EXTERNAL_MEMORY_DMA_BUF_EXTENSION_NAME: ZStr<'static> =
   ZStr::from_lit("VK_EXT_external_memory_dma_buf\0");
 
@@ -1178,12 +1188,12 @@ pub const VK_EXT_VERTEX_INPUT_DYNAMIC_STATE_SPEC_VERSION: u32 = 2;
 pub const VK_EXT_VIDEO_ENCODE_H264_EXTENSION_NAME: ZStr<'static> =
   ZStr::from_lit("VK_EXT_video_encode_h264\0");
 
-pub const VK_EXT_VIDEO_ENCODE_H264_SPEC_VERSION: u32 = 9;
+pub const VK_EXT_VIDEO_ENCODE_H264_SPEC_VERSION: u32 = 10;
 
 pub const VK_EXT_VIDEO_ENCODE_H265_EXTENSION_NAME: ZStr<'static> =
   ZStr::from_lit("VK_EXT_video_encode_h265\0");
 
-pub const VK_EXT_VIDEO_ENCODE_H265_SPEC_VERSION: u32 = 9;
+pub const VK_EXT_VIDEO_ENCODE_H265_SPEC_VERSION: u32 = 10;
 
 pub const VK_EXT_YCBCR_2PLANE_444_FORMATS_EXTENSION_NAME: ZStr<'static> =
   ZStr::from_lit("VK_EXT_ycbcr_2plane_444_formats\0");
@@ -1610,6 +1620,26 @@ pub const VK_KHR_EXTENSION_507_EXTENSION_NAME: ZStr<'static> =
 
 pub const VK_KHR_EXTENSION_507_SPEC_VERSION: u32 = 0;
 
+pub const VK_KHR_EXTENSION_513_EXTENSION_NAME: ZStr<'static> =
+  ZStr::from_lit("VK_KHR_extension_513\0");
+
+pub const VK_KHR_EXTENSION_513_SPEC_VERSION: u32 = 0;
+
+pub const VK_KHR_EXTENSION_514_EXTENSION_NAME: ZStr<'static> =
+  ZStr::from_lit("VK_KHR_extension_514\0");
+
+pub const VK_KHR_EXTENSION_514_SPEC_VERSION: u32 = 0;
+
+pub const VK_KHR_EXTENSION_515_EXTENSION_NAME: ZStr<'static> =
+  ZStr::from_lit("VK_KHR_extension_515\0");
+
+pub const VK_KHR_EXTENSION_515_SPEC_VERSION: u32 = 0;
+
+pub const VK_KHR_EXTENSION_516_EXTENSION_NAME: ZStr<'static> =
+  ZStr::from_lit("VK_KHR_extension_516\0");
+
+pub const VK_KHR_EXTENSION_516_SPEC_VERSION: u32 = 0;
+
 pub const VK_KHR_EXTERNAL_FENCE_CAPABILITIES_EXTENSION_NAME: ZStr<'static> =
   ZStr::from_lit("VK_KHR_external_fence_capabilities\0");
 
@@ -1958,7 +1988,7 @@ pub const VK_KHR_VIDEO_DECODE_QUEUE_SPEC_VERSION: u32 = 7;
 pub const VK_KHR_VIDEO_ENCODE_QUEUE_EXTENSION_NAME: ZStr<'static> =
   ZStr::from_lit("VK_KHR_video_encode_queue\0");
 
-pub const VK_KHR_VIDEO_ENCODE_QUEUE_SPEC_VERSION: u32 = 7;
+pub const VK_KHR_VIDEO_ENCODE_QUEUE_SPEC_VERSION: u32 = 8;
 
 pub const VK_KHR_VIDEO_QUEUE_EXTENSION_NAME: ZStr<'static> =
   ZStr::from_lit("VK_KHR_video_queue\0");

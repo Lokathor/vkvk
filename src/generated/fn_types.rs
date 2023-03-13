@@ -9572,7 +9572,8 @@ pub(crate) struct DeviceFns {
   /// * Success: `VK_SUCCESS`
   /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
   ///   `VK_ERROR_INITIALIZATION_FAILED`,
-  ///   `VK_ERROR_VIDEO_STD_VERSION_NOT_SUPPORTED_KHR`
+  ///   `VK_ERROR_VIDEO_STD_VERSION_NOT_SUPPORTED_KHR`,
+  ///   `VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR`
   /// * `device`
   /// * `create_info`
   /// * `allocator`, Optional: true
@@ -9582,7 +9583,8 @@ pub(crate) struct DeviceFns {
   /// Khronos: [vkCreateVideoSessionParametersKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateVideoSessionParametersKHR.html)
   /// * Success: `VK_SUCCESS`
   /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
-  ///   `VK_ERROR_INITIALIZATION_FAILED`
+  ///   `VK_ERROR_INITIALIZATION_FAILED`,
+  ///   `VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR`
   /// * `device`
   /// * `create_info`
   /// * `allocator`, Optional: true
@@ -9844,7 +9846,8 @@ pub(crate) struct DeviceFns {
 
   /// Khronos: [vkEndCommandBuffer](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEndCommandBuffer.html)
   /// * Success: `VK_SUCCESS`
-  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR`
   /// * Implicit Extern Sync: the [VkCommandPool] that `commandBuffer` was
   ///   allocated from
   /// * `command_buffer`, Extern Sync: true
@@ -11015,7 +11018,8 @@ pub(crate) struct DeviceFns {
 
   /// Khronos: [vkUpdateVideoSessionParametersKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUpdateVideoSessionParametersKHR.html)
   /// * Success: `VK_SUCCESS`
-  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+  /// * Error: `VK_ERROR_OUT_OF_HOST_MEMORY`, `VK_ERROR_OUT_OF_DEVICE_MEMORY`,
+  ///   `VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR`
   /// * `device`
   /// * `video_session_parameters`
   /// * `update_info`

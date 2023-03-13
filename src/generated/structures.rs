@@ -10802,6 +10802,8 @@ pub struct VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI {
   pub max_work_group_size: [u32; 3],
   /// * Limit Type: max
   pub max_output_cluster_count: u32,
+  /// * Limit Type: exact
+  pub indirect_buffer_offset_alignment: VkDeviceSize,
 }
 impl Default for VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI {
   #[inline]
@@ -10814,6 +10816,7 @@ impl Default for VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI {
       max_work_group_count: [Default::default(); 3],
       max_work_group_size: [Default::default(); 3],
       max_output_cluster_count: Default::default(),
+      indirect_buffer_offset_alignment: Default::default(),
     }
   }
 }
@@ -21324,6 +21327,31 @@ impl Default for VkQueryPoolPerformanceQueryCreateInfoINTEL {
   }
 }
 
+/// Khronos: [VkQueryPoolVideoEncodeFeedbackCreateInfoKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkQueryPoolVideoEncodeFeedbackCreateInfoKHR.html) (structure)
+///
+/// * Struct Extends: [`VkQueryPoolCreateInfo`]
+#[derive(Clone, Copy, Debug)]
+#[repr(C)]
+pub struct VkQueryPoolVideoEncodeFeedbackCreateInfoKHR {
+  /// * Intended Value:
+  ///   `VK_STRUCTURE_TYPE_QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR`
+  pub struct_ty: VkStructureType,
+  /// * Optional: true
+  pub next: *const c_void,
+  pub encode_feedback_flags: VkVideoEncodeFeedbackFlagsKHR,
+}
+impl Default for VkQueryPoolVideoEncodeFeedbackCreateInfoKHR {
+  #[inline]
+  #[must_use]
+  fn default() -> Self {
+    Self {
+      struct_ty: VK_STRUCTURE_TYPE_QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR,
+      next: core::ptr::null(),
+      encode_feedback_flags: Default::default(),
+    }
+  }
+}
+
 /// Khronos: [VkQueueFamilyCheckpointProperties2NV](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkQueueFamilyCheckpointProperties2NV.html) (structure)
 ///
 /// * Struct Extends: [`VkQueueFamilyProperties2`]
@@ -24637,7 +24665,7 @@ pub struct VkSwapchainPresentFenceInfoEXT {
   /// * Intended Value: `VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_FENCE_INFO_EXT`
   pub struct_ty: VkStructureType,
   /// * Optional: true
-  pub next: *mut c_void,
+  pub next: *const c_void,
   /// Copy of VkPresentInfoKHR::swapchainCount
   pub swapchain_count: u32,
   /// Fence to signal for each swapchain
@@ -24650,7 +24678,7 @@ impl Default for VkSwapchainPresentFenceInfoEXT {
   fn default() -> Self {
     Self {
       struct_ty: VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_FENCE_INFO_EXT,
-      next: core::ptr::null_mut(),
+      next: core::ptr::null(),
       swapchain_count: Default::default(),
       fences: core::ptr::null(),
     }
@@ -24666,7 +24694,7 @@ pub struct VkSwapchainPresentModeInfoEXT {
   /// * Intended Value: `VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_MODE_INFO_EXT`
   pub struct_ty: VkStructureType,
   /// * Optional: true
-  pub next: *mut c_void,
+  pub next: *const c_void,
   /// Copy of VkPresentInfoKHR::swapchainCount
   pub swapchain_count: u32,
   /// Presentation mode for each swapchain
@@ -24679,7 +24707,7 @@ impl Default for VkSwapchainPresentModeInfoEXT {
   fn default() -> Self {
     Self {
       struct_ty: VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_MODE_INFO_EXT,
-      next: core::ptr::null_mut(),
+      next: core::ptr::null(),
       swapchain_count: Default::default(),
       present_modes: core::ptr::null(),
     }
@@ -24697,7 +24725,7 @@ pub struct VkSwapchainPresentModesCreateInfoEXT {
   ///   `VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_MODES_CREATE_INFO_EXT`
   pub struct_ty: VkStructureType,
   /// * Optional: true
-  pub next: *mut c_void,
+  pub next: *const c_void,
   pub present_mode_count: u32,
   /// * Len: `present_mode_count`
   pub present_modes: *const VkPresentModeKHR,
@@ -24708,7 +24736,7 @@ impl Default for VkSwapchainPresentModesCreateInfoEXT {
   fn default() -> Self {
     Self {
       struct_ty: VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_MODES_CREATE_INFO_EXT,
-      next: core::ptr::null_mut(),
+      next: core::ptr::null(),
       present_mode_count: Default::default(),
       present_modes: core::ptr::null(),
     }
