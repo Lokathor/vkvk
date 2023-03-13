@@ -1,5 +1,6 @@
 #![no_std]
 #![warn(missing_docs)]
+#![cfg_attr(docs_rs, feature(doc_cfg))]
 
 //! A library for interacting with the Vulkan graphical and compute API.
 //!
@@ -17,6 +18,15 @@
 //!
 //! [rvh-i]: raw_vulkan_handle::VkInstance
 //! [rvh-pd]: raw_vulkan_handle::VkPhysicalDevice
+//!
+//! ## Usage
+//!
+//! Generally you are expected to import everything at once via the crate's
+//! prelude:
+//!
+//! ```
+//! use vkvk::prelude::*;
+//! ```
 
 extern crate alloc;
 
@@ -28,6 +38,7 @@ mod macros;
 
 pub mod api_constants;
 pub mod base_types;
+pub mod entry;
 pub mod prelude;
 
 #[allow(missing_docs)]
