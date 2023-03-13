@@ -17,9 +17,11 @@ pub use core::{
 };
 pub use raw_vulkan_handle::*;
 
+pub(crate) use crate::generated::fn_types::*;
 pub use crate::{
   api_constants::*,
   base_types::*,
+  entry::*,
   generated::{aliases::*, bitmasks::*, enumerations::*, structures::*, unions::*},
 };
 
