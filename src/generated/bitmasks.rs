@@ -19,9 +19,9 @@ impl core::fmt::Debug for VkAccelerationStructureCreateFlagBitsKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (8, "DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT"),
+      (8, "DESCRIPTOR_BUFFER_CAPTURE_REPLAY"),
       (1, "DEVICE_ADDRESS_CAPTURE_REPLAY"),
-      (4, "MOTION_BIT_NV"),
+      (4, "MOTION"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
@@ -145,18 +145,18 @@ impl core::fmt::Debug for VkAccessFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (2097152, "ACCELERATION_STRUCTURE_READ_BIT_KHR"),
-      (4194304, "ACCELERATION_STRUCTURE_WRITE_BIT_KHR"),
+      (2097152, "ACCELERATION_STRUCTURE_READ"),
+      (4194304, "ACCELERATION_STRUCTURE_WRITE"),
       (128, "COLOR_ATTACHMENT_READ"),
-      (524288, "COLOR_ATTACHMENT_READ_NONCOHERENT_BIT_EXT"),
+      (524288, "COLOR_ATTACHMENT_READ_NONCOHERENT"),
       (256, "COLOR_ATTACHMENT_WRITE"),
-      (131072, "COMMAND_PREPROCESS_READ_BIT_NV"),
-      (262144, "COMMAND_PREPROCESS_WRITE_BIT_NV"),
-      (1048576, "CONDITIONAL_RENDERING_READ_BIT_EXT"),
+      (131072, "COMMAND_PREPROCESS_READ"),
+      (262144, "COMMAND_PREPROCESS_WRITE"),
+      (1048576, "CONDITIONAL_RENDERING_READ"),
       (512, "DEPTH_STENCIL_ATTACHMENT_READ"),
       (1024, "DEPTH_STENCIL_ATTACHMENT_WRITE"),
-      (16777216, "FRAGMENT_DENSITY_MAP_READ_BIT_EXT"),
-      (8388608, "FRAGMENT_SHADING_RATE_ATTACHMENT_READ_BIT_KHR"),
+      (16777216, "FRAGMENT_DENSITY_MAP_READ"),
+      (8388608, "FRAGMENT_SHADING_RATE_ATTACHMENT_READ"),
       (8192, "HOST_READ"),
       (16384, "HOST_WRITE"),
       (2, "INDEX_READ"),
@@ -168,9 +168,9 @@ impl core::fmt::Debug for VkAccessFlagBits {
       (64, "SHADER_WRITE"),
       (2048, "TRANSFER_READ"),
       (4096, "TRANSFER_WRITE"),
-      (67108864, "TRANSFORM_FEEDBACK_COUNTER_READ_BIT_EXT"),
-      (134217728, "TRANSFORM_FEEDBACK_COUNTER_WRITE_BIT_EXT"),
-      (33554432, "TRANSFORM_FEEDBACK_WRITE_BIT_EXT"),
+      (67108864, "TRANSFORM_FEEDBACK_COUNTER_READ"),
+      (134217728, "TRANSFORM_FEEDBACK_COUNTER_WRITE"),
+      (33554432, "TRANSFORM_FEEDBACK_WRITE"),
       (8, "UNIFORM_READ"),
       (4, "VERTEX_ATTRIBUTE_READ"),
     ] {
@@ -333,33 +333,33 @@ impl core::fmt::Debug for VkAccessFlagBits2 {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (2097152, "ACCELERATION_STRUCTURE_READ_BIT_KHR"),
-      (4194304, "ACCELERATION_STRUCTURE_WRITE_BIT_KHR"),
+      (2097152, "ACCELERATION_STRUCTURE_READ"),
+      (4194304, "ACCELERATION_STRUCTURE_WRITE"),
       (128, "COLOR_ATTACHMENT_READ"),
-      (524288, "COLOR_ATTACHMENT_READ_NONCOHERENT_BIT_EXT"),
+      (524288, "COLOR_ATTACHMENT_READ_NONCOHERENT"),
       (256, "COLOR_ATTACHMENT_WRITE"),
-      (131072, "COMMAND_PREPROCESS_READ_BIT_NV"),
-      (262144, "COMMAND_PREPROCESS_WRITE_BIT_NV"),
-      (1048576, "CONDITIONAL_RENDERING_READ_BIT_EXT"),
+      (131072, "COMMAND_PREPROCESS_READ"),
+      (262144, "COMMAND_PREPROCESS_WRITE"),
+      (1048576, "CONDITIONAL_RENDERING_READ"),
       (512, "DEPTH_STENCIL_ATTACHMENT_READ"),
       (1024, "DEPTH_STENCIL_ATTACHMENT_WRITE"),
-      (2199023255552, "DESCRIPTOR_BUFFER_READ_BIT_EXT"),
-      (16777216, "FRAGMENT_DENSITY_MAP_READ_BIT_EXT"),
-      (8388608, "FRAGMENT_SHADING_RATE_ATTACHMENT_READ_BIT_KHR"),
+      (2199023255552, "DESCRIPTOR_BUFFER_READ"),
+      (16777216, "FRAGMENT_DENSITY_MAP_READ"),
+      (8388608, "FRAGMENT_SHADING_RATE_ATTACHMENT_READ"),
       (8192, "HOST_READ"),
       (16384, "HOST_WRITE"),
       (2, "INDEX_READ"),
       (1, "INDIRECT_COMMAND_READ"),
       (16, "INPUT_ATTACHMENT_READ"),
-      (549755813888, "INVOCATION_MASK_READ_BIT_HUAWEI"),
+      (549755813888, "INVOCATION_MASK_READ"),
       (32768, "MEMORY_READ"),
       (65536, "MEMORY_WRITE"),
-      (17592186044416, "MICROMAP_READ_BIT_EXT"),
-      (35184372088832, "MICROMAP_WRITE_BIT_EXT"),
-      (4398046511104, "OPTICAL_FLOW_READ_BIT_NV"),
-      (8796093022208, "OPTICAL_FLOW_WRITE_BIT_NV"),
-      (70368744177664, "RESERVED_46_BIT_EXT"),
-      (1099511627776, "SHADER_BINDING_TABLE_READ_BIT_KHR"),
+      (17592186044416, "MICROMAP_READ"),
+      (35184372088832, "MICROMAP_WRITE"),
+      (4398046511104, "OPTICAL_FLOW_READ"),
+      (8796093022208, "OPTICAL_FLOW_WRITE"),
+      (70368744177664, "RESERVED_46"),
+      (1099511627776, "SHADER_BINDING_TABLE_READ"),
       (32, "SHADER_READ"),
       (4294967296, "SHADER_SAMPLED_READ"),
       (8589934592, "SHADER_STORAGE_READ"),
@@ -367,13 +367,13 @@ impl core::fmt::Debug for VkAccessFlagBits2 {
       (64, "SHADER_WRITE"),
       (2048, "TRANSFER_READ"),
       (4096, "TRANSFER_WRITE"),
-      (67108864, "TRANSFORM_FEEDBACK_COUNTER_READ_BIT_EXT"),
-      (134217728, "TRANSFORM_FEEDBACK_COUNTER_WRITE_BIT_EXT"),
-      (33554432, "TRANSFORM_FEEDBACK_WRITE_BIT_EXT"),
+      (67108864, "TRANSFORM_FEEDBACK_COUNTER_READ"),
+      (134217728, "TRANSFORM_FEEDBACK_COUNTER_WRITE"),
+      (33554432, "TRANSFORM_FEEDBACK_WRITE"),
       (8, "UNIFORM_READ"),
       (4, "VERTEX_ATTRIBUTE_READ"),
-      (34359738368, "VIDEO_DECODE_READ_BIT_KHR"),
-      (68719476736, "VIDEO_DECODE_WRITE_BIT_KHR"),
+      (34359738368, "VIDEO_DECODE_READ"),
+      (68719476736, "VIDEO_DECODE_WRITE"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
@@ -464,7 +464,7 @@ impl core::fmt::Debug for VkBufferCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (32, "DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT"),
+      (32, "DESCRIPTOR_BUFFER_CAPTURE_REPLAY"),
       (16, "DEVICE_ADDRESS_CAPTURE_REPLAY"),
       (8, "PROTECTED"),
       (4, "SPARSE_ALIASED"),
@@ -559,31 +559,31 @@ impl core::fmt::Debug for VkBufferUsageFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (524288, "ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_BIT_KHR"),
-      (1048576, "ACCELERATION_STRUCTURE_STORAGE_BIT_KHR"),
-      (512, "CONDITIONAL_RENDERING_BIT_EXT"),
+      (524288, "ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY"),
+      (1048576, "ACCELERATION_STRUCTURE_STORAGE"),
+      (512, "CONDITIONAL_RENDERING"),
       (64, "INDEX_BUFFER"),
       (256, "INDIRECT_BUFFER"),
-      (8388608, "MICROMAP_BUILD_INPUT_READ_ONLY_BIT_EXT"),
-      (16777216, "MICROMAP_STORAGE_BIT_EXT"),
-      (67108864, "PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT"),
-      (262144, "RESERVED_18_BIT_QCOM"),
-      (33554432, "RESERVED_25_BIT_AMD"),
-      (4194304, "RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT"),
-      (2097152, "SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT"),
-      (1024, "SHADER_BINDING_TABLE_BIT_KHR"),
+      (8388608, "MICROMAP_BUILD_INPUT_READ_ONLY"),
+      (16777216, "MICROMAP_STORAGE"),
+      (67108864, "PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER"),
+      (262144, "RESERVED_18"),
+      (33554432, "RESERVED_25"),
+      (4194304, "RESOURCE_DESCRIPTOR_BUFFER"),
+      (2097152, "SAMPLER_DESCRIPTOR_BUFFER"),
+      (1024, "SHADER_BINDING_TABLE"),
       (131072, "SHADER_DEVICE_ADDRESS"),
       (32, "STORAGE_BUFFER"),
       (8, "STORAGE_TEXEL_BUFFER"),
       (2, "TRANSFER_DST"),
       (1, "TRANSFER_SRC"),
-      (2048, "TRANSFORM_FEEDBACK_BUFFER_BIT_EXT"),
-      (4096, "TRANSFORM_FEEDBACK_COUNTER_BUFFER_BIT_EXT"),
+      (2048, "TRANSFORM_FEEDBACK_BUFFER"),
+      (4096, "TRANSFORM_FEEDBACK_COUNTER_BUFFER"),
       (16, "UNIFORM_BUFFER"),
       (4, "UNIFORM_TEXEL_BUFFER"),
       (128, "VERTEX_BUFFER"),
-      (16384, "VIDEO_DECODE_DST_BIT_KHR"),
-      (8192, "VIDEO_DECODE_SRC_BIT_KHR"),
+      (16384, "VIDEO_DECODE_DST"),
+      (8192, "VIDEO_DECODE_SRC"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
@@ -670,16 +670,16 @@ impl core::fmt::Debug for VkBuildAccelerationStructureFlagBitsKHR {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
       (2, "ALLOW_COMPACTION"),
-      (128, "ALLOW_DISABLE_OPACITY_MICROMAPS_EXT"),
-      (256, "ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT"),
-      (64, "ALLOW_OPACITY_MICROMAP_UPDATE_EXT"),
+      (128, "ALLOW_DISABLE_OPACITY_MICROMAPS"),
+      (256, "ALLOW_OPACITY_MICROMAP_DATA_UPDATE"),
+      (64, "ALLOW_OPACITY_MICROMAP_UPDATE"),
       (1, "ALLOW_UPDATE"),
       (16, "LOW_MEMORY"),
-      (32, "MOTION_BIT_NV"),
+      (32, "MOTION"),
       (8, "PREFER_FAST_BUILD"),
       (4, "PREFER_FAST_TRACE"),
-      (1024, "RESERVED_BIT_10_NV"),
-      (512, "RESERVED_BIT_9_NV"),
+      (1024, "RESERVED_BIT_10"),
+      (512, "RESERVED_BIT_9"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
@@ -1071,12 +1071,9 @@ pub const VK_DEPENDENCY_VIEW_LOCAL_BIT_KHR: VkDependencyFlagBits =
 impl core::fmt::Debug for VkDependencyFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [
-      (1, "BY_REGION"),
-      (4, "DEVICE_GROUP"),
-      (8, "FEEDBACK_LOOP_BIT_EXT"),
-      (2, "VIEW_LOCAL"),
-    ] {
+    for (bit_val, bit_name) in
+      [(1, "BY_REGION"), (4, "DEVICE_GROUP"), (8, "FEEDBACK_LOOP"), (2, "VIEW_LOCAL")]
+    {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
@@ -1118,7 +1115,7 @@ impl core::fmt::Debug for VkDescriptorBindingFlagBits {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
       (4, "PARTIALLY_BOUND"),
-      (16, "RESERVED_4_BIT_QCOM"),
+      (16, "RESERVED_4"),
       (1, "UPDATE_AFTER_BIND"),
       (2, "UPDATE_UNUSED_WHILE_PENDING"),
       (8, "VARIABLE_DESCRIPTOR_COUNT"),
@@ -1154,7 +1151,7 @@ impl core::fmt::Debug for VkDescriptorPoolCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
-      [(1, "FREE_DESCRIPTOR_SET"), (4, "HOST_ONLY_BIT_EXT"), (2, "UPDATE_AFTER_BIND")]
+      [(1, "FREE_DESCRIPTOR_SET"), (4, "HOST_ONLY"), (2, "UPDATE_AFTER_BIND")]
     {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
@@ -1210,12 +1207,12 @@ impl core::fmt::Debug for VkDescriptorSetLayoutCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (16, "DESCRIPTOR_BUFFER_BIT_EXT"),
-      (32, "EMBEDDED_IMMUTABLE_SAMPLERS_BIT_EXT"),
-      (4, "HOST_ONLY_POOL_BIT_EXT"),
-      (1, "PUSH_DESCRIPTOR_BIT_KHR"),
-      (8, "RESERVED_3_BIT_AMD"),
-      (64, "RESERVED_6_BIT_EXT"),
+      (16, "DESCRIPTOR_BUFFER"),
+      (32, "EMBEDDED_IMMUTABLE_SAMPLERS"),
+      (4, "HOST_ONLY_POOL"),
+      (1, "PUSH_DESCRIPTOR"),
+      (8, "RESERVED_3"),
+      (64, "RESERVED_6"),
       (2, "UPDATE_AFTER_BIND_POOL"),
     ] {
       if (self.0 & bit_val) != 0 {
@@ -1362,7 +1359,7 @@ pub const VK_DEVICE_QUEUE_CREATE_RESERVED_1_BIT_QCOM: VkDeviceQueueCreateFlagBit
 impl core::fmt::Debug for VkDeviceQueueCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "PROTECTED"), (2, "RESERVED_1_BIT_QCOM")] {
+    for (bit_val, bit_name) in [(1, "PROTECTED"), (2, "RESERVED_1")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
@@ -1576,8 +1573,8 @@ impl core::fmt::Debug for VkExternalFenceHandleTypeFlagBits {
       (1, "OPAQUE_FD"),
       (2, "OPAQUE_WIN32"),
       (4, "OPAQUE_WIN32_KMT"),
-      (32, "SCI_SYNC_FENCE_BIT_NV"),
-      (16, "SCI_SYNC_OBJ_BIT_NV"),
+      (32, "SCI_SYNC_FENCE"),
+      (16, "SCI_SYNC_OBJ"),
       (8, "SYNC_FD"),
     ] {
       if (self.0 & bit_val) != 0 {
@@ -1710,20 +1707,20 @@ impl core::fmt::Debug for VkExternalMemoryHandleTypeFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (1024, "ANDROID_HARDWARE_BUFFER_BIT_ANDROID"),
+      (1024, "ANDROID_HARDWARE_BUFFER"),
       (8, "D3D11_TEXTURE"),
       (16, "D3D11_TEXTURE_KMT"),
       (32, "D3D12_HEAP"),
       (64, "D3D12_RESOURCE"),
-      (512, "DMA_BUF_BIT_EXT"),
-      (128, "HOST_ALLOCATION_BIT_EXT"),
-      (256, "HOST_MAPPED_FOREIGN_MEMORY_BIT_EXT"),
+      (512, "DMA_BUF"),
+      (128, "HOST_ALLOCATION"),
+      (256, "HOST_MAPPED_FOREIGN_MEMORY"),
       (1, "OPAQUE_FD"),
       (2, "OPAQUE_WIN32"),
       (4, "OPAQUE_WIN32_KMT"),
-      (4096, "RDMA_ADDRESS_BIT_NV"),
-      (8192, "SCI_BUF_BIT_NV"),
-      (2048, "ZIRCON_VMO_BIT_FUCHSIA"),
+      (4096, "RDMA_ADDRESS"),
+      (8192, "SCI_BUF"),
+      (2048, "ZIRCON_VMO"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
@@ -1842,9 +1839,9 @@ impl core::fmt::Debug for VkExternalSemaphoreHandleTypeFlagBits {
       (1, "OPAQUE_FD"),
       (2, "OPAQUE_WIN32"),
       (4, "OPAQUE_WIN32_KMT"),
-      (32, "SCI_SYNC_OBJ_BIT_NV"),
+      (32, "SCI_SYNC_OBJ"),
       (16, "SYNC_FD"),
-      (128, "ZIRCON_EVENT_BIT_FUCHSIA"),
+      (128, "ZIRCON_EVENT"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
@@ -2018,7 +2015,7 @@ impl core::fmt::Debug for VkFormatFeatureFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (536870912, "ACCELERATION_STRUCTURE_VERTEX_BUFFER_BIT_KHR"),
+      (536870912, "ACCELERATION_STRUCTURE_VERTEX_BUFFER"),
       (2048, "BLIT_DST"),
       (1024, "BLIT_SRC"),
       (128, "COLOR_ATTACHMENT"),
@@ -2026,11 +2023,11 @@ impl core::fmt::Debug for VkFormatFeatureFlagBits {
       (8388608, "COSITED_CHROMA_SAMPLES"),
       (512, "DEPTH_STENCIL_ATTACHMENT"),
       (4194304, "DISJOINT"),
-      (16777216, "FRAGMENT_DENSITY_MAP_BIT_EXT"),
-      (1073741824, "FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR"),
+      (16777216, "FRAGMENT_DENSITY_MAP"),
+      (1073741824, "FRAGMENT_SHADING_RATE_ATTACHMENT"),
       (131072, "MIDPOINT_CHROMA_SAMPLES"),
       (1, "SAMPLED_IMAGE"),
-      (8192, "SAMPLED_IMAGE_FILTER_CUBIC_BIT_EXT"),
+      (8192, "SAMPLED_IMAGE_FILTER_CUBIC"),
       (4096, "SAMPLED_IMAGE_FILTER_LINEAR"),
       (65536, "SAMPLED_IMAGE_FILTER_MINMAX"),
       (1048576, "SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT"),
@@ -2048,8 +2045,8 @@ impl core::fmt::Debug for VkFormatFeatureFlagBits {
       (16384, "TRANSFER_SRC"),
       (8, "UNIFORM_TEXEL_BUFFER"),
       (64, "VERTEX_BUFFER"),
-      (67108864, "VIDEO_DECODE_DPB_BIT_KHR"),
-      (33554432, "VIDEO_DECODE_OUTPUT_BIT_KHR"),
+      (67108864, "VIDEO_DECODE_DPB"),
+      (33554432, "VIDEO_DECODE_OUTPUT"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
@@ -2233,26 +2230,26 @@ impl core::fmt::Debug for VkFormatFeatureFlagBits2 {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (536870912, "ACCELERATION_STRUCTURE_VERTEX_BUFFER_BIT_KHR"),
+      (536870912, "ACCELERATION_STRUCTURE_VERTEX_BUFFER"),
       (2048, "BLIT_DST"),
       (1024, "BLIT_SRC"),
-      (68719476736, "BLOCK_MATCHING_BIT_QCOM"),
-      (137438953472, "BOX_FILTER_SAMPLED_BIT_QCOM"),
+      (68719476736, "BLOCK_MATCHING"),
+      (137438953472, "BOX_FILTER_SAMPLED"),
       (128, "COLOR_ATTACHMENT"),
       (256, "COLOR_ATTACHMENT_BLEND"),
       (8388608, "COSITED_CHROMA_SAMPLES"),
       (512, "DEPTH_STENCIL_ATTACHMENT"),
       (4194304, "DISJOINT"),
-      (16777216, "FRAGMENT_DENSITY_MAP_BIT_EXT"),
-      (1073741824, "FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR"),
-      (274877906944, "LINEAR_COLOR_ATTACHMENT_BIT_NV"),
+      (16777216, "FRAGMENT_DENSITY_MAP"),
+      (1073741824, "FRAGMENT_SHADING_RATE_ATTACHMENT"),
+      (274877906944, "LINEAR_COLOR_ATTACHMENT"),
       (131072, "MIDPOINT_CHROMA_SAMPLES"),
-      (4398046511104, "OPTICAL_FLOW_COST_BIT_NV"),
-      (1099511627776, "OPTICAL_FLOW_IMAGE_BIT_NV"),
-      (2199023255552, "OPTICAL_FLOW_VECTOR_BIT_NV"),
-      (549755813888, "RESERVED_39_BIT_EXT"),
-      (17592186044416, "RESERVED_44_BIT_EXT"),
-      (35184372088832, "RESERVED_45_BIT_EXT"),
+      (4398046511104, "OPTICAL_FLOW_COST"),
+      (1099511627776, "OPTICAL_FLOW_IMAGE"),
+      (2199023255552, "OPTICAL_FLOW_VECTOR"),
+      (549755813888, "RESERVED_39"),
+      (17592186044416, "RESERVED_44"),
+      (35184372088832, "RESERVED_45"),
       (1, "SAMPLED_IMAGE"),
       (8589934592, "SAMPLED_IMAGE_DEPTH_COMPARISON"),
       (8192, "SAMPLED_IMAGE_FILTER_CUBIC"),
@@ -2275,10 +2272,10 @@ impl core::fmt::Debug for VkFormatFeatureFlagBits2 {
       (16384, "TRANSFER_SRC"),
       (8, "UNIFORM_TEXEL_BUFFER"),
       (64, "VERTEX_BUFFER"),
-      (67108864, "VIDEO_DECODE_DPB_BIT_KHR"),
-      (33554432, "VIDEO_DECODE_OUTPUT_BIT_KHR"),
-      (17179869184, "WEIGHT_IMAGE_BIT_QCOM"),
-      (34359738368, "WEIGHT_SAMPLED_IMAGE_BIT_QCOM"),
+      (67108864, "VIDEO_DECODE_DPB"),
+      (33554432, "VIDEO_DECODE_OUTPUT"),
+      (17179869184, "WEIGHT_IMAGE"),
+      (34359738368, "WEIGHT_SAMPLED_IMAGE"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
@@ -2377,9 +2374,9 @@ impl core::fmt::Debug for VkGeometryInstanceFlagBitsKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (32, "DISABLE_OPACITY_MICROMAPS_EXT"),
+      (32, "DISABLE_OPACITY_MICROMAPS"),
       (8, "FORCE_NO_OPAQUE"),
-      (16, "FORCE_OPACITY_MICROMAP_2_STATE_EXT"),
+      (16, "FORCE_OPACITY_MICROMAP_2_STATE"),
       (4, "FORCE_OPAQUE"),
       (1, "TRIANGLE_FACING_CULL_DISABLE"),
       (2, "TRIANGLE_FLIP_FACING"),
@@ -2495,10 +2492,10 @@ impl core::fmt::Debug for VkImageAspectFlagBits {
     for (bit_val, bit_name) in [
       (1, "COLOR"),
       (2, "DEPTH"),
-      (128, "MEMORY_PLANE_0_BIT_EXT"),
-      (256, "MEMORY_PLANE_1_BIT_EXT"),
-      (512, "MEMORY_PLANE_2_BIT_EXT"),
-      (1024, "MEMORY_PLANE_3_BIT_EXT"),
+      (128, "MEMORY_PLANE_0"),
+      (256, "MEMORY_PLANE_1"),
+      (512, "MEMORY_PLANE_2"),
+      (1024, "MEMORY_PLANE_3"),
       (8, "METADATA"),
       (16, "PLANE_0"),
       (32, "PLANE_1"),
@@ -2763,25 +2760,25 @@ impl core::fmt::Debug for VkImageCreateFlagBits {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
       (32, "2D_ARRAY_COMPATIBLE"),
-      (131072, "2D_VIEW_COMPATIBLE_BIT_EXT"),
+      (131072, "2D_VIEW_COMPATIBLE"),
       (1024, "ALIAS"),
       (128, "BLOCK_TEXEL_VIEW_COMPATIBLE"),
-      (8192, "CORNER_SAMPLED_BIT_NV"),
+      (8192, "CORNER_SAMPLED"),
       (16, "CUBE_COMPATIBLE"),
-      (65536, "DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT"),
+      (65536, "DESCRIPTOR_BUFFER_CAPTURE_REPLAY"),
       (512, "DISJOINT"),
       (256, "EXTENDED_USAGE"),
-      (32768, "FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM"),
-      (262144, "MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_BIT_EXT"),
+      (32768, "FRAGMENT_DENSITY_MAP_OFFSET"),
+      (262144, "MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED"),
       (8, "MUTABLE_FORMAT"),
       (2048, "PROTECTED"),
-      (524288, "RESERVED_19_BIT_EXT"),
-      (4096, "SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_BIT_EXT"),
+      (524288, "RESERVED_19"),
+      (4096, "SAMPLE_LOCATIONS_COMPATIBLE_DEPTH"),
       (4, "SPARSE_ALIASED"),
       (1, "SPARSE_BINDING"),
       (2, "SPARSE_RESIDENCY"),
       (64, "SPLIT_INSTANCE_BIND_REGIONS"),
-      (16384, "SUBSAMPLED_BIT_EXT"),
+      (16384, "SUBSAMPLED"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
@@ -2877,26 +2874,26 @@ impl core::fmt::Debug for VkImageUsageFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (524288, "ATTACHMENT_FEEDBACK_LOOP_BIT_EXT"),
+      (524288, "ATTACHMENT_FEEDBACK_LOOP"),
       (16, "COLOR_ATTACHMENT"),
       (32, "DEPTH_STENCIL_ATTACHMENT"),
-      (512, "FRAGMENT_DENSITY_MAP_BIT_EXT"),
-      (256, "FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR"),
+      (512, "FRAGMENT_DENSITY_MAP"),
+      (256, "FRAGMENT_SHADING_RATE_ATTACHMENT"),
       (128, "INPUT_ATTACHMENT"),
-      (262144, "INVOCATION_MASK_BIT_HUAWEI"),
-      (65536, "RESERVED_16_BIT_QCOM"),
-      (131072, "RESERVED_17_BIT_QCOM"),
-      (4194304, "RESERVED_22_BIT_EXT"),
+      (262144, "INVOCATION_MASK"),
+      (65536, "RESERVED_16"),
+      (131072, "RESERVED_17"),
+      (4194304, "RESERVED_22"),
       (4, "SAMPLED"),
-      (2097152, "SAMPLE_BLOCK_MATCH_BIT_QCOM"),
-      (1048576, "SAMPLE_WEIGHT_BIT_QCOM"),
+      (2097152, "SAMPLE_BLOCK_MATCH"),
+      (1048576, "SAMPLE_WEIGHT"),
       (8, "STORAGE"),
       (2, "TRANSFER_DST"),
       (1, "TRANSFER_SRC"),
       (64, "TRANSIENT_ATTACHMENT"),
-      (4096, "VIDEO_DECODE_DPB_BIT_KHR"),
-      (1024, "VIDEO_DECODE_DST_BIT_KHR"),
-      (2048, "VIDEO_DECODE_SRC_BIT_KHR"),
+      (4096, "VIDEO_DECODE_DPB"),
+      (1024, "VIDEO_DECODE_DST"),
+      (2048, "VIDEO_DECODE_SRC"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
@@ -2922,9 +2919,9 @@ impl core::fmt::Debug for VkImageViewCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (4, "DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT"),
-      (2, "FRAGMENT_DENSITY_MAP_DEFERRED_BIT_EXT"),
-      (1, "FRAGMENT_DENSITY_MAP_DYNAMIC_BIT_EXT"),
+      (4, "DESCRIPTOR_BUFFER_CAPTURE_REPLAY"),
+      (2, "FRAGMENT_DENSITY_MAP_DEFERRED"),
+      (1, "FRAGMENT_DENSITY_MAP_DYNAMIC"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
@@ -2994,7 +2991,7 @@ pub const VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR: VkInstanceCreateFlag
 impl core::fmt::Debug for VkInstanceCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "ENUMERATE_PORTABILITY_BIT_KHR")] {
+    for (bit_val, bit_name) in [(1, "ENUMERATE_PORTABILITY")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
@@ -3148,15 +3145,15 @@ impl core::fmt::Debug for VkMemoryPropertyFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (64, "DEVICE_COHERENT_BIT_AMD"),
+      (64, "DEVICE_COHERENT"),
       (1, "DEVICE_LOCAL"),
-      (128, "DEVICE_UNCACHED_BIT_AMD"),
+      (128, "DEVICE_UNCACHED"),
       (8, "HOST_CACHED"),
       (4, "HOST_COHERENT"),
       (2, "HOST_VISIBLE"),
       (16, "LAZILY_ALLOCATED"),
       (32, "PROTECTED"),
-      (256, "RDMA_CAPABLE_BIT_NV"),
+      (256, "RDMA_CAPABLE"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
@@ -3429,7 +3426,7 @@ pub const VK_PIPELINE_COLOR_BLEND_STATE_CREATE_RASTERIZATION_ORDER_ATTACHMENT_AC
 impl core::fmt::Debug for VkPipelineColorBlendStateCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "RASTERIZATION_ORDER_ATTACHMENT_ACCESS_BIT_EXT")] {
+    for (bit_val, bit_name) in [(1, "RASTERIZATION_ORDER_ATTACHMENT_ACCESS")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
@@ -3589,35 +3586,35 @@ impl core::fmt::Debug for VkPipelineCreateFlagBits {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
       (2, "ALLOW_DERIVATIVES"),
-      (128, "CAPTURE_INTERNAL_REPRESENTATIONS_BIT_KHR"),
-      (64, "CAPTURE_STATISTICS_BIT_KHR"),
-      (33554432, "COLOR_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT"),
-      (32, "DEFER_COMPILE_BIT_NV"),
-      (67108864, "DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT"),
+      (128, "CAPTURE_INTERNAL_REPRESENTATIONS"),
+      (64, "CAPTURE_STATISTICS"),
+      (33554432, "COLOR_ATTACHMENT_FEEDBACK_LOOP"),
+      (32, "DEFER_COMPILE"),
+      (67108864, "DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP"),
       (4, "DERIVATIVE"),
-      (536870912, "DESCRIPTOR_BUFFER_BIT_EXT"),
+      (536870912, "DESCRIPTOR_BUFFER"),
       (1, "DISABLE_OPTIMIZATION"),
       (16, "DISPATCH_BASE"),
       (512, "EARLY_RETURN_ON_FAILURE"),
       (256, "FAIL_ON_PIPELINE_COMPILE_REQUIRED"),
-      (262144, "INDIRECT_BINDABLE_BIT_NV"),
-      (2048, "LIBRARY_BIT_KHR"),
-      (1024, "LINK_TIME_OPTIMIZATION_BIT_EXT"),
-      (134217728, "NO_PROTECTED_ACCESS_BIT_EXT"),
-      (1073741824, "PROTECTED_ACCESS_ONLY_BIT_EXT"),
-      (1048576, "RAY_TRACING_ALLOW_MOTION_BIT_NV"),
-      (16384, "RAY_TRACING_NO_NULL_ANY_HIT_SHADERS_BIT_KHR"),
-      (32768, "RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS_BIT_KHR"),
-      (131072, "RAY_TRACING_NO_NULL_INTERSECTION_SHADERS_BIT_KHR"),
-      (65536, "RAY_TRACING_NO_NULL_MISS_SHADERS_BIT_KHR"),
-      (16777216, "RAY_TRACING_OPACITY_MICROMAP_BIT_EXT"),
-      (524288, "RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_BIT_KHR"),
-      (8192, "RAY_TRACING_SKIP_AABBS_BIT_KHR"),
-      (4096, "RAY_TRACING_SKIP_TRIANGLES_BIT_KHR"),
-      (4194304, "RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_BIT_EXT"),
-      (2097152, "RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR"),
-      (268435456, "RESERVED_BIT_28_NV"),
-      (8388608, "RETAIN_LINK_TIME_OPTIMIZATION_INFO_BIT_EXT"),
+      (262144, "INDIRECT_BINDABLE"),
+      (2048, "LIBRARY"),
+      (1024, "LINK_TIME_OPTIMIZATION"),
+      (134217728, "NO_PROTECTED_ACCESS"),
+      (1073741824, "PROTECTED_ACCESS_ONLY"),
+      (1048576, "RAY_TRACING_ALLOW_MOTION"),
+      (16384, "RAY_TRACING_NO_NULL_ANY_HIT_SHADERS"),
+      (32768, "RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS"),
+      (131072, "RAY_TRACING_NO_NULL_INTERSECTION_SHADERS"),
+      (65536, "RAY_TRACING_NO_NULL_MISS_SHADERS"),
+      (16777216, "RAY_TRACING_OPACITY_MICROMAP"),
+      (524288, "RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY"),
+      (8192, "RAY_TRACING_SKIP_AABBS"),
+      (4096, "RAY_TRACING_SKIP_TRIANGLES"),
+      (4194304, "RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT"),
+      (2097152, "RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT"),
+      (268435456, "RESERVED_BIT_28"),
+      (8388608, "RETAIN_LINK_TIME_OPTIMIZATION_INFO"),
       (8, "VIEW_INDEX_FROM_DEVICE_INDEX"),
     ] {
       if (self.0 & bit_val) != 0 {
@@ -3684,8 +3681,8 @@ impl core::fmt::Debug for VkPipelineDepthStencilStateCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (1, "RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_BIT_EXT"),
-      (2, "RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_BIT_EXT"),
+      (1, "RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS"),
+      (2, "RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
@@ -3749,9 +3746,7 @@ pub const VK_PIPELINE_LAYOUT_CREATE_RESERVED_0_BIT_AMD: VkPipelineLayoutCreateFl
 impl core::fmt::Debug for VkPipelineLayoutCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in
-      [(2, "INDEPENDENT_SETS_BIT_EXT"), (1, "RESERVED_0_BIT_AMD")]
-    {
+    for (bit_val, bit_name) in [(2, "INDEPENDENT_SETS"), (1, "RESERVED_0")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
@@ -3855,7 +3850,7 @@ impl core::fmt::Debug for VkPipelineShaderStageCreateFlagBits {
     for (bit_val, bit_name) in [
       (1, "ALLOW_VARYING_SUBGROUP_SIZE"),
       (2, "REQUIRE_FULL_SUBGROUPS"),
-      (8, "RESERVED_3_BIT_KHR"),
+      (8, "RESERVED_3"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
@@ -3963,30 +3958,30 @@ impl core::fmt::Debug for VkPipelineStageFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (33554432, "ACCELERATION_STRUCTURE_BUILD_BIT_KHR"),
+      (33554432, "ACCELERATION_STRUCTURE_BUILD"),
       (65536, "ALL_COMMANDS"),
       (32768, "ALL_GRAPHICS"),
       (8192, "BOTTOM_OF_PIPE"),
       (1024, "COLOR_ATTACHMENT_OUTPUT"),
-      (131072, "COMMAND_PREPROCESS_BIT_NV"),
+      (131072, "COMMAND_PREPROCESS"),
       (2048, "COMPUTE_SHADER"),
-      (262144, "CONDITIONAL_RENDERING_BIT_EXT"),
+      (262144, "CONDITIONAL_RENDERING"),
       (2, "DRAW_INDIRECT"),
       (256, "EARLY_FRAGMENT_TESTS"),
-      (8388608, "FRAGMENT_DENSITY_PROCESS_BIT_EXT"),
+      (8388608, "FRAGMENT_DENSITY_PROCESS"),
       (128, "FRAGMENT_SHADER"),
-      (4194304, "FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR"),
+      (4194304, "FRAGMENT_SHADING_RATE_ATTACHMENT"),
       (64, "GEOMETRY_SHADER"),
       (16384, "HOST"),
       (512, "LATE_FRAGMENT_TESTS"),
-      (1048576, "MESH_SHADER_BIT_EXT"),
-      (2097152, "RAY_TRACING_SHADER_BIT_KHR"),
-      (524288, "TASK_SHADER_BIT_EXT"),
+      (1048576, "MESH_SHADER"),
+      (2097152, "RAY_TRACING_SHADER"),
+      (524288, "TASK_SHADER"),
       (16, "TESSELLATION_CONTROL_SHADER"),
       (32, "TESSELLATION_EVALUATION_SHADER"),
       (1, "TOP_OF_PIPE"),
       (4096, "TRANSFER"),
-      (16777216, "TRANSFORM_FEEDBACK_BIT_EXT"),
+      (16777216, "TRANSFORM_FEEDBACK"),
       (4, "VERTEX_INPUT"),
       (8, "VERTEX_SHADER"),
     ] {
@@ -4187,46 +4182,46 @@ impl core::fmt::Debug for VkPipelineStageFlagBits2 {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (33554432, "ACCELERATION_STRUCTURE_BUILD_BIT_KHR"),
-      (268435456, "ACCELERATION_STRUCTURE_COPY_BIT_KHR"),
+      (33554432, "ACCELERATION_STRUCTURE_BUILD"),
+      (268435456, "ACCELERATION_STRUCTURE_COPY"),
       (65536, "ALL_COMMANDS"),
       (32768, "ALL_GRAPHICS"),
       (4096, "ALL_TRANSFER"),
       (17179869184, "BLIT"),
       (8192, "BOTTOM_OF_PIPE"),
       (34359738368, "CLEAR"),
-      (2199023255552, "CLUSTER_CULLING_SHADER_BIT_HUAWEI"),
+      (2199023255552, "CLUSTER_CULLING_SHADER"),
       (1024, "COLOR_ATTACHMENT_OUTPUT"),
-      (131072, "COMMAND_PREPROCESS_BIT_NV"),
+      (131072, "COMMAND_PREPROCESS"),
       (2048, "COMPUTE_SHADER"),
-      (262144, "CONDITIONAL_RENDERING_BIT_EXT"),
+      (262144, "CONDITIONAL_RENDERING"),
       (4294967296, "COPY"),
       (2, "DRAW_INDIRECT"),
       (256, "EARLY_FRAGMENT_TESTS"),
-      (8388608, "FRAGMENT_DENSITY_PROCESS_BIT_EXT"),
+      (8388608, "FRAGMENT_DENSITY_PROCESS"),
       (128, "FRAGMENT_SHADER"),
-      (4194304, "FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR"),
+      (4194304, "FRAGMENT_SHADING_RATE_ATTACHMENT"),
       (64, "GEOMETRY_SHADER"),
       (16384, "HOST"),
       (68719476736, "INDEX_INPUT"),
-      (1099511627776, "INVOCATION_MASK_BIT_HUAWEI"),
+      (1099511627776, "INVOCATION_MASK"),
       (512, "LATE_FRAGMENT_TESTS"),
-      (1048576, "MESH_SHADER_BIT_EXT"),
-      (1073741824, "MICROMAP_BUILD_BIT_EXT"),
-      (536870912, "OPTICAL_FLOW_BIT_NV"),
+      (1048576, "MESH_SHADER"),
+      (1073741824, "MICROMAP_BUILD"),
+      (536870912, "OPTICAL_FLOW"),
       (274877906944, "PRE_RASTERIZATION_SHADERS"),
-      (2097152, "RAY_TRACING_SHADER_BIT_KHR"),
+      (2097152, "RAY_TRACING_SHADER"),
       (8589934592, "RESOLVE"),
-      (549755813888, "SUBPASS_SHADING_BIT_HUAWEI"),
-      (524288, "TASK_SHADER_BIT_EXT"),
+      (549755813888, "SUBPASS_SHADING"),
+      (524288, "TASK_SHADER"),
       (16, "TESSELLATION_CONTROL_SHADER"),
       (32, "TESSELLATION_EVALUATION_SHADER"),
       (1, "TOP_OF_PIPE"),
-      (16777216, "TRANSFORM_FEEDBACK_BIT_EXT"),
+      (16777216, "TRANSFORM_FEEDBACK"),
       (137438953472, "VERTEX_ATTRIBUTE_INPUT"),
       (4, "VERTEX_INPUT"),
       (8, "VERTEX_SHADER"),
-      (67108864, "VIDEO_DECODE_BIT_KHR"),
+      (67108864, "VIDEO_DECODE"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
@@ -4351,7 +4346,7 @@ pub const VK_PRIVATE_DATA_SLOT_CREATE_RESERVED_0_BIT_NV: VkPrivateDataSlotCreate
 impl core::fmt::Debug for VkPrivateDataSlotCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "RESERVED_0_BIT_NV")] {
+    for (bit_val, bit_name) in [(1, "RESERVED_0")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
@@ -4432,15 +4427,15 @@ impl core::fmt::Debug for VkQueryPipelineStatisticFlagBits {
     for (bit_val, bit_name) in [
       (32, "CLIPPING_INVOCATIONS"),
       (64, "CLIPPING_PRIMITIVES"),
-      (8192, "CLUSTER_CULLING_SHADER_INVOCATIONS_BIT_HUAWEI"),
+      (8192, "CLUSTER_CULLING_SHADER_INVOCATIONS"),
       (1024, "COMPUTE_SHADER_INVOCATIONS"),
       (128, "FRAGMENT_SHADER_INVOCATIONS"),
       (8, "GEOMETRY_SHADER_INVOCATIONS"),
       (16, "GEOMETRY_SHADER_PRIMITIVES"),
       (2, "INPUT_ASSEMBLY_PRIMITIVES"),
       (1, "INPUT_ASSEMBLY_VERTICES"),
-      (4096, "MESH_SHADER_INVOCATIONS_BIT_EXT"),
-      (2048, "TASK_SHADER_INVOCATIONS_BIT_EXT"),
+      (4096, "MESH_SHADER_INVOCATIONS"),
+      (2048, "TASK_SHADER_INVOCATIONS"),
       (256, "TESSELLATION_CONTROL_SHADER_PATCHES"),
       (512, "TESSELLATION_EVALUATION_SHADER_INVOCATIONS"),
       (4, "VERTEX_SHADER_INVOCATIONS"),
@@ -4495,7 +4490,7 @@ impl core::fmt::Debug for VkQueryResultFlagBits {
       (8, "PARTIAL"),
       (2, "WAIT"),
       (4, "WITH_AVAILABILITY"),
-      (16, "WITH_STATUS_BIT_KHR"),
+      (16, "WITH_STATUS"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
@@ -4531,13 +4526,13 @@ impl core::fmt::Debug for VkQueueFlagBits {
     for (bit_val, bit_name) in [
       (2, "COMPUTE"),
       (1, "GRAPHICS"),
-      (256, "OPTICAL_FLOW_BIT_NV"),
+      (256, "OPTICAL_FLOW"),
       (16, "PROTECTED"),
-      (128, "RESERVED_7_BIT_QCOM"),
-      (512, "RESERVED_9_BIT_EXT"),
+      (128, "RESERVED_7"),
+      (512, "RESERVED_9"),
       (8, "SPARSE_BINDING"),
       (4, "TRANSFER"),
-      (32, "VIDEO_DECODE_BIT_KHR"),
+      (32, "VIDEO_DECODE"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
@@ -4573,7 +4568,7 @@ pub const VK_RENDER_PASS_CREATE_TRANSFORM_BIT_QCOM: VkRenderPassCreateFlagBits =
 impl core::fmt::Debug for VkRenderPassCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "RESERVED_0_BIT_KHR"), (2, "TRANSFORM_BIT_QCOM")] {
+    for (bit_val, bit_name) in [(1, "RESERVED_0"), (2, "TRANSFORM")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
@@ -4607,7 +4602,7 @@ impl core::fmt::Debug for VkRenderingFlagBits {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
       (1, "CONTENTS_SECONDARY_COMMAND_BUFFERS"),
-      (8, "ENABLE_LEGACY_DITHERING_BIT_EXT"),
+      (8, "ENABLE_LEGACY_DITHERING"),
       (4, "RESUMING"),
       (2, "SUSPENDING"),
     ] {
@@ -4712,11 +4707,11 @@ impl core::fmt::Debug for VkSamplerCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (8, "DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT"),
-      (16, "IMAGE_PROCESSING_BIT_QCOM"),
-      (4, "NON_SEAMLESS_CUBE_MAP_BIT_EXT"),
-      (1, "SUBSAMPLED_BIT_EXT"),
-      (2, "SUBSAMPLED_COARSE_RECONSTRUCTION_BIT_EXT"),
+      (8, "DESCRIPTOR_BUFFER_CAPTURE_REPLAY"),
+      (16, "IMAGE_PROCESSING"),
+      (4, "NON_SEAMLESS_CUBE_MAP"),
+      (1, "SUBSAMPLED"),
+      (2, "SUBSAMPLED_COARSE_RECONSTRUCTION"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
@@ -4898,22 +4893,22 @@ impl core::fmt::Debug for VkShaderStageFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (512, "ANY_HIT_BIT_KHR"),
-      (8192, "CALLABLE_BIT_KHR"),
-      (1024, "CLOSEST_HIT_BIT_KHR"),
-      (524288, "CLUSTER_CULLING_BIT_HUAWEI"),
+      (512, "ANY_HIT"),
+      (8192, "CALLABLE"),
+      (1024, "CLOSEST_HIT"),
+      (524288, "CLUSTER_CULLING"),
       (32, "COMPUTE"),
       (32768, "EXT_483_RESERVE_15"),
       (65536, "EXT_483_RESERVE_16"),
       (131072, "EXT_483_RESERVE_17"),
       (16, "FRAGMENT"),
       (8, "GEOMETRY"),
-      (4096, "INTERSECTION_BIT_KHR"),
-      (128, "MESH_BIT_EXT"),
-      (2048, "MISS_BIT_KHR"),
-      (256, "RAYGEN_BIT_KHR"),
-      (16384, "SUBPASS_SHADING_BIT_HUAWEI"),
-      (64, "TASK_BIT_EXT"),
+      (4096, "INTERSECTION"),
+      (128, "MESH"),
+      (2048, "MISS"),
+      (256, "RAYGEN"),
+      (16384, "SUBPASS_SHADING"),
+      (64, "TASK"),
       (2, "TESSELLATION_CONTROL"),
       (4, "TESSELLATION_EVALUATION"),
       (1, "VERTEX"),
@@ -5061,7 +5056,7 @@ impl core::fmt::Debug for VkSubgroupFeatureFlagBits {
       (8, "BALLOT"),
       (1, "BASIC"),
       (64, "CLUSTERED"),
-      (256, "PARTITIONED_BIT_NV"),
+      (256, "PARTITIONED"),
       (128, "QUAD"),
       (16, "SHUFFLE"),
       (32, "SHUFFLE_RELATIVE"),
@@ -5134,14 +5129,14 @@ impl core::fmt::Debug for VkSubpassDescriptionFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (128, "ENABLE_LEGACY_DITHERING_BIT_EXT"),
-      (4, "FRAGMENT_REGION_BIT_QCOM"),
-      (1, "PER_VIEW_ATTRIBUTES_BIT_NVX"),
-      (2, "PER_VIEW_POSITION_X_ONLY_BIT_NVX"),
-      (16, "RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS_BIT_EXT"),
-      (32, "RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_BIT_EXT"),
-      (64, "RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_BIT_EXT"),
-      (8, "SHADER_RESOLVE_BIT_QCOM"),
+      (128, "ENABLE_LEGACY_DITHERING"),
+      (4, "FRAGMENT_REGION"),
+      (1, "PER_VIEW_ATTRIBUTES"),
+      (2, "PER_VIEW_POSITION_X_ONLY"),
+      (16, "RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS"),
+      (32, "RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS"),
+      (64, "RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS"),
+      (8, "SHADER_RESOLVE"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
@@ -5243,10 +5238,10 @@ impl core::fmt::Debug for VkSwapchainCreateFlagBitsKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (8, "DEFERRED_MEMORY_ALLOCATION_BIT_EXT"),
+      (8, "DEFERRED_MEMORY_ALLOCATION"),
       (4, "MUTABLE_FORMAT"),
       (2, "PROTECTED"),
-      (16, "RESERVED_4_BIT_EXT"),
+      (16, "RESERVED_4"),
       (1, "SPLIT_INSTANCE_BIND_REGIONS"),
     ] {
       if (self.0 & bit_val) != 0 {
@@ -5317,8 +5312,8 @@ impl core::fmt::Debug for VkToolPurposeFlagBits {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
       (8, "ADDITIONAL_FEATURES"),
-      (64, "DEBUG_MARKERS_BIT_EXT"),
-      (32, "DEBUG_REPORTING_BIT_EXT"),
+      (64, "DEBUG_MARKERS"),
+      (32, "DEBUG_REPORTING"),
       (16, "MODIFYING_FEATURES"),
       (2, "PROFILING"),
       (4, "TRACING"),
