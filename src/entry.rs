@@ -157,8 +157,20 @@ impl Entry {
   /// Creates a new [Instance].
   ///
   /// Khronos: [vkCreateInstance](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateInstance.html)
+  ///
+  /// ## Panics
+  /// * If the bit for `VK_KHR_portability_enumeration` is set within the flags,
+  ///   but not listed as an enabled extension, this will panic.
   #[inline]
   pub fn create_instance(&self, info: &InstanceCreateInfo) -> Result<Instance, VkError> {
+    if info.flags.enumerate_portability() {
+      let extension_enabled = info
+        .extensions()
+        .iter()
+        .any(|z| *z == VK_KHR_PORTABILITY_ENUMERATION_EXTENSION_NAME);
+      assert!(extension_enabled, "VUID-VkInstanceCreateInfo-flags-06559: portability bit set but extension not listed");
+    }
+    //
     const vkCreateInstance_NAME: ZStr<'static> = ZStr::from_lit("vkCreateInstance\0");
     let opt_f: PFN_vkCreateInstance = unsafe {
       core::mem::transmute((self.0)(VkInstance::NULL, vkCreateInstance_NAME.as_ptr()))
@@ -294,6 +306,22 @@ impl Default for InstanceCreateInfo {
   }
 }
 impl InstanceCreateInfo {
+  /// Enable [VK_KHR_portability_enumeration](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_KHR_portability_enumeration.html)
+  ///
+  /// This sets the appropriate bit within the flags field, and adds the
+  /// extension name to the extensions list.
+  #[inline]
+  pub fn enable_portability(&mut self) {
+    self.flags |= VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR;
+    self.layers_mut(|v| {
+      let already_listed =
+        v.iter().any(|z| *z == VK_KHR_PORTABILITY_ENUMERATION_EXTENSION_NAME);
+      if !already_listed {
+        v.push(ZString::from(VK_KHR_PORTABILITY_ENUMERATION_EXTENSION_NAME))
+      }
+    });
+  }
+
   /// Runs a closure using the layers list.
   ///
   /// ```
