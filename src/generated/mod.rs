@@ -3,6 +3,9 @@
 #![allow(clippy::derivable_impls)]
 
 //! Sub-modules of this module are auto-generated code based on the Vulkan XML.
+//!
+//! Comments on items within this part of the library are automatically provided
+//! based on the XML (Apache-2.0 license).
 
 pub mod aliases;
 pub mod bitmasks;
