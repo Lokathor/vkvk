@@ -16,6 +16,7 @@ pub const VK_ACCELERATION_STRUCTURE_CREATE_MOTION_BIT_NV:
   VkAccelerationStructureCreateFlagBitsKHR =
   VkAccelerationStructureCreateFlagBitsKHR(1 << 2);
 impl core::fmt::Debug for VkAccelerationStructureCreateFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -56,6 +57,7 @@ define_bitmask!(
 pub type VkAccelerationStructureMotionInfoFlagsNV =
   VkAccelerationStructureMotionInfoFlagBitsNV;
 impl core::fmt::Debug for VkAccelerationStructureMotionInfoFlagBitsNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -70,6 +72,7 @@ define_bitmask!(
 pub type VkAccelerationStructureMotionInstanceFlagsNV =
   VkAccelerationStructureMotionInstanceFlagBitsNV;
 impl core::fmt::Debug for VkAccelerationStructureMotionInstanceFlagBitsNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -159,6 +162,7 @@ pub const VK_ACCESS_NONE_KHR: VkAccessFlagBits = VK_ACCESS_NONE;
 pub const VK_ACCESS_SHADING_RATE_IMAGE_READ_BIT_NV: VkAccessFlagBits =
   VK_ACCESS_FRAGMENT_SHADING_RATE_ATTACHMENT_READ_BIT_KHR;
 impl core::fmt::Debug for VkAccessFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -489,6 +493,7 @@ pub const VK_ACCESS_2_UNIFORM_READ_BIT_KHR: VkAccessFlagBits2 =
 pub const VK_ACCESS_2_VERTEX_ATTRIBUTE_READ_BIT_KHR: VkAccessFlagBits2 =
   VK_ACCESS_2_VERTEX_ATTRIBUTE_READ_BIT;
 impl core::fmt::Debug for VkAccessFlagBits2 {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -756,6 +761,7 @@ define_bitmask!(
 /// Khronos: [VkAcquireProfilingLockFlagBitsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkAcquireProfilingLockFlagBitsKHR.html) (bitmask)
 pub type VkAcquireProfilingLockFlagsKHR = VkAcquireProfilingLockFlagBitsKHR;
 impl core::fmt::Debug for VkAcquireProfilingLockFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -769,6 +775,7 @@ define_bitmask!(
 /// Khronos: [VkAndroidSurfaceCreateFlagsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkAndroidSurfaceCreateFlagsKHR.html) (bitmask, no bits defined)
 pub type VkAndroidSurfaceCreateFlagsKHR = VkAndroidSurfaceCreateFlagBitsKHR;
 impl core::fmt::Debug for VkAndroidSurfaceCreateFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -786,6 +793,7 @@ pub type VkAttachmentDescriptionFlags = VkAttachmentDescriptionFlagBits;
 pub const VK_ATTACHMENT_DESCRIPTION_MAY_ALIAS_BIT: VkAttachmentDescriptionFlagBits =
   VkAttachmentDescriptionFlagBits(1 << 0);
 impl core::fmt::Debug for VkAttachmentDescriptionFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "may_alias")] {
@@ -834,6 +842,7 @@ pub const VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT_EXT: VkBufferCreate
 pub const VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT_KHR: VkBufferCreateFlagBits =
   VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT;
 impl core::fmt::Debug for VkBufferCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -961,6 +970,7 @@ pub const VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT_EXT: VkBufferUsageFlagBits =
 pub const VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT_KHR: VkBufferUsageFlagBits =
   VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT;
 impl core::fmt::Debug for VkBufferUsageFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -1132,6 +1142,7 @@ define_bitmask!(
 /// Khronos: [VkBufferViewCreateFlags](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkBufferViewCreateFlags.html) (bitmask, no bits defined)
 pub type VkBufferViewCreateFlags = VkBufferViewCreateFlagBits;
 impl core::fmt::Debug for VkBufferViewCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -1198,6 +1209,7 @@ pub const VK_BUILD_ACCELERATION_STRUCTURE_PREFER_FAST_TRACE_BIT_NV:
   VkBuildAccelerationStructureFlagBitsKHR =
   VK_BUILD_ACCELERATION_STRUCTURE_PREFER_FAST_TRACE_BIT_KHR;
 impl core::fmt::Debug for VkBuildAccelerationStructureFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -1291,6 +1303,7 @@ pub const VK_BUILD_MICROMAP_PREFER_FAST_BUILD_BIT_EXT: VkBuildMicromapFlagBitsEX
 pub const VK_BUILD_MICROMAP_PREFER_FAST_TRACE_BIT_EXT: VkBuildMicromapFlagBitsEXT =
   VkBuildMicromapFlagBitsEXT(1 << 0);
 impl core::fmt::Debug for VkBuildMicromapFlagBitsEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
@@ -1336,6 +1349,7 @@ pub const VK_COLOR_COMPONENT_G_BIT: VkColorComponentFlagBits =
 pub const VK_COLOR_COMPONENT_R_BIT: VkColorComponentFlagBits =
   VkColorComponentFlagBits(1 << 0);
 impl core::fmt::Debug for VkColorComponentFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(8, "a"), (4, "b"), (2, "g"), (1, "r")] {
@@ -1379,6 +1393,7 @@ pub type VkCommandBufferResetFlags = VkCommandBufferResetFlagBits;
 pub const VK_COMMAND_BUFFER_RESET_RELEASE_RESOURCES_BIT: VkCommandBufferResetFlagBits =
   VkCommandBufferResetFlagBits(1 << 0);
 impl core::fmt::Debug for VkCommandBufferResetFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "release_resources")] {
@@ -1411,6 +1426,7 @@ pub const VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT: VkCommandBufferUsage
 pub const VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT: VkCommandBufferUsageFlagBits =
   VkCommandBufferUsageFlagBits(1 << 2);
 impl core::fmt::Debug for VkCommandBufferUsageFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
@@ -1457,6 +1473,7 @@ pub const VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT: VkCommandPoolCreateFl
 pub const VK_COMMAND_POOL_CREATE_TRANSIENT_BIT: VkCommandPoolCreateFlagBits =
   VkCommandPoolCreateFlagBits(1 << 0);
 impl core::fmt::Debug for VkCommandPoolCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
@@ -1499,6 +1516,7 @@ pub const VK_COMMAND_POOL_RESET_RELEASE_RESOURCES_BIT: VkCommandPoolResetFlagBit
 pub const VK_COMMAND_POOL_RESET_RESERVED_1_BIT_COREAVI: VkCommandPoolResetFlagBits =
   VkCommandPoolResetFlagBits(1 << 1);
 impl core::fmt::Debug for VkCommandPoolResetFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "release_resources"), (2, "reserved_1_bit_coreavi")] {
@@ -1529,6 +1547,7 @@ define_bitmask!(
 /// Khronos: [VkCommandPoolTrimFlags](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkCommandPoolTrimFlags.html) (bitmask, no bits defined)
 pub type VkCommandPoolTrimFlags = VkCommandPoolTrimFlagBits;
 impl core::fmt::Debug for VkCommandPoolTrimFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -1550,6 +1569,7 @@ pub const VK_COMPOSITE_ALPHA_POST_MULTIPLIED_BIT_KHR: VkCompositeAlphaFlagBitsKH
 pub const VK_COMPOSITE_ALPHA_PRE_MULTIPLIED_BIT_KHR: VkCompositeAlphaFlagBitsKHR =
   VkCompositeAlphaFlagBitsKHR(1 << 1);
 impl core::fmt::Debug for VkCompositeAlphaFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
@@ -1594,6 +1614,7 @@ pub type VkConditionalRenderingFlagsEXT = VkConditionalRenderingFlagBitsEXT;
 pub const VK_CONDITIONAL_RENDERING_INVERTED_BIT_EXT: VkConditionalRenderingFlagBitsEXT =
   VkConditionalRenderingFlagBitsEXT(1 << 0);
 impl core::fmt::Debug for VkConditionalRenderingFlagBitsEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "inverted")] {
@@ -1623,6 +1644,7 @@ pub const VK_CULL_MODE_FRONT_BIT: VkCullModeFlagBits = VkCullModeFlagBits(1 << 0
 pub const VK_CULL_MODE_FRONT_AND_BACK: VkCullModeFlagBits = VkCullModeFlagBits(3);
 pub const VK_CULL_MODE_NONE: VkCullModeFlagBits = VkCullModeFlagBits(0);
 impl core::fmt::Debug for VkCullModeFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(2, "back"), (1, "front")] {
@@ -1663,6 +1685,7 @@ pub const VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT: VkDebugReportFlagBitsEXT 
 pub const VK_DEBUG_REPORT_WARNING_BIT_EXT: VkDebugReportFlagBitsEXT =
   VkDebugReportFlagBitsEXT(1 << 1);
 impl core::fmt::Debug for VkDebugReportFlagBitsEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -1723,6 +1746,7 @@ pub const VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT:
 pub const VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT:
   VkDebugUtilsMessageSeverityFlagBitsEXT = VkDebugUtilsMessageSeverityFlagBitsEXT(1 << 8);
 impl core::fmt::Debug for VkDebugUtilsMessageSeverityFlagBitsEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
@@ -1773,6 +1797,7 @@ pub const VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT:
 pub const VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT:
   VkDebugUtilsMessageTypeFlagBitsEXT = VkDebugUtilsMessageTypeFlagBitsEXT(1 << 1);
 impl core::fmt::Debug for VkDebugUtilsMessageTypeFlagBitsEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -1819,6 +1844,7 @@ define_bitmask!(
 pub type VkDebugUtilsMessengerCallbackDataFlagsEXT =
   VkDebugUtilsMessengerCallbackDataFlagBitsEXT;
 impl core::fmt::Debug for VkDebugUtilsMessengerCallbackDataFlagBitsEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -1832,6 +1858,7 @@ define_bitmask!(
 /// Khronos: [VkDebugUtilsMessengerCreateFlagsEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDebugUtilsMessengerCreateFlagsEXT.html) (bitmask, no bits defined)
 pub type VkDebugUtilsMessengerCreateFlagsEXT = VkDebugUtilsMessengerCreateFlagBitsEXT;
 impl core::fmt::Debug for VkDebugUtilsMessengerCreateFlagBitsEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -1862,6 +1889,7 @@ pub const VK_DEPENDENCY_DEVICE_GROUP_BIT_KHR: VkDependencyFlagBits =
 pub const VK_DEPENDENCY_VIEW_LOCAL_BIT_KHR: VkDependencyFlagBits =
   VK_DEPENDENCY_VIEW_LOCAL_BIT;
 impl core::fmt::Debug for VkDependencyFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
@@ -1926,6 +1954,7 @@ pub const VK_DESCRIPTOR_BINDING_UPDATE_UNUSED_WHILE_PENDING_BIT_EXT:
 pub const VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT_EXT:
   VkDescriptorBindingFlagBits = VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT;
 impl core::fmt::Debug for VkDescriptorBindingFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -1990,6 +2019,7 @@ pub const VK_DESCRIPTOR_POOL_CREATE_HOST_ONLY_BIT_VALVE: VkDescriptorPoolCreateF
 pub const VK_DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT_EXT:
   VkDescriptorPoolCreateFlagBits = VK_DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT;
 impl core::fmt::Debug for VkDescriptorPoolCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
@@ -2027,6 +2057,7 @@ define_bitmask!(
 /// Khronos: [VkDescriptorPoolResetFlags](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDescriptorPoolResetFlags.html) (bitmask, no bits defined)
 pub type VkDescriptorPoolResetFlags = VkDescriptorPoolResetFlagBits;
 impl core::fmt::Debug for VkDescriptorPoolResetFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -2063,6 +2094,7 @@ pub const VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT_EXT:
   VkDescriptorSetLayoutCreateFlagBits =
   VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT;
 impl core::fmt::Debug for VkDescriptorSetLayoutCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -2126,6 +2158,7 @@ define_bitmask!(
 /// Khronos: [VkDescriptorUpdateTemplateCreateFlags](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDescriptorUpdateTemplateCreateFlags.html) (bitmask, no bits defined)
 pub type VkDescriptorUpdateTemplateCreateFlags = VkDescriptorUpdateTemplateCreateFlagBits;
 impl core::fmt::Debug for VkDescriptorUpdateTemplateCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -2141,6 +2174,7 @@ pub type VkDeviceAddressBindingFlagsEXT = VkDeviceAddressBindingFlagBitsEXT;
 pub const VK_DEVICE_ADDRESS_BINDING_INTERNAL_OBJECT_BIT_EXT:
   VkDeviceAddressBindingFlagBitsEXT = VkDeviceAddressBindingFlagBitsEXT(1 << 0);
 impl core::fmt::Debug for VkDeviceAddressBindingFlagBitsEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "internal_object")] {
@@ -2166,6 +2200,7 @@ define_bitmask!(
 /// Khronos: [VkDeviceCreateFlags](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDeviceCreateFlags.html) (bitmask, no bits defined)
 pub type VkDeviceCreateFlags = VkDeviceCreateFlagBits;
 impl core::fmt::Debug for VkDeviceCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -2187,6 +2222,7 @@ pub const VK_DEVICE_DIAGNOSTICS_CONFIG_ENABLE_SHADER_DEBUG_INFO_BIT_NV:
 pub const VK_DEVICE_DIAGNOSTICS_CONFIG_ENABLE_SHADER_ERROR_REPORTING_BIT_NV:
   VkDeviceDiagnosticsConfigFlagBitsNV = VkDeviceDiagnosticsConfigFlagBitsNV(1 << 3);
 impl core::fmt::Debug for VkDeviceDiagnosticsConfigFlagBitsNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -2244,6 +2280,7 @@ pub const VK_DEVICE_GROUP_PRESENT_MODE_REMOTE_BIT_KHR:
 pub const VK_DEVICE_GROUP_PRESENT_MODE_SUM_BIT_KHR: VkDeviceGroupPresentModeFlagBitsKHR =
   VkDeviceGroupPresentModeFlagBitsKHR(1 << 2);
 impl core::fmt::Debug for VkDeviceGroupPresentModeFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
@@ -2286,6 +2323,7 @@ define_bitmask!(
 /// Khronos: [VkDeviceMemoryReportFlagsEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDeviceMemoryReportFlagsEXT.html) (bitmask, no bits defined)
 pub type VkDeviceMemoryReportFlagsEXT = VkDeviceMemoryReportFlagBitsEXT;
 impl core::fmt::Debug for VkDeviceMemoryReportFlagBitsEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -2304,6 +2342,7 @@ pub const VK_DEVICE_QUEUE_CREATE_PROTECTED_BIT: VkDeviceQueueCreateFlagBits =
 pub const VK_DEVICE_QUEUE_CREATE_RESERVED_1_BIT_QCOM: VkDeviceQueueCreateFlagBits =
   VkDeviceQueueCreateFlagBits(1 << 1);
 impl core::fmt::Debug for VkDeviceQueueCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "protected"), (2, "reserved_1")] {
@@ -2334,6 +2373,7 @@ define_bitmask!(
 /// Khronos: [VkDirectDriverLoadingFlagsLUNARG](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDirectDriverLoadingFlagsLUNARG.html) (bitmask, no bits defined)
 pub type VkDirectDriverLoadingFlagsLUNARG = VkDirectDriverLoadingFlagBitsLUNARG;
 impl core::fmt::Debug for VkDirectDriverLoadingFlagBitsLUNARG {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -2347,6 +2387,7 @@ define_bitmask!(
 /// Khronos: [VkDirectFBSurfaceCreateFlagsEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDirectFBSurfaceCreateFlagsEXT.html) (bitmask, no bits defined)
 pub type VkDirectFBSurfaceCreateFlagsEXT = VkDirectFBSurfaceCreateFlagBitsEXT;
 impl core::fmt::Debug for VkDirectFBSurfaceCreateFlagBitsEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -2360,6 +2401,7 @@ define_bitmask!(
 /// Khronos: [VkDisplayModeCreateFlagsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDisplayModeCreateFlagsKHR.html) (bitmask, no bits defined)
 pub type VkDisplayModeCreateFlagsKHR = VkDisplayModeCreateFlagBitsKHR;
 impl core::fmt::Debug for VkDisplayModeCreateFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -2381,6 +2423,7 @@ pub const VK_DISPLAY_PLANE_ALPHA_PER_PIXEL_BIT_KHR: VkDisplayPlaneAlphaFlagBitsK
 pub const VK_DISPLAY_PLANE_ALPHA_PER_PIXEL_PREMULTIPLIED_BIT_KHR:
   VkDisplayPlaneAlphaFlagBitsKHR = VkDisplayPlaneAlphaFlagBitsKHR(1 << 3);
 impl core::fmt::Debug for VkDisplayPlaneAlphaFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
@@ -2423,6 +2466,7 @@ define_bitmask!(
 /// Khronos: [VkDisplaySurfaceCreateFlagsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkDisplaySurfaceCreateFlagsKHR.html) (bitmask, no bits defined)
 pub type VkDisplaySurfaceCreateFlagsKHR = VkDisplaySurfaceCreateFlagBitsKHR;
 impl core::fmt::Debug for VkDisplaySurfaceCreateFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -2441,6 +2485,7 @@ pub const VK_EVENT_CREATE_DEVICE_ONLY_BIT: VkEventCreateFlagBits =
 pub const VK_EVENT_CREATE_DEVICE_ONLY_BIT_KHR: VkEventCreateFlagBits =
   VK_EVENT_CREATE_DEVICE_ONLY_BIT;
 impl core::fmt::Debug for VkEventCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "device_only")] {
@@ -2478,6 +2523,7 @@ pub const VK_EXPORT_METAL_OBJECT_TYPE_METAL_SHARED_EVENT_BIT_EXT:
 pub const VK_EXPORT_METAL_OBJECT_TYPE_METAL_TEXTURE_BIT_EXT:
   VkExportMetalObjectTypeFlagBitsEXT = VkExportMetalObjectTypeFlagBitsEXT(1 << 3);
 impl core::fmt::Debug for VkExportMetalObjectTypeFlagBitsEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -2545,6 +2591,7 @@ pub const VK_EXTERNAL_FENCE_FEATURE_EXPORTABLE_BIT_KHR: VkExternalFenceFeatureFl
 pub const VK_EXTERNAL_FENCE_FEATURE_IMPORTABLE_BIT_KHR: VkExternalFenceFeatureFlagBits =
   VK_EXTERNAL_FENCE_FEATURE_IMPORTABLE_BIT;
 impl core::fmt::Debug for VkExternalFenceFeatureFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "exportable"), (2, "importable")] {
@@ -2599,6 +2646,7 @@ pub const VK_EXTERNAL_FENCE_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT_KHR:
 pub const VK_EXTERNAL_FENCE_HANDLE_TYPE_SYNC_FD_BIT_KHR:
   VkExternalFenceHandleTypeFlagBits = VK_EXTERNAL_FENCE_HANDLE_TYPE_SYNC_FD_BIT;
 impl core::fmt::Debug for VkExternalFenceHandleTypeFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -2671,6 +2719,7 @@ pub const VK_EXTERNAL_MEMORY_FEATURE_EXPORTABLE_BIT_KHR: VkExternalMemoryFeature
 pub const VK_EXTERNAL_MEMORY_FEATURE_IMPORTABLE_BIT_KHR: VkExternalMemoryFeatureFlagBits =
   VK_EXTERNAL_MEMORY_FEATURE_IMPORTABLE_BIT;
 impl core::fmt::Debug for VkExternalMemoryFeatureFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
@@ -2714,6 +2763,7 @@ pub const VK_EXTERNAL_MEMORY_FEATURE_EXPORTABLE_BIT_NV:
 pub const VK_EXTERNAL_MEMORY_FEATURE_IMPORTABLE_BIT_NV:
   VkExternalMemoryFeatureFlagBitsNV = VkExternalMemoryFeatureFlagBitsNV(1 << 2);
 impl core::fmt::Debug for VkExternalMemoryFeatureFlagBitsNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
@@ -2802,6 +2852,7 @@ pub const VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT_KHR:
   VkExternalMemoryHandleTypeFlagBits =
   VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT;
 impl core::fmt::Debug for VkExternalMemoryHandleTypeFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -2915,6 +2966,7 @@ pub const VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_BIT_NV:
 pub const VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT_NV:
   VkExternalMemoryHandleTypeFlagBitsNV = VkExternalMemoryHandleTypeFlagBitsNV(1 << 1);
 impl core::fmt::Debug for VkExternalMemoryHandleTypeFlagBitsNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -2970,6 +3022,7 @@ pub const VK_EXTERNAL_SEMAPHORE_FEATURE_EXPORTABLE_BIT_KHR:
 pub const VK_EXTERNAL_SEMAPHORE_FEATURE_IMPORTABLE_BIT_KHR:
   VkExternalSemaphoreFeatureFlagBits = VK_EXTERNAL_SEMAPHORE_FEATURE_IMPORTABLE_BIT;
 impl core::fmt::Debug for VkExternalSemaphoreFeatureFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "exportable"), (2, "importable")] {
@@ -3036,6 +3089,7 @@ pub const VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT_KHR:
 pub const VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_SYNC_FD_BIT_KHR:
   VkExternalSemaphoreHandleTypeFlagBits = VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_SYNC_FD_BIT;
 impl core::fmt::Debug for VkExternalSemaphoreHandleTypeFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -3101,6 +3155,7 @@ pub type VkFenceCreateFlags = VkFenceCreateFlagBits;
 pub const VK_FENCE_CREATE_SIGNALED_BIT: VkFenceCreateFlagBits =
   VkFenceCreateFlagBits(1 << 0);
 impl core::fmt::Debug for VkFenceCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "signaled")] {
@@ -3131,6 +3186,7 @@ pub const VK_FENCE_IMPORT_TEMPORARY_BIT: VkFenceImportFlagBits =
 pub const VK_FENCE_IMPORT_TEMPORARY_BIT_KHR: VkFenceImportFlagBits =
   VK_FENCE_IMPORT_TEMPORARY_BIT;
 impl core::fmt::Debug for VkFenceImportFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "temporary")] {
@@ -3267,6 +3323,7 @@ pub const VK_FORMAT_FEATURE_TRANSFER_DST_BIT_KHR: VkFormatFeatureFlagBits =
 pub const VK_FORMAT_FEATURE_TRANSFER_SRC_BIT_KHR: VkFormatFeatureFlagBits =
   VK_FORMAT_FEATURE_TRANSFER_SRC_BIT;
 impl core::fmt::Debug for VkFormatFeatureFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -3635,6 +3692,7 @@ pub const VK_FORMAT_FEATURE_2_UNIFORM_TEXEL_BUFFER_BIT_KHR: VkFormatFeatureFlagB
 pub const VK_FORMAT_FEATURE_2_VERTEX_BUFFER_BIT_KHR: VkFormatFeatureFlagBits2 =
   VK_FORMAT_FEATURE_2_VERTEX_BUFFER_BIT;
 impl core::fmt::Debug for VkFormatFeatureFlagBits2 {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -3928,6 +3986,7 @@ pub const VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT: VkFramebufferCreateFlagBits =
 pub const VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT_KHR: VkFramebufferCreateFlagBits =
   VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT;
 impl core::fmt::Debug for VkFramebufferCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "imageless")] {
@@ -3962,6 +4021,7 @@ pub const VK_GEOMETRY_NO_DUPLICATE_ANY_HIT_INVOCATION_BIT_NV: VkGeometryFlagBits
 /// Alias of [`VK_GEOMETRY_OPAQUE_BIT_KHR`]
 pub const VK_GEOMETRY_OPAQUE_BIT_NV: VkGeometryFlagBitsKHR = VK_GEOMETRY_OPAQUE_BIT_KHR;
 impl core::fmt::Debug for VkGeometryFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(2, "no_duplicate_any_hit_invocation"), (1, "opaque")] {
@@ -4021,6 +4081,7 @@ pub const VK_GEOMETRY_INSTANCE_TRIANGLE_FRONT_COUNTERCLOCKWISE_BIT_NV:
   VkGeometryInstanceFlagBitsKHR =
   VK_GEOMETRY_INSTANCE_TRIANGLE_FRONT_COUNTERCLOCKWISE_BIT_KHR;
 impl core::fmt::Debug for VkGeometryInstanceFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -4086,6 +4147,7 @@ pub const VK_GRAPHICS_PIPELINE_LIBRARY_PRE_RASTERIZATION_SHADERS_BIT_EXT:
 pub const VK_GRAPHICS_PIPELINE_LIBRARY_VERTEX_INPUT_INTERFACE_BIT_EXT:
   VkGraphicsPipelineLibraryFlagBitsEXT = VkGraphicsPipelineLibraryFlagBitsEXT(1 << 0);
 impl core::fmt::Debug for VkGraphicsPipelineLibraryFlagBitsEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -4131,6 +4193,7 @@ define_bitmask!(
 /// Khronos: [VkHeadlessSurfaceCreateFlagsEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkHeadlessSurfaceCreateFlagsEXT.html) (bitmask, no bits defined)
 pub type VkHeadlessSurfaceCreateFlagsEXT = VkHeadlessSurfaceCreateFlagBitsEXT;
 impl core::fmt::Debug for VkHeadlessSurfaceCreateFlagBitsEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -4144,6 +4207,7 @@ define_bitmask!(
 /// Khronos: [VkIOSSurfaceCreateFlagsMVK](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkIOSSurfaceCreateFlagsMVK.html) (bitmask, no bits defined)
 pub type VkIOSSurfaceCreateFlagsMVK = VkIOSSurfaceCreateFlagBitsMVK;
 impl core::fmt::Debug for VkIOSSurfaceCreateFlagBitsMVK {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -4191,6 +4255,7 @@ pub const VK_IMAGE_ASPECT_PLANE_1_BIT_KHR: VkImageAspectFlagBits =
 pub const VK_IMAGE_ASPECT_PLANE_2_BIT_KHR: VkImageAspectFlagBits =
   VK_IMAGE_ASPECT_PLANE_2_BIT;
 impl core::fmt::Debug for VkImageAspectFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -4286,6 +4351,7 @@ pub const VK_IMAGE_COMPRESSION_FIXED_RATE_EXPLICIT_EXT: VkImageCompressionFlagBi
 pub const VK_IMAGE_COMPRESSION_DEFAULT_EXT: VkImageCompressionFlagBitsEXT =
   VkImageCompressionFlagBitsEXT(0);
 impl core::fmt::Debug for VkImageCompressionFlagBitsEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
@@ -4387,6 +4453,7 @@ pub const VK_IMAGE_COMPRESSION_FIXED_RATE_9BPC_BIT_EXT:
 pub const VK_IMAGE_COMPRESSION_FIXED_RATE_NONE_EXT:
   VkImageCompressionFixedRateFlagBitsEXT = VkImageCompressionFixedRateFlagBitsEXT(0);
 impl core::fmt::Debug for VkImageCompressionFixedRateFlagBitsEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -4562,6 +4629,7 @@ pub const VK_IMAGE_CONSTRAINTS_INFO_CPU_WRITE_RARELY_FUCHSIA:
 pub const VK_IMAGE_CONSTRAINTS_INFO_PROTECTED_OPTIONAL_FUCHSIA:
   VkImageConstraintsInfoFlagBitsFUCHSIA = VkImageConstraintsInfoFlagBitsFUCHSIA(1 << 4);
 impl core::fmt::Debug for VkImageConstraintsInfoFlagBitsFUCHSIA {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -4683,6 +4751,7 @@ pub const VK_IMAGE_CREATE_EXTENDED_USAGE_BIT_KHR: VkImageCreateFlagBits =
 pub const VK_IMAGE_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT_KHR: VkImageCreateFlagBits =
   VK_IMAGE_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT;
 impl core::fmt::Debug for VkImageCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -4824,6 +4893,7 @@ define_bitmask!(
 /// Khronos: [VkImageFormatConstraintsFlagsFUCHSIA](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkImageFormatConstraintsFlagsFUCHSIA.html) (bitmask, no bits defined)
 pub type VkImageFormatConstraintsFlagsFUCHSIA = VkImageFormatConstraintsFlagBitsFUCHSIA;
 impl core::fmt::Debug for VkImageFormatConstraintsFlagBitsFUCHSIA {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -4837,6 +4907,7 @@ define_bitmask!(
 /// Khronos: [VkImagePipeSurfaceCreateFlagsFUCHSIA](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkImagePipeSurfaceCreateFlagsFUCHSIA.html) (bitmask, no bits defined)
 pub type VkImagePipeSurfaceCreateFlagsFUCHSIA = VkImagePipeSurfaceCreateFlagBitsFUCHSIA;
 impl core::fmt::Debug for VkImagePipeSurfaceCreateFlagBitsFUCHSIA {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -4900,6 +4971,7 @@ pub const VK_IMAGE_USAGE_VIDEO_DECODE_SRC_BIT_KHR: VkImageUsageFlagBits =
 pub const VK_IMAGE_USAGE_SHADING_RATE_IMAGE_BIT_NV: VkImageUsageFlagBits =
   VK_IMAGE_USAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR;
 impl core::fmt::Debug for VkImageUsageFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -5047,6 +5119,7 @@ pub const VK_IMAGE_VIEW_CREATE_FRAGMENT_DENSITY_MAP_DEFERRED_BIT_EXT:
 pub const VK_IMAGE_VIEW_CREATE_FRAGMENT_DENSITY_MAP_DYNAMIC_BIT_EXT:
   VkImageViewCreateFlagBits = VkImageViewCreateFlagBits(1 << 0);
 impl core::fmt::Debug for VkImageViewCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -5095,6 +5168,7 @@ pub const VK_INDIRECT_COMMANDS_LAYOUT_USAGE_UNORDERED_SEQUENCES_BIT_NV:
   VkIndirectCommandsLayoutUsageFlagBitsNV =
   VkIndirectCommandsLayoutUsageFlagBitsNV(1 << 2);
 impl core::fmt::Debug for VkIndirectCommandsLayoutUsageFlagBitsNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
@@ -5134,6 +5208,7 @@ pub type VkIndirectStateFlagsNV = VkIndirectStateFlagBitsNV;
 pub const VK_INDIRECT_STATE_FLAG_FRONTFACE_BIT_NV: VkIndirectStateFlagBitsNV =
   VkIndirectStateFlagBitsNV(1 << 0);
 impl core::fmt::Debug for VkIndirectStateFlagBitsNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "flag_frontface")] {
@@ -5161,6 +5236,7 @@ pub type VkInstanceCreateFlags = VkInstanceCreateFlagBits;
 pub const VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR: VkInstanceCreateFlagBits =
   VkInstanceCreateFlagBits(1 << 0);
 impl core::fmt::Debug for VkInstanceCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "enumerate_portability")] {
@@ -5186,6 +5262,7 @@ define_bitmask!(
 /// Khronos: [VkMacOSSurfaceCreateFlagsMVK](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkMacOSSurfaceCreateFlagsMVK.html) (bitmask, no bits defined)
 pub type VkMacOSSurfaceCreateFlagsMVK = VkMacOSSurfaceCreateFlagBitsMVK;
 impl core::fmt::Debug for VkMacOSSurfaceCreateFlagBitsMVK {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -5215,6 +5292,7 @@ pub const VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT_KHR:
 pub const VK_MEMORY_ALLOCATE_DEVICE_MASK_BIT_KHR: VkMemoryAllocateFlagBits =
   VK_MEMORY_ALLOCATE_DEVICE_MASK_BIT;
 impl core::fmt::Debug for VkMemoryAllocateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
@@ -5254,6 +5332,7 @@ pub type VkMemoryDecompressionMethodFlagsNV = VkMemoryDecompressionMethodFlagBit
 pub const VK_MEMORY_DECOMPRESSION_METHOD_GDEFLATE_1_0_BIT_NV:
   VkMemoryDecompressionMethodFlagBitsNV = VkMemoryDecompressionMethodFlagBitsNV(1 << 0);
 impl core::fmt::Debug for VkMemoryDecompressionMethodFlagBitsNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "gdeflate_1_0")] {
@@ -5288,6 +5367,7 @@ pub const VK_MEMORY_HEAP_MULTI_INSTANCE_BIT: VkMemoryHeapFlagBits =
 pub const VK_MEMORY_HEAP_MULTI_INSTANCE_BIT_KHR: VkMemoryHeapFlagBits =
   VK_MEMORY_HEAP_MULTI_INSTANCE_BIT;
 impl core::fmt::Debug for VkMemoryHeapFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "device_local"), (2, "multi_instance")] {
@@ -5318,6 +5398,7 @@ define_bitmask!(
 /// Khronos: [VkMemoryMapFlags](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkMemoryMapFlags.html) (bitmask, no bits defined)
 pub type VkMemoryMapFlags = VkMemoryMapFlagBits;
 impl core::fmt::Debug for VkMemoryMapFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -5357,6 +5438,7 @@ pub const VK_MEMORY_PROPERTY_PROTECTED_BIT: VkMemoryPropertyFlagBits =
 pub const VK_MEMORY_PROPERTY_RDMA_CAPABLE_BIT_NV: VkMemoryPropertyFlagBits =
   VkMemoryPropertyFlagBits(1 << 8);
 impl core::fmt::Debug for VkMemoryPropertyFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -5432,6 +5514,7 @@ define_bitmask!(
 /// Khronos: [VkMetalSurfaceCreateFlagsEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkMetalSurfaceCreateFlagsEXT.html) (bitmask, no bits defined)
 pub type VkMetalSurfaceCreateFlagsEXT = VkMetalSurfaceCreateFlagBitsEXT;
 impl core::fmt::Debug for VkMetalSurfaceCreateFlagBitsEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -5447,6 +5530,7 @@ pub type VkMicromapCreateFlagsEXT = VkMicromapCreateFlagBitsEXT;
 pub const VK_MICROMAP_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT_EXT:
   VkMicromapCreateFlagBitsEXT = VkMicromapCreateFlagBitsEXT(1 << 0);
 impl core::fmt::Debug for VkMicromapCreateFlagBitsEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "device_address_capture_replay")] {
@@ -5474,6 +5558,7 @@ pub type VkOpticalFlowExecuteFlagsNV = VkOpticalFlowExecuteFlagBitsNV;
 pub const VK_OPTICAL_FLOW_EXECUTE_DISABLE_TEMPORAL_HINTS_BIT_NV:
   VkOpticalFlowExecuteFlagBitsNV = VkOpticalFlowExecuteFlagBitsNV(1 << 0);
 impl core::fmt::Debug for VkOpticalFlowExecuteFlagBitsNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "disable_temporal_hints")] {
@@ -5509,6 +5594,7 @@ pub const VK_OPTICAL_FLOW_GRID_SIZE_8X8_BIT_NV: VkOpticalFlowGridSizeFlagBitsNV 
 pub const VK_OPTICAL_FLOW_GRID_SIZE_UNKNOWN_NV: VkOpticalFlowGridSizeFlagBitsNV =
   VkOpticalFlowGridSizeFlagBitsNV(0);
 impl core::fmt::Debug for VkOpticalFlowGridSizeFlagBitsNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "1_x_1"), (2, "2_x_2"), (4, "4_x_4"), (8, "8_x_8")] {
@@ -5559,6 +5645,7 @@ pub const VK_OPTICAL_FLOW_SESSION_CREATE_ENABLE_GLOBAL_FLOW_BIT_NV:
 pub const VK_OPTICAL_FLOW_SESSION_CREATE_ENABLE_HINT_BIT_NV:
   VkOpticalFlowSessionCreateFlagBitsNV = VkOpticalFlowSessionCreateFlagBitsNV(1 << 0);
 impl core::fmt::Debug for VkOpticalFlowSessionCreateFlagBitsNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -5622,6 +5709,7 @@ pub const VK_OPTICAL_FLOW_USAGE_OUTPUT_BIT_NV: VkOpticalFlowUsageFlagBitsNV =
 pub const VK_OPTICAL_FLOW_USAGE_UNKNOWN_NV: VkOpticalFlowUsageFlagBitsNV =
   VkOpticalFlowUsageFlagBitsNV(0);
 impl core::fmt::Debug for VkOpticalFlowUsageFlagBitsNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
@@ -5693,6 +5781,7 @@ pub const VK_PEER_MEMORY_FEATURE_GENERIC_DST_BIT_KHR: VkPeerMemoryFeatureFlagBit
 pub const VK_PEER_MEMORY_FEATURE_GENERIC_SRC_BIT_KHR: VkPeerMemoryFeatureFlagBits =
   VK_PEER_MEMORY_FEATURE_GENERIC_SRC_BIT;
 impl core::fmt::Debug for VkPeerMemoryFeatureFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
@@ -5752,6 +5841,7 @@ pub const VK_PERFORMANCE_COUNTER_DESCRIPTION_PERFORMANCE_IMPACTING_KHR:
   VkPerformanceCounterDescriptionFlagBitsKHR =
   VK_PERFORMANCE_COUNTER_DESCRIPTION_PERFORMANCE_IMPACTING_BIT_KHR;
 impl core::fmt::Debug for VkPerformanceCounterDescriptionFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
@@ -5789,6 +5879,7 @@ pub const VK_PIPELINE_CACHE_CREATE_EXTERNALLY_SYNCHRONIZED_BIT:
 pub const VK_PIPELINE_CACHE_CREATE_EXTERNALLY_SYNCHRONIZED_BIT_EXT:
   VkPipelineCacheCreateFlagBits = VK_PIPELINE_CACHE_CREATE_EXTERNALLY_SYNCHRONIZED_BIT;
 impl core::fmt::Debug for VkPipelineCacheCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "externally_synchronized")] {
@@ -5817,6 +5908,7 @@ pub const VK_PIPELINE_COLOR_BLEND_STATE_CREATE_RASTERIZATION_ORDER_ATTACHMENT_AC
 /// Alias of [`VK_PIPELINE_COLOR_BLEND_STATE_CREATE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_BIT_EXT`]
 pub const VK_PIPELINE_COLOR_BLEND_STATE_CREATE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_BIT_ARM: VkPipelineColorBlendStateCreateFlagBits = VK_PIPELINE_COLOR_BLEND_STATE_CREATE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_BIT_EXT;
 impl core::fmt::Debug for VkPipelineColorBlendStateCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "rasterization_order_attachment_access")] {
@@ -5842,6 +5934,7 @@ define_bitmask!(
 /// Khronos: [VkPipelineCompilerControlFlagBitsAMD](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineCompilerControlFlagBitsAMD.html) (bitmask)
 pub type VkPipelineCompilerControlFlagsAMD = VkPipelineCompilerControlFlagBitsAMD;
 impl core::fmt::Debug for VkPipelineCompilerControlFlagBitsAMD {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -5856,6 +5949,7 @@ define_bitmask!(
 pub type VkPipelineCoverageModulationStateCreateFlagsNV =
   VkPipelineCoverageModulationStateCreateFlagBitsNV;
 impl core::fmt::Debug for VkPipelineCoverageModulationStateCreateFlagBitsNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -5870,6 +5964,7 @@ define_bitmask!(
 pub type VkPipelineCoverageReductionStateCreateFlagsNV =
   VkPipelineCoverageReductionStateCreateFlagBitsNV;
 impl core::fmt::Debug for VkPipelineCoverageReductionStateCreateFlagBitsNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -5884,6 +5979,7 @@ define_bitmask!(
 pub type VkPipelineCoverageToColorStateCreateFlagsNV =
   VkPipelineCoverageToColorStateCreateFlagBitsNV;
 impl core::fmt::Debug for VkPipelineCoverageToColorStateCreateFlagBitsNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -5982,6 +6078,7 @@ pub const VK_PIPELINE_RASTERIZATION_STATE_CREATE_FRAGMENT_DENSITY_MAP_ATTACHMENT
 #[deprecated = "aliased"]
 pub const VK_PIPELINE_RASTERIZATION_STATE_CREATE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR: VkPipelineCreateFlagBits = VK_PIPELINE_CREATE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR;
 impl core::fmt::Debug for VkPipelineCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -6206,6 +6303,7 @@ pub const VK_PIPELINE_CREATION_FEEDBACK_BASE_PIPELINE_ACCELERATION_BIT_EXT:
 pub const VK_PIPELINE_CREATION_FEEDBACK_VALID_BIT_EXT:
   VkPipelineCreationFeedbackFlagBits = VK_PIPELINE_CREATION_FEEDBACK_VALID_BIT;
 impl core::fmt::Debug for VkPipelineCreationFeedbackFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -6252,6 +6350,7 @@ pub const VK_PIPELINE_DEPTH_STENCIL_STATE_CREATE_RASTERIZATION_ORDER_ATTACHMENT_
 /// Alias of [`VK_PIPELINE_DEPTH_STENCIL_STATE_CREATE_RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_BIT_EXT`]
 pub const VK_PIPELINE_DEPTH_STENCIL_STATE_CREATE_RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_BIT_ARM: VkPipelineDepthStencilStateCreateFlagBits = VK_PIPELINE_DEPTH_STENCIL_STATE_CREATE_RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_BIT_EXT;
 impl core::fmt::Debug for VkPipelineDepthStencilStateCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -6286,6 +6385,7 @@ define_bitmask!(
 pub type VkPipelineDiscardRectangleStateCreateFlagsEXT =
   VkPipelineDiscardRectangleStateCreateFlagBitsEXT;
 impl core::fmt::Debug for VkPipelineDiscardRectangleStateCreateFlagBitsEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -6299,6 +6399,7 @@ define_bitmask!(
 /// Khronos: [VkPipelineDynamicStateCreateFlags](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineDynamicStateCreateFlags.html) (bitmask, no bits defined)
 pub type VkPipelineDynamicStateCreateFlags = VkPipelineDynamicStateCreateFlagBits;
 impl core::fmt::Debug for VkPipelineDynamicStateCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -6313,6 +6414,7 @@ define_bitmask!(
 pub type VkPipelineInputAssemblyStateCreateFlags =
   VkPipelineInputAssemblyStateCreateFlagBits;
 impl core::fmt::Debug for VkPipelineInputAssemblyStateCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -6330,6 +6432,7 @@ pub const VK_PIPELINE_LAYOUT_CREATE_INDEPENDENT_SETS_BIT_EXT:
 pub const VK_PIPELINE_LAYOUT_CREATE_RESERVED_0_BIT_AMD: VkPipelineLayoutCreateFlagBits =
   VkPipelineLayoutCreateFlagBits(1 << 0);
 impl core::fmt::Debug for VkPipelineLayoutCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(2, "independent_sets"), (1, "reserved_0")] {
@@ -6360,6 +6463,7 @@ define_bitmask!(
 /// Khronos: [VkPipelineMultisampleStateCreateFlags](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineMultisampleStateCreateFlags.html) (bitmask, no bits defined)
 pub type VkPipelineMultisampleStateCreateFlags = VkPipelineMultisampleStateCreateFlagBits;
 impl core::fmt::Debug for VkPipelineMultisampleStateCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -6374,6 +6478,7 @@ define_bitmask!(
 pub type VkPipelineRasterizationConservativeStateCreateFlagsEXT =
   VkPipelineRasterizationConservativeStateCreateFlagBitsEXT;
 impl core::fmt::Debug for VkPipelineRasterizationConservativeStateCreateFlagBitsEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -6388,6 +6493,7 @@ define_bitmask!(
 pub type VkPipelineRasterizationDepthClipStateCreateFlagsEXT =
   VkPipelineRasterizationDepthClipStateCreateFlagBitsEXT;
 impl core::fmt::Debug for VkPipelineRasterizationDepthClipStateCreateFlagBitsEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -6402,6 +6508,7 @@ define_bitmask!(
 pub type VkPipelineRasterizationStateCreateFlags =
   VkPipelineRasterizationStateCreateFlagBits;
 impl core::fmt::Debug for VkPipelineRasterizationStateCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -6416,6 +6523,7 @@ define_bitmask!(
 pub type VkPipelineRasterizationStateStreamCreateFlagsEXT =
   VkPipelineRasterizationStateStreamCreateFlagBitsEXT;
 impl core::fmt::Debug for VkPipelineRasterizationStateStreamCreateFlagBitsEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -6443,6 +6551,7 @@ pub const VK_PIPELINE_SHADER_STAGE_CREATE_REQUIRE_FULL_SUBGROUPS_BIT_EXT:
   VkPipelineShaderStageCreateFlagBits =
   VK_PIPELINE_SHADER_STAGE_CREATE_REQUIRE_FULL_SUBGROUPS_BIT;
 impl core::fmt::Debug for VkPipelineShaderStageCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -6570,6 +6679,7 @@ pub const VK_PIPELINE_STAGE_SHADING_RATE_IMAGE_BIT_NV: VkPipelineStageFlagBits =
 pub const VK_PIPELINE_STAGE_TASK_SHADER_BIT_NV: VkPipelineStageFlagBits =
   VK_PIPELINE_STAGE_TASK_SHADER_BIT_EXT;
 impl core::fmt::Debug for VkPipelineStageFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -6926,6 +7036,7 @@ pub const VK_PIPELINE_STAGE_2_VERTEX_INPUT_BIT_KHR: VkPipelineStageFlagBits2 =
 pub const VK_PIPELINE_STAGE_2_VERTEX_SHADER_BIT_KHR: VkPipelineStageFlagBits2 =
   VK_PIPELINE_STAGE_2_VERTEX_SHADER_BIT;
 impl core::fmt::Debug for VkPipelineStageFlagBits2 {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -7188,6 +7299,7 @@ define_bitmask!(
 pub type VkPipelineTessellationStateCreateFlags =
   VkPipelineTessellationStateCreateFlagBits;
 impl core::fmt::Debug for VkPipelineTessellationStateCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -7201,6 +7313,7 @@ define_bitmask!(
 /// Khronos: [VkPipelineVertexInputStateCreateFlags](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineVertexInputStateCreateFlags.html) (bitmask, no bits defined)
 pub type VkPipelineVertexInputStateCreateFlags = VkPipelineVertexInputStateCreateFlagBits;
 impl core::fmt::Debug for VkPipelineVertexInputStateCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -7214,6 +7327,7 @@ define_bitmask!(
 /// Khronos: [VkPipelineViewportStateCreateFlags](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPipelineViewportStateCreateFlags.html) (bitmask, no bits defined)
 pub type VkPipelineViewportStateCreateFlags = VkPipelineViewportStateCreateFlagBits;
 impl core::fmt::Debug for VkPipelineViewportStateCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -7228,6 +7342,7 @@ define_bitmask!(
 pub type VkPipelineViewportSwizzleStateCreateFlagsNV =
   VkPipelineViewportSwizzleStateCreateFlagBitsNV;
 impl core::fmt::Debug for VkPipelineViewportSwizzleStateCreateFlagBitsNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -7247,6 +7362,7 @@ pub const VK_PRESENT_GRAVITY_MAX_BIT_EXT: VkPresentGravityFlagBitsEXT =
 pub const VK_PRESENT_GRAVITY_MIN_BIT_EXT: VkPresentGravityFlagBitsEXT =
   VkPresentGravityFlagBitsEXT(1 << 0);
 impl core::fmt::Debug for VkPresentGravityFlagBitsEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(4, "centered"), (2, "max"), (1, "min")] {
@@ -7288,6 +7404,7 @@ pub const VK_PRESENT_SCALING_ONE_TO_ONE_BIT_EXT: VkPresentScalingFlagBitsEXT =
 pub const VK_PRESENT_SCALING_STRETCH_BIT_EXT: VkPresentScalingFlagBitsEXT =
   VkPresentScalingFlagBitsEXT(1 << 2);
 impl core::fmt::Debug for VkPresentScalingFlagBitsEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
@@ -7327,6 +7444,7 @@ pub type VkPrivateDataSlotCreateFlags = VkPrivateDataSlotCreateFlagBits;
 pub const VK_PRIVATE_DATA_SLOT_CREATE_RESERVED_0_BIT_NV: VkPrivateDataSlotCreateFlagBits =
   VkPrivateDataSlotCreateFlagBits(1 << 0);
 impl core::fmt::Debug for VkPrivateDataSlotCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "reserved_0")] {
@@ -7355,6 +7473,7 @@ pub type VkQueryControlFlags = VkQueryControlFlagBits;
 pub const VK_QUERY_CONTROL_PRECISE_BIT: VkQueryControlFlagBits =
   VkQueryControlFlagBits(1 << 0);
 impl core::fmt::Debug for VkQueryControlFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "precise")] {
@@ -7419,6 +7538,7 @@ pub const VK_QUERY_PIPELINE_STATISTIC_TESSELLATION_EVALUATION_SHADER_INVOCATIONS
 pub const VK_QUERY_PIPELINE_STATISTIC_VERTEX_SHADER_INVOCATIONS_BIT:
   VkQueryPipelineStatisticFlagBits = VkQueryPipelineStatisticFlagBits(1 << 2);
 impl core::fmt::Debug for VkQueryPipelineStatisticFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -7524,6 +7644,7 @@ define_bitmask!(
 /// Khronos: [VkQueryPoolCreateFlags](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkQueryPoolCreateFlags.html) (bitmask, no bits defined)
 pub type VkQueryPoolCreateFlags = VkQueryPoolCreateFlagBits;
 impl core::fmt::Debug for VkQueryPoolCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -7552,6 +7673,7 @@ pub const VK_QUERY_RESULT_WITH_AVAILABILITY_BIT: VkQueryResultFlagBits =
 pub const VK_QUERY_RESULT_WITH_STATUS_BIT_KHR: VkQueryResultFlagBits =
   VkQueryResultFlagBits(1 << 4);
 impl core::fmt::Debug for VkQueryResultFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -7617,6 +7739,7 @@ pub const VK_QUEUE_SPARSE_BINDING_BIT: VkQueueFlagBits = VkQueueFlagBits(1 << 3)
 pub const VK_QUEUE_TRANSFER_BIT: VkQueueFlagBits = VkQueueFlagBits(1 << 2);
 pub const VK_QUEUE_VIDEO_DECODE_BIT_KHR: VkQueueFlagBits = VkQueueFlagBits(1 << 5);
 impl core::fmt::Debug for VkQueueFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -7692,6 +7815,7 @@ define_bitmask!(
 /// Khronos: [VkRefreshObjectFlagBitsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkRefreshObjectFlagBitsKHR.html) (bitmask)
 pub type VkRefreshObjectFlagsKHR = VkRefreshObjectFlagBitsKHR;
 impl core::fmt::Debug for VkRefreshObjectFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -7709,6 +7833,7 @@ pub const VK_RENDER_PASS_CREATE_RESERVED_0_BIT_KHR: VkRenderPassCreateFlagBits =
 pub const VK_RENDER_PASS_CREATE_TRANSFORM_BIT_QCOM: VkRenderPassCreateFlagBits =
   VkRenderPassCreateFlagBits(1 << 1);
 impl core::fmt::Debug for VkRenderPassCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "reserved_0"), (2, "transform")] {
@@ -7753,6 +7878,7 @@ pub const VK_RENDERING_RESUMING_BIT_KHR: VkRenderingFlagBits = VK_RENDERING_RESU
 pub const VK_RENDERING_SUSPENDING_BIT_KHR: VkRenderingFlagBits =
   VK_RENDERING_SUSPENDING_BIT;
 impl core::fmt::Debug for VkRenderingFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -7817,6 +7943,7 @@ pub const VK_RESOLVE_MODE_NONE_KHR: VkResolveModeFlagBits = VK_RESOLVE_MODE_NONE
 pub const VK_RESOLVE_MODE_SAMPLE_ZERO_BIT_KHR: VkResolveModeFlagBits =
   VK_RESOLVE_MODE_SAMPLE_ZERO_BIT;
 impl core::fmt::Debug for VkResolveModeFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
@@ -7873,6 +8000,7 @@ pub const VK_SAMPLE_COUNT_64_BIT: VkSampleCountFlagBits = VkSampleCountFlagBits(
 /// Sample count 8 supported
 pub const VK_SAMPLE_COUNT_8_BIT: VkSampleCountFlagBits = VkSampleCountFlagBits(1 << 3);
 impl core::fmt::Debug for VkSampleCountFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
@@ -7940,6 +8068,7 @@ pub const VK_SAMPLER_CREATE_SUBSAMPLED_BIT_EXT: VkSamplerCreateFlagBits =
 pub const VK_SAMPLER_CREATE_SUBSAMPLED_COARSE_RECONSTRUCTION_BIT_EXT:
   VkSamplerCreateFlagBits = VkSamplerCreateFlagBits(1 << 1);
 impl core::fmt::Debug for VkSamplerCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -7991,6 +8120,7 @@ define_bitmask!(
 /// Khronos: [VkScreenSurfaceCreateFlagsQNX](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkScreenSurfaceCreateFlagsQNX.html) (bitmask, no bits defined)
 pub type VkScreenSurfaceCreateFlagsQNX = VkScreenSurfaceCreateFlagBitsQNX;
 impl core::fmt::Debug for VkScreenSurfaceCreateFlagBitsQNX {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -8004,6 +8134,7 @@ define_bitmask!(
 /// Khronos: [VkSemaphoreCreateFlags](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSemaphoreCreateFlags.html) (bitmask, no bits defined)
 pub type VkSemaphoreCreateFlags = VkSemaphoreCreateFlagBits;
 impl core::fmt::Debug for VkSemaphoreCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -8022,6 +8153,7 @@ pub const VK_SEMAPHORE_IMPORT_TEMPORARY_BIT: VkSemaphoreImportFlagBits =
 pub const VK_SEMAPHORE_IMPORT_TEMPORARY_BIT_KHR: VkSemaphoreImportFlagBits =
   VK_SEMAPHORE_IMPORT_TEMPORARY_BIT;
 impl core::fmt::Debug for VkSemaphoreImportFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "temporary")] {
@@ -8052,6 +8184,7 @@ pub const VK_SEMAPHORE_WAIT_ANY_BIT: VkSemaphoreWaitFlagBits =
 pub const VK_SEMAPHORE_WAIT_ANY_BIT_KHR: VkSemaphoreWaitFlagBits =
   VK_SEMAPHORE_WAIT_ANY_BIT;
 impl core::fmt::Debug for VkSemaphoreWaitFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "any")] {
@@ -8077,6 +8210,7 @@ define_bitmask!(
 /// Khronos: [VkShaderCorePropertiesFlagBitsAMD](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkShaderCorePropertiesFlagBitsAMD.html) (bitmask)
 pub type VkShaderCorePropertiesFlagsAMD = VkShaderCorePropertiesFlagBitsAMD;
 impl core::fmt::Debug for VkShaderCorePropertiesFlagBitsAMD {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -8090,6 +8224,7 @@ define_bitmask!(
 /// Khronos: [VkShaderModuleCreateFlags](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkShaderModuleCreateFlags.html) (bitmask, no bits defined)
 pub type VkShaderModuleCreateFlags = VkShaderModuleCreateFlagBits;
 impl core::fmt::Debug for VkShaderModuleCreateFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -8167,6 +8302,7 @@ pub const VK_SHADER_STAGE_RAYGEN_BIT_NV: VkShaderStageFlagBits =
 pub const VK_SHADER_STAGE_TASK_BIT_NV: VkShaderStageFlagBits =
   VK_SHADER_STAGE_TASK_BIT_EXT;
 impl core::fmt::Debug for VkShaderStageFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -8312,6 +8448,7 @@ pub const VK_SPARSE_IMAGE_FORMAT_NONSTANDARD_BLOCK_SIZE_BIT: VkSparseImageFormat
 pub const VK_SPARSE_IMAGE_FORMAT_SINGLE_MIPTAIL_BIT: VkSparseImageFormatFlagBits =
   VkSparseImageFormatFlagBits(1 << 0);
 impl core::fmt::Debug for VkSparseImageFormatFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
@@ -8352,6 +8489,7 @@ pub type VkSparseMemoryBindFlags = VkSparseMemoryBindFlagBits;
 pub const VK_SPARSE_MEMORY_BIND_METADATA_BIT: VkSparseMemoryBindFlagBits =
   VkSparseMemoryBindFlagBits(1 << 0);
 impl core::fmt::Debug for VkSparseMemoryBindFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "metadata")] {
@@ -8389,6 +8527,7 @@ pub const VK_STENCIL_FACE_FRONT_AND_BACK: VkStencilFaceFlagBits =
 pub const VK_STENCIL_FRONT_AND_BACK: VkStencilFaceFlagBits =
   VK_STENCIL_FACE_FRONT_AND_BACK;
 impl core::fmt::Debug for VkStencilFaceFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(2, "back"), (1, "front")] {
@@ -8420,6 +8559,7 @@ define_bitmask!(
 pub type VkStreamDescriptorSurfaceCreateFlagsGGP =
   VkStreamDescriptorSurfaceCreateFlagBitsGGP;
 impl core::fmt::Debug for VkStreamDescriptorSurfaceCreateFlagBitsGGP {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -8459,6 +8599,7 @@ pub const VK_SUBGROUP_FEATURE_SHUFFLE_RELATIVE_BIT: VkSubgroupFeatureFlagBits =
 pub const VK_SUBGROUP_FEATURE_VOTE_BIT: VkSubgroupFeatureFlagBits =
   VkSubgroupFeatureFlagBits(1 << 1);
 impl core::fmt::Debug for VkSubgroupFeatureFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -8537,6 +8678,7 @@ pub const VK_SUBMIT_PROTECTED_BIT: VkSubmitFlagBits = VkSubmitFlagBits(1 << 0);
 /// Alias of [`VK_SUBMIT_PROTECTED_BIT`]
 pub const VK_SUBMIT_PROTECTED_BIT_KHR: VkSubmitFlagBits = VK_SUBMIT_PROTECTED_BIT;
 impl core::fmt::Debug for VkSubmitFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "protected")] {
@@ -8590,6 +8732,7 @@ pub const VK_SUBPASS_DESCRIPTION_RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_B
   VkSubpassDescriptionFlagBits =
   VK_SUBPASS_DESCRIPTION_RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_BIT_EXT;
 impl core::fmt::Debug for VkSubpassDescriptionFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -8665,6 +8808,7 @@ pub const VK_SURFACE_COUNTER_VBLANK_BIT_EXT: VkSurfaceCounterFlagBitsEXT =
 pub const VK_SURFACE_COUNTER_VBLANK_EXT: VkSurfaceCounterFlagBitsEXT =
   VK_SURFACE_COUNTER_VBLANK_BIT_EXT;
 impl core::fmt::Debug for VkSurfaceCounterFlagBitsEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "vblank")] {
@@ -8708,6 +8852,7 @@ pub const VK_SURFACE_TRANSFORM_ROTATE_270_BIT_KHR: VkSurfaceTransformFlagBitsKHR
 pub const VK_SURFACE_TRANSFORM_ROTATE_90_BIT_KHR: VkSurfaceTransformFlagBitsKHR =
   VkSurfaceTransformFlagBitsKHR(1 << 1);
 impl core::fmt::Debug for VkSurfaceTransformFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -8795,6 +8940,7 @@ pub const VK_SWAPCHAIN_CREATE_RESERVED_4_BIT_EXT: VkSwapchainCreateFlagBitsKHR =
 pub const VK_SWAPCHAIN_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT_KHR:
   VkSwapchainCreateFlagBitsKHR = VkSwapchainCreateFlagBitsKHR(1 << 0);
 impl core::fmt::Debug for VkSwapchainCreateFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -8848,6 +8994,7 @@ pub type VkSwapchainImageUsageFlagsANDROID = VkSwapchainImageUsageFlagBitsANDROI
 pub const VK_SWAPCHAIN_IMAGE_USAGE_SHARED_BIT_ANDROID:
   VkSwapchainImageUsageFlagBitsANDROID = VkSwapchainImageUsageFlagBitsANDROID(1 << 0);
 impl core::fmt::Debug for VkSwapchainImageUsageFlagBitsANDROID {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "shared")] {
@@ -8902,6 +9049,7 @@ pub const VK_TOOL_PURPOSE_TRACING_BIT_EXT: VkToolPurposeFlagBits =
 pub const VK_TOOL_PURPOSE_VALIDATION_BIT_EXT: VkToolPurposeFlagBits =
   VK_TOOL_PURPOSE_VALIDATION_BIT;
 impl core::fmt::Debug for VkToolPurposeFlagBits {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -8965,6 +9113,7 @@ define_bitmask!(
 /// Khronos: [VkValidationCacheCreateFlagsEXT](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkValidationCacheCreateFlagsEXT.html) (bitmask, no bits defined)
 pub type VkValidationCacheCreateFlagsEXT = VkValidationCacheCreateFlagBitsEXT;
 impl core::fmt::Debug for VkValidationCacheCreateFlagBitsEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -8978,6 +9127,7 @@ define_bitmask!(
 /// Khronos: [VkViSurfaceCreateFlagsNN](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkViSurfaceCreateFlagsNN.html) (bitmask, no bits defined)
 pub type VkViSurfaceCreateFlagsNN = VkViSurfaceCreateFlagBitsNN;
 impl core::fmt::Debug for VkViSurfaceCreateFlagBitsNN {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -8991,6 +9141,7 @@ define_bitmask!(
 /// Khronos: [VkVideoBeginCodingFlagsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkVideoBeginCodingFlagsKHR.html) (bitmask, no bits defined)
 pub type VkVideoBeginCodingFlagsKHR = VkVideoBeginCodingFlagBitsKHR;
 impl core::fmt::Debug for VkVideoBeginCodingFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -9008,6 +9159,7 @@ pub const VK_VIDEO_CAPABILITY_PROTECTED_CONTENT_BIT_KHR: VkVideoCapabilityFlagBi
 pub const VK_VIDEO_CAPABILITY_SEPARATE_REFERENCE_IMAGES_BIT_KHR:
   VkVideoCapabilityFlagBitsKHR = VkVideoCapabilityFlagBitsKHR(1 << 1);
 impl core::fmt::Debug for VkVideoCapabilityFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
@@ -9052,6 +9204,7 @@ pub const VK_VIDEO_CHROMA_SUBSAMPLING_MONOCHROME_BIT_KHR:
 pub const VK_VIDEO_CHROMA_SUBSAMPLING_INVALID_KHR: VkVideoChromaSubsamplingFlagBitsKHR =
   VkVideoChromaSubsamplingFlagBitsKHR(0);
 impl core::fmt::Debug for VkVideoChromaSubsamplingFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(2, "420"), (4, "422"), (8, "444"), (1, "monochrome")] {
@@ -9098,6 +9251,7 @@ pub const VK_VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR: VkVideoCodecOperationFla
 pub const VK_VIDEO_CODEC_OPERATION_NONE_KHR: VkVideoCodecOperationFlagBitsKHR =
   VkVideoCodecOperationFlagBitsKHR(0);
 impl core::fmt::Debug for VkVideoCodecOperationFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "decode_h_264"), (2, "decode_h_265")] {
@@ -9130,6 +9284,7 @@ pub type VkVideoCodingControlFlagsKHR = VkVideoCodingControlFlagBitsKHR;
 pub const VK_VIDEO_CODING_CONTROL_RESET_BIT_KHR: VkVideoCodingControlFlagBitsKHR =
   VkVideoCodingControlFlagBitsKHR(1 << 0);
 impl core::fmt::Debug for VkVideoCodingControlFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "reset")] {
@@ -9165,6 +9320,7 @@ pub const VK_VIDEO_COMPONENT_BIT_DEPTH_8_BIT_KHR: VkVideoComponentBitDepthFlagBi
 pub const VK_VIDEO_COMPONENT_BIT_DEPTH_INVALID_KHR: VkVideoComponentBitDepthFlagBitsKHR =
   VkVideoComponentBitDepthFlagBitsKHR(0);
 impl core::fmt::Debug for VkVideoComponentBitDepthFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(4, "10"), (16, "12"), (1, "8")] {
@@ -9200,6 +9356,7 @@ define_bitmask!(
 /// Khronos: [VkVideoDecodeFlagsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkVideoDecodeFlagsKHR.html) (bitmask, no bits defined)
 pub type VkVideoDecodeFlagsKHR = VkVideoDecodeFlagBitsKHR;
 impl core::fmt::Debug for VkVideoDecodeFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -9217,6 +9374,7 @@ pub const VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_COINCIDE_BIT_KHR:
 pub const VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_DISTINCT_BIT_KHR:
   VkVideoDecodeCapabilityFlagBitsKHR = VkVideoDecodeCapabilityFlagBitsKHR(1 << 1);
 impl core::fmt::Debug for VkVideoDecodeCapabilityFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
@@ -9259,6 +9417,7 @@ pub const VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_PROGRESSIVE_KHR:
   VkVideoDecodeH264PictureLayoutFlagBitsKHR =
   VkVideoDecodeH264PictureLayoutFlagBitsKHR(0);
 impl core::fmt::Debug for VkVideoDecodeH264PictureLayoutFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
@@ -9299,6 +9458,7 @@ pub const VK_VIDEO_DECODE_USAGE_TRANSCODING_BIT_KHR: VkVideoDecodeUsageFlagBitsK
 pub const VK_VIDEO_DECODE_USAGE_DEFAULT_KHR: VkVideoDecodeUsageFlagBitsKHR =
   VkVideoDecodeUsageFlagBitsKHR(0);
 impl core::fmt::Debug for VkVideoDecodeUsageFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(2, "offline"), (4, "streaming"), (1, "transcoding")] {
@@ -9334,6 +9494,7 @@ define_bitmask!(
 /// Khronos: [VkVideoEncodeFlagsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkVideoEncodeFlagsKHR.html) (bitmask, no bits defined)
 pub type VkVideoEncodeFlagsKHR = VkVideoEncodeFlagBitsKHR;
 impl core::fmt::Debug for VkVideoEncodeFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -9349,6 +9510,7 @@ pub type VkVideoEncodeCapabilityFlagsKHR = VkVideoEncodeCapabilityFlagBitsKHR;
 pub const VK_VIDEO_ENCODE_CAPABILITY_PRECEDING_EXTERNALLY_ENCODED_BYTES_BIT_KHR:
   VkVideoEncodeCapabilityFlagBitsKHR = VkVideoEncodeCapabilityFlagBitsKHR(1 << 0);
 impl core::fmt::Debug for VkVideoEncodeCapabilityFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "preceding_externally_encoded_bytes")] {
@@ -9382,6 +9544,7 @@ pub const VK_VIDEO_ENCODE_CONTENT_RENDERED_BIT_KHR: VkVideoEncodeContentFlagBits
 pub const VK_VIDEO_ENCODE_CONTENT_DEFAULT_KHR: VkVideoEncodeContentFlagBitsKHR =
   VkVideoEncodeContentFlagBitsKHR(0);
 impl core::fmt::Debug for VkVideoEncodeContentFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "camera"), (2, "desktop"), (4, "rendered")] {
@@ -9421,6 +9584,7 @@ pub const VK_VIDEO_ENCODE_FEEDBACK_BITSTREAM_BUFFER_OFFSET_BIT_KHR:
 pub const VK_VIDEO_ENCODE_FEEDBACK_BITSTREAM_BYTES_WRITTEN_BIT_KHR:
   VkVideoEncodeFeedbackFlagBitsKHR = VkVideoEncodeFeedbackFlagBitsKHR(1 << 1);
 impl core::fmt::Debug for VkVideoEncodeFeedbackFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
@@ -9521,6 +9685,7 @@ pub const VK_VIDEO_ENCODE_H264_CAPABILITY_WEIGHTED_PRED_NO_TABLE_BIT_EXT:
   VkVideoEncodeH264CapabilityFlagBitsEXT =
   VkVideoEncodeH264CapabilityFlagBitsEXT(1 << 12);
 impl core::fmt::Debug for VkVideoEncodeH264CapabilityFlagBitsEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -9769,6 +9934,7 @@ pub const VK_VIDEO_ENCODE_H265_CAPABILITY_WEIGHTED_PRED_NO_TABLE_BIT_EXT:
   VkVideoEncodeH265CapabilityFlagBitsEXT =
   VkVideoEncodeH265CapabilityFlagBitsEXT(1 << 14);
 impl core::fmt::Debug for VkVideoEncodeH265CapabilityFlagBitsEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
@@ -9958,6 +10124,7 @@ pub const VK_VIDEO_ENCODE_H265_CTB_SIZE_32_BIT_EXT: VkVideoEncodeH265CtbSizeFlag
 pub const VK_VIDEO_ENCODE_H265_CTB_SIZE_64_BIT_EXT: VkVideoEncodeH265CtbSizeFlagBitsEXT =
   VkVideoEncodeH265CtbSizeFlagBitsEXT(1 << 2);
 impl core::fmt::Debug for VkVideoEncodeH265CtbSizeFlagBitsEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "16"), (2, "32"), (4, "64")] {
@@ -10006,6 +10173,7 @@ pub const VK_VIDEO_ENCODE_H265_TRANSFORM_BLOCK_SIZE_8_BIT_EXT:
   VkVideoEncodeH265TransformBlockSizeFlagBitsEXT =
   VkVideoEncodeH265TransformBlockSizeFlagBitsEXT(1 << 1);
 impl core::fmt::Debug for VkVideoEncodeH265TransformBlockSizeFlagBitsEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(4, "16"), (8, "32"), (1, "4"), (2, "8")] {
@@ -10046,6 +10214,7 @@ define_bitmask!(
 /// Khronos: [VkVideoEncodeRateControlFlagsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkVideoEncodeRateControlFlagsKHR.html) (bitmask, no bits defined)
 pub type VkVideoEncodeRateControlFlagsKHR = VkVideoEncodeRateControlFlagBitsKHR;
 impl core::fmt::Debug for VkVideoEncodeRateControlFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -10070,6 +10239,7 @@ pub const VK_VIDEO_ENCODE_RATE_CONTROL_MODE_VBR_BIT_KHR:
 pub const VK_VIDEO_ENCODE_RATE_CONTROL_MODE_DEFAULT_KHR:
   VkVideoEncodeRateControlModeFlagBitsKHR = VkVideoEncodeRateControlModeFlagBitsKHR(0);
 impl core::fmt::Debug for VkVideoEncodeRateControlModeFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(2, "cbr"), (1, "disabled"), (4, "vbr")] {
@@ -10115,6 +10285,7 @@ pub const VK_VIDEO_ENCODE_USAGE_TRANSCODING_BIT_KHR: VkVideoEncodeUsageFlagBitsK
 pub const VK_VIDEO_ENCODE_USAGE_DEFAULT_KHR: VkVideoEncodeUsageFlagBitsKHR =
   VkVideoEncodeUsageFlagBitsKHR(0);
 impl core::fmt::Debug for VkVideoEncodeUsageFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
@@ -10157,6 +10328,7 @@ define_bitmask!(
 /// Khronos: [VkVideoEndCodingFlagsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkVideoEndCodingFlagsKHR.html) (bitmask, no bits defined)
 pub type VkVideoEndCodingFlagsKHR = VkVideoEndCodingFlagBitsKHR;
 impl core::fmt::Debug for VkVideoEndCodingFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -10172,6 +10344,7 @@ pub type VkVideoSessionCreateFlagsKHR = VkVideoSessionCreateFlagBitsKHR;
 pub const VK_VIDEO_SESSION_CREATE_PROTECTED_CONTENT_BIT_KHR:
   VkVideoSessionCreateFlagBitsKHR = VkVideoSessionCreateFlagBitsKHR(1 << 0);
 impl core::fmt::Debug for VkVideoSessionCreateFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [(1, "protected_content")] {
@@ -10198,6 +10371,7 @@ define_bitmask!(
 pub type VkVideoSessionParametersCreateFlagsKHR =
   VkVideoSessionParametersCreateFlagBitsKHR;
 impl core::fmt::Debug for VkVideoSessionParametersCreateFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -10211,6 +10385,7 @@ define_bitmask!(
 /// Khronos: [VkWaylandSurfaceCreateFlagsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkWaylandSurfaceCreateFlagsKHR.html) (bitmask, no bits defined)
 pub type VkWaylandSurfaceCreateFlagsKHR = VkWaylandSurfaceCreateFlagBitsKHR;
 impl core::fmt::Debug for VkWaylandSurfaceCreateFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -10224,6 +10399,7 @@ define_bitmask!(
 /// Khronos: [VkWin32SurfaceCreateFlagsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkWin32SurfaceCreateFlagsKHR.html) (bitmask, no bits defined)
 pub type VkWin32SurfaceCreateFlagsKHR = VkWin32SurfaceCreateFlagBitsKHR;
 impl core::fmt::Debug for VkWin32SurfaceCreateFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -10237,6 +10413,7 @@ define_bitmask!(
 /// Khronos: [VkXcbSurfaceCreateFlagsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkXcbSurfaceCreateFlagsKHR.html) (bitmask, no bits defined)
 pub type VkXcbSurfaceCreateFlagsKHR = VkXcbSurfaceCreateFlagBitsKHR;
 impl core::fmt::Debug for VkXcbSurfaceCreateFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()
@@ -10250,6 +10427,7 @@ define_bitmask!(
 /// Khronos: [VkXlibSurfaceCreateFlagsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkXlibSurfaceCreateFlagsKHR.html) (bitmask, no bits defined)
 pub type VkXlibSurfaceCreateFlagsKHR = VkXlibSurfaceCreateFlagBitsKHR;
 impl core::fmt::Debug for VkXlibSurfaceCreateFlagBitsKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     x.finish()

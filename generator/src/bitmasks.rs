@@ -64,6 +64,7 @@ impl Display for Flags {
     }
 
     writeln!(f, "impl core::fmt::Debug for {core_name}FlagBits{digits}{vendor} {{")?;
+    writeln!(f, "#[allow(clippy::missing_inline_in_public_items)]")?;
     writeln!(
       f,
       "  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {{"

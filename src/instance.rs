@@ -23,6 +23,7 @@ impl Drop for DestroyInstanceOnDrop {
 
 pub struct Instance(pub(crate) Arc<DestroyInstanceOnDrop>);
 impl core::fmt::Debug for Instance {
+  #[inline]
   fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
     core::fmt::Debug::fmt(&self.0.vk_instance, f)
   }

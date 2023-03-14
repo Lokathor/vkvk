@@ -255,6 +255,7 @@ pub struct InstanceCreateInfo {
   enabled_extension_capacity: u32,
 }
 impl Drop for InstanceCreateInfo {
+  #[inline]
   fn drop(&mut self) {
     drop(unsafe {
       Vec::from_raw_parts(
@@ -310,6 +311,7 @@ impl InstanceCreateInfo {
       op
     );
   }
+
   /// Runs a closure using the extensions list.
   ///
   /// ```
@@ -339,6 +341,7 @@ impl InstanceCreateInfo {
       )
     }
   }
+
   /// View the names of the extensions to use
   #[inline]
   #[must_use]

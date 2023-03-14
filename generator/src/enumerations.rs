@@ -25,6 +25,7 @@ impl Display for Enumeration {
       core::fmt::Display::fmt(alias, f)?;
     }
     writeln!(f, "impl core::fmt::Debug for {name} {{")?;
+    writeln!(f, "#[allow(clippy::missing_inline_in_public_items)]")?;
     writeln!(
       f,
       "  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {{"

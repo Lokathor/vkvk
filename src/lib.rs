@@ -1,5 +1,6 @@
 #![warn(missing_docs)]
 #![cfg_attr(docs_rs, feature(doc_cfg))]
+#![warn(clippy::missing_inline_in_public_items)]
 
 //! A library for interacting with the Vulkan graphical and compute API.
 //!

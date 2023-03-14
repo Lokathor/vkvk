@@ -11,6 +11,7 @@ pub const VK_ACCELERATION_STRUCTURE_BUILD_TYPE_HOST_KHR:
 pub const VK_ACCELERATION_STRUCTURE_BUILD_TYPE_HOST_OR_DEVICE_KHR:
   VkAccelerationStructureBuildTypeKHR = VkAccelerationStructureBuildTypeKHR(2);
 impl core::fmt::Debug for VkAccelerationStructureBuildTypeKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_ACCELERATION_STRUCTURE_BUILD_TYPE_DEVICE_KHR => {
@@ -37,6 +38,7 @@ pub const VK_ACCELERATION_STRUCTURE_COMPATIBILITY_COMPATIBLE_KHR:
 pub const VK_ACCELERATION_STRUCTURE_COMPATIBILITY_INCOMPATIBLE_KHR:
   VkAccelerationStructureCompatibilityKHR = VkAccelerationStructureCompatibilityKHR(1);
 impl core::fmt::Debug for VkAccelerationStructureCompatibilityKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_ACCELERATION_STRUCTURE_COMPATIBILITY_COMPATIBLE_KHR => {
@@ -65,6 +67,7 @@ pub const VK_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_TYPE_UPDATE_SCRATCH_NV:
   VkAccelerationStructureMemoryRequirementsTypeNV =
   VkAccelerationStructureMemoryRequirementsTypeNV(2);
 impl core::fmt::Debug for VkAccelerationStructureMemoryRequirementsTypeNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_TYPE_BUILD_SCRATCH_NV => {
@@ -98,6 +101,7 @@ pub const VK_ACCELERATION_STRUCTURE_MOTION_INSTANCE_TYPE_STATIC_NV:
   VkAccelerationStructureMotionInstanceTypeNV =
   VkAccelerationStructureMotionInstanceTypeNV(0);
 impl core::fmt::Debug for VkAccelerationStructureMotionInstanceTypeNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_ACCELERATION_STRUCTURE_MOTION_INSTANCE_TYPE_MATRIX_MOTION_NV => {
@@ -134,6 +138,7 @@ pub const VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_NV: VkAccelerationStructur
 pub const VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_NV: VkAccelerationStructureTypeKHR =
   VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR;
 impl core::fmt::Debug for VkAccelerationStructureTypeKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_KHR => {
@@ -161,6 +166,7 @@ pub const VK_ATTACHMENT_LOAD_OP_LOAD: VkAttachmentLoadOp = VkAttachmentLoadOp(0)
 pub const VK_ATTACHMENT_LOAD_OP_NONE_EXT: VkAttachmentLoadOp =
   VkAttachmentLoadOp(1000400000);
 impl core::fmt::Debug for VkAttachmentLoadOp {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_ATTACHMENT_LOAD_OP_CLEAR => "VK_ATTACHMENT_LOAD_OP_CLEAR",
@@ -191,6 +197,7 @@ pub const VK_ATTACHMENT_STORE_OP_NONE_KHR: VkAttachmentStoreOp =
 pub const VK_ATTACHMENT_STORE_OP_NONE_QCOM: VkAttachmentStoreOp =
   VK_ATTACHMENT_STORE_OP_NONE;
 impl core::fmt::Debug for VkAttachmentStoreOp {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_ATTACHMENT_STORE_OP_DONT_CARE => "VK_ATTACHMENT_STORE_OP_DONT_CARE",
@@ -226,6 +233,7 @@ pub const VK_BLEND_FACTOR_SRC_ALPHA_SATURATE: VkBlendFactor = VkBlendFactor(14);
 pub const VK_BLEND_FACTOR_SRC_COLOR: VkBlendFactor = VkBlendFactor(2);
 pub const VK_BLEND_FACTOR_ZERO: VkBlendFactor = VkBlendFactor(0);
 impl core::fmt::Debug for VkBlendFactor {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_BLEND_FACTOR_CONSTANT_ALPHA => "VK_BLEND_FACTOR_CONSTANT_ALPHA",
@@ -313,6 +321,7 @@ pub const VK_BLEND_OP_VIVIDLIGHT_EXT: VkBlendOp = VkBlendOp(1000148027);
 pub const VK_BLEND_OP_XOR_EXT: VkBlendOp = VkBlendOp(1000148011);
 pub const VK_BLEND_OP_ZERO_EXT: VkBlendOp = VkBlendOp(1000148000);
 impl core::fmt::Debug for VkBlendOp {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_BLEND_OP_ADD => "VK_BLEND_OP_ADD",
@@ -380,6 +389,7 @@ pub const VK_BLEND_OVERLAP_CONJOINT_EXT: VkBlendOverlapEXT = VkBlendOverlapEXT(2
 pub const VK_BLEND_OVERLAP_DISJOINT_EXT: VkBlendOverlapEXT = VkBlendOverlapEXT(1);
 pub const VK_BLEND_OVERLAP_UNCORRELATED_EXT: VkBlendOverlapEXT = VkBlendOverlapEXT(0);
 impl core::fmt::Debug for VkBlendOverlapEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_BLEND_OVERLAP_CONJOINT_EXT => "VK_BLEND_OVERLAP_CONJOINT_EXT",
@@ -404,6 +414,7 @@ pub const VK_BORDER_COLOR_INT_OPAQUE_BLACK: VkBorderColor = VkBorderColor(3);
 pub const VK_BORDER_COLOR_INT_OPAQUE_WHITE: VkBorderColor = VkBorderColor(5);
 pub const VK_BORDER_COLOR_INT_TRANSPARENT_BLACK: VkBorderColor = VkBorderColor(1);
 impl core::fmt::Debug for VkBorderColor {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_BORDER_COLOR_FLOAT_CUSTOM_EXT => "VK_BORDER_COLOR_FLOAT_CUSTOM_EXT",
@@ -431,6 +442,7 @@ pub const VK_BUILD_ACCELERATION_STRUCTURE_MODE_BUILD_KHR:
 pub const VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR:
   VkBuildAccelerationStructureModeKHR = VkBuildAccelerationStructureModeKHR(1);
 impl core::fmt::Debug for VkBuildAccelerationStructureModeKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_BUILD_ACCELERATION_STRUCTURE_MODE_BUILD_KHR => {
@@ -452,6 +464,7 @@ define_enumeration!(
 pub const VK_BUILD_MICROMAP_MODE_BUILD_EXT: VkBuildMicromapModeEXT =
   VkBuildMicromapModeEXT(0);
 impl core::fmt::Debug for VkBuildMicromapModeEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_BUILD_MICROMAP_MODE_BUILD_EXT => "VK_BUILD_MICROMAP_MODE_BUILD_EXT",
@@ -473,6 +486,7 @@ pub const VK_CHROMA_LOCATION_COSITED_EVEN_KHR: VkChromaLocation =
 /// Alias of [`VK_CHROMA_LOCATION_MIDPOINT`]
 pub const VK_CHROMA_LOCATION_MIDPOINT_KHR: VkChromaLocation = VK_CHROMA_LOCATION_MIDPOINT;
 impl core::fmt::Debug for VkChromaLocation {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_CHROMA_LOCATION_COSITED_EVEN => "VK_CHROMA_LOCATION_COSITED_EVEN",
@@ -496,6 +510,7 @@ pub const VK_COARSE_SAMPLE_ORDER_TYPE_PIXEL_MAJOR_NV: VkCoarseSampleOrderTypeNV 
 pub const VK_COARSE_SAMPLE_ORDER_TYPE_SAMPLE_MAJOR_NV: VkCoarseSampleOrderTypeNV =
   VkCoarseSampleOrderTypeNV(3);
 impl core::fmt::Debug for VkCoarseSampleOrderTypeNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_COARSE_SAMPLE_ORDER_TYPE_CUSTOM_NV => "VK_COARSE_SAMPLE_ORDER_TYPE_CUSTOM_NV",
@@ -550,6 +565,7 @@ pub const VK_COLORSPACE_SRGB_NONLINEAR_KHR: VkColorSpaceKHR =
 pub const VK_COLOR_SPACE_DCI_P3_LINEAR_EXT: VkColorSpaceKHR =
   VK_COLOR_SPACE_DISPLAY_P3_LINEAR_EXT;
 impl core::fmt::Debug for VkColorSpaceKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_COLOR_SPACE_ADOBERGB_LINEAR_EXT => "VK_COLOR_SPACE_ADOBERGB_LINEAR_EXT",
@@ -588,6 +604,7 @@ pub const VK_COMMAND_BUFFER_LEVEL_PRIMARY: VkCommandBufferLevel = VkCommandBuffe
 pub const VK_COMMAND_BUFFER_LEVEL_SECONDARY: VkCommandBufferLevel =
   VkCommandBufferLevel(1);
 impl core::fmt::Debug for VkCommandBufferLevel {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_COMMAND_BUFFER_LEVEL_PRIMARY => "VK_COMMAND_BUFFER_LEVEL_PRIMARY",
@@ -611,6 +628,7 @@ pub const VK_COMPARE_OP_LESS_OR_EQUAL: VkCompareOp = VkCompareOp(3);
 pub const VK_COMPARE_OP_NEVER: VkCompareOp = VkCompareOp(0);
 pub const VK_COMPARE_OP_NOT_EQUAL: VkCompareOp = VkCompareOp(5);
 impl core::fmt::Debug for VkCompareOp {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_COMPARE_OP_ALWAYS => "VK_COMPARE_OP_ALWAYS",
@@ -639,6 +657,7 @@ pub const VK_COMPONENT_SWIZZLE_ONE: VkComponentSwizzle = VkComponentSwizzle(2);
 pub const VK_COMPONENT_SWIZZLE_R: VkComponentSwizzle = VkComponentSwizzle(3);
 pub const VK_COMPONENT_SWIZZLE_ZERO: VkComponentSwizzle = VkComponentSwizzle(1);
 impl core::fmt::Debug for VkComponentSwizzle {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_COMPONENT_SWIZZLE_A => "VK_COMPONENT_SWIZZLE_A",
@@ -670,6 +689,7 @@ pub const VK_COMPONENT_TYPE_UINT32_NV: VkComponentTypeNV = VkComponentTypeNV(9);
 pub const VK_COMPONENT_TYPE_UINT64_NV: VkComponentTypeNV = VkComponentTypeNV(10);
 pub const VK_COMPONENT_TYPE_UINT8_NV: VkComponentTypeNV = VkComponentTypeNV(7);
 impl core::fmt::Debug for VkComponentTypeNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_COMPONENT_TYPE_FLOAT16_NV => "VK_COMPONENT_TYPE_FLOAT16_NV",
@@ -700,6 +720,7 @@ pub const VK_CONSERVATIVE_RASTERIZATION_MODE_OVERESTIMATE_EXT:
 pub const VK_CONSERVATIVE_RASTERIZATION_MODE_UNDERESTIMATE_EXT:
   VkConservativeRasterizationModeEXT = VkConservativeRasterizationModeEXT(2);
 impl core::fmt::Debug for VkConservativeRasterizationModeEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_CONSERVATIVE_RASTERIZATION_MODE_DISABLED_EXT => {
@@ -736,6 +757,7 @@ pub const VK_COPY_ACCELERATION_STRUCTURE_MODE_CLONE_NV:
 pub const VK_COPY_ACCELERATION_STRUCTURE_MODE_COMPACT_NV:
   VkCopyAccelerationStructureModeKHR = VK_COPY_ACCELERATION_STRUCTURE_MODE_COMPACT_KHR;
 impl core::fmt::Debug for VkCopyAccelerationStructureModeKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_COPY_ACCELERATION_STRUCTURE_MODE_CLONE_KHR => {
@@ -769,6 +791,7 @@ pub const VK_COPY_MICROMAP_MODE_DESERIALIZE_EXT: VkCopyMicromapModeEXT =
 pub const VK_COPY_MICROMAP_MODE_SERIALIZE_EXT: VkCopyMicromapModeEXT =
   VkCopyMicromapModeEXT(1);
 impl core::fmt::Debug for VkCopyMicromapModeEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_COPY_MICROMAP_MODE_CLONE_EXT => "VK_COPY_MICROMAP_MODE_CLONE_EXT",
@@ -794,6 +817,7 @@ pub const VK_COVERAGE_MODULATION_MODE_RGBA_NV: VkCoverageModulationModeNV =
 pub const VK_COVERAGE_MODULATION_MODE_RGB_NV: VkCoverageModulationModeNV =
   VkCoverageModulationModeNV(1);
 impl core::fmt::Debug for VkCoverageModulationModeNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_COVERAGE_MODULATION_MODE_ALPHA_NV => "VK_COVERAGE_MODULATION_MODE_ALPHA_NV",
@@ -815,6 +839,7 @@ pub const VK_COVERAGE_REDUCTION_MODE_MERGE_NV: VkCoverageReductionModeNV =
 pub const VK_COVERAGE_REDUCTION_MODE_TRUNCATE_NV: VkCoverageReductionModeNV =
   VkCoverageReductionModeNV(1);
 impl core::fmt::Debug for VkCoverageReductionModeNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_COVERAGE_REDUCTION_MODE_MERGE_NV => "VK_COVERAGE_REDUCTION_MODE_MERGE_NV",
@@ -922,6 +947,7 @@ pub const VK_DEBUG_REPORT_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION_KHR_EXT:
 pub const VK_DEBUG_REPORT_OBJECT_TYPE_VALIDATION_CACHE_EXT: VkDebugReportObjectTypeEXT =
   VK_DEBUG_REPORT_OBJECT_TYPE_VALIDATION_CACHE_EXT_EXT;
 impl core::fmt::Debug for VkDebugReportObjectTypeEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_DEBUG_REPORT_OBJECT_TYPE_ACCELERATION_STRUCTURE_KHR_EXT => {
@@ -1071,6 +1097,7 @@ pub const VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK_EXT: VkDescriptorType =
 pub const VK_DESCRIPTOR_TYPE_MUTABLE_VALVE: VkDescriptorType =
   VK_DESCRIPTOR_TYPE_MUTABLE_EXT;
 impl core::fmt::Debug for VkDescriptorType {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_KHR => {
@@ -1130,6 +1157,7 @@ pub const VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS_KHR:
 pub const VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_DESCRIPTOR_SET_KHR:
   VkDescriptorUpdateTemplateType = VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_DESCRIPTOR_SET;
 impl core::fmt::Debug for VkDescriptorUpdateTemplateType {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_DESCRIPTOR_SET => {
@@ -1153,6 +1181,7 @@ pub const VK_DEVICE_ADDRESS_BINDING_TYPE_BIND_EXT: VkDeviceAddressBindingTypeEXT
 pub const VK_DEVICE_ADDRESS_BINDING_TYPE_UNBIND_EXT: VkDeviceAddressBindingTypeEXT =
   VkDeviceAddressBindingTypeEXT(1);
 impl core::fmt::Debug for VkDeviceAddressBindingTypeEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_DEVICE_ADDRESS_BINDING_TYPE_BIND_EXT => {
@@ -1174,6 +1203,7 @@ define_enumeration!(
 pub const VK_DEVICE_EVENT_TYPE_DISPLAY_HOTPLUG_EXT: VkDeviceEventTypeEXT =
   VkDeviceEventTypeEXT(0);
 impl core::fmt::Debug for VkDeviceEventTypeEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_DEVICE_EVENT_TYPE_DISPLAY_HOTPLUG_EXT => {
@@ -1205,6 +1235,7 @@ pub const VK_DEVICE_FAULT_ADDRESS_TYPE_READ_INVALID_EXT: VkDeviceFaultAddressTyp
 pub const VK_DEVICE_FAULT_ADDRESS_TYPE_WRITE_INVALID_EXT: VkDeviceFaultAddressTypeEXT =
   VkDeviceFaultAddressTypeEXT(2);
 impl core::fmt::Debug for VkDeviceFaultAddressTypeEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_DEVICE_FAULT_ADDRESS_TYPE_EXECUTE_INVALID_EXT => {
@@ -1240,6 +1271,7 @@ pub const VK_DEVICE_FAULT_VENDOR_BINARY_HEADER_VERSION_ONE_EXT:
   VkDeviceFaultVendorBinaryHeaderVersionEXT =
   VkDeviceFaultVendorBinaryHeaderVersionEXT(1);
 impl core::fmt::Debug for VkDeviceFaultVendorBinaryHeaderVersionEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_DEVICE_FAULT_VENDOR_BINARY_HEADER_VERSION_ONE_EXT => {
@@ -1268,6 +1300,7 @@ pub const VK_DEVICE_MEMORY_REPORT_EVENT_TYPE_IMPORT_EXT:
 pub const VK_DEVICE_MEMORY_REPORT_EVENT_TYPE_UNIMPORT_EXT:
   VkDeviceMemoryReportEventTypeEXT = VkDeviceMemoryReportEventTypeEXT(3);
 impl core::fmt::Debug for VkDeviceMemoryReportEventTypeEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_DEVICE_MEMORY_REPORT_EVENT_TYPE_ALLOCATE_EXT => {
@@ -1300,6 +1333,7 @@ pub const VK_DIRECT_DRIVER_LOADING_MODE_EXCLUSIVE_LUNARG:
 pub const VK_DIRECT_DRIVER_LOADING_MODE_INCLUSIVE_LUNARG:
   VkDirectDriverLoadingModeLUNARG = VkDirectDriverLoadingModeLUNARG(1);
 impl core::fmt::Debug for VkDirectDriverLoadingModeLUNARG {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_DIRECT_DRIVER_LOADING_MODE_EXCLUSIVE_LUNARG => {
@@ -1323,6 +1357,7 @@ pub const VK_DISCARD_RECTANGLE_MODE_EXCLUSIVE_EXT: VkDiscardRectangleModeEXT =
 pub const VK_DISCARD_RECTANGLE_MODE_INCLUSIVE_EXT: VkDiscardRectangleModeEXT =
   VkDiscardRectangleModeEXT(0);
 impl core::fmt::Debug for VkDiscardRectangleModeEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_DISCARD_RECTANGLE_MODE_EXCLUSIVE_EXT => {
@@ -1344,6 +1379,7 @@ define_enumeration!(
 pub const VK_DISPLAY_EVENT_TYPE_FIRST_PIXEL_OUT_EXT: VkDisplayEventTypeEXT =
   VkDisplayEventTypeEXT(0);
 impl core::fmt::Debug for VkDisplayEventTypeEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_DISPLAY_EVENT_TYPE_FIRST_PIXEL_OUT_EXT => {
@@ -1366,6 +1402,7 @@ pub const VK_DISPLAY_POWER_STATE_ON_EXT: VkDisplayPowerStateEXT =
 pub const VK_DISPLAY_POWER_STATE_SUSPEND_EXT: VkDisplayPowerStateEXT =
   VkDisplayPowerStateEXT(1);
 impl core::fmt::Debug for VkDisplayPowerStateEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_DISPLAY_POWER_STATE_OFF_EXT => "VK_DISPLAY_POWER_STATE_OFF_EXT",
@@ -1463,6 +1500,7 @@ pub const VK_DRIVER_ID_NVIDIA_PROPRIETARY_KHR: VkDriverId =
 pub const VK_DRIVER_ID_QUALCOMM_PROPRIETARY_KHR: VkDriverId =
   VK_DRIVER_ID_QUALCOMM_PROPRIETARY;
 impl core::fmt::Debug for VkDriverId {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_DRIVER_ID_AMD_OPEN_SOURCE => "VK_DRIVER_ID_AMD_OPEN_SOURCE",
@@ -1669,6 +1707,7 @@ pub const VK_DYNAMIC_STATE_VERTEX_INPUT_BINDING_STRIDE_EXT: VkDynamicState =
 pub const VK_DYNAMIC_STATE_VIEWPORT_WITH_COUNT_EXT: VkDynamicState =
   VK_DYNAMIC_STATE_VIEWPORT_WITH_COUNT;
 impl core::fmt::Debug for VkDynamicState {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_DYNAMIC_STATE_ALPHA_TO_COVERAGE_ENABLE_EXT => {
@@ -1833,6 +1872,7 @@ pub const VK_FAULT_LEVEL_RECOVERABLE: VkFaultLevel = VkFaultLevel(2);
 pub const VK_FAULT_LEVEL_UNASSIGNED: VkFaultLevel = VkFaultLevel(0);
 pub const VK_FAULT_LEVEL_WARNING: VkFaultLevel = VkFaultLevel(3);
 impl core::fmt::Debug for VkFaultLevel {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_FAULT_LEVEL_CRITICAL => "VK_FAULT_LEVEL_CRITICAL",
@@ -1852,6 +1892,7 @@ define_enumeration!(
 pub const VK_FAULT_QUERY_BEHAVIOR_GET_AND_CLEAR_ALL_FAULTS: VkFaultQueryBehavior =
   VkFaultQueryBehavior(0);
 impl core::fmt::Debug for VkFaultQueryBehavior {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_FAULT_QUERY_BEHAVIOR_GET_AND_CLEAR_ALL_FAULTS => {
@@ -1875,6 +1916,7 @@ pub const VK_FAULT_TYPE_PHYSICAL_DEVICE: VkFaultType = VkFaultType(4);
 pub const VK_FAULT_TYPE_SYSTEM: VkFaultType = VkFaultType(3);
 pub const VK_FAULT_TYPE_UNASSIGNED: VkFaultType = VkFaultType(1);
 impl core::fmt::Debug for VkFaultType {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_FAULT_TYPE_COMMAND_BUFFER_FULL => "VK_FAULT_TYPE_COMMAND_BUFFER_FULL",
@@ -1900,6 +1942,7 @@ pub const VK_FILTER_NEAREST: VkFilter = VkFilter(0);
 /// Alias of [`VK_FILTER_CUBIC_EXT`]
 pub const VK_FILTER_CUBIC_IMG: VkFilter = VK_FILTER_CUBIC_EXT;
 impl core::fmt::Debug for VkFilter {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_FILTER_CUBIC_EXT => "VK_FILTER_CUBIC_EXT",
@@ -2358,6 +2401,7 @@ pub const VK_FORMAT_R12X4G12X4_UNORM_2PACK16_KHR: VkFormat =
 /// Alias of [`VK_FORMAT_R12X4_UNORM_PACK16`]
 pub const VK_FORMAT_R12X4_UNORM_PACK16_KHR: VkFormat = VK_FORMAT_R12X4_UNORM_PACK16;
 impl core::fmt::Debug for VkFormat {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_FORMAT_A1R5G5B5_UNORM_PACK16 => "VK_FORMAT_A1R5G5B5_UNORM_PACK16",
@@ -2695,6 +2739,7 @@ pub const VK_FRAGMENT_SHADING_RATE_COMBINER_OP_MUL_KHR:
 pub const VK_FRAGMENT_SHADING_RATE_COMBINER_OP_REPLACE_KHR:
   VkFragmentShadingRateCombinerOpKHR = VkFragmentShadingRateCombinerOpKHR(1);
 impl core::fmt::Debug for VkFragmentShadingRateCombinerOpKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_FRAGMENT_SHADING_RATE_COMBINER_OP_KEEP_KHR => {
@@ -2747,6 +2792,7 @@ pub const VK_FRAGMENT_SHADING_RATE_8_INVOCATIONS_PER_PIXEL_NV: VkFragmentShading
 pub const VK_FRAGMENT_SHADING_RATE_NO_INVOCATIONS_NV: VkFragmentShadingRateNV =
   VkFragmentShadingRateNV(15);
 impl core::fmt::Debug for VkFragmentShadingRateNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_FRAGMENT_SHADING_RATE_16_INVOCATIONS_PER_PIXEL_NV => {
@@ -2800,6 +2846,7 @@ pub const VK_FRAGMENT_SHADING_RATE_TYPE_ENUMS_NV: VkFragmentShadingRateTypeNV =
 pub const VK_FRAGMENT_SHADING_RATE_TYPE_FRAGMENT_SIZE_NV: VkFragmentShadingRateTypeNV =
   VkFragmentShadingRateTypeNV(0);
 impl core::fmt::Debug for VkFragmentShadingRateTypeNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_FRAGMENT_SHADING_RATE_TYPE_ENUMS_NV => "VK_FRAGMENT_SHADING_RATE_TYPE_ENUMS_NV",
@@ -2819,6 +2866,7 @@ define_enumeration!(
 pub const VK_FRONT_FACE_CLOCKWISE: VkFrontFace = VkFrontFace(1);
 pub const VK_FRONT_FACE_COUNTER_CLOCKWISE: VkFrontFace = VkFrontFace(0);
 impl core::fmt::Debug for VkFrontFace {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_FRONT_FACE_CLOCKWISE => "VK_FRONT_FACE_CLOCKWISE",
@@ -2842,6 +2890,7 @@ pub const VK_FULL_SCREEN_EXCLUSIVE_DEFAULT_EXT: VkFullScreenExclusiveEXT =
 pub const VK_FULL_SCREEN_EXCLUSIVE_DISALLOWED_EXT: VkFullScreenExclusiveEXT =
   VkFullScreenExclusiveEXT(2);
 impl core::fmt::Debug for VkFullScreenExclusiveEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_FULL_SCREEN_EXCLUSIVE_ALLOWED_EXT => "VK_FULL_SCREEN_EXCLUSIVE_ALLOWED_EXT",
@@ -2871,6 +2920,7 @@ pub const VK_GEOMETRY_TYPE_AABBS_NV: VkGeometryTypeKHR = VK_GEOMETRY_TYPE_AABBS_
 pub const VK_GEOMETRY_TYPE_TRIANGLES_NV: VkGeometryTypeKHR =
   VK_GEOMETRY_TYPE_TRIANGLES_KHR;
 impl core::fmt::Debug for VkGeometryTypeKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_GEOMETRY_TYPE_AABBS_KHR => "VK_GEOMETRY_TYPE_AABBS_KHR",
@@ -2965,6 +3015,7 @@ pub const VK_IMAGE_LAYOUT_STENCIL_ATTACHMENT_OPTIMAL_KHR: VkImageLayout =
 pub const VK_IMAGE_LAYOUT_STENCIL_READ_ONLY_OPTIMAL_KHR: VkImageLayout =
   VK_IMAGE_LAYOUT_STENCIL_READ_ONLY_OPTIMAL;
 impl core::fmt::Debug for VkImageLayout {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT => {
@@ -3036,6 +3087,7 @@ pub const VK_IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT: VkImageTiling =
 pub const VK_IMAGE_TILING_LINEAR: VkImageTiling = VkImageTiling(1);
 pub const VK_IMAGE_TILING_OPTIMAL: VkImageTiling = VkImageTiling(0);
 impl core::fmt::Debug for VkImageTiling {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT => {
@@ -3057,6 +3109,7 @@ pub const VK_IMAGE_TYPE_1D: VkImageType = VkImageType(0);
 pub const VK_IMAGE_TYPE_2D: VkImageType = VkImageType(1);
 pub const VK_IMAGE_TYPE_3D: VkImageType = VkImageType(2);
 impl core::fmt::Debug for VkImageType {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_IMAGE_TYPE_1D => "VK_IMAGE_TYPE_1D",
@@ -3080,6 +3133,7 @@ pub const VK_IMAGE_VIEW_TYPE_3D: VkImageViewType = VkImageViewType(2);
 pub const VK_IMAGE_VIEW_TYPE_CUBE: VkImageViewType = VkImageViewType(3);
 pub const VK_IMAGE_VIEW_TYPE_CUBE_ARRAY: VkImageViewType = VkImageViewType(6);
 impl core::fmt::Debug for VkImageViewType {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_IMAGE_VIEW_TYPE_1D => "VK_IMAGE_VIEW_TYPE_1D",
@@ -3106,6 +3160,7 @@ pub const VK_INDEX_TYPE_UINT8_EXT: VkIndexType = VkIndexType(1000265000);
 /// Alias of [`VK_INDEX_TYPE_NONE_KHR`]
 pub const VK_INDEX_TYPE_NONE_NV: VkIndexType = VK_INDEX_TYPE_NONE_KHR;
 impl core::fmt::Debug for VkIndexType {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_INDEX_TYPE_NONE_KHR => "VK_INDEX_TYPE_NONE_KHR",
@@ -3141,6 +3196,7 @@ pub const VK_INDIRECT_COMMANDS_TOKEN_TYPE_STATE_FLAGS_NV: VkIndirectCommandsToke
 pub const VK_INDIRECT_COMMANDS_TOKEN_TYPE_VERTEX_BUFFER_NV:
   VkIndirectCommandsTokenTypeNV = VkIndirectCommandsTokenTypeNV(3);
 impl core::fmt::Debug for VkIndirectCommandsTokenTypeNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_INDEXED_NV => {
@@ -3183,6 +3239,7 @@ define_enumeration!(
 pub const VK_INTERNAL_ALLOCATION_TYPE_EXECUTABLE: VkInternalAllocationType =
   VkInternalAllocationType(0);
 impl core::fmt::Debug for VkInternalAllocationType {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_INTERNAL_ALLOCATION_TYPE_EXECUTABLE => "VK_INTERNAL_ALLOCATION_TYPE_EXECUTABLE",
@@ -3205,6 +3262,7 @@ pub const VK_LINE_RASTERIZATION_MODE_RECTANGULAR_EXT: VkLineRasterizationModeEXT
 pub const VK_LINE_RASTERIZATION_MODE_RECTANGULAR_SMOOTH_EXT: VkLineRasterizationModeEXT =
   VkLineRasterizationModeEXT(3);
 impl core::fmt::Debug for VkLineRasterizationModeEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_LINE_RASTERIZATION_MODE_BRESENHAM_EXT => {
@@ -3244,6 +3302,7 @@ pub const VK_LOGIC_OP_OR_REVERSE: VkLogicOp = VkLogicOp(11);
 pub const VK_LOGIC_OP_SET: VkLogicOp = VkLogicOp(15);
 pub const VK_LOGIC_OP_XOR: VkLogicOp = VkLogicOp(6);
 impl core::fmt::Debug for VkLogicOp {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_LOGIC_OP_AND => "VK_LOGIC_OP_AND",
@@ -3279,6 +3338,7 @@ pub const VK_MEMORY_OVERALLOCATION_BEHAVIOR_DEFAULT_AMD:
 pub const VK_MEMORY_OVERALLOCATION_BEHAVIOR_DISALLOWED_AMD:
   VkMemoryOverallocationBehaviorAMD = VkMemoryOverallocationBehaviorAMD(2);
 impl core::fmt::Debug for VkMemoryOverallocationBehaviorAMD {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_MEMORY_OVERALLOCATION_BEHAVIOR_ALLOWED_AMD => {
@@ -3302,6 +3362,7 @@ define_enumeration!(
 );
 pub const VK_MICROMAP_TYPE_OPACITY_MICROMAP_EXT: VkMicromapTypeEXT = VkMicromapTypeEXT(0);
 impl core::fmt::Debug for VkMicromapTypeEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_MICROMAP_TYPE_OPACITY_MICROMAP_EXT => "VK_MICROMAP_TYPE_OPACITY_MICROMAP_EXT",
@@ -3389,6 +3450,7 @@ pub const VK_OBJECT_TYPE_PRIVATE_DATA_SLOT_EXT: VkObjectType =
 pub const VK_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION_KHR: VkObjectType =
   VK_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION;
 impl core::fmt::Debug for VkObjectType {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_OBJECT_TYPE_ACCELERATION_STRUCTURE_KHR => {
@@ -3477,6 +3539,7 @@ pub const VK_OPACITY_MICROMAP_FORMAT_2_STATE_EXT: VkOpacityMicromapFormatEXT =
 pub const VK_OPACITY_MICROMAP_FORMAT_4_STATE_EXT: VkOpacityMicromapFormatEXT =
   VkOpacityMicromapFormatEXT(2);
 impl core::fmt::Debug for VkOpacityMicromapFormatEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_OPACITY_MICROMAP_FORMAT_2_STATE_EXT => "VK_OPACITY_MICROMAP_FORMAT_2_STATE_EXT",
@@ -3500,6 +3563,7 @@ pub const VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_UNKNOWN_OPAQUE_EXT:
 pub const VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_UNKNOWN_TRANSPARENT_EXT:
   VkOpacityMicromapSpecialIndexEXT = VkOpacityMicromapSpecialIndexEXT(-3);
 impl core::fmt::Debug for VkOpacityMicromapSpecialIndexEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_OPAQUE_EXT => {
@@ -3533,6 +3597,7 @@ pub const VK_OPTICAL_FLOW_PERFORMANCE_LEVEL_SLOW_NV: VkOpticalFlowPerformanceLev
 pub const VK_OPTICAL_FLOW_PERFORMANCE_LEVEL_UNKNOWN_NV: VkOpticalFlowPerformanceLevelNV =
   VkOpticalFlowPerformanceLevelNV(0);
 impl core::fmt::Debug for VkOpticalFlowPerformanceLevelNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_OPTICAL_FLOW_PERFORMANCE_LEVEL_FAST_NV => {
@@ -3576,6 +3641,7 @@ pub const VK_OPTICAL_FLOW_SESSION_BINDING_POINT_REFERENCE_NV:
 pub const VK_OPTICAL_FLOW_SESSION_BINDING_POINT_UNKNOWN_NV:
   VkOpticalFlowSessionBindingPointNV = VkOpticalFlowSessionBindingPointNV(0);
 impl core::fmt::Debug for VkOpticalFlowSessionBindingPointNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_OPTICAL_FLOW_SESSION_BINDING_POINT_BACKWARD_COST_NV => {
@@ -3617,6 +3683,7 @@ define_enumeration!(
 );
 pub const VK_PERFORMANCE_CONFIGURATION_TYPE_COMMAND_QUEUE_METRICS_DISCOVERY_ACTIVATED_INTEL: VkPerformanceConfigurationTypeINTEL = VkPerformanceConfigurationTypeINTEL(0);
 impl core::fmt::Debug for VkPerformanceConfigurationTypeINTEL {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_PERFORMANCE_CONFIGURATION_TYPE_COMMAND_QUEUE_METRICS_DISCOVERY_ACTIVATED_INTEL => "VK_PERFORMANCE_CONFIGURATION_TYPE_COMMAND_QUEUE_METRICS_DISCOVERY_ACTIVATED_INTEL",
@@ -3649,6 +3716,7 @@ pub const VK_QUERY_SCOPE_COMMAND_KHR: VkPerformanceCounterScopeKHR =
 pub const VK_QUERY_SCOPE_RENDER_PASS_KHR: VkPerformanceCounterScopeKHR =
   VK_PERFORMANCE_COUNTER_SCOPE_RENDER_PASS_KHR;
 impl core::fmt::Debug for VkPerformanceCounterScopeKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_PERFORMANCE_COUNTER_SCOPE_COMMAND_BUFFER_KHR => {
@@ -3683,6 +3751,7 @@ pub const VK_PERFORMANCE_COUNTER_STORAGE_UINT32_KHR: VkPerformanceCounterStorage
 pub const VK_PERFORMANCE_COUNTER_STORAGE_UINT64_KHR: VkPerformanceCounterStorageKHR =
   VkPerformanceCounterStorageKHR(3);
 impl core::fmt::Debug for VkPerformanceCounterStorageKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_PERFORMANCE_COUNTER_STORAGE_FLOAT32_KHR => {
@@ -3736,6 +3805,7 @@ pub const VK_PERFORMANCE_COUNTER_UNIT_VOLTS_KHR: VkPerformanceCounterUnitKHR =
 pub const VK_PERFORMANCE_COUNTER_UNIT_WATTS_KHR: VkPerformanceCounterUnitKHR =
   VkPerformanceCounterUnitKHR(6);
 impl core::fmt::Debug for VkPerformanceCounterUnitKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_PERFORMANCE_COUNTER_UNIT_AMPS_KHR => "VK_PERFORMANCE_COUNTER_UNIT_AMPS_KHR",
@@ -3772,6 +3842,7 @@ pub const VK_PERFORMANCE_OVERRIDE_TYPE_FLUSH_GPU_CACHES_INTEL:
 pub const VK_PERFORMANCE_OVERRIDE_TYPE_NULL_HARDWARE_INTEL:
   VkPerformanceOverrideTypeINTEL = VkPerformanceOverrideTypeINTEL(0);
 impl core::fmt::Debug for VkPerformanceOverrideTypeINTEL {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_PERFORMANCE_OVERRIDE_TYPE_FLUSH_GPU_CACHES_INTEL => {
@@ -3795,6 +3866,7 @@ pub const VK_PERFORMANCE_PARAMETER_TYPE_HW_COUNTERS_SUPPORTED_INTEL:
 pub const VK_PERFORMANCE_PARAMETER_TYPE_STREAM_MARKER_VALID_BITS_INTEL:
   VkPerformanceParameterTypeINTEL = VkPerformanceParameterTypeINTEL(1);
 impl core::fmt::Debug for VkPerformanceParameterTypeINTEL {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_PERFORMANCE_PARAMETER_TYPE_HW_COUNTERS_SUPPORTED_INTEL => {
@@ -3824,6 +3896,7 @@ pub const VK_PERFORMANCE_VALUE_TYPE_UINT32_INTEL: VkPerformanceValueTypeINTEL =
 pub const VK_PERFORMANCE_VALUE_TYPE_UINT64_INTEL: VkPerformanceValueTypeINTEL =
   VkPerformanceValueTypeINTEL(1);
 impl core::fmt::Debug for VkPerformanceValueTypeINTEL {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_PERFORMANCE_VALUE_TYPE_BOOL_INTEL => "VK_PERFORMANCE_VALUE_TYPE_BOOL_INTEL",
@@ -3850,6 +3923,7 @@ pub const VK_PHYSICAL_DEVICE_TYPE_OTHER: VkPhysicalDeviceType = VkPhysicalDevice
 pub const VK_PHYSICAL_DEVICE_TYPE_VIRTUAL_GPU: VkPhysicalDeviceType =
   VkPhysicalDeviceType(3);
 impl core::fmt::Debug for VkPhysicalDeviceType {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_PHYSICAL_DEVICE_TYPE_CPU => "VK_PHYSICAL_DEVICE_TYPE_CPU",
@@ -3877,6 +3951,7 @@ pub const VK_PIPELINE_BIND_POINT_SUBPASS_SHADING_HUAWEI: VkPipelineBindPoint =
 pub const VK_PIPELINE_BIND_POINT_RAY_TRACING_NV: VkPipelineBindPoint =
   VK_PIPELINE_BIND_POINT_RAY_TRACING_KHR;
 impl core::fmt::Debug for VkPipelineBindPoint {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_PIPELINE_BIND_POINT_COMPUTE => "VK_PIPELINE_BIND_POINT_COMPUTE",
@@ -3898,6 +3973,7 @@ define_enumeration!(
 pub const VK_PIPELINE_CACHE_HEADER_VERSION_ONE: VkPipelineCacheHeaderVersion =
   VkPipelineCacheHeaderVersion(1);
 impl core::fmt::Debug for VkPipelineCacheHeaderVersion {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_PIPELINE_CACHE_HEADER_VERSION_ONE => "VK_PIPELINE_CACHE_HEADER_VERSION_ONE",
@@ -3914,6 +3990,7 @@ define_enumeration!(
 pub const VK_PIPELINE_CACHE_VALIDATION_VERSION_SAFETY_CRITICAL_ONE:
   VkPipelineCacheValidationVersion = VkPipelineCacheValidationVersion(1);
 impl core::fmt::Debug for VkPipelineCacheValidationVersion {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_PIPELINE_CACHE_VALIDATION_VERSION_SAFETY_CRITICAL_ONE => {
@@ -3938,6 +4015,7 @@ pub const VK_PIPELINE_EXECUTABLE_STATISTIC_FORMAT_INT64_KHR:
 pub const VK_PIPELINE_EXECUTABLE_STATISTIC_FORMAT_UINT64_KHR:
   VkPipelineExecutableStatisticFormatKHR = VkPipelineExecutableStatisticFormatKHR(2);
 impl core::fmt::Debug for VkPipelineExecutableStatisticFormatKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_PIPELINE_EXECUTABLE_STATISTIC_FORMAT_BOOL32_KHR => {
@@ -3965,6 +4043,7 @@ define_enumeration!(
 pub const VK_PIPELINE_MATCH_CONTROL_APPLICATION_UUID_EXACT_MATCH: VkPipelineMatchControl =
   VkPipelineMatchControl(0);
 impl core::fmt::Debug for VkPipelineMatchControl {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_PIPELINE_MATCH_CONTROL_APPLICATION_UUID_EXACT_MATCH => {
@@ -3989,6 +4068,7 @@ pub const VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS_2_EXT:
 pub const VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS_EXT:
   VkPipelineRobustnessBufferBehaviorEXT = VkPipelineRobustnessBufferBehaviorEXT(2);
 impl core::fmt::Debug for VkPipelineRobustnessBufferBehaviorEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_DEVICE_DEFAULT_EXT => {
@@ -4022,6 +4102,7 @@ pub const VK_PIPELINE_ROBUSTNESS_IMAGE_BEHAVIOR_ROBUST_IMAGE_ACCESS_2_EXT:
 pub const VK_PIPELINE_ROBUSTNESS_IMAGE_BEHAVIOR_ROBUST_IMAGE_ACCESS_EXT:
   VkPipelineRobustnessImageBehaviorEXT = VkPipelineRobustnessImageBehaviorEXT(2);
 impl core::fmt::Debug for VkPipelineRobustnessImageBehaviorEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_PIPELINE_ROBUSTNESS_IMAGE_BEHAVIOR_DEVICE_DEFAULT_EXT => {
@@ -4057,6 +4138,7 @@ pub const VK_POINT_CLIPPING_BEHAVIOR_ALL_CLIP_PLANES_KHR: VkPointClippingBehavio
 pub const VK_POINT_CLIPPING_BEHAVIOR_USER_CLIP_PLANES_ONLY_KHR: VkPointClippingBehavior =
   VK_POINT_CLIPPING_BEHAVIOR_USER_CLIP_PLANES_ONLY;
 impl core::fmt::Debug for VkPointClippingBehavior {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_POINT_CLIPPING_BEHAVIOR_ALL_CLIP_PLANES => {
@@ -4080,6 +4162,7 @@ pub const VK_POLYGON_MODE_FILL_RECTANGLE_NV: VkPolygonMode = VkPolygonMode(10001
 pub const VK_POLYGON_MODE_LINE: VkPolygonMode = VkPolygonMode(1);
 pub const VK_POLYGON_MODE_POINT: VkPolygonMode = VkPolygonMode(2);
 impl core::fmt::Debug for VkPolygonMode {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_POLYGON_MODE_FILL => "VK_POLYGON_MODE_FILL",
@@ -4105,6 +4188,7 @@ pub const VK_PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR: VkPresentModeKHR =
 pub const VK_PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR: VkPresentModeKHR =
   VkPresentModeKHR(1000111000);
 impl core::fmt::Debug for VkPresentModeKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_PRESENT_MODE_FIFO_KHR => "VK_PRESENT_MODE_FIFO_KHR",
@@ -4146,6 +4230,7 @@ pub const VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP: VkPrimitiveTopology =
 pub const VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP_WITH_ADJACENCY: VkPrimitiveTopology =
   VkPrimitiveTopology(9);
 impl core::fmt::Debug for VkPrimitiveTopology {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_PRIMITIVE_TOPOLOGY_LINE_LIST => "VK_PRIMITIVE_TOPOLOGY_LINE_LIST",
@@ -4182,6 +4267,7 @@ pub const VK_PROVOKING_VERTEX_MODE_FIRST_VERTEX_EXT: VkProvokingVertexModeEXT =
 pub const VK_PROVOKING_VERTEX_MODE_LAST_VERTEX_EXT: VkProvokingVertexModeEXT =
   VkProvokingVertexModeEXT(1);
 impl core::fmt::Debug for VkProvokingVertexModeEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_PROVOKING_VERTEX_MODE_FIRST_VERTEX_EXT => {
@@ -4203,6 +4289,7 @@ define_enumeration!(
 pub const VK_QUERY_POOL_SAMPLING_MODE_MANUAL_INTEL: VkQueryPoolSamplingModeINTEL =
   VkQueryPoolSamplingModeINTEL(0);
 impl core::fmt::Debug for VkQueryPoolSamplingModeINTEL {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_QUERY_POOL_SAMPLING_MODE_MANUAL_INTEL => {
@@ -4225,6 +4312,7 @@ pub const VK_QUERY_RESULT_STATUS_ERROR_KHR: VkQueryResultStatusKHR =
 pub const VK_QUERY_RESULT_STATUS_NOT_READY_KHR: VkQueryResultStatusKHR =
   VkQueryResultStatusKHR(0);
 impl core::fmt::Debug for VkQueryResultStatusKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_QUERY_RESULT_STATUS_COMPLETE_KHR => "VK_QUERY_RESULT_STATUS_COMPLETE_KHR",
@@ -4268,6 +4356,7 @@ pub const VK_QUERY_TYPE_TRANSFORM_FEEDBACK_STREAM_EXT: VkQueryType =
   VkQueryType(1000028004);
 pub const VK_QUERY_TYPE_VIDEO_ENCODE_FEEDBACK_KHR: VkQueryType = VkQueryType(1000299000);
 impl core::fmt::Debug for VkQueryType {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_QUERY_TYPE_ACCELERATION_STRUCTURE_COMPACTED_SIZE_KHR => {
@@ -4338,6 +4427,7 @@ pub const VK_QUEUE_GLOBAL_PRIORITY_MEDIUM_EXT: VkQueueGlobalPriorityKHR =
 pub const VK_QUEUE_GLOBAL_PRIORITY_REALTIME_EXT: VkQueueGlobalPriorityKHR =
   VK_QUEUE_GLOBAL_PRIORITY_REALTIME_KHR;
 impl core::fmt::Debug for VkQueueGlobalPriorityKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_QUEUE_GLOBAL_PRIORITY_HIGH_KHR => "VK_QUEUE_GLOBAL_PRIORITY_HIGH_KHR",
@@ -4359,6 +4449,7 @@ pub const VK_RASTERIZATION_ORDER_RELAXED_AMD: VkRasterizationOrderAMD =
 pub const VK_RASTERIZATION_ORDER_STRICT_AMD: VkRasterizationOrderAMD =
   VkRasterizationOrderAMD(0);
 impl core::fmt::Debug for VkRasterizationOrderAMD {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_RASTERIZATION_ORDER_RELAXED_AMD => "VK_RASTERIZATION_ORDER_RELAXED_AMD",
@@ -4378,6 +4469,7 @@ pub const VK_RAY_TRACING_INVOCATION_REORDER_MODE_NONE_NV:
 pub const VK_RAY_TRACING_INVOCATION_REORDER_MODE_REORDER_NV:
   VkRayTracingInvocationReorderModeNV = VkRayTracingInvocationReorderModeNV(1);
 impl core::fmt::Debug for VkRayTracingInvocationReorderModeNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_RAY_TRACING_INVOCATION_REORDER_MODE_NONE_NV => {
@@ -4414,6 +4506,7 @@ pub const VK_RAY_TRACING_SHADER_GROUP_TYPE_TRIANGLES_HIT_GROUP_NV:
   VkRayTracingShaderGroupTypeKHR =
   VK_RAY_TRACING_SHADER_GROUP_TYPE_TRIANGLES_HIT_GROUP_KHR;
 impl core::fmt::Debug for VkRayTracingShaderGroupTypeKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_RAY_TRACING_SHADER_GROUP_TYPE_GENERAL_KHR => {
@@ -4526,6 +4619,7 @@ pub const VK_ERROR_PIPELINE_COMPILE_REQUIRED_EXT: VkResult = VK_PIPELINE_COMPILE
 /// Alias of [`VK_PIPELINE_COMPILE_REQUIRED`]
 pub const VK_PIPELINE_COMPILE_REQUIRED_EXT: VkResult = VK_PIPELINE_COMPILE_REQUIRED;
 impl core::fmt::Debug for VkResult {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_ERROR_COMPRESSION_EXHAUSTED_EXT => "VK_ERROR_COMPRESSION_EXHAUSTED_EXT",
@@ -4618,6 +4712,7 @@ pub const VK_SAMPLER_ADDRESS_MODE_REPEAT: VkSamplerAddressMode = VkSamplerAddres
 pub const VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE_KHR: VkSamplerAddressMode =
   VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE;
 impl core::fmt::Debug for VkSamplerAddressMode {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER => {
@@ -4646,6 +4741,7 @@ pub const VK_SAMPLER_MIPMAP_MODE_LINEAR: VkSamplerMipmapMode = VkSamplerMipmapMo
 /// Choose nearest mip level
 pub const VK_SAMPLER_MIPMAP_MODE_NEAREST: VkSamplerMipmapMode = VkSamplerMipmapMode(0);
 impl core::fmt::Debug for VkSamplerMipmapMode {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_SAMPLER_MIPMAP_MODE_LINEAR => "VK_SAMPLER_MIPMAP_MODE_LINEAR",
@@ -4676,6 +4772,7 @@ pub const VK_SAMPLER_REDUCTION_MODE_MIN_EXT: VkSamplerReductionMode =
 pub const VK_SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE_EXT: VkSamplerReductionMode =
   VK_SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE;
 impl core::fmt::Debug for VkSamplerReductionMode {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_SAMPLER_REDUCTION_MODE_MAX => "VK_SAMPLER_REDUCTION_MODE_MAX",
@@ -4723,6 +4820,7 @@ pub const VK_SAMPLER_YCBCR_MODEL_CONVERSION_YCBCR_709_KHR: VkSamplerYcbcrModelCo
 pub const VK_SAMPLER_YCBCR_MODEL_CONVERSION_YCBCR_IDENTITY_KHR:
   VkSamplerYcbcrModelConversion = VK_SAMPLER_YCBCR_MODEL_CONVERSION_YCBCR_IDENTITY;
 impl core::fmt::Debug for VkSamplerYcbcrModelConversion {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_SAMPLER_YCBCR_MODEL_CONVERSION_RGB_IDENTITY => {
@@ -4761,6 +4859,7 @@ pub const VK_SAMPLER_YCBCR_RANGE_ITU_FULL_KHR: VkSamplerYcbcrRange =
 pub const VK_SAMPLER_YCBCR_RANGE_ITU_NARROW_KHR: VkSamplerYcbcrRange =
   VK_SAMPLER_YCBCR_RANGE_ITU_NARROW;
 impl core::fmt::Debug for VkSamplerYcbcrRange {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_SAMPLER_YCBCR_RANGE_ITU_FULL => "VK_SAMPLER_YCBCR_RANGE_ITU_FULL",
@@ -4782,6 +4881,7 @@ pub const VK_SCI_SYNC_CLIENT_TYPE_SIGNALER_WAITER_NV: VkSciSyncClientTypeNV =
 pub const VK_SCI_SYNC_CLIENT_TYPE_WAITER_NV: VkSciSyncClientTypeNV =
   VkSciSyncClientTypeNV(1);
 impl core::fmt::Debug for VkSciSyncClientTypeNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_SCI_SYNC_CLIENT_TYPE_SIGNALER_NV => "VK_SCI_SYNC_CLIENT_TYPE_SIGNALER_NV",
@@ -4804,6 +4904,7 @@ pub const VK_SCI_SYNC_PRIMITIVE_TYPE_FENCE_NV: VkSciSyncPrimitiveTypeNV =
 pub const VK_SCI_SYNC_PRIMITIVE_TYPE_SEMAPHORE_NV: VkSciSyncPrimitiveTypeNV =
   VkSciSyncPrimitiveTypeNV(1);
 impl core::fmt::Debug for VkSciSyncPrimitiveTypeNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_SCI_SYNC_PRIMITIVE_TYPE_FENCE_NV => "VK_SCI_SYNC_PRIMITIVE_TYPE_FENCE_NV",
@@ -4825,6 +4926,7 @@ pub const VK_SCOPE_QUEUE_FAMILY_NV: VkScopeNV = VkScopeNV(5);
 pub const VK_SCOPE_SUBGROUP_NV: VkScopeNV = VkScopeNV(3);
 pub const VK_SCOPE_WORKGROUP_NV: VkScopeNV = VkScopeNV(2);
 impl core::fmt::Debug for VkScopeNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_SCOPE_DEVICE_NV => "VK_SCOPE_DEVICE_NV",
@@ -4848,6 +4950,7 @@ pub const VK_SEMAPHORE_TYPE_BINARY_KHR: VkSemaphoreType = VK_SEMAPHORE_TYPE_BINA
 /// Alias of [`VK_SEMAPHORE_TYPE_TIMELINE`]
 pub const VK_SEMAPHORE_TYPE_TIMELINE_KHR: VkSemaphoreType = VK_SEMAPHORE_TYPE_TIMELINE;
 impl core::fmt::Debug for VkSemaphoreType {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_SEMAPHORE_TYPE_BINARY => "VK_SEMAPHORE_TYPE_BINARY",
@@ -4878,6 +4981,7 @@ pub const VK_SHADER_FLOAT_CONTROLS_INDEPENDENCE_ALL_KHR:
 pub const VK_SHADER_FLOAT_CONTROLS_INDEPENDENCE_NONE_KHR:
   VkShaderFloatControlsIndependence = VK_SHADER_FLOAT_CONTROLS_INDEPENDENCE_NONE;
 impl core::fmt::Debug for VkShaderFloatControlsIndependence {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_SHADER_FLOAT_CONTROLS_INDEPENDENCE_32_BIT_ONLY => {
@@ -4908,6 +5012,7 @@ pub const VK_SHADER_GROUP_SHADER_GENERAL_KHR: VkShaderGroupShaderKHR =
 pub const VK_SHADER_GROUP_SHADER_INTERSECTION_KHR: VkShaderGroupShaderKHR =
   VkShaderGroupShaderKHR(3);
 impl core::fmt::Debug for VkShaderGroupShaderKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_SHADER_GROUP_SHADER_ANY_HIT_KHR => "VK_SHADER_GROUP_SHADER_ANY_HIT_KHR",
@@ -4932,6 +5037,7 @@ pub const VK_SHADER_INFO_TYPE_DISASSEMBLY_AMD: VkShaderInfoTypeAMD =
 pub const VK_SHADER_INFO_TYPE_STATISTICS_AMD: VkShaderInfoTypeAMD =
   VkShaderInfoTypeAMD(0);
 impl core::fmt::Debug for VkShaderInfoTypeAMD {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_SHADER_INFO_TYPE_BINARY_AMD => "VK_SHADER_INFO_TYPE_BINARY_AMD",
@@ -4972,6 +5078,7 @@ pub const VK_SHADING_RATE_PALETTE_ENTRY_8_INVOCATIONS_PER_PIXEL_NV:
 pub const VK_SHADING_RATE_PALETTE_ENTRY_NO_INVOCATIONS_NV: VkShadingRatePaletteEntryNV =
   VkShadingRatePaletteEntryNV(0);
 impl core::fmt::Debug for VkShadingRatePaletteEntryNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_SHADING_RATE_PALETTE_ENTRY_16_INVOCATIONS_PER_PIXEL_NV => {
@@ -5023,6 +5130,7 @@ define_enumeration!(
 pub const VK_SHARING_MODE_CONCURRENT: VkSharingMode = VkSharingMode(1);
 pub const VK_SHARING_MODE_EXCLUSIVE: VkSharingMode = VkSharingMode(0);
 impl core::fmt::Debug for VkSharingMode {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_SHARING_MODE_CONCURRENT => "VK_SHARING_MODE_CONCURRENT",
@@ -5046,6 +5154,7 @@ pub const VK_STENCIL_OP_KEEP: VkStencilOp = VkStencilOp(0);
 pub const VK_STENCIL_OP_REPLACE: VkStencilOp = VkStencilOp(2);
 pub const VK_STENCIL_OP_ZERO: VkStencilOp = VkStencilOp(1);
 impl core::fmt::Debug for VkStencilOp {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_STENCIL_OP_DECREMENT_AND_CLAMP => "VK_STENCIL_OP_DECREMENT_AND_CLAMP",
@@ -7098,6 +7207,7 @@ pub const VK_STRUCTURE_TYPE_TIMELINE_SEMAPHORE_SUBMIT_INFO_KHR: VkStructureType 
 pub const VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET_INLINE_UNIFORM_BLOCK_EXT:
   VkStructureType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET_INLINE_UNIFORM_BLOCK;
 impl core::fmt::Debug for VkStructureType {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_BUILD_GEOMETRY_INFO_KHR => "VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_BUILD_GEOMETRY_INFO_KHR",
@@ -7890,6 +8000,7 @@ pub const VK_SUBPASS_CONTENTS_INLINE: VkSubpassContents = VkSubpassContents(0);
 pub const VK_SUBPASS_CONTENTS_SECONDARY_COMMAND_BUFFERS: VkSubpassContents =
   VkSubpassContents(1);
 impl core::fmt::Debug for VkSubpassContents {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_SUBPASS_CONTENTS_INLINE => "VK_SUBPASS_CONTENTS_INLINE",
@@ -7935,6 +8046,7 @@ pub const VK_SUBPASS_MERGE_STATUS_NOT_MERGED_UNSPECIFIED_EXT: VkSubpassMergeStat
 pub const VK_SUBPASS_MERGE_STATUS_NOT_MERGED_VIEWS_MISMATCH_EXT: VkSubpassMergeStatusEXT =
   VkSubpassMergeStatusEXT(4);
 impl core::fmt::Debug for VkSubpassMergeStatusEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_SUBPASS_MERGE_STATUS_DISALLOWED_EXT => "VK_SUBPASS_MERGE_STATUS_DISALLOWED_EXT",
@@ -7996,6 +8108,7 @@ pub const VK_SYSTEM_ALLOCATION_SCOPE_INSTANCE: VkSystemAllocationScope =
 pub const VK_SYSTEM_ALLOCATION_SCOPE_OBJECT: VkSystemAllocationScope =
   VkSystemAllocationScope(1);
 impl core::fmt::Debug for VkSystemAllocationScope {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_SYSTEM_ALLOCATION_SCOPE_CACHE => "VK_SYSTEM_ALLOCATION_SCOPE_CACHE",
@@ -8024,6 +8137,7 @@ pub const VK_TESSELLATION_DOMAIN_ORIGIN_LOWER_LEFT_KHR: VkTessellationDomainOrig
 pub const VK_TESSELLATION_DOMAIN_ORIGIN_UPPER_LEFT_KHR: VkTessellationDomainOrigin =
   VK_TESSELLATION_DOMAIN_ORIGIN_UPPER_LEFT;
 impl core::fmt::Debug for VkTessellationDomainOrigin {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_TESSELLATION_DOMAIN_ORIGIN_LOWER_LEFT => {
@@ -8048,6 +8162,7 @@ pub const VK_TIME_DOMAIN_DEVICE_EXT: VkTimeDomainEXT = VkTimeDomainEXT(0);
 pub const VK_TIME_DOMAIN_QUERY_PERFORMANCE_COUNTER_EXT: VkTimeDomainEXT =
   VkTimeDomainEXT(3);
 impl core::fmt::Debug for VkTimeDomainEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_TIME_DOMAIN_CLOCK_MONOTONIC_EXT => "VK_TIME_DOMAIN_CLOCK_MONOTONIC_EXT",
@@ -8069,6 +8184,7 @@ define_enumeration!(
 pub const VK_VALIDATION_CACHE_HEADER_VERSION_ONE_EXT: VkValidationCacheHeaderVersionEXT =
   VkValidationCacheHeaderVersionEXT(1);
 impl core::fmt::Debug for VkValidationCacheHeaderVersionEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_VALIDATION_CACHE_HEADER_VERSION_ONE_EXT => {
@@ -8087,6 +8203,7 @@ define_enumeration!(
 pub const VK_VALIDATION_CHECK_ALL_EXT: VkValidationCheckEXT = VkValidationCheckEXT(0);
 pub const VK_VALIDATION_CHECK_SHADERS_EXT: VkValidationCheckEXT = VkValidationCheckEXT(1);
 impl core::fmt::Debug for VkValidationCheckEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_VALIDATION_CHECK_ALL_EXT => "VK_VALIDATION_CHECK_ALL_EXT",
@@ -8118,6 +8235,7 @@ pub const VK_VALIDATION_FEATURE_DISABLE_THREAD_SAFETY_EXT: VkValidationFeatureDi
 pub const VK_VALIDATION_FEATURE_DISABLE_UNIQUE_HANDLES_EXT:
   VkValidationFeatureDisableEXT = VkValidationFeatureDisableEXT(6);
 impl core::fmt::Debug for VkValidationFeatureDisableEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_VALIDATION_FEATURE_DISABLE_ALL_EXT => "VK_VALIDATION_FEATURE_DISABLE_ALL_EXT",
@@ -8163,6 +8281,7 @@ pub const VK_VALIDATION_FEATURE_ENABLE_GPU_ASSISTED_RESERVE_BINDING_SLOT_EXT:
 pub const VK_VALIDATION_FEATURE_ENABLE_SYNCHRONIZATION_VALIDATION_EXT:
   VkValidationFeatureEnableEXT = VkValidationFeatureEnableEXT(4);
 impl core::fmt::Debug for VkValidationFeatureEnableEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_VALIDATION_FEATURE_ENABLE_BEST_PRACTICES_EXT => {
@@ -8205,6 +8324,7 @@ pub const VK_VENDOR_ID_VIV: VkVendorId = VkVendorId(65537);
 /// VeriSilicon vendor ID
 pub const VK_VENDOR_ID_VSI: VkVendorId = VkVendorId(65538);
 impl core::fmt::Debug for VkVendorId {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_VENDOR_ID_CODEPLAY => "VK_VENDOR_ID_CODEPLAY",
@@ -8227,6 +8347,7 @@ define_enumeration!(
 pub const VK_VERTEX_INPUT_RATE_INSTANCE: VkVertexInputRate = VkVertexInputRate(1);
 pub const VK_VERTEX_INPUT_RATE_VERTEX: VkVertexInputRate = VkVertexInputRate(0);
 impl core::fmt::Debug for VkVertexInputRate {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_VERTEX_INPUT_RATE_INSTANCE => "VK_VERTEX_INPUT_RATE_INSTANCE",
@@ -8248,6 +8369,7 @@ pub const VK_VIDEO_ENCODE_H264_RATE_CONTROL_STRUCTURE_FLAT_EXT:
 pub const VK_VIDEO_ENCODE_H264_RATE_CONTROL_STRUCTURE_UNKNOWN_EXT:
   VkVideoEncodeH264RateControlStructureEXT = VkVideoEncodeH264RateControlStructureEXT(0);
 impl core::fmt::Debug for VkVideoEncodeH264RateControlStructureEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_VIDEO_ENCODE_H264_RATE_CONTROL_STRUCTURE_DYADIC_EXT => {
@@ -8276,6 +8398,7 @@ pub const VK_VIDEO_ENCODE_H265_RATE_CONTROL_STRUCTURE_FLAT_EXT:
 pub const VK_VIDEO_ENCODE_H265_RATE_CONTROL_STRUCTURE_UNKNOWN_EXT:
   VkVideoEncodeH265RateControlStructureEXT = VkVideoEncodeH265RateControlStructureEXT(0);
 impl core::fmt::Debug for VkVideoEncodeH265RateControlStructureEXT {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_VIDEO_ENCODE_H265_RATE_CONTROL_STRUCTURE_DYADIC_EXT => {
@@ -8308,6 +8431,7 @@ pub const VK_VIDEO_ENCODE_TUNING_MODE_LOW_LATENCY_KHR: VkVideoEncodeTuningModeKH
 pub const VK_VIDEO_ENCODE_TUNING_MODE_ULTRA_LOW_LATENCY_KHR: VkVideoEncodeTuningModeKHR =
   VkVideoEncodeTuningModeKHR(3);
 impl core::fmt::Debug for VkVideoEncodeTuningModeKHR {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_VIDEO_ENCODE_TUNING_MODE_DEFAULT_KHR => {
@@ -8352,6 +8476,7 @@ pub const VK_VIEWPORT_COORDINATE_SWIZZLE_POSITIVE_Y_NV: VkViewportCoordinateSwiz
 pub const VK_VIEWPORT_COORDINATE_SWIZZLE_POSITIVE_Z_NV: VkViewportCoordinateSwizzleNV =
   VkViewportCoordinateSwizzleNV(4);
 impl core::fmt::Debug for VkViewportCoordinateSwizzleNV {
+  #[allow(clippy::missing_inline_in_public_items)]
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let s = match *self {
       VK_VIEWPORT_COORDINATE_SWIZZLE_NEGATIVE_W_NV => {
