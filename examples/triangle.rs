@@ -15,12 +15,15 @@ fn main() {
     };
     unsafe { Entry::new(f) }
   };
-  let _instance = {
+  let instance: Instance = {
     let max_instance_version = entry.enumerate_max_instance_version();
     println!("max_instance_version: {max_instance_version:?}",);
 
     let instance_layer_properties = entry.enumerate_instance_layer_properties().unwrap();
     println!("instance_layer_properties: {instance_layer_properties:?}",);
+
+    let exts = entry.enumerate_instance_extension_properties(None).unwrap();
+    println!("instance_extension_properties(): {exts:?}",);
 
     let mut instance_layers: Vec<ZString> = Vec::new();
     for instance_layer_property in instance_layer_properties.iter() {
@@ -29,6 +32,9 @@ fn main() {
       {
         instance_layers.push(ZString::from(instance_layer_property.layer_name.as_zstr()));
       }
+      let layer_name = instance_layer_property.layer_name.as_zstr();
+      let exts = entry.enumerate_instance_extension_properties(Some(layer_name)).unwrap();
+      println!("instance_extension_properties({layer_name}): {exts:?}",);
     }
     println!("instance_layers: {instance_layers:?}");
 
@@ -42,8 +48,18 @@ fn main() {
     create_info.layers_mut(|v| v.extend(instance_layers.into_iter()));
     create_info.extensions_mut(|v| v.extend(instance_extensions.into_iter()));
 
-    entry.create_instance(&create_info).unwrap();
+    entry.create_instance(&create_info).unwrap()
   };
+  let physical_device: PhysicalDevice = {
+    let mut physical_devices = instance.enumerate_physical_devices().unwrap();
+    println!("physical_devices: {physical_devices:?}");
+    physical_devices.retain(|pd| {
+      let x = pd.get_queue_family_properties();
+      x.iter().any(|qfp| qfp.queue_flags.graphics())
+    });
+    physical_devices.into_iter().next().expect("No valid physical devices!")
+  };
+  println!("{physical_device:?}");
 
   'the_main_loop: loop {
     // Process pending events.

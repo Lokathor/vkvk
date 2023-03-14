@@ -1,3 +1,5 @@
+use convert_case::{Case, Casing};
+
 use super::*;
 
 #[derive(Debug, Clone, Default)]
@@ -71,7 +73,7 @@ impl Display for Flags {
       writeln!(f, "    for (bit_val, bit_name) in [")?;
       for position in positions.values() {
         let bit_val = 1_u64 << position.bit;
-        let bit_name = position.bit_name;
+        let bit_name = position.bit_name.to_case(Case::Snake);
         writeln!(f, "      ({bit_val}, \"{bit_name}\"),")?;
       }
       writeln!(f, "    ] {{")?;
@@ -83,6 +85,24 @@ impl Display for Flags {
     writeln!(f, "    x.finish()")?;
     writeln!(f, "  }}")?;
     writeln!(f, "}}")?;
+    if !positions.is_empty() {
+      writeln!(f, "impl {core_name}FlagBits{digits}{vendor} {{")?;
+      for position in positions.values() {
+        let bit_val = 1_u64 << position.bit;
+        let prefix = if position.bit_name.starts_with(|ch: char| ch.is_ascii_digit()) {
+          "_"
+        } else {
+          ""
+        };
+        let bit_name = position.bit_name.to_case(Case::Snake);
+        writeln!(f, "  #[inline]")?;
+        writeln!(f, "  #[must_use]")?;
+        writeln!(f, "  pub const fn {prefix}{bit_name}(self) -> bool {{")?;
+        writeln!(f, "    (self.0 & {bit_val}) != 0")?;
+        writeln!(f, "  }}")?;
+      }
+      writeln!(f, "}}")?;
+    }
     Ok(())
   }
 }
@@ -155,7 +175,6 @@ pub fn gather_bitmasks(
     flags.comment = *comment;
     assert_eq!(*is_64_bit, flags.is_64_bit, "{group_name}");
 
-    use convert_case::{Case, Casing};
     let screaming_core = format!("{core_name}{}", digits.unwrap_or(""))
       .to_case(Case::ScreamingSnake)
       .replace("H_264", "H264")
@@ -260,7 +279,6 @@ pub fn gather_bitmasks(
       let (numberless, digits) = break_number(vendorless);
       let core_name = numberless.strip_suffix("FlagBits").unwrap();
       let flags = output.get_mut(&(core_name, digits, vendor)).unwrap();
-      use convert_case::{Case, Casing};
       let screaming_core = format!("{core_name}{}", digits.unwrap_or(""))
         .to_case(Case::ScreamingSnake)
         .replace("H_264", "H264")

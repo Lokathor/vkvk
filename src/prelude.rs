@@ -15,6 +15,7 @@ pub use crate::{
   entry::*,
   generated::{aliases::*, bitmasks::*, enumerations::*, structures::*, unions::*},
   instance::*,
+  physical_device::*,
 };
 pub use core::{
   ffi::{c_double, c_float, c_int, c_void},
@@ -35,7 +36,7 @@ pub(crate) use std::sync::Arc;
 /// Vulkan error codes are non-zero values.
 ///
 /// Generally: negative is unrecoverable, and positive is recoverable.
-pub type ErrorCode = NonZeroI32;
+pub type VkError = NonZeroI32;
 
 /// non-null version of Khronos: [PFN_vkVoidFunction](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/PFN_vkVoidFunction.html)
 pub type vkVoidFunction_t = unsafe extern "system" fn();

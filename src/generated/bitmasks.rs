@@ -19,15 +19,32 @@ impl core::fmt::Debug for VkAccelerationStructureCreateFlagBitsKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (8, "DESCRIPTOR_BUFFER_CAPTURE_REPLAY"),
-      (1, "DEVICE_ADDRESS_CAPTURE_REPLAY"),
-      (4, "MOTION"),
+      (8, "descriptor_buffer_capture_replay"),
+      (1, "device_address_capture_replay"),
+      (4, "motion"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkAccelerationStructureCreateFlagBitsKHR {
+  #[inline]
+  #[must_use]
+  pub const fn descriptor_buffer_capture_replay(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn device_address_capture_replay(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn motion(self) -> bool {
+    (self.0 & 4) != 0
   }
 }
 
@@ -145,40 +162,182 @@ impl core::fmt::Debug for VkAccessFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (2097152, "ACCELERATION_STRUCTURE_READ"),
-      (4194304, "ACCELERATION_STRUCTURE_WRITE"),
-      (128, "COLOR_ATTACHMENT_READ"),
-      (524288, "COLOR_ATTACHMENT_READ_NONCOHERENT"),
-      (256, "COLOR_ATTACHMENT_WRITE"),
-      (131072, "COMMAND_PREPROCESS_READ"),
-      (262144, "COMMAND_PREPROCESS_WRITE"),
-      (1048576, "CONDITIONAL_RENDERING_READ"),
-      (512, "DEPTH_STENCIL_ATTACHMENT_READ"),
-      (1024, "DEPTH_STENCIL_ATTACHMENT_WRITE"),
-      (16777216, "FRAGMENT_DENSITY_MAP_READ"),
-      (8388608, "FRAGMENT_SHADING_RATE_ATTACHMENT_READ"),
-      (8192, "HOST_READ"),
-      (16384, "HOST_WRITE"),
-      (2, "INDEX_READ"),
-      (1, "INDIRECT_COMMAND_READ"),
-      (16, "INPUT_ATTACHMENT_READ"),
-      (32768, "MEMORY_READ"),
-      (65536, "MEMORY_WRITE"),
-      (32, "SHADER_READ"),
-      (64, "SHADER_WRITE"),
-      (2048, "TRANSFER_READ"),
-      (4096, "TRANSFER_WRITE"),
-      (67108864, "TRANSFORM_FEEDBACK_COUNTER_READ"),
-      (134217728, "TRANSFORM_FEEDBACK_COUNTER_WRITE"),
-      (33554432, "TRANSFORM_FEEDBACK_WRITE"),
-      (8, "UNIFORM_READ"),
-      (4, "VERTEX_ATTRIBUTE_READ"),
+      (2097152, "acceleration_structure_read"),
+      (4194304, "acceleration_structure_write"),
+      (128, "color_attachment_read"),
+      (524288, "color_attachment_read_noncoherent"),
+      (256, "color_attachment_write"),
+      (131072, "command_preprocess_read"),
+      (262144, "command_preprocess_write"),
+      (1048576, "conditional_rendering_read"),
+      (512, "depth_stencil_attachment_read"),
+      (1024, "depth_stencil_attachment_write"),
+      (16777216, "fragment_density_map_read"),
+      (8388608, "fragment_shading_rate_attachment_read"),
+      (8192, "host_read"),
+      (16384, "host_write"),
+      (2, "index_read"),
+      (1, "indirect_command_read"),
+      (16, "input_attachment_read"),
+      (32768, "memory_read"),
+      (65536, "memory_write"),
+      (32, "shader_read"),
+      (64, "shader_write"),
+      (2048, "transfer_read"),
+      (4096, "transfer_write"),
+      (67108864, "transform_feedback_counter_read"),
+      (134217728, "transform_feedback_counter_write"),
+      (33554432, "transform_feedback_write"),
+      (8, "uniform_read"),
+      (4, "vertex_attribute_read"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkAccessFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn acceleration_structure_read(self) -> bool {
+    (self.0 & 2097152) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn acceleration_structure_write(self) -> bool {
+    (self.0 & 4194304) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn color_attachment_read(self) -> bool {
+    (self.0 & 128) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn color_attachment_read_noncoherent(self) -> bool {
+    (self.0 & 524288) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn color_attachment_write(self) -> bool {
+    (self.0 & 256) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn command_preprocess_read(self) -> bool {
+    (self.0 & 131072) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn command_preprocess_write(self) -> bool {
+    (self.0 & 262144) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn conditional_rendering_read(self) -> bool {
+    (self.0 & 1048576) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn depth_stencil_attachment_read(self) -> bool {
+    (self.0 & 512) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn depth_stencil_attachment_write(self) -> bool {
+    (self.0 & 1024) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn fragment_density_map_read(self) -> bool {
+    (self.0 & 16777216) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn fragment_shading_rate_attachment_read(self) -> bool {
+    (self.0 & 8388608) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn host_read(self) -> bool {
+    (self.0 & 8192) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn host_write(self) -> bool {
+    (self.0 & 16384) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn index_read(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn indirect_command_read(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn input_attachment_read(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn memory_read(self) -> bool {
+    (self.0 & 32768) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn memory_write(self) -> bool {
+    (self.0 & 65536) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn shader_read(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn shader_write(self) -> bool {
+    (self.0 & 64) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transfer_read(self) -> bool {
+    (self.0 & 2048) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transfer_write(self) -> bool {
+    (self.0 & 4096) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transform_feedback_counter_read(self) -> bool {
+    (self.0 & 67108864) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transform_feedback_counter_write(self) -> bool {
+    (self.0 & 134217728) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transform_feedback_write(self) -> bool {
+    (self.0 & 33554432) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn uniform_read(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn vertex_attribute_read(self) -> bool {
+    (self.0 & 4) != 0
   }
 }
 
@@ -333,53 +492,260 @@ impl core::fmt::Debug for VkAccessFlagBits2 {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (2097152, "ACCELERATION_STRUCTURE_READ"),
-      (4194304, "ACCELERATION_STRUCTURE_WRITE"),
-      (128, "COLOR_ATTACHMENT_READ"),
-      (524288, "COLOR_ATTACHMENT_READ_NONCOHERENT"),
-      (256, "COLOR_ATTACHMENT_WRITE"),
-      (131072, "COMMAND_PREPROCESS_READ"),
-      (262144, "COMMAND_PREPROCESS_WRITE"),
-      (1048576, "CONDITIONAL_RENDERING_READ"),
-      (512, "DEPTH_STENCIL_ATTACHMENT_READ"),
-      (1024, "DEPTH_STENCIL_ATTACHMENT_WRITE"),
-      (2199023255552, "DESCRIPTOR_BUFFER_READ"),
-      (16777216, "FRAGMENT_DENSITY_MAP_READ"),
-      (8388608, "FRAGMENT_SHADING_RATE_ATTACHMENT_READ"),
-      (8192, "HOST_READ"),
-      (16384, "HOST_WRITE"),
-      (2, "INDEX_READ"),
-      (1, "INDIRECT_COMMAND_READ"),
-      (16, "INPUT_ATTACHMENT_READ"),
-      (549755813888, "INVOCATION_MASK_READ"),
-      (32768, "MEMORY_READ"),
-      (65536, "MEMORY_WRITE"),
-      (17592186044416, "MICROMAP_READ"),
-      (35184372088832, "MICROMAP_WRITE"),
-      (4398046511104, "OPTICAL_FLOW_READ"),
-      (8796093022208, "OPTICAL_FLOW_WRITE"),
-      (70368744177664, "RESERVED_46"),
-      (1099511627776, "SHADER_BINDING_TABLE_READ"),
-      (32, "SHADER_READ"),
-      (4294967296, "SHADER_SAMPLED_READ"),
-      (8589934592, "SHADER_STORAGE_READ"),
-      (17179869184, "SHADER_STORAGE_WRITE"),
-      (64, "SHADER_WRITE"),
-      (2048, "TRANSFER_READ"),
-      (4096, "TRANSFER_WRITE"),
-      (67108864, "TRANSFORM_FEEDBACK_COUNTER_READ"),
-      (134217728, "TRANSFORM_FEEDBACK_COUNTER_WRITE"),
-      (33554432, "TRANSFORM_FEEDBACK_WRITE"),
-      (8, "UNIFORM_READ"),
-      (4, "VERTEX_ATTRIBUTE_READ"),
-      (34359738368, "VIDEO_DECODE_READ"),
-      (68719476736, "VIDEO_DECODE_WRITE"),
+      (2097152, "acceleration_structure_read"),
+      (4194304, "acceleration_structure_write"),
+      (128, "color_attachment_read"),
+      (524288, "color_attachment_read_noncoherent"),
+      (256, "color_attachment_write"),
+      (131072, "command_preprocess_read"),
+      (262144, "command_preprocess_write"),
+      (1048576, "conditional_rendering_read"),
+      (512, "depth_stencil_attachment_read"),
+      (1024, "depth_stencil_attachment_write"),
+      (2199023255552, "descriptor_buffer_read"),
+      (16777216, "fragment_density_map_read"),
+      (8388608, "fragment_shading_rate_attachment_read"),
+      (8192, "host_read"),
+      (16384, "host_write"),
+      (2, "index_read"),
+      (1, "indirect_command_read"),
+      (16, "input_attachment_read"),
+      (549755813888, "invocation_mask_read"),
+      (32768, "memory_read"),
+      (65536, "memory_write"),
+      (17592186044416, "micromap_read"),
+      (35184372088832, "micromap_write"),
+      (4398046511104, "optical_flow_read"),
+      (8796093022208, "optical_flow_write"),
+      (70368744177664, "reserved_46"),
+      (1099511627776, "shader_binding_table_read"),
+      (32, "shader_read"),
+      (4294967296, "shader_sampled_read"),
+      (8589934592, "shader_storage_read"),
+      (17179869184, "shader_storage_write"),
+      (64, "shader_write"),
+      (2048, "transfer_read"),
+      (4096, "transfer_write"),
+      (67108864, "transform_feedback_counter_read"),
+      (134217728, "transform_feedback_counter_write"),
+      (33554432, "transform_feedback_write"),
+      (8, "uniform_read"),
+      (4, "vertex_attribute_read"),
+      (34359738368, "video_decode_read"),
+      (68719476736, "video_decode_write"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkAccessFlagBits2 {
+  #[inline]
+  #[must_use]
+  pub const fn acceleration_structure_read(self) -> bool {
+    (self.0 & 2097152) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn acceleration_structure_write(self) -> bool {
+    (self.0 & 4194304) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn color_attachment_read(self) -> bool {
+    (self.0 & 128) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn color_attachment_read_noncoherent(self) -> bool {
+    (self.0 & 524288) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn color_attachment_write(self) -> bool {
+    (self.0 & 256) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn command_preprocess_read(self) -> bool {
+    (self.0 & 131072) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn command_preprocess_write(self) -> bool {
+    (self.0 & 262144) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn conditional_rendering_read(self) -> bool {
+    (self.0 & 1048576) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn depth_stencil_attachment_read(self) -> bool {
+    (self.0 & 512) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn depth_stencil_attachment_write(self) -> bool {
+    (self.0 & 1024) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn descriptor_buffer_read(self) -> bool {
+    (self.0 & 2199023255552) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn fragment_density_map_read(self) -> bool {
+    (self.0 & 16777216) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn fragment_shading_rate_attachment_read(self) -> bool {
+    (self.0 & 8388608) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn host_read(self) -> bool {
+    (self.0 & 8192) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn host_write(self) -> bool {
+    (self.0 & 16384) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn index_read(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn indirect_command_read(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn input_attachment_read(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn invocation_mask_read(self) -> bool {
+    (self.0 & 549755813888) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn memory_read(self) -> bool {
+    (self.0 & 32768) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn memory_write(self) -> bool {
+    (self.0 & 65536) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn micromap_read(self) -> bool {
+    (self.0 & 17592186044416) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn micromap_write(self) -> bool {
+    (self.0 & 35184372088832) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn optical_flow_read(self) -> bool {
+    (self.0 & 4398046511104) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn optical_flow_write(self) -> bool {
+    (self.0 & 8796093022208) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn reserved_46(self) -> bool {
+    (self.0 & 70368744177664) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn shader_binding_table_read(self) -> bool {
+    (self.0 & 1099511627776) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn shader_read(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn shader_sampled_read(self) -> bool {
+    (self.0 & 4294967296) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn shader_storage_read(self) -> bool {
+    (self.0 & 8589934592) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn shader_storage_write(self) -> bool {
+    (self.0 & 17179869184) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn shader_write(self) -> bool {
+    (self.0 & 64) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transfer_read(self) -> bool {
+    (self.0 & 2048) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transfer_write(self) -> bool {
+    (self.0 & 4096) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transform_feedback_counter_read(self) -> bool {
+    (self.0 & 67108864) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transform_feedback_counter_write(self) -> bool {
+    (self.0 & 134217728) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transform_feedback_write(self) -> bool {
+    (self.0 & 33554432) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn uniform_read(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn vertex_attribute_read(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn video_decode_read(self) -> bool {
+    (self.0 & 34359738368) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn video_decode_write(self) -> bool {
+    (self.0 & 68719476736) != 0
   }
 }
 
@@ -422,12 +788,19 @@ pub const VK_ATTACHMENT_DESCRIPTION_MAY_ALIAS_BIT: VkAttachmentDescriptionFlagBi
 impl core::fmt::Debug for VkAttachmentDescriptionFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "MAY_ALIAS")] {
+    for (bit_val, bit_name) in [(1, "may_alias")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkAttachmentDescriptionFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn may_alias(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -464,18 +837,50 @@ impl core::fmt::Debug for VkBufferCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (32, "DESCRIPTOR_BUFFER_CAPTURE_REPLAY"),
-      (16, "DEVICE_ADDRESS_CAPTURE_REPLAY"),
-      (8, "PROTECTED"),
-      (4, "SPARSE_ALIASED"),
-      (1, "SPARSE_BINDING"),
-      (2, "SPARSE_RESIDENCY"),
+      (32, "descriptor_buffer_capture_replay"),
+      (16, "device_address_capture_replay"),
+      (8, "protected"),
+      (4, "sparse_aliased"),
+      (1, "sparse_binding"),
+      (2, "sparse_residency"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkBufferCreateFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn descriptor_buffer_capture_replay(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn device_address_capture_replay(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn protected(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sparse_aliased(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sparse_binding(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sparse_residency(self) -> bool {
+    (self.0 & 2) != 0
   }
 }
 
@@ -559,37 +964,164 @@ impl core::fmt::Debug for VkBufferUsageFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (524288, "ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY"),
-      (1048576, "ACCELERATION_STRUCTURE_STORAGE"),
-      (512, "CONDITIONAL_RENDERING"),
-      (64, "INDEX_BUFFER"),
-      (256, "INDIRECT_BUFFER"),
-      (8388608, "MICROMAP_BUILD_INPUT_READ_ONLY"),
-      (16777216, "MICROMAP_STORAGE"),
-      (67108864, "PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER"),
-      (262144, "RESERVED_18"),
-      (33554432, "RESERVED_25"),
-      (4194304, "RESOURCE_DESCRIPTOR_BUFFER"),
-      (2097152, "SAMPLER_DESCRIPTOR_BUFFER"),
-      (1024, "SHADER_BINDING_TABLE"),
-      (131072, "SHADER_DEVICE_ADDRESS"),
-      (32, "STORAGE_BUFFER"),
-      (8, "STORAGE_TEXEL_BUFFER"),
-      (2, "TRANSFER_DST"),
-      (1, "TRANSFER_SRC"),
-      (2048, "TRANSFORM_FEEDBACK_BUFFER"),
-      (4096, "TRANSFORM_FEEDBACK_COUNTER_BUFFER"),
-      (16, "UNIFORM_BUFFER"),
-      (4, "UNIFORM_TEXEL_BUFFER"),
-      (128, "VERTEX_BUFFER"),
-      (16384, "VIDEO_DECODE_DST"),
-      (8192, "VIDEO_DECODE_SRC"),
+      (524288, "acceleration_structure_build_input_read_only"),
+      (1048576, "acceleration_structure_storage"),
+      (512, "conditional_rendering"),
+      (64, "index_buffer"),
+      (256, "indirect_buffer"),
+      (8388608, "micromap_build_input_read_only"),
+      (16777216, "micromap_storage"),
+      (67108864, "push_descriptors_descriptor_buffer"),
+      (262144, "reserved_18"),
+      (33554432, "reserved_25"),
+      (4194304, "resource_descriptor_buffer"),
+      (2097152, "sampler_descriptor_buffer"),
+      (1024, "shader_binding_table"),
+      (131072, "shader_device_address"),
+      (32, "storage_buffer"),
+      (8, "storage_texel_buffer"),
+      (2, "transfer_dst"),
+      (1, "transfer_src"),
+      (2048, "transform_feedback_buffer"),
+      (4096, "transform_feedback_counter_buffer"),
+      (16, "uniform_buffer"),
+      (4, "uniform_texel_buffer"),
+      (128, "vertex_buffer"),
+      (16384, "video_decode_dst"),
+      (8192, "video_decode_src"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkBufferUsageFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn acceleration_structure_build_input_read_only(self) -> bool {
+    (self.0 & 524288) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn acceleration_structure_storage(self) -> bool {
+    (self.0 & 1048576) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn conditional_rendering(self) -> bool {
+    (self.0 & 512) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn index_buffer(self) -> bool {
+    (self.0 & 64) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn indirect_buffer(self) -> bool {
+    (self.0 & 256) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn micromap_build_input_read_only(self) -> bool {
+    (self.0 & 8388608) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn micromap_storage(self) -> bool {
+    (self.0 & 16777216) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn push_descriptors_descriptor_buffer(self) -> bool {
+    (self.0 & 67108864) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn reserved_18(self) -> bool {
+    (self.0 & 262144) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn reserved_25(self) -> bool {
+    (self.0 & 33554432) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn resource_descriptor_buffer(self) -> bool {
+    (self.0 & 4194304) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sampler_descriptor_buffer(self) -> bool {
+    (self.0 & 2097152) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn shader_binding_table(self) -> bool {
+    (self.0 & 1024) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn shader_device_address(self) -> bool {
+    (self.0 & 131072) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn storage_buffer(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn storage_texel_buffer(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transfer_dst(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transfer_src(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transform_feedback_buffer(self) -> bool {
+    (self.0 & 2048) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transform_feedback_counter_buffer(self) -> bool {
+    (self.0 & 4096) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn uniform_buffer(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn uniform_texel_buffer(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn vertex_buffer(self) -> bool {
+    (self.0 & 128) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn video_decode_dst(self) -> bool {
+    (self.0 & 16384) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn video_decode_src(self) -> bool {
+    (self.0 & 8192) != 0
   }
 }
 
@@ -669,23 +1201,80 @@ impl core::fmt::Debug for VkBuildAccelerationStructureFlagBitsKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (2, "ALLOW_COMPACTION"),
-      (128, "ALLOW_DISABLE_OPACITY_MICROMAPS"),
-      (256, "ALLOW_OPACITY_MICROMAP_DATA_UPDATE"),
-      (64, "ALLOW_OPACITY_MICROMAP_UPDATE"),
-      (1, "ALLOW_UPDATE"),
-      (16, "LOW_MEMORY"),
-      (32, "MOTION"),
-      (8, "PREFER_FAST_BUILD"),
-      (4, "PREFER_FAST_TRACE"),
-      (1024, "RESERVED_BIT_10"),
-      (512, "RESERVED_BIT_9"),
+      (2, "allow_compaction"),
+      (128, "allow_disable_opacity_micromaps"),
+      (256, "allow_opacity_micromap_data_update"),
+      (64, "allow_opacity_micromap_update"),
+      (1, "allow_update"),
+      (16, "low_memory"),
+      (32, "motion"),
+      (8, "prefer_fast_build"),
+      (4, "prefer_fast_trace"),
+      (1024, "reserved_bit_10"),
+      (512, "reserved_bit_9"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkBuildAccelerationStructureFlagBitsKHR {
+  #[inline]
+  #[must_use]
+  pub const fn allow_compaction(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn allow_disable_opacity_micromaps(self) -> bool {
+    (self.0 & 128) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn allow_opacity_micromap_data_update(self) -> bool {
+    (self.0 & 256) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn allow_opacity_micromap_update(self) -> bool {
+    (self.0 & 64) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn allow_update(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn low_memory(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn motion(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn prefer_fast_build(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn prefer_fast_trace(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn reserved_bit_10(self) -> bool {
+    (self.0 & 1024) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn reserved_bit_9(self) -> bool {
+    (self.0 & 512) != 0
   }
 }
 
@@ -705,13 +1294,30 @@ impl core::fmt::Debug for VkBuildMicromapFlagBitsEXT {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
-      [(4, "ALLOW_COMPACTION"), (2, "PREFER_FAST_BUILD"), (1, "PREFER_FAST_TRACE")]
+      [(4, "allow_compaction"), (2, "prefer_fast_build"), (1, "prefer_fast_trace")]
     {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkBuildMicromapFlagBitsEXT {
+  #[inline]
+  #[must_use]
+  pub const fn allow_compaction(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn prefer_fast_build(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn prefer_fast_trace(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -732,12 +1338,34 @@ pub const VK_COLOR_COMPONENT_R_BIT: VkColorComponentFlagBits =
 impl core::fmt::Debug for VkColorComponentFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(8, "A"), (4, "B"), (2, "G"), (1, "R")] {
+    for (bit_val, bit_name) in [(8, "a"), (4, "b"), (2, "g"), (1, "r")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkColorComponentFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn a(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn b(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn g(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn r(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -753,12 +1381,19 @@ pub const VK_COMMAND_BUFFER_RESET_RELEASE_RESOURCES_BIT: VkCommandBufferResetFla
 impl core::fmt::Debug for VkCommandBufferResetFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "RELEASE_RESOURCES")] {
+    for (bit_val, bit_name) in [(1, "release_resources")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkCommandBufferResetFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn release_resources(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -779,13 +1414,30 @@ impl core::fmt::Debug for VkCommandBufferUsageFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
-      [(1, "ONE_TIME_SUBMIT"), (2, "RENDER_PASS_CONTINUE"), (4, "SIMULTANEOUS_USE")]
+      [(1, "one_time_submit"), (2, "render_pass_continue"), (4, "simultaneous_use")]
     {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkCommandBufferUsageFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn one_time_submit(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn render_pass_continue(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn simultaneous_use(self) -> bool {
+    (self.0 & 4) != 0
   }
 }
 
@@ -808,13 +1460,30 @@ impl core::fmt::Debug for VkCommandPoolCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
-      [(4, "PROTECTED"), (2, "RESET_COMMAND_BUFFER"), (1, "TRANSIENT")]
+      [(4, "protected"), (2, "reset_command_buffer"), (1, "transient")]
     {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkCommandPoolCreateFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn protected(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn reset_command_buffer(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transient(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -832,12 +1501,24 @@ pub const VK_COMMAND_POOL_RESET_RESERVED_1_BIT_COREAVI: VkCommandPoolResetFlagBi
 impl core::fmt::Debug for VkCommandPoolResetFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "RELEASE_RESOURCES"), (2, "RESERVED_1_BIT_COREAVI")] {
+    for (bit_val, bit_name) in [(1, "release_resources"), (2, "reserved_1_bit_coreavi")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkCommandPoolResetFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn release_resources(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn reserved_1_bit_coreavi(self) -> bool {
+    (self.0 & 2) != 0
   }
 }
 
@@ -872,13 +1553,35 @@ impl core::fmt::Debug for VkCompositeAlphaFlagBitsKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
-      [(8, "INHERIT"), (1, "OPAQUE"), (4, "POST_MULTIPLIED"), (2, "PRE_MULTIPLIED")]
+      [(8, "inherit"), (1, "opaque"), (4, "post_multiplied"), (2, "pre_multiplied")]
     {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkCompositeAlphaFlagBitsKHR {
+  #[inline]
+  #[must_use]
+  pub const fn inherit(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn opaque(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn post_multiplied(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn pre_multiplied(self) -> bool {
+    (self.0 & 2) != 0
   }
 }
 
@@ -893,12 +1596,19 @@ pub const VK_CONDITIONAL_RENDERING_INVERTED_BIT_EXT: VkConditionalRenderingFlagB
 impl core::fmt::Debug for VkConditionalRenderingFlagBitsEXT {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "INVERTED")] {
+    for (bit_val, bit_name) in [(1, "inverted")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkConditionalRenderingFlagBitsEXT {
+  #[inline]
+  #[must_use]
+  pub const fn inverted(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -915,12 +1625,24 @@ pub const VK_CULL_MODE_NONE: VkCullModeFlagBits = VkCullModeFlagBits(0);
 impl core::fmt::Debug for VkCullModeFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(2, "BACK"), (1, "FRONT")] {
+    for (bit_val, bit_name) in [(2, "back"), (1, "front")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkCullModeFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn back(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn front(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -944,17 +1666,44 @@ impl core::fmt::Debug for VkDebugReportFlagBitsEXT {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (16, "DEBUG"),
-      (8, "ERROR"),
-      (1, "INFORMATION"),
-      (4, "PERFORMANCE_WARNING"),
-      (2, "WARNING"),
+      (16, "debug"),
+      (8, "error"),
+      (1, "information"),
+      (4, "performance_warning"),
+      (2, "warning"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkDebugReportFlagBitsEXT {
+  #[inline]
+  #[must_use]
+  pub const fn debug(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn error(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn information(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn performance_warning(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn warning(self) -> bool {
+    (self.0 & 2) != 0
   }
 }
 
@@ -977,13 +1726,35 @@ impl core::fmt::Debug for VkDebugUtilsMessageSeverityFlagBitsEXT {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
-      [(4096, "ERROR"), (16, "INFO"), (1, "VERBOSE"), (256, "WARNING")]
+      [(4096, "error"), (16, "info"), (1, "verbose"), (256, "warning")]
     {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkDebugUtilsMessageSeverityFlagBitsEXT {
+  #[inline]
+  #[must_use]
+  pub const fn error(self) -> bool {
+    (self.0 & 4096) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn info(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn verbose(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn warning(self) -> bool {
+    (self.0 & 256) != 0
   }
 }
 
@@ -1005,16 +1776,38 @@ impl core::fmt::Debug for VkDebugUtilsMessageTypeFlagBitsEXT {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (8, "DEVICE_ADDRESS_BINDING"),
-      (1, "GENERAL"),
-      (4, "PERFORMANCE"),
-      (2, "VALIDATION"),
+      (8, "device_address_binding"),
+      (1, "general"),
+      (4, "performance"),
+      (2, "validation"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkDebugUtilsMessageTypeFlagBitsEXT {
+  #[inline]
+  #[must_use]
+  pub const fn device_address_binding(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn general(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn performance(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn validation(self) -> bool {
+    (self.0 & 2) != 0
   }
 }
 
@@ -1072,13 +1865,35 @@ impl core::fmt::Debug for VkDependencyFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
-      [(1, "BY_REGION"), (4, "DEVICE_GROUP"), (8, "FEEDBACK_LOOP"), (2, "VIEW_LOCAL")]
+      [(1, "by_region"), (4, "device_group"), (8, "feedback_loop"), (2, "view_local")]
     {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkDependencyFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn by_region(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn device_group(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn feedback_loop(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn view_local(self) -> bool {
+    (self.0 & 2) != 0
   }
 }
 
@@ -1114,17 +1929,44 @@ impl core::fmt::Debug for VkDescriptorBindingFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (4, "PARTIALLY_BOUND"),
-      (16, "RESERVED_4"),
-      (1, "UPDATE_AFTER_BIND"),
-      (2, "UPDATE_UNUSED_WHILE_PENDING"),
-      (8, "VARIABLE_DESCRIPTOR_COUNT"),
+      (4, "partially_bound"),
+      (16, "reserved_4"),
+      (1, "update_after_bind"),
+      (2, "update_unused_while_pending"),
+      (8, "variable_descriptor_count"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkDescriptorBindingFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn partially_bound(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn reserved_4(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn update_after_bind(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn update_unused_while_pending(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn variable_descriptor_count(self) -> bool {
+    (self.0 & 8) != 0
   }
 }
 
@@ -1151,13 +1993,30 @@ impl core::fmt::Debug for VkDescriptorPoolCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
-      [(1, "FREE_DESCRIPTOR_SET"), (4, "HOST_ONLY"), (2, "UPDATE_AFTER_BIND")]
+      [(1, "free_descriptor_set"), (4, "host_only"), (2, "update_after_bind")]
     {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkDescriptorPoolCreateFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn free_descriptor_set(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn host_only(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn update_after_bind(self) -> bool {
+    (self.0 & 2) != 0
   }
 }
 
@@ -1207,19 +2066,56 @@ impl core::fmt::Debug for VkDescriptorSetLayoutCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (16, "DESCRIPTOR_BUFFER"),
-      (32, "EMBEDDED_IMMUTABLE_SAMPLERS"),
-      (4, "HOST_ONLY_POOL"),
-      (1, "PUSH_DESCRIPTOR"),
-      (8, "RESERVED_3"),
-      (64, "RESERVED_6"),
-      (2, "UPDATE_AFTER_BIND_POOL"),
+      (16, "descriptor_buffer"),
+      (32, "embedded_immutable_samplers"),
+      (4, "host_only_pool"),
+      (1, "push_descriptor"),
+      (8, "reserved_3"),
+      (64, "reserved_6"),
+      (2, "update_after_bind_pool"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkDescriptorSetLayoutCreateFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn descriptor_buffer(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn embedded_immutable_samplers(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn host_only_pool(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn push_descriptor(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn reserved_3(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn reserved_6(self) -> bool {
+    (self.0 & 64) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn update_after_bind_pool(self) -> bool {
+    (self.0 & 2) != 0
   }
 }
 
@@ -1247,12 +2143,19 @@ pub const VK_DEVICE_ADDRESS_BINDING_INTERNAL_OBJECT_BIT_EXT:
 impl core::fmt::Debug for VkDeviceAddressBindingFlagBitsEXT {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "INTERNAL_OBJECT")] {
+    for (bit_val, bit_name) in [(1, "internal_object")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkDeviceAddressBindingFlagBitsEXT {
+  #[inline]
+  #[must_use]
+  pub const fn internal_object(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -1287,16 +2190,38 @@ impl core::fmt::Debug for VkDeviceDiagnosticsConfigFlagBitsNV {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (4, "ENABLE_AUTOMATIC_CHECKPOINTS"),
-      (2, "ENABLE_RESOURCE_TRACKING"),
-      (1, "ENABLE_SHADER_DEBUG_INFO"),
-      (8, "ENABLE_SHADER_ERROR_REPORTING"),
+      (4, "enable_automatic_checkpoints"),
+      (2, "enable_resource_tracking"),
+      (1, "enable_shader_debug_info"),
+      (8, "enable_shader_error_reporting"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkDeviceDiagnosticsConfigFlagBitsNV {
+  #[inline]
+  #[must_use]
+  pub const fn enable_automatic_checkpoints(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn enable_resource_tracking(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn enable_shader_debug_info(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn enable_shader_error_reporting(self) -> bool {
+    (self.0 & 8) != 0
   }
 }
 
@@ -1322,13 +2247,35 @@ impl core::fmt::Debug for VkDeviceGroupPresentModeFlagBitsKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
-      [(1, "LOCAL"), (8, "LOCAL_MULTI_DEVICE"), (2, "REMOTE"), (4, "SUM")]
+      [(1, "local"), (8, "local_multi_device"), (2, "remote"), (4, "sum")]
     {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkDeviceGroupPresentModeFlagBitsKHR {
+  #[inline]
+  #[must_use]
+  pub const fn local(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn local_multi_device(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn remote(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sum(self) -> bool {
+    (self.0 & 4) != 0
   }
 }
 
@@ -1359,12 +2306,24 @@ pub const VK_DEVICE_QUEUE_CREATE_RESERVED_1_BIT_QCOM: VkDeviceQueueCreateFlagBit
 impl core::fmt::Debug for VkDeviceQueueCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "PROTECTED"), (2, "RESERVED_1")] {
+    for (bit_val, bit_name) in [(1, "protected"), (2, "reserved_1")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkDeviceQueueCreateFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn protected(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn reserved_1(self) -> bool {
+    (self.0 & 2) != 0
   }
 }
 
@@ -1425,13 +2384,35 @@ impl core::fmt::Debug for VkDisplayPlaneAlphaFlagBitsKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
-      [(2, "GLOBAL"), (1, "OPAQUE"), (4, "PER_PIXEL"), (8, "PER_PIXEL_PREMULTIPLIED")]
+      [(2, "global"), (1, "opaque"), (4, "per_pixel"), (8, "per_pixel_premultiplied")]
     {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkDisplayPlaneAlphaFlagBitsKHR {
+  #[inline]
+  #[must_use]
+  pub const fn global(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn opaque(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn per_pixel(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn per_pixel_premultiplied(self) -> bool {
+    (self.0 & 8) != 0
   }
 }
 
@@ -1462,12 +2443,19 @@ pub const VK_EVENT_CREATE_DEVICE_ONLY_BIT_KHR: VkEventCreateFlagBits =
 impl core::fmt::Debug for VkEventCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "DEVICE_ONLY")] {
+    for (bit_val, bit_name) in [(1, "device_only")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkEventCreateFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn device_only(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -1493,18 +2481,50 @@ impl core::fmt::Debug for VkExportMetalObjectTypeFlagBitsEXT {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (4, "METAL_BUFFER"),
-      (2, "METAL_COMMAND_QUEUE"),
-      (1, "METAL_DEVICE"),
-      (16, "METAL_IOSURFACE"),
-      (32, "METAL_SHARED_EVENT"),
-      (8, "METAL_TEXTURE"),
+      (4, "metal_buffer"),
+      (2, "metal_command_queue"),
+      (1, "metal_device"),
+      (16, "metal_iosurface"),
+      (32, "metal_shared_event"),
+      (8, "metal_texture"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkExportMetalObjectTypeFlagBitsEXT {
+  #[inline]
+  #[must_use]
+  pub const fn metal_buffer(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn metal_command_queue(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn metal_device(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn metal_iosurface(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn metal_shared_event(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn metal_texture(self) -> bool {
+    (self.0 & 8) != 0
   }
 }
 
@@ -1527,12 +2547,24 @@ pub const VK_EXTERNAL_FENCE_FEATURE_IMPORTABLE_BIT_KHR: VkExternalFenceFeatureFl
 impl core::fmt::Debug for VkExternalFenceFeatureFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "EXPORTABLE"), (2, "IMPORTABLE")] {
+    for (bit_val, bit_name) in [(1, "exportable"), (2, "importable")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkExternalFenceFeatureFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn exportable(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn importable(self) -> bool {
+    (self.0 & 2) != 0
   }
 }
 
@@ -1570,18 +2602,50 @@ impl core::fmt::Debug for VkExternalFenceHandleTypeFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (1, "OPAQUE_FD"),
-      (2, "OPAQUE_WIN32"),
-      (4, "OPAQUE_WIN32_KMT"),
-      (32, "SCI_SYNC_FENCE"),
-      (16, "SCI_SYNC_OBJ"),
-      (8, "SYNC_FD"),
+      (1, "opaque_fd"),
+      (2, "opaque_win_32"),
+      (4, "opaque_win_32_kmt"),
+      (32, "sci_sync_fence"),
+      (16, "sci_sync_obj"),
+      (8, "sync_fd"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkExternalFenceHandleTypeFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn opaque_fd(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn opaque_win_32(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn opaque_win_32_kmt(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sci_sync_fence(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sci_sync_obj(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sync_fd(self) -> bool {
+    (self.0 & 8) != 0
   }
 }
 
@@ -1610,13 +2674,30 @@ impl core::fmt::Debug for VkExternalMemoryFeatureFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
-      [(1, "DEDICATED_ONLY"), (2, "EXPORTABLE"), (4, "IMPORTABLE")]
+      [(1, "dedicated_only"), (2, "exportable"), (4, "importable")]
     {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkExternalMemoryFeatureFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn dedicated_only(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn exportable(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn importable(self) -> bool {
+    (self.0 & 4) != 0
   }
 }
 
@@ -1636,13 +2717,30 @@ impl core::fmt::Debug for VkExternalMemoryFeatureFlagBitsNV {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
-      [(1, "DEDICATED_ONLY"), (2, "EXPORTABLE"), (4, "IMPORTABLE")]
+      [(1, "dedicated_only"), (2, "exportable"), (4, "importable")]
     {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkExternalMemoryFeatureFlagBitsNV {
+  #[inline]
+  #[must_use]
+  pub const fn dedicated_only(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn exportable(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn importable(self) -> bool {
+    (self.0 & 4) != 0
   }
 }
 
@@ -1707,26 +2805,98 @@ impl core::fmt::Debug for VkExternalMemoryHandleTypeFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (1024, "ANDROID_HARDWARE_BUFFER"),
-      (8, "D3D11_TEXTURE"),
-      (16, "D3D11_TEXTURE_KMT"),
-      (32, "D3D12_HEAP"),
-      (64, "D3D12_RESOURCE"),
-      (512, "DMA_BUF"),
-      (128, "HOST_ALLOCATION"),
-      (256, "HOST_MAPPED_FOREIGN_MEMORY"),
-      (1, "OPAQUE_FD"),
-      (2, "OPAQUE_WIN32"),
-      (4, "OPAQUE_WIN32_KMT"),
-      (4096, "RDMA_ADDRESS"),
-      (8192, "SCI_BUF"),
-      (2048, "ZIRCON_VMO"),
+      (1024, "android_hardware_buffer"),
+      (8, "d_3_d_11_texture"),
+      (16, "d_3_d_11_texture_kmt"),
+      (32, "d_3_d_12_heap"),
+      (64, "d_3_d_12_resource"),
+      (512, "dma_buf"),
+      (128, "host_allocation"),
+      (256, "host_mapped_foreign_memory"),
+      (1, "opaque_fd"),
+      (2, "opaque_win_32"),
+      (4, "opaque_win_32_kmt"),
+      (4096, "rdma_address"),
+      (8192, "sci_buf"),
+      (2048, "zircon_vmo"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkExternalMemoryHandleTypeFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn android_hardware_buffer(self) -> bool {
+    (self.0 & 1024) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn d_3_d_11_texture(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn d_3_d_11_texture_kmt(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn d_3_d_12_heap(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn d_3_d_12_resource(self) -> bool {
+    (self.0 & 64) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn dma_buf(self) -> bool {
+    (self.0 & 512) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn host_allocation(self) -> bool {
+    (self.0 & 128) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn host_mapped_foreign_memory(self) -> bool {
+    (self.0 & 256) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn opaque_fd(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn opaque_win_32(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn opaque_win_32_kmt(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn rdma_address(self) -> bool {
+    (self.0 & 4096) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sci_buf(self) -> bool {
+    (self.0 & 8192) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn zircon_vmo(self) -> bool {
+    (self.0 & 2048) != 0
   }
 }
 
@@ -1748,16 +2918,38 @@ impl core::fmt::Debug for VkExternalMemoryHandleTypeFlagBitsNV {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (4, "D3D11_IMAGE"),
-      (8, "D3D11_IMAGE_KMT"),
-      (1, "OPAQUE_WIN32"),
-      (2, "OPAQUE_WIN32_KMT"),
+      (4, "d_3_d_11_image"),
+      (8, "d_3_d_11_image_kmt"),
+      (1, "opaque_win_32"),
+      (2, "opaque_win_32_kmt"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkExternalMemoryHandleTypeFlagBitsNV {
+  #[inline]
+  #[must_use]
+  pub const fn d_3_d_11_image(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn d_3_d_11_image_kmt(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn opaque_win_32(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn opaque_win_32_kmt(self) -> bool {
+    (self.0 & 2) != 0
   }
 }
 
@@ -1780,12 +2972,24 @@ pub const VK_EXTERNAL_SEMAPHORE_FEATURE_IMPORTABLE_BIT_KHR:
 impl core::fmt::Debug for VkExternalSemaphoreFeatureFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "EXPORTABLE"), (2, "IMPORTABLE")] {
+    for (bit_val, bit_name) in [(1, "exportable"), (2, "importable")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkExternalSemaphoreFeatureFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn exportable(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn importable(self) -> bool {
+    (self.0 & 2) != 0
   }
 }
 
@@ -1835,19 +3039,56 @@ impl core::fmt::Debug for VkExternalSemaphoreHandleTypeFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (8, "D3D12_FENCE"),
-      (1, "OPAQUE_FD"),
-      (2, "OPAQUE_WIN32"),
-      (4, "OPAQUE_WIN32_KMT"),
-      (32, "SCI_SYNC_OBJ"),
-      (16, "SYNC_FD"),
-      (128, "ZIRCON_EVENT"),
+      (8, "d_3_d_12_fence"),
+      (1, "opaque_fd"),
+      (2, "opaque_win_32"),
+      (4, "opaque_win_32_kmt"),
+      (32, "sci_sync_obj"),
+      (16, "sync_fd"),
+      (128, "zircon_event"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkExternalSemaphoreHandleTypeFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn d_3_d_12_fence(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn opaque_fd(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn opaque_win_32(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn opaque_win_32_kmt(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sci_sync_obj(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sync_fd(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn zircon_event(self) -> bool {
+    (self.0 & 128) != 0
   }
 }
 
@@ -1862,12 +3103,19 @@ pub const VK_FENCE_CREATE_SIGNALED_BIT: VkFenceCreateFlagBits =
 impl core::fmt::Debug for VkFenceCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "SIGNALED")] {
+    for (bit_val, bit_name) in [(1, "signaled")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkFenceCreateFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn signaled(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -1885,12 +3133,19 @@ pub const VK_FENCE_IMPORT_TEMPORARY_BIT_KHR: VkFenceImportFlagBits =
 impl core::fmt::Debug for VkFenceImportFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "TEMPORARY")] {
+    for (bit_val, bit_name) in [(1, "temporary")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkFenceImportFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn temporary(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -2015,44 +3270,197 @@ impl core::fmt::Debug for VkFormatFeatureFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (536870912, "ACCELERATION_STRUCTURE_VERTEX_BUFFER"),
-      (2048, "BLIT_DST"),
-      (1024, "BLIT_SRC"),
-      (128, "COLOR_ATTACHMENT"),
-      (256, "COLOR_ATTACHMENT_BLEND"),
-      (8388608, "COSITED_CHROMA_SAMPLES"),
-      (512, "DEPTH_STENCIL_ATTACHMENT"),
-      (4194304, "DISJOINT"),
-      (16777216, "FRAGMENT_DENSITY_MAP"),
-      (1073741824, "FRAGMENT_SHADING_RATE_ATTACHMENT"),
-      (131072, "MIDPOINT_CHROMA_SAMPLES"),
-      (1, "SAMPLED_IMAGE"),
-      (8192, "SAMPLED_IMAGE_FILTER_CUBIC"),
-      (4096, "SAMPLED_IMAGE_FILTER_LINEAR"),
-      (65536, "SAMPLED_IMAGE_FILTER_MINMAX"),
-      (1048576, "SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT"),
+      (536870912, "acceleration_structure_vertex_buffer"),
+      (2048, "blit_dst"),
+      (1024, "blit_src"),
+      (128, "color_attachment"),
+      (256, "color_attachment_blend"),
+      (8388608, "cosited_chroma_samples"),
+      (512, "depth_stencil_attachment"),
+      (4194304, "disjoint"),
+      (16777216, "fragment_density_map"),
+      (1073741824, "fragment_shading_rate_attachment"),
+      (131072, "midpoint_chroma_samples"),
+      (1, "sampled_image"),
+      (8192, "sampled_image_filter_cubic"),
+      (4096, "sampled_image_filter_linear"),
+      (65536, "sampled_image_filter_minmax"),
+      (1048576, "sampled_image_ycbcr_conversion_chroma_reconstruction_explicit"),
       (
         2097152,
-        "SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE",
+        "sampled_image_ycbcr_conversion_chroma_reconstruction_explicit_forceable",
       ),
-      (262144, "SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER"),
-      (524288, "SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER"),
-      (4, "STORAGE_IMAGE_ATOMIC"),
-      (2, "STORAGE_IMAGE"),
-      (32, "STORAGE_TEXEL_BUFFER_ATOMIC"),
-      (16, "STORAGE_TEXEL_BUFFER"),
-      (32768, "TRANSFER_DST"),
-      (16384, "TRANSFER_SRC"),
-      (8, "UNIFORM_TEXEL_BUFFER"),
-      (64, "VERTEX_BUFFER"),
-      (67108864, "VIDEO_DECODE_DPB"),
-      (33554432, "VIDEO_DECODE_OUTPUT"),
+      (262144, "sampled_image_ycbcr_conversion_linear_filter"),
+      (524288, "sampled_image_ycbcr_conversion_separate_reconstruction_filter"),
+      (4, "storage_image_atomic"),
+      (2, "storage_image"),
+      (32, "storage_texel_buffer_atomic"),
+      (16, "storage_texel_buffer"),
+      (32768, "transfer_dst"),
+      (16384, "transfer_src"),
+      (8, "uniform_texel_buffer"),
+      (64, "vertex_buffer"),
+      (67108864, "video_decode_dpb"),
+      (33554432, "video_decode_output"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkFormatFeatureFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn acceleration_structure_vertex_buffer(self) -> bool {
+    (self.0 & 536870912) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn blit_dst(self) -> bool {
+    (self.0 & 2048) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn blit_src(self) -> bool {
+    (self.0 & 1024) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn color_attachment(self) -> bool {
+    (self.0 & 128) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn color_attachment_blend(self) -> bool {
+    (self.0 & 256) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn cosited_chroma_samples(self) -> bool {
+    (self.0 & 8388608) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn depth_stencil_attachment(self) -> bool {
+    (self.0 & 512) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn disjoint(self) -> bool {
+    (self.0 & 4194304) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn fragment_density_map(self) -> bool {
+    (self.0 & 16777216) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn fragment_shading_rate_attachment(self) -> bool {
+    (self.0 & 1073741824) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn midpoint_chroma_samples(self) -> bool {
+    (self.0 & 131072) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sampled_image(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sampled_image_filter_cubic(self) -> bool {
+    (self.0 & 8192) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sampled_image_filter_linear(self) -> bool {
+    (self.0 & 4096) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sampled_image_filter_minmax(self) -> bool {
+    (self.0 & 65536) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sampled_image_ycbcr_conversion_chroma_reconstruction_explicit(
+    self,
+  ) -> bool {
+    (self.0 & 1048576) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sampled_image_ycbcr_conversion_chroma_reconstruction_explicit_forceable(
+    self,
+  ) -> bool {
+    (self.0 & 2097152) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sampled_image_ycbcr_conversion_linear_filter(self) -> bool {
+    (self.0 & 262144) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sampled_image_ycbcr_conversion_separate_reconstruction_filter(
+    self,
+  ) -> bool {
+    (self.0 & 524288) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn storage_image_atomic(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn storage_image(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn storage_texel_buffer_atomic(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn storage_texel_buffer(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transfer_dst(self) -> bool {
+    (self.0 & 32768) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transfer_src(self) -> bool {
+    (self.0 & 16384) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn uniform_texel_buffer(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn vertex_buffer(self) -> bool {
+    (self.0 & 64) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn video_decode_dpb(self) -> bool {
+    (self.0 & 67108864) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn video_decode_output(self) -> bool {
+    (self.0 & 33554432) != 0
   }
 }
 
@@ -2230,58 +3638,281 @@ impl core::fmt::Debug for VkFormatFeatureFlagBits2 {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (536870912, "ACCELERATION_STRUCTURE_VERTEX_BUFFER"),
-      (2048, "BLIT_DST"),
-      (1024, "BLIT_SRC"),
-      (68719476736, "BLOCK_MATCHING"),
-      (137438953472, "BOX_FILTER_SAMPLED"),
-      (128, "COLOR_ATTACHMENT"),
-      (256, "COLOR_ATTACHMENT_BLEND"),
-      (8388608, "COSITED_CHROMA_SAMPLES"),
-      (512, "DEPTH_STENCIL_ATTACHMENT"),
-      (4194304, "DISJOINT"),
-      (16777216, "FRAGMENT_DENSITY_MAP"),
-      (1073741824, "FRAGMENT_SHADING_RATE_ATTACHMENT"),
-      (274877906944, "LINEAR_COLOR_ATTACHMENT"),
-      (131072, "MIDPOINT_CHROMA_SAMPLES"),
-      (4398046511104, "OPTICAL_FLOW_COST"),
-      (1099511627776, "OPTICAL_FLOW_IMAGE"),
-      (2199023255552, "OPTICAL_FLOW_VECTOR"),
-      (549755813888, "RESERVED_39"),
-      (17592186044416, "RESERVED_44"),
-      (35184372088832, "RESERVED_45"),
-      (1, "SAMPLED_IMAGE"),
-      (8589934592, "SAMPLED_IMAGE_DEPTH_COMPARISON"),
-      (8192, "SAMPLED_IMAGE_FILTER_CUBIC"),
-      (4096, "SAMPLED_IMAGE_FILTER_LINEAR"),
-      (65536, "SAMPLED_IMAGE_FILTER_MINMAX"),
-      (1048576, "SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT"),
+      (536870912, "acceleration_structure_vertex_buffer"),
+      (2048, "blit_dst"),
+      (1024, "blit_src"),
+      (68719476736, "block_matching"),
+      (137438953472, "box_filter_sampled"),
+      (128, "color_attachment"),
+      (256, "color_attachment_blend"),
+      (8388608, "cosited_chroma_samples"),
+      (512, "depth_stencil_attachment"),
+      (4194304, "disjoint"),
+      (16777216, "fragment_density_map"),
+      (1073741824, "fragment_shading_rate_attachment"),
+      (274877906944, "linear_color_attachment"),
+      (131072, "midpoint_chroma_samples"),
+      (4398046511104, "optical_flow_cost"),
+      (1099511627776, "optical_flow_image"),
+      (2199023255552, "optical_flow_vector"),
+      (549755813888, "reserved_39"),
+      (17592186044416, "reserved_44"),
+      (35184372088832, "reserved_45"),
+      (1, "sampled_image"),
+      (8589934592, "sampled_image_depth_comparison"),
+      (8192, "sampled_image_filter_cubic"),
+      (4096, "sampled_image_filter_linear"),
+      (65536, "sampled_image_filter_minmax"),
+      (1048576, "sampled_image_ycbcr_conversion_chroma_reconstruction_explicit"),
       (
         2097152,
-        "SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE",
+        "sampled_image_ycbcr_conversion_chroma_reconstruction_explicit_forceable",
       ),
-      (262144, "SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER"),
-      (524288, "SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER"),
-      (4, "STORAGE_IMAGE_ATOMIC"),
-      (2, "STORAGE_IMAGE"),
-      (2147483648, "STORAGE_READ_WITHOUT_FORMAT"),
-      (32, "STORAGE_TEXEL_BUFFER_ATOMIC"),
-      (16, "STORAGE_TEXEL_BUFFER"),
-      (4294967296, "STORAGE_WRITE_WITHOUT_FORMAT"),
-      (32768, "TRANSFER_DST"),
-      (16384, "TRANSFER_SRC"),
-      (8, "UNIFORM_TEXEL_BUFFER"),
-      (64, "VERTEX_BUFFER"),
-      (67108864, "VIDEO_DECODE_DPB"),
-      (33554432, "VIDEO_DECODE_OUTPUT"),
-      (17179869184, "WEIGHT_IMAGE"),
-      (34359738368, "WEIGHT_SAMPLED_IMAGE"),
+      (262144, "sampled_image_ycbcr_conversion_linear_filter"),
+      (524288, "sampled_image_ycbcr_conversion_separate_reconstruction_filter"),
+      (4, "storage_image_atomic"),
+      (2, "storage_image"),
+      (2147483648, "storage_read_without_format"),
+      (32, "storage_texel_buffer_atomic"),
+      (16, "storage_texel_buffer"),
+      (4294967296, "storage_write_without_format"),
+      (32768, "transfer_dst"),
+      (16384, "transfer_src"),
+      (8, "uniform_texel_buffer"),
+      (64, "vertex_buffer"),
+      (67108864, "video_decode_dpb"),
+      (33554432, "video_decode_output"),
+      (17179869184, "weight_image"),
+      (34359738368, "weight_sampled_image"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkFormatFeatureFlagBits2 {
+  #[inline]
+  #[must_use]
+  pub const fn acceleration_structure_vertex_buffer(self) -> bool {
+    (self.0 & 536870912) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn blit_dst(self) -> bool {
+    (self.0 & 2048) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn blit_src(self) -> bool {
+    (self.0 & 1024) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn block_matching(self) -> bool {
+    (self.0 & 68719476736) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn box_filter_sampled(self) -> bool {
+    (self.0 & 137438953472) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn color_attachment(self) -> bool {
+    (self.0 & 128) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn color_attachment_blend(self) -> bool {
+    (self.0 & 256) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn cosited_chroma_samples(self) -> bool {
+    (self.0 & 8388608) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn depth_stencil_attachment(self) -> bool {
+    (self.0 & 512) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn disjoint(self) -> bool {
+    (self.0 & 4194304) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn fragment_density_map(self) -> bool {
+    (self.0 & 16777216) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn fragment_shading_rate_attachment(self) -> bool {
+    (self.0 & 1073741824) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn linear_color_attachment(self) -> bool {
+    (self.0 & 274877906944) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn midpoint_chroma_samples(self) -> bool {
+    (self.0 & 131072) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn optical_flow_cost(self) -> bool {
+    (self.0 & 4398046511104) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn optical_flow_image(self) -> bool {
+    (self.0 & 1099511627776) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn optical_flow_vector(self) -> bool {
+    (self.0 & 2199023255552) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn reserved_39(self) -> bool {
+    (self.0 & 549755813888) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn reserved_44(self) -> bool {
+    (self.0 & 17592186044416) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn reserved_45(self) -> bool {
+    (self.0 & 35184372088832) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sampled_image(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sampled_image_depth_comparison(self) -> bool {
+    (self.0 & 8589934592) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sampled_image_filter_cubic(self) -> bool {
+    (self.0 & 8192) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sampled_image_filter_linear(self) -> bool {
+    (self.0 & 4096) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sampled_image_filter_minmax(self) -> bool {
+    (self.0 & 65536) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sampled_image_ycbcr_conversion_chroma_reconstruction_explicit(
+    self,
+  ) -> bool {
+    (self.0 & 1048576) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sampled_image_ycbcr_conversion_chroma_reconstruction_explicit_forceable(
+    self,
+  ) -> bool {
+    (self.0 & 2097152) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sampled_image_ycbcr_conversion_linear_filter(self) -> bool {
+    (self.0 & 262144) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sampled_image_ycbcr_conversion_separate_reconstruction_filter(
+    self,
+  ) -> bool {
+    (self.0 & 524288) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn storage_image_atomic(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn storage_image(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn storage_read_without_format(self) -> bool {
+    (self.0 & 2147483648) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn storage_texel_buffer_atomic(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn storage_texel_buffer(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn storage_write_without_format(self) -> bool {
+    (self.0 & 4294967296) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transfer_dst(self) -> bool {
+    (self.0 & 32768) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transfer_src(self) -> bool {
+    (self.0 & 16384) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn uniform_texel_buffer(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn vertex_buffer(self) -> bool {
+    (self.0 & 64) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn video_decode_dpb(self) -> bool {
+    (self.0 & 67108864) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn video_decode_output(self) -> bool {
+    (self.0 & 33554432) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn weight_image(self) -> bool {
+    (self.0 & 17179869184) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn weight_sampled_image(self) -> bool {
+    (self.0 & 34359738368) != 0
   }
 }
 
@@ -2299,12 +3930,19 @@ pub const VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT_KHR: VkFramebufferCreateFlagBits =
 impl core::fmt::Debug for VkFramebufferCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "IMAGELESS")] {
+    for (bit_val, bit_name) in [(1, "imageless")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkFramebufferCreateFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn imageless(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -2326,12 +3964,24 @@ pub const VK_GEOMETRY_OPAQUE_BIT_NV: VkGeometryFlagBitsKHR = VK_GEOMETRY_OPAQUE_
 impl core::fmt::Debug for VkGeometryFlagBitsKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(2, "NO_DUPLICATE_ANY_HIT_INVOCATION"), (1, "OPAQUE")] {
+    for (bit_val, bit_name) in [(2, "no_duplicate_any_hit_invocation"), (1, "opaque")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkGeometryFlagBitsKHR {
+  #[inline]
+  #[must_use]
+  pub const fn no_duplicate_any_hit_invocation(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn opaque(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -2374,18 +4024,50 @@ impl core::fmt::Debug for VkGeometryInstanceFlagBitsKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (32, "DISABLE_OPACITY_MICROMAPS"),
-      (8, "FORCE_NO_OPAQUE"),
-      (16, "FORCE_OPACITY_MICROMAP_2_STATE"),
-      (4, "FORCE_OPAQUE"),
-      (1, "TRIANGLE_FACING_CULL_DISABLE"),
-      (2, "TRIANGLE_FLIP_FACING"),
+      (32, "disable_opacity_micromaps"),
+      (8, "force_no_opaque"),
+      (16, "force_opacity_micromap_2_state"),
+      (4, "force_opaque"),
+      (1, "triangle_facing_cull_disable"),
+      (2, "triangle_flip_facing"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkGeometryInstanceFlagBitsKHR {
+  #[inline]
+  #[must_use]
+  pub const fn disable_opacity_micromaps(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn force_no_opaque(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn force_opacity_micromap_2_state(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn force_opaque(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn triangle_facing_cull_disable(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn triangle_flip_facing(self) -> bool {
+    (self.0 & 2) != 0
   }
 }
 
@@ -2407,16 +4089,38 @@ impl core::fmt::Debug for VkGraphicsPipelineLibraryFlagBitsEXT {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (8, "FRAGMENT_OUTPUT_INTERFACE"),
-      (4, "FRAGMENT_SHADER"),
-      (2, "PRE_RASTERIZATION_SHADERS"),
-      (1, "VERTEX_INPUT_INTERFACE"),
+      (8, "fragment_output_interface"),
+      (4, "fragment_shader"),
+      (2, "pre_rasterization_shaders"),
+      (1, "vertex_input_interface"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkGraphicsPipelineLibraryFlagBitsEXT {
+  #[inline]
+  #[must_use]
+  pub const fn fragment_output_interface(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn fragment_shader(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn pre_rasterization_shaders(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn vertex_input_interface(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -2490,23 +4194,80 @@ impl core::fmt::Debug for VkImageAspectFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (1, "COLOR"),
-      (2, "DEPTH"),
-      (128, "MEMORY_PLANE_0"),
-      (256, "MEMORY_PLANE_1"),
-      (512, "MEMORY_PLANE_2"),
-      (1024, "MEMORY_PLANE_3"),
-      (8, "METADATA"),
-      (16, "PLANE_0"),
-      (32, "PLANE_1"),
-      (64, "PLANE_2"),
-      (4, "STENCIL"),
+      (1, "color"),
+      (2, "depth"),
+      (128, "memory_plane_0"),
+      (256, "memory_plane_1"),
+      (512, "memory_plane_2"),
+      (1024, "memory_plane_3"),
+      (8, "metadata"),
+      (16, "plane_0"),
+      (32, "plane_1"),
+      (64, "plane_2"),
+      (4, "stencil"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkImageAspectFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn color(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn depth(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn memory_plane_0(self) -> bool {
+    (self.0 & 128) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn memory_plane_1(self) -> bool {
+    (self.0 & 256) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn memory_plane_2(self) -> bool {
+    (self.0 & 512) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn memory_plane_3(self) -> bool {
+    (self.0 & 1024) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn metadata(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn plane_0(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn plane_1(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn plane_2(self) -> bool {
+    (self.0 & 64) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn stencil(self) -> bool {
+    (self.0 & 4) != 0
   }
 }
 
@@ -2528,13 +4289,30 @@ impl core::fmt::Debug for VkImageCompressionFlagBitsEXT {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
-      [(4, "DISABLED"), (1, "FIXED_RATE_DEFAULT"), (2, "FIXED_RATE_EXPLICIT")]
+      [(4, "disabled"), (1, "fixed_rate_default"), (2, "fixed_rate_explicit")]
     {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkImageCompressionFlagBitsEXT {
+  #[inline]
+  #[must_use]
+  pub const fn disabled(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn fixed_rate_default(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn fixed_rate_explicit(self) -> bool {
+    (self.0 & 2) != 0
   }
 }
 
@@ -2612,36 +4390,158 @@ impl core::fmt::Debug for VkImageCompressionFixedRateFlagBitsEXT {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (512, "10BPC"),
-      (1024, "11BPC"),
-      (2048, "12BPC"),
-      (4096, "13BPC"),
-      (8192, "14BPC"),
-      (16384, "15BPC"),
-      (32768, "16BPC"),
-      (65536, "17BPC"),
-      (131072, "18BPC"),
-      (262144, "19BPC"),
-      (1, "1BPC"),
-      (524288, "20BPC"),
-      (1048576, "21BPC"),
-      (2097152, "22BPC"),
-      (4194304, "23BPC"),
-      (8388608, "24BPC"),
-      (2, "2BPC"),
-      (4, "3BPC"),
-      (8, "4BPC"),
-      (16, "5BPC"),
-      (32, "6BPC"),
-      (64, "7BPC"),
-      (128, "8BPC"),
-      (256, "9BPC"),
+      (512, "10_bpc"),
+      (1024, "11_bpc"),
+      (2048, "12_bpc"),
+      (4096, "13_bpc"),
+      (8192, "14_bpc"),
+      (16384, "15_bpc"),
+      (32768, "16_bpc"),
+      (65536, "17_bpc"),
+      (131072, "18_bpc"),
+      (262144, "19_bpc"),
+      (1, "1_bpc"),
+      (524288, "20_bpc"),
+      (1048576, "21_bpc"),
+      (2097152, "22_bpc"),
+      (4194304, "23_bpc"),
+      (8388608, "24_bpc"),
+      (2, "2_bpc"),
+      (4, "3_bpc"),
+      (8, "4_bpc"),
+      (16, "5_bpc"),
+      (32, "6_bpc"),
+      (64, "7_bpc"),
+      (128, "8_bpc"),
+      (256, "9_bpc"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkImageCompressionFixedRateFlagBitsEXT {
+  #[inline]
+  #[must_use]
+  pub const fn _10_bpc(self) -> bool {
+    (self.0 & 512) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _11_bpc(self) -> bool {
+    (self.0 & 1024) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _12_bpc(self) -> bool {
+    (self.0 & 2048) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _13_bpc(self) -> bool {
+    (self.0 & 4096) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _14_bpc(self) -> bool {
+    (self.0 & 8192) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _15_bpc(self) -> bool {
+    (self.0 & 16384) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _16_bpc(self) -> bool {
+    (self.0 & 32768) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _17_bpc(self) -> bool {
+    (self.0 & 65536) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _18_bpc(self) -> bool {
+    (self.0 & 131072) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _19_bpc(self) -> bool {
+    (self.0 & 262144) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _1_bpc(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _20_bpc(self) -> bool {
+    (self.0 & 524288) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _21_bpc(self) -> bool {
+    (self.0 & 1048576) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _22_bpc(self) -> bool {
+    (self.0 & 2097152) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _23_bpc(self) -> bool {
+    (self.0 & 4194304) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _24_bpc(self) -> bool {
+    (self.0 & 8388608) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _2_bpc(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _3_bpc(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _4_bpc(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _5_bpc(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _6_bpc(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _7_bpc(self) -> bool {
+    (self.0 & 64) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _8_bpc(self) -> bool {
+    (self.0 & 128) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _9_bpc(self) -> bool {
+    (self.0 & 256) != 0
   }
 }
 
@@ -2665,17 +4565,44 @@ impl core::fmt::Debug for VkImageConstraintsInfoFlagBitsFUCHSIA {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (2, "CPU_READ_OFTEN"),
-      (1, "CPU_READ_RARELY"),
-      (8, "CPU_WRITE_OFTEN"),
-      (4, "CPU_WRITE_RARELY"),
-      (16, "PROTECTED_OPTIONAL"),
+      (2, "cpu_read_often"),
+      (1, "cpu_read_rarely"),
+      (8, "cpu_write_often"),
+      (4, "cpu_write_rarely"),
+      (16, "protected_optional"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkImageConstraintsInfoFlagBitsFUCHSIA {
+  #[inline]
+  #[must_use]
+  pub const fn cpu_read_often(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn cpu_read_rarely(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn cpu_write_often(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn cpu_write_rarely(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn protected_optional(self) -> bool {
+    (self.0 & 16) != 0
   }
 }
 
@@ -2759,32 +4686,134 @@ impl core::fmt::Debug for VkImageCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (32, "2D_ARRAY_COMPATIBLE"),
-      (131072, "2D_VIEW_COMPATIBLE"),
-      (1024, "ALIAS"),
-      (128, "BLOCK_TEXEL_VIEW_COMPATIBLE"),
-      (8192, "CORNER_SAMPLED"),
-      (16, "CUBE_COMPATIBLE"),
-      (65536, "DESCRIPTOR_BUFFER_CAPTURE_REPLAY"),
-      (512, "DISJOINT"),
-      (256, "EXTENDED_USAGE"),
-      (32768, "FRAGMENT_DENSITY_MAP_OFFSET"),
-      (262144, "MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED"),
-      (8, "MUTABLE_FORMAT"),
-      (2048, "PROTECTED"),
-      (524288, "RESERVED_19"),
-      (4096, "SAMPLE_LOCATIONS_COMPATIBLE_DEPTH"),
-      (4, "SPARSE_ALIASED"),
-      (1, "SPARSE_BINDING"),
-      (2, "SPARSE_RESIDENCY"),
-      (64, "SPLIT_INSTANCE_BIND_REGIONS"),
-      (16384, "SUBSAMPLED"),
+      (32, "2_d_array_compatible"),
+      (131072, "2_d_view_compatible"),
+      (1024, "alias"),
+      (128, "block_texel_view_compatible"),
+      (8192, "corner_sampled"),
+      (16, "cube_compatible"),
+      (65536, "descriptor_buffer_capture_replay"),
+      (512, "disjoint"),
+      (256, "extended_usage"),
+      (32768, "fragment_density_map_offset"),
+      (262144, "multisampled_render_to_single_sampled"),
+      (8, "mutable_format"),
+      (2048, "protected"),
+      (524288, "reserved_19"),
+      (4096, "sample_locations_compatible_depth"),
+      (4, "sparse_aliased"),
+      (1, "sparse_binding"),
+      (2, "sparse_residency"),
+      (64, "split_instance_bind_regions"),
+      (16384, "subsampled"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkImageCreateFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn _2_d_array_compatible(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _2_d_view_compatible(self) -> bool {
+    (self.0 & 131072) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn alias(self) -> bool {
+    (self.0 & 1024) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn block_texel_view_compatible(self) -> bool {
+    (self.0 & 128) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn corner_sampled(self) -> bool {
+    (self.0 & 8192) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn cube_compatible(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn descriptor_buffer_capture_replay(self) -> bool {
+    (self.0 & 65536) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn disjoint(self) -> bool {
+    (self.0 & 512) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn extended_usage(self) -> bool {
+    (self.0 & 256) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn fragment_density_map_offset(self) -> bool {
+    (self.0 & 32768) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn multisampled_render_to_single_sampled(self) -> bool {
+    (self.0 & 262144) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn mutable_format(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn protected(self) -> bool {
+    (self.0 & 2048) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn reserved_19(self) -> bool {
+    (self.0 & 524288) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sample_locations_compatible_depth(self) -> bool {
+    (self.0 & 4096) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sparse_aliased(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sparse_binding(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sparse_residency(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn split_instance_bind_regions(self) -> bool {
+    (self.0 & 64) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn subsampled(self) -> bool {
+    (self.0 & 16384) != 0
   }
 }
 
@@ -2874,32 +4903,134 @@ impl core::fmt::Debug for VkImageUsageFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (524288, "ATTACHMENT_FEEDBACK_LOOP"),
-      (16, "COLOR_ATTACHMENT"),
-      (32, "DEPTH_STENCIL_ATTACHMENT"),
-      (512, "FRAGMENT_DENSITY_MAP"),
-      (256, "FRAGMENT_SHADING_RATE_ATTACHMENT"),
-      (128, "INPUT_ATTACHMENT"),
-      (262144, "INVOCATION_MASK"),
-      (65536, "RESERVED_16"),
-      (131072, "RESERVED_17"),
-      (4194304, "RESERVED_22"),
-      (4, "SAMPLED"),
-      (2097152, "SAMPLE_BLOCK_MATCH"),
-      (1048576, "SAMPLE_WEIGHT"),
-      (8, "STORAGE"),
-      (2, "TRANSFER_DST"),
-      (1, "TRANSFER_SRC"),
-      (64, "TRANSIENT_ATTACHMENT"),
-      (4096, "VIDEO_DECODE_DPB"),
-      (1024, "VIDEO_DECODE_DST"),
-      (2048, "VIDEO_DECODE_SRC"),
+      (524288, "attachment_feedback_loop"),
+      (16, "color_attachment"),
+      (32, "depth_stencil_attachment"),
+      (512, "fragment_density_map"),
+      (256, "fragment_shading_rate_attachment"),
+      (128, "input_attachment"),
+      (262144, "invocation_mask"),
+      (65536, "reserved_16"),
+      (131072, "reserved_17"),
+      (4194304, "reserved_22"),
+      (4, "sampled"),
+      (2097152, "sample_block_match"),
+      (1048576, "sample_weight"),
+      (8, "storage"),
+      (2, "transfer_dst"),
+      (1, "transfer_src"),
+      (64, "transient_attachment"),
+      (4096, "video_decode_dpb"),
+      (1024, "video_decode_dst"),
+      (2048, "video_decode_src"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkImageUsageFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn attachment_feedback_loop(self) -> bool {
+    (self.0 & 524288) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn color_attachment(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn depth_stencil_attachment(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn fragment_density_map(self) -> bool {
+    (self.0 & 512) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn fragment_shading_rate_attachment(self) -> bool {
+    (self.0 & 256) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn input_attachment(self) -> bool {
+    (self.0 & 128) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn invocation_mask(self) -> bool {
+    (self.0 & 262144) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn reserved_16(self) -> bool {
+    (self.0 & 65536) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn reserved_17(self) -> bool {
+    (self.0 & 131072) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn reserved_22(self) -> bool {
+    (self.0 & 4194304) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sampled(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sample_block_match(self) -> bool {
+    (self.0 & 2097152) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sample_weight(self) -> bool {
+    (self.0 & 1048576) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn storage(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transfer_dst(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transfer_src(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transient_attachment(self) -> bool {
+    (self.0 & 64) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn video_decode_dpb(self) -> bool {
+    (self.0 & 4096) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn video_decode_dst(self) -> bool {
+    (self.0 & 1024) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn video_decode_src(self) -> bool {
+    (self.0 & 2048) != 0
   }
 }
 
@@ -2919,15 +5050,32 @@ impl core::fmt::Debug for VkImageViewCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (4, "DESCRIPTOR_BUFFER_CAPTURE_REPLAY"),
-      (2, "FRAGMENT_DENSITY_MAP_DEFERRED"),
-      (1, "FRAGMENT_DENSITY_MAP_DYNAMIC"),
+      (4, "descriptor_buffer_capture_replay"),
+      (2, "fragment_density_map_deferred"),
+      (1, "fragment_density_map_dynamic"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkImageViewCreateFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn descriptor_buffer_capture_replay(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn fragment_density_map_deferred(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn fragment_density_map_dynamic(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -2950,13 +5098,30 @@ impl core::fmt::Debug for VkIndirectCommandsLayoutUsageFlagBitsNV {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
-      [(1, "EXPLICIT_PREPROCESS"), (2, "INDEXED_SEQUENCES"), (4, "UNORDERED_SEQUENCES")]
+      [(1, "explicit_preprocess"), (2, "indexed_sequences"), (4, "unordered_sequences")]
     {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkIndirectCommandsLayoutUsageFlagBitsNV {
+  #[inline]
+  #[must_use]
+  pub const fn explicit_preprocess(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn indexed_sequences(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn unordered_sequences(self) -> bool {
+    (self.0 & 4) != 0
   }
 }
 
@@ -2971,12 +5136,19 @@ pub const VK_INDIRECT_STATE_FLAG_FRONTFACE_BIT_NV: VkIndirectStateFlagBitsNV =
 impl core::fmt::Debug for VkIndirectStateFlagBitsNV {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "FLAG_FRONTFACE")] {
+    for (bit_val, bit_name) in [(1, "flag_frontface")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkIndirectStateFlagBitsNV {
+  #[inline]
+  #[must_use]
+  pub const fn flag_frontface(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -2991,12 +5163,19 @@ pub const VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR: VkInstanceCreateFlag
 impl core::fmt::Debug for VkInstanceCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "ENUMERATE_PORTABILITY")] {
+    for (bit_val, bit_name) in [(1, "enumerate_portability")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkInstanceCreateFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn enumerate_portability(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -3039,13 +5218,30 @@ impl core::fmt::Debug for VkMemoryAllocateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
-      [(2, "DEVICE_ADDRESS"), (4, "DEVICE_ADDRESS_CAPTURE_REPLAY"), (1, "DEVICE_MASK")]
+      [(2, "device_address"), (4, "device_address_capture_replay"), (1, "device_mask")]
     {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkMemoryAllocateFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn device_address(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn device_address_capture_replay(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn device_mask(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -3060,12 +5256,19 @@ pub const VK_MEMORY_DECOMPRESSION_METHOD_GDEFLATE_1_0_BIT_NV:
 impl core::fmt::Debug for VkMemoryDecompressionMethodFlagBitsNV {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "GDEFLATE_1_0")] {
+    for (bit_val, bit_name) in [(1, "gdeflate_1_0")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkMemoryDecompressionMethodFlagBitsNV {
+  #[inline]
+  #[must_use]
+  pub const fn gdeflate_1_0(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -3087,12 +5290,24 @@ pub const VK_MEMORY_HEAP_MULTI_INSTANCE_BIT_KHR: VkMemoryHeapFlagBits =
 impl core::fmt::Debug for VkMemoryHeapFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "DEVICE_LOCAL"), (2, "MULTI_INSTANCE")] {
+    for (bit_val, bit_name) in [(1, "device_local"), (2, "multi_instance")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkMemoryHeapFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn device_local(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn multi_instance(self) -> bool {
+    (self.0 & 2) != 0
   }
 }
 
@@ -3145,21 +5360,68 @@ impl core::fmt::Debug for VkMemoryPropertyFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (64, "DEVICE_COHERENT"),
-      (1, "DEVICE_LOCAL"),
-      (128, "DEVICE_UNCACHED"),
-      (8, "HOST_CACHED"),
-      (4, "HOST_COHERENT"),
-      (2, "HOST_VISIBLE"),
-      (16, "LAZILY_ALLOCATED"),
-      (32, "PROTECTED"),
-      (256, "RDMA_CAPABLE"),
+      (64, "device_coherent"),
+      (1, "device_local"),
+      (128, "device_uncached"),
+      (8, "host_cached"),
+      (4, "host_coherent"),
+      (2, "host_visible"),
+      (16, "lazily_allocated"),
+      (32, "protected"),
+      (256, "rdma_capable"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkMemoryPropertyFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn device_coherent(self) -> bool {
+    (self.0 & 64) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn device_local(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn device_uncached(self) -> bool {
+    (self.0 & 128) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn host_cached(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn host_coherent(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn host_visible(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn lazily_allocated(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn protected(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn rdma_capable(self) -> bool {
+    (self.0 & 256) != 0
   }
 }
 
@@ -3187,12 +5449,19 @@ pub const VK_MICROMAP_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT_EXT:
 impl core::fmt::Debug for VkMicromapCreateFlagBitsEXT {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "DEVICE_ADDRESS_CAPTURE_REPLAY")] {
+    for (bit_val, bit_name) in [(1, "device_address_capture_replay")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkMicromapCreateFlagBitsEXT {
+  #[inline]
+  #[must_use]
+  pub const fn device_address_capture_replay(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -3207,12 +5476,19 @@ pub const VK_OPTICAL_FLOW_EXECUTE_DISABLE_TEMPORAL_HINTS_BIT_NV:
 impl core::fmt::Debug for VkOpticalFlowExecuteFlagBitsNV {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "DISABLE_TEMPORAL_HINTS")] {
+    for (bit_val, bit_name) in [(1, "disable_temporal_hints")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkOpticalFlowExecuteFlagBitsNV {
+  #[inline]
+  #[must_use]
+  pub const fn disable_temporal_hints(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -3235,12 +5511,34 @@ pub const VK_OPTICAL_FLOW_GRID_SIZE_UNKNOWN_NV: VkOpticalFlowGridSizeFlagBitsNV 
 impl core::fmt::Debug for VkOpticalFlowGridSizeFlagBitsNV {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "1X1"), (2, "2X2"), (4, "4X4"), (8, "8X8")] {
+    for (bit_val, bit_name) in [(1, "1_x_1"), (2, "2_x_2"), (4, "4_x_4"), (8, "8_x_8")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkOpticalFlowGridSizeFlagBitsNV {
+  #[inline]
+  #[must_use]
+  pub const fn _1_x_1(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _2_x_2(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _4_x_4(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _8_x_8(self) -> bool {
+    (self.0 & 8) != 0
   }
 }
 
@@ -3264,17 +5562,44 @@ impl core::fmt::Debug for VkOpticalFlowSessionCreateFlagBitsNV {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (8, "ALLOW_REGIONS"),
-      (16, "BOTH_DIRECTIONS"),
-      (2, "ENABLE_COST"),
-      (4, "ENABLE_GLOBAL_FLOW"),
-      (1, "ENABLE_HINT"),
+      (8, "allow_regions"),
+      (16, "both_directions"),
+      (2, "enable_cost"),
+      (4, "enable_global_flow"),
+      (1, "enable_hint"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkOpticalFlowSessionCreateFlagBitsNV {
+  #[inline]
+  #[must_use]
+  pub const fn allow_regions(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn both_directions(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn enable_cost(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn enable_global_flow(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn enable_hint(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -3300,13 +5625,40 @@ impl core::fmt::Debug for VkOpticalFlowUsageFlagBitsNV {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
-      [(8, "COST"), (16, "GLOBAL_FLOW"), (4, "HINT"), (1, "INPUT"), (2, "OUTPUT")]
+      [(8, "cost"), (16, "global_flow"), (4, "hint"), (1, "input"), (2, "output")]
     {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkOpticalFlowUsageFlagBitsNV {
+  #[inline]
+  #[must_use]
+  pub const fn cost(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn global_flow(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn hint(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn input(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn output(self) -> bool {
+    (self.0 & 2) != 0
   }
 }
 
@@ -3344,13 +5696,35 @@ impl core::fmt::Debug for VkPeerMemoryFeatureFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
-      [(2, "COPY_DST"), (1, "COPY_SRC"), (8, "GENERIC_DST"), (4, "GENERIC_SRC")]
+      [(2, "copy_dst"), (1, "copy_src"), (8, "generic_dst"), (4, "generic_src")]
     {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkPeerMemoryFeatureFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn copy_dst(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn copy_src(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn generic_dst(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn generic_src(self) -> bool {
+    (self.0 & 4) != 0
   }
 }
 
@@ -3381,13 +5755,25 @@ impl core::fmt::Debug for VkPerformanceCounterDescriptionFlagBitsKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
-      [(2, "CONCURRENTLY_IMPACTED"), (1, "PERFORMANCE_IMPACTING")]
+      [(2, "concurrently_impacted"), (1, "performance_impacting")]
     {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkPerformanceCounterDescriptionFlagBitsKHR {
+  #[inline]
+  #[must_use]
+  pub const fn concurrently_impacted(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn performance_impacting(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -3405,12 +5791,19 @@ pub const VK_PIPELINE_CACHE_CREATE_EXTERNALLY_SYNCHRONIZED_BIT_EXT:
 impl core::fmt::Debug for VkPipelineCacheCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "EXTERNALLY_SYNCHRONIZED")] {
+    for (bit_val, bit_name) in [(1, "externally_synchronized")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkPipelineCacheCreateFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn externally_synchronized(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -3426,12 +5819,19 @@ pub const VK_PIPELINE_COLOR_BLEND_STATE_CREATE_RASTERIZATION_ORDER_ATTACHMENT_AC
 impl core::fmt::Debug for VkPipelineColorBlendStateCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "RASTERIZATION_ORDER_ATTACHMENT_ACCESS")] {
+    for (bit_val, bit_name) in [(1, "rasterization_order_attachment_access")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkPipelineColorBlendStateCreateFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn rasterization_order_attachment_access(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -3585,43 +5985,200 @@ impl core::fmt::Debug for VkPipelineCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (2, "ALLOW_DERIVATIVES"),
-      (128, "CAPTURE_INTERNAL_REPRESENTATIONS"),
-      (64, "CAPTURE_STATISTICS"),
-      (33554432, "COLOR_ATTACHMENT_FEEDBACK_LOOP"),
-      (32, "DEFER_COMPILE"),
-      (67108864, "DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP"),
-      (4, "DERIVATIVE"),
-      (536870912, "DESCRIPTOR_BUFFER"),
-      (1, "DISABLE_OPTIMIZATION"),
-      (16, "DISPATCH_BASE"),
-      (512, "EARLY_RETURN_ON_FAILURE"),
-      (256, "FAIL_ON_PIPELINE_COMPILE_REQUIRED"),
-      (262144, "INDIRECT_BINDABLE"),
-      (2048, "LIBRARY"),
-      (1024, "LINK_TIME_OPTIMIZATION"),
-      (134217728, "NO_PROTECTED_ACCESS"),
-      (1073741824, "PROTECTED_ACCESS_ONLY"),
-      (1048576, "RAY_TRACING_ALLOW_MOTION"),
-      (16384, "RAY_TRACING_NO_NULL_ANY_HIT_SHADERS"),
-      (32768, "RAY_TRACING_NO_NULL_CLOSEST_HIT_SHADERS"),
-      (131072, "RAY_TRACING_NO_NULL_INTERSECTION_SHADERS"),
-      (65536, "RAY_TRACING_NO_NULL_MISS_SHADERS"),
-      (16777216, "RAY_TRACING_OPACITY_MICROMAP"),
-      (524288, "RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY"),
-      (8192, "RAY_TRACING_SKIP_AABBS"),
-      (4096, "RAY_TRACING_SKIP_TRIANGLES"),
-      (4194304, "RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT"),
-      (2097152, "RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT"),
-      (268435456, "RESERVED_BIT_28"),
-      (8388608, "RETAIN_LINK_TIME_OPTIMIZATION_INFO"),
-      (8, "VIEW_INDEX_FROM_DEVICE_INDEX"),
+      (2, "allow_derivatives"),
+      (128, "capture_internal_representations"),
+      (64, "capture_statistics"),
+      (33554432, "color_attachment_feedback_loop"),
+      (32, "defer_compile"),
+      (67108864, "depth_stencil_attachment_feedback_loop"),
+      (4, "derivative"),
+      (536870912, "descriptor_buffer"),
+      (1, "disable_optimization"),
+      (16, "dispatch_base"),
+      (512, "early_return_on_failure"),
+      (256, "fail_on_pipeline_compile_required"),
+      (262144, "indirect_bindable"),
+      (2048, "library"),
+      (1024, "link_time_optimization"),
+      (134217728, "no_protected_access"),
+      (1073741824, "protected_access_only"),
+      (1048576, "ray_tracing_allow_motion"),
+      (16384, "ray_tracing_no_null_any_hit_shaders"),
+      (32768, "ray_tracing_no_null_closest_hit_shaders"),
+      (131072, "ray_tracing_no_null_intersection_shaders"),
+      (65536, "ray_tracing_no_null_miss_shaders"),
+      (16777216, "ray_tracing_opacity_micromap"),
+      (524288, "ray_tracing_shader_group_handle_capture_replay"),
+      (8192, "ray_tracing_skip_aabbs"),
+      (4096, "ray_tracing_skip_triangles"),
+      (4194304, "rendering_fragment_density_map_attachment"),
+      (2097152, "rendering_fragment_shading_rate_attachment"),
+      (268435456, "reserved_bit_28"),
+      (8388608, "retain_link_time_optimization_info"),
+      (8, "view_index_from_device_index"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkPipelineCreateFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn allow_derivatives(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn capture_internal_representations(self) -> bool {
+    (self.0 & 128) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn capture_statistics(self) -> bool {
+    (self.0 & 64) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn color_attachment_feedback_loop(self) -> bool {
+    (self.0 & 33554432) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn defer_compile(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn depth_stencil_attachment_feedback_loop(self) -> bool {
+    (self.0 & 67108864) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn derivative(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn descriptor_buffer(self) -> bool {
+    (self.0 & 536870912) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn disable_optimization(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn dispatch_base(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn early_return_on_failure(self) -> bool {
+    (self.0 & 512) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn fail_on_pipeline_compile_required(self) -> bool {
+    (self.0 & 256) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn indirect_bindable(self) -> bool {
+    (self.0 & 262144) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn library(self) -> bool {
+    (self.0 & 2048) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn link_time_optimization(self) -> bool {
+    (self.0 & 1024) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn no_protected_access(self) -> bool {
+    (self.0 & 134217728) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn protected_access_only(self) -> bool {
+    (self.0 & 1073741824) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn ray_tracing_allow_motion(self) -> bool {
+    (self.0 & 1048576) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn ray_tracing_no_null_any_hit_shaders(self) -> bool {
+    (self.0 & 16384) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn ray_tracing_no_null_closest_hit_shaders(self) -> bool {
+    (self.0 & 32768) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn ray_tracing_no_null_intersection_shaders(self) -> bool {
+    (self.0 & 131072) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn ray_tracing_no_null_miss_shaders(self) -> bool {
+    (self.0 & 65536) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn ray_tracing_opacity_micromap(self) -> bool {
+    (self.0 & 16777216) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn ray_tracing_shader_group_handle_capture_replay(self) -> bool {
+    (self.0 & 524288) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn ray_tracing_skip_aabbs(self) -> bool {
+    (self.0 & 8192) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn ray_tracing_skip_triangles(self) -> bool {
+    (self.0 & 4096) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn rendering_fragment_density_map_attachment(self) -> bool {
+    (self.0 & 4194304) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn rendering_fragment_shading_rate_attachment(self) -> bool {
+    (self.0 & 2097152) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn reserved_bit_28(self) -> bool {
+    (self.0 & 268435456) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn retain_link_time_optimization_info(self) -> bool {
+    (self.0 & 8388608) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn view_index_from_device_index(self) -> bool {
+    (self.0 & 8) != 0
   }
 }
 
@@ -3652,15 +6209,32 @@ impl core::fmt::Debug for VkPipelineCreationFeedbackFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (2, "APPLICATION_PIPELINE_CACHE_HIT"),
-      (4, "BASE_PIPELINE_ACCELERATION"),
-      (1, "VALID"),
+      (2, "application_pipeline_cache_hit"),
+      (4, "base_pipeline_acceleration"),
+      (1, "valid"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkPipelineCreationFeedbackFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn application_pipeline_cache_hit(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn base_pipeline_acceleration(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn valid(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -3681,14 +6255,26 @@ impl core::fmt::Debug for VkPipelineDepthStencilStateCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (1, "RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS"),
-      (2, "RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS"),
+      (1, "rasterization_order_attachment_depth_access"),
+      (2, "rasterization_order_attachment_stencil_access"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkPipelineDepthStencilStateCreateFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn rasterization_order_attachment_depth_access(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn rasterization_order_attachment_stencil_access(self) -> bool {
+    (self.0 & 2) != 0
   }
 }
 
@@ -3746,12 +6332,24 @@ pub const VK_PIPELINE_LAYOUT_CREATE_RESERVED_0_BIT_AMD: VkPipelineLayoutCreateFl
 impl core::fmt::Debug for VkPipelineLayoutCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(2, "INDEPENDENT_SETS"), (1, "RESERVED_0")] {
+    for (bit_val, bit_name) in [(2, "independent_sets"), (1, "reserved_0")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkPipelineLayoutCreateFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn independent_sets(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn reserved_0(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -3848,15 +6446,32 @@ impl core::fmt::Debug for VkPipelineShaderStageCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (1, "ALLOW_VARYING_SUBGROUP_SIZE"),
-      (2, "REQUIRE_FULL_SUBGROUPS"),
-      (8, "RESERVED_3"),
+      (1, "allow_varying_subgroup_size"),
+      (2, "require_full_subgroups"),
+      (8, "reserved_3"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkPipelineShaderStageCreateFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn allow_varying_subgroup_size(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn require_full_subgroups(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn reserved_3(self) -> bool {
+    (self.0 & 8) != 0
   }
 }
 
@@ -3958,38 +6573,170 @@ impl core::fmt::Debug for VkPipelineStageFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (33554432, "ACCELERATION_STRUCTURE_BUILD"),
-      (65536, "ALL_COMMANDS"),
-      (32768, "ALL_GRAPHICS"),
-      (8192, "BOTTOM_OF_PIPE"),
-      (1024, "COLOR_ATTACHMENT_OUTPUT"),
-      (131072, "COMMAND_PREPROCESS"),
-      (2048, "COMPUTE_SHADER"),
-      (262144, "CONDITIONAL_RENDERING"),
-      (2, "DRAW_INDIRECT"),
-      (256, "EARLY_FRAGMENT_TESTS"),
-      (8388608, "FRAGMENT_DENSITY_PROCESS"),
-      (128, "FRAGMENT_SHADER"),
-      (4194304, "FRAGMENT_SHADING_RATE_ATTACHMENT"),
-      (64, "GEOMETRY_SHADER"),
-      (16384, "HOST"),
-      (512, "LATE_FRAGMENT_TESTS"),
-      (1048576, "MESH_SHADER"),
-      (2097152, "RAY_TRACING_SHADER"),
-      (524288, "TASK_SHADER"),
-      (16, "TESSELLATION_CONTROL_SHADER"),
-      (32, "TESSELLATION_EVALUATION_SHADER"),
-      (1, "TOP_OF_PIPE"),
-      (4096, "TRANSFER"),
-      (16777216, "TRANSFORM_FEEDBACK"),
-      (4, "VERTEX_INPUT"),
-      (8, "VERTEX_SHADER"),
+      (33554432, "acceleration_structure_build"),
+      (65536, "all_commands"),
+      (32768, "all_graphics"),
+      (8192, "bottom_of_pipe"),
+      (1024, "color_attachment_output"),
+      (131072, "command_preprocess"),
+      (2048, "compute_shader"),
+      (262144, "conditional_rendering"),
+      (2, "draw_indirect"),
+      (256, "early_fragment_tests"),
+      (8388608, "fragment_density_process"),
+      (128, "fragment_shader"),
+      (4194304, "fragment_shading_rate_attachment"),
+      (64, "geometry_shader"),
+      (16384, "host"),
+      (512, "late_fragment_tests"),
+      (1048576, "mesh_shader"),
+      (2097152, "ray_tracing_shader"),
+      (524288, "task_shader"),
+      (16, "tessellation_control_shader"),
+      (32, "tessellation_evaluation_shader"),
+      (1, "top_of_pipe"),
+      (4096, "transfer"),
+      (16777216, "transform_feedback"),
+      (4, "vertex_input"),
+      (8, "vertex_shader"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkPipelineStageFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn acceleration_structure_build(self) -> bool {
+    (self.0 & 33554432) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn all_commands(self) -> bool {
+    (self.0 & 65536) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn all_graphics(self) -> bool {
+    (self.0 & 32768) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn bottom_of_pipe(self) -> bool {
+    (self.0 & 8192) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn color_attachment_output(self) -> bool {
+    (self.0 & 1024) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn command_preprocess(self) -> bool {
+    (self.0 & 131072) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn compute_shader(self) -> bool {
+    (self.0 & 2048) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn conditional_rendering(self) -> bool {
+    (self.0 & 262144) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn draw_indirect(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn early_fragment_tests(self) -> bool {
+    (self.0 & 256) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn fragment_density_process(self) -> bool {
+    (self.0 & 8388608) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn fragment_shader(self) -> bool {
+    (self.0 & 128) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn fragment_shading_rate_attachment(self) -> bool {
+    (self.0 & 4194304) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn geometry_shader(self) -> bool {
+    (self.0 & 64) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn host(self) -> bool {
+    (self.0 & 16384) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn late_fragment_tests(self) -> bool {
+    (self.0 & 512) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn mesh_shader(self) -> bool {
+    (self.0 & 1048576) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn ray_tracing_shader(self) -> bool {
+    (self.0 & 2097152) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn task_shader(self) -> bool {
+    (self.0 & 524288) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn tessellation_control_shader(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn tessellation_evaluation_shader(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn top_of_pipe(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transfer(self) -> bool {
+    (self.0 & 4096) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transform_feedback(self) -> bool {
+    (self.0 & 16777216) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn vertex_input(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn vertex_shader(self) -> bool {
+    (self.0 & 8) != 0
   }
 }
 
@@ -4182,52 +6929,254 @@ impl core::fmt::Debug for VkPipelineStageFlagBits2 {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (33554432, "ACCELERATION_STRUCTURE_BUILD"),
-      (268435456, "ACCELERATION_STRUCTURE_COPY"),
-      (65536, "ALL_COMMANDS"),
-      (32768, "ALL_GRAPHICS"),
-      (4096, "ALL_TRANSFER"),
-      (17179869184, "BLIT"),
-      (8192, "BOTTOM_OF_PIPE"),
-      (34359738368, "CLEAR"),
-      (2199023255552, "CLUSTER_CULLING_SHADER"),
-      (1024, "COLOR_ATTACHMENT_OUTPUT"),
-      (131072, "COMMAND_PREPROCESS"),
-      (2048, "COMPUTE_SHADER"),
-      (262144, "CONDITIONAL_RENDERING"),
-      (4294967296, "COPY"),
-      (2, "DRAW_INDIRECT"),
-      (256, "EARLY_FRAGMENT_TESTS"),
-      (8388608, "FRAGMENT_DENSITY_PROCESS"),
-      (128, "FRAGMENT_SHADER"),
-      (4194304, "FRAGMENT_SHADING_RATE_ATTACHMENT"),
-      (64, "GEOMETRY_SHADER"),
-      (16384, "HOST"),
-      (68719476736, "INDEX_INPUT"),
-      (1099511627776, "INVOCATION_MASK"),
-      (512, "LATE_FRAGMENT_TESTS"),
-      (1048576, "MESH_SHADER"),
-      (1073741824, "MICROMAP_BUILD"),
-      (536870912, "OPTICAL_FLOW"),
-      (274877906944, "PRE_RASTERIZATION_SHADERS"),
-      (2097152, "RAY_TRACING_SHADER"),
-      (8589934592, "RESOLVE"),
-      (549755813888, "SUBPASS_SHADING"),
-      (524288, "TASK_SHADER"),
-      (16, "TESSELLATION_CONTROL_SHADER"),
-      (32, "TESSELLATION_EVALUATION_SHADER"),
-      (1, "TOP_OF_PIPE"),
-      (16777216, "TRANSFORM_FEEDBACK"),
-      (137438953472, "VERTEX_ATTRIBUTE_INPUT"),
-      (4, "VERTEX_INPUT"),
-      (8, "VERTEX_SHADER"),
-      (67108864, "VIDEO_DECODE"),
+      (33554432, "acceleration_structure_build"),
+      (268435456, "acceleration_structure_copy"),
+      (65536, "all_commands"),
+      (32768, "all_graphics"),
+      (4096, "all_transfer"),
+      (17179869184, "blit"),
+      (8192, "bottom_of_pipe"),
+      (34359738368, "clear"),
+      (2199023255552, "cluster_culling_shader"),
+      (1024, "color_attachment_output"),
+      (131072, "command_preprocess"),
+      (2048, "compute_shader"),
+      (262144, "conditional_rendering"),
+      (4294967296, "copy"),
+      (2, "draw_indirect"),
+      (256, "early_fragment_tests"),
+      (8388608, "fragment_density_process"),
+      (128, "fragment_shader"),
+      (4194304, "fragment_shading_rate_attachment"),
+      (64, "geometry_shader"),
+      (16384, "host"),
+      (68719476736, "index_input"),
+      (1099511627776, "invocation_mask"),
+      (512, "late_fragment_tests"),
+      (1048576, "mesh_shader"),
+      (1073741824, "micromap_build"),
+      (536870912, "optical_flow"),
+      (274877906944, "pre_rasterization_shaders"),
+      (2097152, "ray_tracing_shader"),
+      (8589934592, "resolve"),
+      (549755813888, "subpass_shading"),
+      (524288, "task_shader"),
+      (16, "tessellation_control_shader"),
+      (32, "tessellation_evaluation_shader"),
+      (1, "top_of_pipe"),
+      (16777216, "transform_feedback"),
+      (137438953472, "vertex_attribute_input"),
+      (4, "vertex_input"),
+      (8, "vertex_shader"),
+      (67108864, "video_decode"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkPipelineStageFlagBits2 {
+  #[inline]
+  #[must_use]
+  pub const fn acceleration_structure_build(self) -> bool {
+    (self.0 & 33554432) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn acceleration_structure_copy(self) -> bool {
+    (self.0 & 268435456) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn all_commands(self) -> bool {
+    (self.0 & 65536) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn all_graphics(self) -> bool {
+    (self.0 & 32768) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn all_transfer(self) -> bool {
+    (self.0 & 4096) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn blit(self) -> bool {
+    (self.0 & 17179869184) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn bottom_of_pipe(self) -> bool {
+    (self.0 & 8192) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn clear(self) -> bool {
+    (self.0 & 34359738368) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn cluster_culling_shader(self) -> bool {
+    (self.0 & 2199023255552) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn color_attachment_output(self) -> bool {
+    (self.0 & 1024) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn command_preprocess(self) -> bool {
+    (self.0 & 131072) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn compute_shader(self) -> bool {
+    (self.0 & 2048) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn conditional_rendering(self) -> bool {
+    (self.0 & 262144) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn copy(self) -> bool {
+    (self.0 & 4294967296) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn draw_indirect(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn early_fragment_tests(self) -> bool {
+    (self.0 & 256) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn fragment_density_process(self) -> bool {
+    (self.0 & 8388608) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn fragment_shader(self) -> bool {
+    (self.0 & 128) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn fragment_shading_rate_attachment(self) -> bool {
+    (self.0 & 4194304) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn geometry_shader(self) -> bool {
+    (self.0 & 64) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn host(self) -> bool {
+    (self.0 & 16384) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn index_input(self) -> bool {
+    (self.0 & 68719476736) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn invocation_mask(self) -> bool {
+    (self.0 & 1099511627776) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn late_fragment_tests(self) -> bool {
+    (self.0 & 512) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn mesh_shader(self) -> bool {
+    (self.0 & 1048576) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn micromap_build(self) -> bool {
+    (self.0 & 1073741824) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn optical_flow(self) -> bool {
+    (self.0 & 536870912) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn pre_rasterization_shaders(self) -> bool {
+    (self.0 & 274877906944) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn ray_tracing_shader(self) -> bool {
+    (self.0 & 2097152) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn resolve(self) -> bool {
+    (self.0 & 8589934592) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn subpass_shading(self) -> bool {
+    (self.0 & 549755813888) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn task_shader(self) -> bool {
+    (self.0 & 524288) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn tessellation_control_shader(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn tessellation_evaluation_shader(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn top_of_pipe(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transform_feedback(self) -> bool {
+    (self.0 & 16777216) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn vertex_attribute_input(self) -> bool {
+    (self.0 & 137438953472) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn vertex_input(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn vertex_shader(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn video_decode(self) -> bool {
+    (self.0 & 67108864) != 0
   }
 }
 
@@ -4300,12 +7249,29 @@ pub const VK_PRESENT_GRAVITY_MIN_BIT_EXT: VkPresentGravityFlagBitsEXT =
 impl core::fmt::Debug for VkPresentGravityFlagBitsEXT {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(4, "CENTERED"), (2, "MAX"), (1, "MIN")] {
+    for (bit_val, bit_name) in [(4, "centered"), (2, "max"), (1, "min")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkPresentGravityFlagBitsEXT {
+  #[inline]
+  #[must_use]
+  pub const fn centered(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn max(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn min(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -4325,13 +7291,30 @@ impl core::fmt::Debug for VkPresentScalingFlagBitsEXT {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
-      [(2, "ASPECT_RATIO_STRETCH"), (1, "ONE_TO_ONE"), (4, "STRETCH")]
+      [(2, "aspect_ratio_stretch"), (1, "one_to_one"), (4, "stretch")]
     {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkPresentScalingFlagBitsEXT {
+  #[inline]
+  #[must_use]
+  pub const fn aspect_ratio_stretch(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn one_to_one(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn stretch(self) -> bool {
+    (self.0 & 4) != 0
   }
 }
 
@@ -4346,12 +7329,19 @@ pub const VK_PRIVATE_DATA_SLOT_CREATE_RESERVED_0_BIT_NV: VkPrivateDataSlotCreate
 impl core::fmt::Debug for VkPrivateDataSlotCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "RESERVED_0")] {
+    for (bit_val, bit_name) in [(1, "reserved_0")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkPrivateDataSlotCreateFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn reserved_0(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -4367,12 +7357,19 @@ pub const VK_QUERY_CONTROL_PRECISE_BIT: VkQueryControlFlagBits =
 impl core::fmt::Debug for VkQueryControlFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "PRECISE")] {
+    for (bit_val, bit_name) in [(1, "precise")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkQueryControlFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn precise(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -4425,26 +7422,98 @@ impl core::fmt::Debug for VkQueryPipelineStatisticFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (32, "CLIPPING_INVOCATIONS"),
-      (64, "CLIPPING_PRIMITIVES"),
-      (8192, "CLUSTER_CULLING_SHADER_INVOCATIONS"),
-      (1024, "COMPUTE_SHADER_INVOCATIONS"),
-      (128, "FRAGMENT_SHADER_INVOCATIONS"),
-      (8, "GEOMETRY_SHADER_INVOCATIONS"),
-      (16, "GEOMETRY_SHADER_PRIMITIVES"),
-      (2, "INPUT_ASSEMBLY_PRIMITIVES"),
-      (1, "INPUT_ASSEMBLY_VERTICES"),
-      (4096, "MESH_SHADER_INVOCATIONS"),
-      (2048, "TASK_SHADER_INVOCATIONS"),
-      (256, "TESSELLATION_CONTROL_SHADER_PATCHES"),
-      (512, "TESSELLATION_EVALUATION_SHADER_INVOCATIONS"),
-      (4, "VERTEX_SHADER_INVOCATIONS"),
+      (32, "clipping_invocations"),
+      (64, "clipping_primitives"),
+      (8192, "cluster_culling_shader_invocations"),
+      (1024, "compute_shader_invocations"),
+      (128, "fragment_shader_invocations"),
+      (8, "geometry_shader_invocations"),
+      (16, "geometry_shader_primitives"),
+      (2, "input_assembly_primitives"),
+      (1, "input_assembly_vertices"),
+      (4096, "mesh_shader_invocations"),
+      (2048, "task_shader_invocations"),
+      (256, "tessellation_control_shader_patches"),
+      (512, "tessellation_evaluation_shader_invocations"),
+      (4, "vertex_shader_invocations"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkQueryPipelineStatisticFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn clipping_invocations(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn clipping_primitives(self) -> bool {
+    (self.0 & 64) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn cluster_culling_shader_invocations(self) -> bool {
+    (self.0 & 8192) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn compute_shader_invocations(self) -> bool {
+    (self.0 & 1024) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn fragment_shader_invocations(self) -> bool {
+    (self.0 & 128) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn geometry_shader_invocations(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn geometry_shader_primitives(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn input_assembly_primitives(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn input_assembly_vertices(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn mesh_shader_invocations(self) -> bool {
+    (self.0 & 4096) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn task_shader_invocations(self) -> bool {
+    (self.0 & 2048) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn tessellation_control_shader_patches(self) -> bool {
+    (self.0 & 256) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn tessellation_evaluation_shader_invocations(self) -> bool {
+    (self.0 & 512) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn vertex_shader_invocations(self) -> bool {
+    (self.0 & 4) != 0
   }
 }
 
@@ -4487,16 +7556,43 @@ impl core::fmt::Debug for VkQueryResultFlagBits {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
       (1, "64"),
-      (8, "PARTIAL"),
-      (2, "WAIT"),
-      (4, "WITH_AVAILABILITY"),
-      (16, "WITH_STATUS"),
+      (8, "partial"),
+      (2, "wait"),
+      (4, "with_availability"),
+      (16, "with_status"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkQueryResultFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn _64(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn partial(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn wait(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn with_availability(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn with_status(self) -> bool {
+    (self.0 & 16) != 0
   }
 }
 
@@ -4524,21 +7620,68 @@ impl core::fmt::Debug for VkQueueFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (2, "COMPUTE"),
-      (1, "GRAPHICS"),
-      (256, "OPTICAL_FLOW"),
-      (16, "PROTECTED"),
-      (128, "RESERVED_7"),
-      (512, "RESERVED_9"),
-      (8, "SPARSE_BINDING"),
-      (4, "TRANSFER"),
-      (32, "VIDEO_DECODE"),
+      (2, "compute"),
+      (1, "graphics"),
+      (256, "optical_flow"),
+      (16, "protected"),
+      (128, "reserved_7"),
+      (512, "reserved_9"),
+      (8, "sparse_binding"),
+      (4, "transfer"),
+      (32, "video_decode"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkQueueFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn compute(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn graphics(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn optical_flow(self) -> bool {
+    (self.0 & 256) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn protected(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn reserved_7(self) -> bool {
+    (self.0 & 128) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn reserved_9(self) -> bool {
+    (self.0 & 512) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sparse_binding(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transfer(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn video_decode(self) -> bool {
+    (self.0 & 32) != 0
   }
 }
 
@@ -4568,12 +7711,24 @@ pub const VK_RENDER_PASS_CREATE_TRANSFORM_BIT_QCOM: VkRenderPassCreateFlagBits =
 impl core::fmt::Debug for VkRenderPassCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "RESERVED_0"), (2, "TRANSFORM")] {
+    for (bit_val, bit_name) in [(1, "reserved_0"), (2, "transform")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkRenderPassCreateFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn reserved_0(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transform(self) -> bool {
+    (self.0 & 2) != 0
   }
 }
 
@@ -4601,16 +7756,38 @@ impl core::fmt::Debug for VkRenderingFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (1, "CONTENTS_SECONDARY_COMMAND_BUFFERS"),
-      (8, "ENABLE_LEGACY_DITHERING"),
-      (4, "RESUMING"),
-      (2, "SUSPENDING"),
+      (1, "contents_secondary_command_buffers"),
+      (8, "enable_legacy_dithering"),
+      (4, "resuming"),
+      (2, "suspending"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkRenderingFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn contents_secondary_command_buffers(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn enable_legacy_dithering(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn resuming(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn suspending(self) -> bool {
+    (self.0 & 2) != 0
   }
 }
 
@@ -4643,13 +7820,35 @@ impl core::fmt::Debug for VkResolveModeFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
-      [(2, "AVERAGE"), (8, "MAX"), (4, "MIN"), (1, "SAMPLE_ZERO")]
+      [(2, "average"), (8, "max"), (4, "min"), (1, "sample_zero")]
     {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkResolveModeFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn average(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn max(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn min(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sample_zero(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -4686,6 +7885,43 @@ impl core::fmt::Debug for VkSampleCountFlagBits {
     x.finish()
   }
 }
+impl VkSampleCountFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn _16(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _1(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _2(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _32(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _4(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _64(self) -> bool {
+    (self.0 & 64) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _8(self) -> bool {
+    (self.0 & 8) != 0
+  }
+}
 
 define_bitmask!(
   /// Khronos: [VkSamplerCreateFlagBits](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSamplerCreateFlagBits.html) (bitmask)
@@ -4707,17 +7943,44 @@ impl core::fmt::Debug for VkSamplerCreateFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (8, "DESCRIPTOR_BUFFER_CAPTURE_REPLAY"),
-      (16, "IMAGE_PROCESSING"),
-      (4, "NON_SEAMLESS_CUBE_MAP"),
-      (1, "SUBSAMPLED"),
-      (2, "SUBSAMPLED_COARSE_RECONSTRUCTION"),
+      (8, "descriptor_buffer_capture_replay"),
+      (16, "image_processing"),
+      (4, "non_seamless_cube_map"),
+      (1, "subsampled"),
+      (2, "subsampled_coarse_reconstruction"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkSamplerCreateFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn descriptor_buffer_capture_replay(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn image_processing(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn non_seamless_cube_map(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn subsampled(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn subsampled_coarse_reconstruction(self) -> bool {
+    (self.0 & 2) != 0
   }
 }
 
@@ -4761,12 +8024,19 @@ pub const VK_SEMAPHORE_IMPORT_TEMPORARY_BIT_KHR: VkSemaphoreImportFlagBits =
 impl core::fmt::Debug for VkSemaphoreImportFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "TEMPORARY")] {
+    for (bit_val, bit_name) in [(1, "temporary")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkSemaphoreImportFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn temporary(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -4784,12 +8054,19 @@ pub const VK_SEMAPHORE_WAIT_ANY_BIT_KHR: VkSemaphoreWaitFlagBits =
 impl core::fmt::Debug for VkSemaphoreWaitFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "ANY")] {
+    for (bit_val, bit_name) in [(1, "any")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkSemaphoreWaitFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn any(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -4893,31 +8170,128 @@ impl core::fmt::Debug for VkShaderStageFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (512, "ANY_HIT"),
-      (8192, "CALLABLE"),
-      (1024, "CLOSEST_HIT"),
-      (524288, "CLUSTER_CULLING"),
-      (32, "COMPUTE"),
-      (32768, "EXT_483_RESERVE_15"),
-      (65536, "EXT_483_RESERVE_16"),
-      (131072, "EXT_483_RESERVE_17"),
-      (16, "FRAGMENT"),
-      (8, "GEOMETRY"),
-      (4096, "INTERSECTION"),
-      (128, "MESH"),
-      (2048, "MISS"),
-      (256, "RAYGEN"),
-      (16384, "SUBPASS_SHADING"),
-      (64, "TASK"),
-      (2, "TESSELLATION_CONTROL"),
-      (4, "TESSELLATION_EVALUATION"),
-      (1, "VERTEX"),
+      (512, "any_hit"),
+      (8192, "callable"),
+      (1024, "closest_hit"),
+      (524288, "cluster_culling"),
+      (32, "compute"),
+      (32768, "ext_483_reserve_15"),
+      (65536, "ext_483_reserve_16"),
+      (131072, "ext_483_reserve_17"),
+      (16, "fragment"),
+      (8, "geometry"),
+      (4096, "intersection"),
+      (128, "mesh"),
+      (2048, "miss"),
+      (256, "raygen"),
+      (16384, "subpass_shading"),
+      (64, "task"),
+      (2, "tessellation_control"),
+      (4, "tessellation_evaluation"),
+      (1, "vertex"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkShaderStageFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn any_hit(self) -> bool {
+    (self.0 & 512) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn callable(self) -> bool {
+    (self.0 & 8192) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn closest_hit(self) -> bool {
+    (self.0 & 1024) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn cluster_culling(self) -> bool {
+    (self.0 & 524288) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn compute(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn ext_483_reserve_15(self) -> bool {
+    (self.0 & 32768) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn ext_483_reserve_16(self) -> bool {
+    (self.0 & 65536) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn ext_483_reserve_17(self) -> bool {
+    (self.0 & 131072) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn fragment(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn geometry(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn intersection(self) -> bool {
+    (self.0 & 4096) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn mesh(self) -> bool {
+    (self.0 & 128) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn miss(self) -> bool {
+    (self.0 & 2048) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn raygen(self) -> bool {
+    (self.0 & 256) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn subpass_shading(self) -> bool {
+    (self.0 & 16384) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn task(self) -> bool {
+    (self.0 & 64) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn tessellation_control(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn tessellation_evaluation(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn vertex(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -4941,13 +8315,30 @@ impl core::fmt::Debug for VkSparseImageFormatFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
-      [(2, "ALIGNED_MIP_SIZE"), (4, "NONSTANDARD_BLOCK_SIZE"), (1, "SINGLE_MIPTAIL")]
+      [(2, "aligned_mip_size"), (4, "nonstandard_block_size"), (1, "single_miptail")]
     {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkSparseImageFormatFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn aligned_mip_size(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn nonstandard_block_size(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn single_miptail(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -4963,12 +8354,19 @@ pub const VK_SPARSE_MEMORY_BIND_METADATA_BIT: VkSparseMemoryBindFlagBits =
 impl core::fmt::Debug for VkSparseMemoryBindFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "METADATA")] {
+    for (bit_val, bit_name) in [(1, "metadata")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkSparseMemoryBindFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn metadata(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -4993,12 +8391,24 @@ pub const VK_STENCIL_FRONT_AND_BACK: VkStencilFaceFlagBits =
 impl core::fmt::Debug for VkStencilFaceFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(2, "BACK"), (1, "FRONT")] {
+    for (bit_val, bit_name) in [(2, "back"), (1, "front")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkStencilFaceFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn back(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn front(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -5052,21 +8462,68 @@ impl core::fmt::Debug for VkSubgroupFeatureFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (4, "ARITHMETIC"),
-      (8, "BALLOT"),
-      (1, "BASIC"),
-      (64, "CLUSTERED"),
-      (256, "PARTITIONED"),
-      (128, "QUAD"),
-      (16, "SHUFFLE"),
-      (32, "SHUFFLE_RELATIVE"),
-      (2, "VOTE"),
+      (4, "arithmetic"),
+      (8, "ballot"),
+      (1, "basic"),
+      (64, "clustered"),
+      (256, "partitioned"),
+      (128, "quad"),
+      (16, "shuffle"),
+      (32, "shuffle_relative"),
+      (2, "vote"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkSubgroupFeatureFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn arithmetic(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn ballot(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn basic(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn clustered(self) -> bool {
+    (self.0 & 64) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn partitioned(self) -> bool {
+    (self.0 & 256) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn quad(self) -> bool {
+    (self.0 & 128) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn shuffle(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn shuffle_relative(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn vote(self) -> bool {
+    (self.0 & 2) != 0
   }
 }
 
@@ -5082,12 +8539,19 @@ pub const VK_SUBMIT_PROTECTED_BIT_KHR: VkSubmitFlagBits = VK_SUBMIT_PROTECTED_BI
 impl core::fmt::Debug for VkSubmitFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "PROTECTED")] {
+    for (bit_val, bit_name) in [(1, "protected")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkSubmitFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn protected(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -5129,20 +8593,62 @@ impl core::fmt::Debug for VkSubpassDescriptionFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (128, "ENABLE_LEGACY_DITHERING"),
-      (4, "FRAGMENT_REGION"),
-      (1, "PER_VIEW_ATTRIBUTES"),
-      (2, "PER_VIEW_POSITION_X_ONLY"),
-      (16, "RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS"),
-      (32, "RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS"),
-      (64, "RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS"),
-      (8, "SHADER_RESOLVE"),
+      (128, "enable_legacy_dithering"),
+      (4, "fragment_region"),
+      (1, "per_view_attributes"),
+      (2, "per_view_position_x_only"),
+      (16, "rasterization_order_attachment_color_access"),
+      (32, "rasterization_order_attachment_depth_access"),
+      (64, "rasterization_order_attachment_stencil_access"),
+      (8, "shader_resolve"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkSubpassDescriptionFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn enable_legacy_dithering(self) -> bool {
+    (self.0 & 128) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn fragment_region(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn per_view_attributes(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn per_view_position_x_only(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn rasterization_order_attachment_color_access(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn rasterization_order_attachment_depth_access(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn rasterization_order_attachment_stencil_access(self) -> bool {
+    (self.0 & 64) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn shader_resolve(self) -> bool {
+    (self.0 & 8) != 0
   }
 }
 
@@ -5161,12 +8667,19 @@ pub const VK_SURFACE_COUNTER_VBLANK_EXT: VkSurfaceCounterFlagBitsEXT =
 impl core::fmt::Debug for VkSurfaceCounterFlagBitsEXT {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "VBLANK")] {
+    for (bit_val, bit_name) in [(1, "vblank")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkSurfaceCounterFlagBitsEXT {
+  #[inline]
+  #[must_use]
+  pub const fn vblank(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -5198,21 +8711,68 @@ impl core::fmt::Debug for VkSurfaceTransformFlagBitsKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (16, "HORIZONTAL_MIRROR"),
-      (64, "HORIZONTAL_MIRROR_ROTATE_180"),
-      (128, "HORIZONTAL_MIRROR_ROTATE_270"),
-      (32, "HORIZONTAL_MIRROR_ROTATE_90"),
-      (1, "IDENTITY"),
-      (256, "INHERIT"),
-      (4, "ROTATE_180"),
-      (8, "ROTATE_270"),
-      (2, "ROTATE_90"),
+      (16, "horizontal_mirror"),
+      (64, "horizontal_mirror_rotate_180"),
+      (128, "horizontal_mirror_rotate_270"),
+      (32, "horizontal_mirror_rotate_90"),
+      (1, "identity"),
+      (256, "inherit"),
+      (4, "rotate_180"),
+      (8, "rotate_270"),
+      (2, "rotate_90"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkSurfaceTransformFlagBitsKHR {
+  #[inline]
+  #[must_use]
+  pub const fn horizontal_mirror(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn horizontal_mirror_rotate_180(self) -> bool {
+    (self.0 & 64) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn horizontal_mirror_rotate_270(self) -> bool {
+    (self.0 & 128) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn horizontal_mirror_rotate_90(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn identity(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn inherit(self) -> bool {
+    (self.0 & 256) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn rotate_180(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn rotate_270(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn rotate_90(self) -> bool {
+    (self.0 & 2) != 0
   }
 }
 
@@ -5238,17 +8798,44 @@ impl core::fmt::Debug for VkSwapchainCreateFlagBitsKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (8, "DEFERRED_MEMORY_ALLOCATION"),
-      (4, "MUTABLE_FORMAT"),
-      (2, "PROTECTED"),
-      (16, "RESERVED_4"),
-      (1, "SPLIT_INSTANCE_BIND_REGIONS"),
+      (8, "deferred_memory_allocation"),
+      (4, "mutable_format"),
+      (2, "protected"),
+      (16, "reserved_4"),
+      (1, "split_instance_bind_regions"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkSwapchainCreateFlagBitsKHR {
+  #[inline]
+  #[must_use]
+  pub const fn deferred_memory_allocation(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn mutable_format(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn protected(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn reserved_4(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn split_instance_bind_regions(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -5263,12 +8850,19 @@ pub const VK_SWAPCHAIN_IMAGE_USAGE_SHARED_BIT_ANDROID:
 impl core::fmt::Debug for VkSwapchainImageUsageFlagBitsANDROID {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "SHARED")] {
+    for (bit_val, bit_name) in [(1, "shared")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkSwapchainImageUsageFlagBitsANDROID {
+  #[inline]
+  #[must_use]
+  pub const fn shared(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -5311,19 +8905,56 @@ impl core::fmt::Debug for VkToolPurposeFlagBits {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (8, "ADDITIONAL_FEATURES"),
-      (64, "DEBUG_MARKERS"),
-      (32, "DEBUG_REPORTING"),
-      (16, "MODIFYING_FEATURES"),
-      (2, "PROFILING"),
-      (4, "TRACING"),
-      (1, "VALIDATION"),
+      (8, "additional_features"),
+      (64, "debug_markers"),
+      (32, "debug_reporting"),
+      (16, "modifying_features"),
+      (2, "profiling"),
+      (4, "tracing"),
+      (1, "validation"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkToolPurposeFlagBits {
+  #[inline]
+  #[must_use]
+  pub const fn additional_features(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn debug_markers(self) -> bool {
+    (self.0 & 64) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn debug_reporting(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn modifying_features(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn profiling(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn tracing(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn validation(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -5380,13 +9011,25 @@ impl core::fmt::Debug for VkVideoCapabilityFlagBitsKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
-      [(1, "PROTECTED_CONTENT"), (2, "SEPARATE_REFERENCE_IMAGES")]
+      [(1, "protected_content"), (2, "separate_reference_images")]
     {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkVideoCapabilityFlagBitsKHR {
+  #[inline]
+  #[must_use]
+  pub const fn protected_content(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn separate_reference_images(self) -> bool {
+    (self.0 & 2) != 0
   }
 }
 
@@ -5411,12 +9054,34 @@ pub const VK_VIDEO_CHROMA_SUBSAMPLING_INVALID_KHR: VkVideoChromaSubsamplingFlagB
 impl core::fmt::Debug for VkVideoChromaSubsamplingFlagBitsKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(2, "420"), (4, "422"), (8, "444"), (1, "MONOCHROME")] {
+    for (bit_val, bit_name) in [(2, "420"), (4, "422"), (8, "444"), (1, "monochrome")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkVideoChromaSubsamplingFlagBitsKHR {
+  #[inline]
+  #[must_use]
+  pub const fn _420(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _422(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _444(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn monochrome(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -5435,12 +9100,24 @@ pub const VK_VIDEO_CODEC_OPERATION_NONE_KHR: VkVideoCodecOperationFlagBitsKHR =
 impl core::fmt::Debug for VkVideoCodecOperationFlagBitsKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "DECODE_H264"), (2, "DECODE_H265")] {
+    for (bit_val, bit_name) in [(1, "decode_h_264"), (2, "decode_h_265")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkVideoCodecOperationFlagBitsKHR {
+  #[inline]
+  #[must_use]
+  pub const fn decode_h_264(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn decode_h_265(self) -> bool {
+    (self.0 & 2) != 0
   }
 }
 
@@ -5455,12 +9132,19 @@ pub const VK_VIDEO_CODING_CONTROL_RESET_BIT_KHR: VkVideoCodingControlFlagBitsKHR
 impl core::fmt::Debug for VkVideoCodingControlFlagBitsKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "RESET")] {
+    for (bit_val, bit_name) in [(1, "reset")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkVideoCodingControlFlagBitsKHR {
+  #[inline]
+  #[must_use]
+  pub const fn reset(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -5491,6 +9175,23 @@ impl core::fmt::Debug for VkVideoComponentBitDepthFlagBitsKHR {
     x.finish()
   }
 }
+impl VkVideoComponentBitDepthFlagBitsKHR {
+  #[inline]
+  #[must_use]
+  pub const fn _10(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _12(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _8(self) -> bool {
+    (self.0 & 1) != 0
+  }
+}
 
 define_bitmask!(
   /// Khronos: [VkVideoDecodeFlagsKHR](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkVideoDecodeFlagsKHR.html) (bitmask, no bits defined)
@@ -5519,13 +9220,25 @@ impl core::fmt::Debug for VkVideoDecodeCapabilityFlagBitsKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
-      [(1, "DPB_AND_OUTPUT_COINCIDE"), (2, "DPB_AND_OUTPUT_DISTINCT")]
+      [(1, "dpb_and_output_coincide"), (2, "dpb_and_output_distinct")]
     {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkVideoDecodeCapabilityFlagBitsKHR {
+  #[inline]
+  #[must_use]
+  pub const fn dpb_and_output_coincide(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn dpb_and_output_distinct(self) -> bool {
+    (self.0 & 2) != 0
   }
 }
 
@@ -5549,13 +9262,25 @@ impl core::fmt::Debug for VkVideoDecodeH264PictureLayoutFlagBitsKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
-      [(1, "INTERLACED_INTERLEAVED_LINES"), (2, "INTERLACED_SEPARATE_PLANES")]
+      [(1, "interlaced_interleaved_lines"), (2, "interlaced_separate_planes")]
     {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkVideoDecodeH264PictureLayoutFlagBitsKHR {
+  #[inline]
+  #[must_use]
+  pub const fn interlaced_interleaved_lines(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn interlaced_separate_planes(self) -> bool {
+    (self.0 & 2) != 0
   }
 }
 
@@ -5576,12 +9301,29 @@ pub const VK_VIDEO_DECODE_USAGE_DEFAULT_KHR: VkVideoDecodeUsageFlagBitsKHR =
 impl core::fmt::Debug for VkVideoDecodeUsageFlagBitsKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(2, "OFFLINE"), (4, "STREAMING"), (1, "TRANSCODING")] {
+    for (bit_val, bit_name) in [(2, "offline"), (4, "streaming"), (1, "transcoding")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkVideoDecodeUsageFlagBitsKHR {
+  #[inline]
+  #[must_use]
+  pub const fn offline(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn streaming(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transcoding(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -5609,12 +9351,19 @@ pub const VK_VIDEO_ENCODE_CAPABILITY_PRECEDING_EXTERNALLY_ENCODED_BYTES_BIT_KHR:
 impl core::fmt::Debug for VkVideoEncodeCapabilityFlagBitsKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "PRECEDING_EXTERNALLY_ENCODED_BYTES")] {
+    for (bit_val, bit_name) in [(1, "preceding_externally_encoded_bytes")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkVideoEncodeCapabilityFlagBitsKHR {
+  #[inline]
+  #[must_use]
+  pub const fn preceding_externally_encoded_bytes(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -5635,12 +9384,29 @@ pub const VK_VIDEO_ENCODE_CONTENT_DEFAULT_KHR: VkVideoEncodeContentFlagBitsKHR =
 impl core::fmt::Debug for VkVideoEncodeContentFlagBitsKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "CAMERA"), (2, "DESKTOP"), (4, "RENDERED")] {
+    for (bit_val, bit_name) in [(1, "camera"), (2, "desktop"), (4, "rendered")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkVideoEncodeContentFlagBitsKHR {
+  #[inline]
+  #[must_use]
+  pub const fn camera(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn desktop(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn rendered(self) -> bool {
+    (self.0 & 4) != 0
   }
 }
 
@@ -5658,13 +9424,25 @@ impl core::fmt::Debug for VkVideoEncodeFeedbackFlagBitsKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
-      [(1, "BITSTREAM_BUFFER_OFFSET"), (2, "BITSTREAM_BYTES_WRITTEN")]
+      [(1, "bitstream_buffer_offset"), (2, "bitstream_bytes_written")]
     {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkVideoEncodeFeedbackFlagBitsKHR {
+  #[inline]
+  #[must_use]
+  pub const fn bitstream_buffer_offset(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn bitstream_bytes_written(self) -> bool {
+    (self.0 & 2) != 0
   }
 }
 
@@ -5746,38 +9524,170 @@ impl core::fmt::Debug for VkVideoEncodeH264CapabilityFlagBitsEXT {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (16777216, "B_FRAME_IN_L1_LIST"),
-      (16384, "CABAC"),
-      (32768, "CAVLC"),
-      (64, "CHROMA_QP_OFFSET"),
-      (65536, "DEBLOCKING_FILTER_DISABLED"),
-      (131072, "DEBLOCKING_FILTER_ENABLED"),
-      (262144, "DEBLOCKING_FILTER_PARTIAL"),
-      (33554432, "DIFFERENT_REFERENCE_FINAL_LISTS"),
-      (8388608, "DIFFERENT_SLICE_TYPE"),
-      (2, "DIRECT_8X8_INFERENCE_DISABLED"),
-      (1, "DIRECT_8X8_INFERENCE_ENABLED"),
-      (524288, "DISABLE_DIRECT_SPATIAL_MV_PRED"),
-      (32, "HRD_COMPLIANCE"),
-      (1048576, "MULTIPLE_SLICE_PER_FRAME"),
-      (256, "PIC_INIT_QP_MINUS26"),
-      (8, "QPPRIME_Y_ZERO_TRANSFORM_BYPASS"),
-      (4194304, "ROW_UNALIGNED_SLICE"),
-      (16, "SCALING_LISTS"),
-      (128, "SECOND_CHROMA_QP_OFFSET"),
-      (4, "SEPARATE_COLOUR_PLANE"),
-      (2097152, "SLICE_MB_COUNT"),
-      (8192, "TRANSFORM_8X8"),
-      (1024, "WEIGHTED_BIPRED_EXPLICIT"),
-      (2048, "WEIGHTED_BIPRED_IMPLICIT"),
-      (512, "WEIGHTED_PRED"),
-      (4096, "WEIGHTED_PRED_NO_TABLE"),
+      (16777216, "b_frame_in_l_1_list"),
+      (16384, "cabac"),
+      (32768, "cavlc"),
+      (64, "chroma_qp_offset"),
+      (65536, "deblocking_filter_disabled"),
+      (131072, "deblocking_filter_enabled"),
+      (262144, "deblocking_filter_partial"),
+      (33554432, "different_reference_final_lists"),
+      (8388608, "different_slice_type"),
+      (2, "direct_8_x_8_inference_disabled"),
+      (1, "direct_8_x_8_inference_enabled"),
+      (524288, "disable_direct_spatial_mv_pred"),
+      (32, "hrd_compliance"),
+      (1048576, "multiple_slice_per_frame"),
+      (256, "pic_init_qp_minus_26"),
+      (8, "qpprime_y_zero_transform_bypass"),
+      (4194304, "row_unaligned_slice"),
+      (16, "scaling_lists"),
+      (128, "second_chroma_qp_offset"),
+      (4, "separate_colour_plane"),
+      (2097152, "slice_mb_count"),
+      (8192, "transform_8_x_8"),
+      (1024, "weighted_bipred_explicit"),
+      (2048, "weighted_bipred_implicit"),
+      (512, "weighted_pred"),
+      (4096, "weighted_pred_no_table"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkVideoEncodeH264CapabilityFlagBitsEXT {
+  #[inline]
+  #[must_use]
+  pub const fn b_frame_in_l_1_list(self) -> bool {
+    (self.0 & 16777216) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn cabac(self) -> bool {
+    (self.0 & 16384) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn cavlc(self) -> bool {
+    (self.0 & 32768) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn chroma_qp_offset(self) -> bool {
+    (self.0 & 64) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn deblocking_filter_disabled(self) -> bool {
+    (self.0 & 65536) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn deblocking_filter_enabled(self) -> bool {
+    (self.0 & 131072) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn deblocking_filter_partial(self) -> bool {
+    (self.0 & 262144) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn different_reference_final_lists(self) -> bool {
+    (self.0 & 33554432) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn different_slice_type(self) -> bool {
+    (self.0 & 8388608) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn direct_8_x_8_inference_disabled(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn direct_8_x_8_inference_enabled(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn disable_direct_spatial_mv_pred(self) -> bool {
+    (self.0 & 524288) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn hrd_compliance(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn multiple_slice_per_frame(self) -> bool {
+    (self.0 & 1048576) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn pic_init_qp_minus_26(self) -> bool {
+    (self.0 & 256) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn qpprime_y_zero_transform_bypass(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn row_unaligned_slice(self) -> bool {
+    (self.0 & 4194304) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn scaling_lists(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn second_chroma_qp_offset(self) -> bool {
+    (self.0 & 128) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn separate_colour_plane(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn slice_mb_count(self) -> bool {
+    (self.0 & 2097152) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transform_8_x_8(self) -> bool {
+    (self.0 & 8192) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn weighted_bipred_explicit(self) -> bool {
+    (self.0 & 1024) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn weighted_bipred_implicit(self) -> bool {
+    (self.0 & 2048) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn weighted_pred(self) -> bool {
+    (self.0 & 512) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn weighted_pred_no_table(self) -> bool {
+    (self.0 & 4096) != 0
   }
 }
 
@@ -5862,39 +9772,176 @@ impl core::fmt::Debug for VkVideoEncodeH265CapabilityFlagBitsEXT {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in [
-      (33554432, "B_FRAME_IN_L1_LIST"),
-      (131072, "DEBLOCKING_FILTER_OVERRIDE_ENABLED"),
-      (8388608, "DEPENDENT_SLICE_SEGMENT"),
-      (67108864, "DIFFERENT_REFERENCE_FINAL_LISTS"),
-      (16777216, "DIFFERENT_SLICE_TYPE"),
-      (65536, "ENTROPY_CODING_SYNC_ENABLED"),
-      (32, "HRD_COMPLIANCE"),
-      (64, "INIT_QP_MINUS26"),
-      (128, "LOG2_PARALLEL_MERGE_LEVEL_MINUS2"),
-      (524288, "MULTIPLE_SLICE_PER_TILE"),
-      (262144, "MULTIPLE_TILE_PER_FRAME"),
-      (1048576, "MULTIPLE_TILE_PER_SLICE"),
-      (8, "PCM_ENABLE"),
-      (2048, "PPS_SLICE_CHROMA_QP_OFFSETS_PRESENT"),
-      (4194304, "ROW_UNALIGNED_SLICE_SEGMENT"),
-      (4, "SAMPLE_ADAPTIVE_OFFSET_ENABLED"),
-      (2, "SCALING_LISTS"),
-      (1, "SEPARATE_COLOUR_PLANE"),
-      (256, "SIGN_DATA_HIDING_ENABLED"),
-      (2097152, "SLICE_SEGMENT_CTB_COUNT"),
-      (16, "SPS_TEMPORAL_MVP_ENABLED"),
-      (1024, "TRANSFORM_SKIP_DISABLED"),
-      (512, "TRANSFORM_SKIP_ENABLED"),
-      (32768, "TRANSQUANT_BYPASS_ENABLED"),
-      (8192, "WEIGHTED_BIPRED"),
-      (4096, "WEIGHTED_PRED"),
-      (16384, "WEIGHTED_PRED_NO_TABLE"),
+      (33554432, "b_frame_in_l_1_list"),
+      (131072, "deblocking_filter_override_enabled"),
+      (8388608, "dependent_slice_segment"),
+      (67108864, "different_reference_final_lists"),
+      (16777216, "different_slice_type"),
+      (65536, "entropy_coding_sync_enabled"),
+      (32, "hrd_compliance"),
+      (64, "init_qp_minus_26"),
+      (128, "log_2_parallel_merge_level_minus_2"),
+      (524288, "multiple_slice_per_tile"),
+      (262144, "multiple_tile_per_frame"),
+      (1048576, "multiple_tile_per_slice"),
+      (8, "pcm_enable"),
+      (2048, "pps_slice_chroma_qp_offsets_present"),
+      (4194304, "row_unaligned_slice_segment"),
+      (4, "sample_adaptive_offset_enabled"),
+      (2, "scaling_lists"),
+      (1, "separate_colour_plane"),
+      (256, "sign_data_hiding_enabled"),
+      (2097152, "slice_segment_ctb_count"),
+      (16, "sps_temporal_mvp_enabled"),
+      (1024, "transform_skip_disabled"),
+      (512, "transform_skip_enabled"),
+      (32768, "transquant_bypass_enabled"),
+      (8192, "weighted_bipred"),
+      (4096, "weighted_pred"),
+      (16384, "weighted_pred_no_table"),
     ] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkVideoEncodeH265CapabilityFlagBitsEXT {
+  #[inline]
+  #[must_use]
+  pub const fn b_frame_in_l_1_list(self) -> bool {
+    (self.0 & 33554432) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn deblocking_filter_override_enabled(self) -> bool {
+    (self.0 & 131072) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn dependent_slice_segment(self) -> bool {
+    (self.0 & 8388608) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn different_reference_final_lists(self) -> bool {
+    (self.0 & 67108864) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn different_slice_type(self) -> bool {
+    (self.0 & 16777216) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn entropy_coding_sync_enabled(self) -> bool {
+    (self.0 & 65536) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn hrd_compliance(self) -> bool {
+    (self.0 & 32) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn init_qp_minus_26(self) -> bool {
+    (self.0 & 64) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn log_2_parallel_merge_level_minus_2(self) -> bool {
+    (self.0 & 128) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn multiple_slice_per_tile(self) -> bool {
+    (self.0 & 524288) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn multiple_tile_per_frame(self) -> bool {
+    (self.0 & 262144) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn multiple_tile_per_slice(self) -> bool {
+    (self.0 & 1048576) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn pcm_enable(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn pps_slice_chroma_qp_offsets_present(self) -> bool {
+    (self.0 & 2048) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn row_unaligned_slice_segment(self) -> bool {
+    (self.0 & 4194304) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sample_adaptive_offset_enabled(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn scaling_lists(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn separate_colour_plane(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sign_data_hiding_enabled(self) -> bool {
+    (self.0 & 256) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn slice_segment_ctb_count(self) -> bool {
+    (self.0 & 2097152) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn sps_temporal_mvp_enabled(self) -> bool {
+    (self.0 & 16) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transform_skip_disabled(self) -> bool {
+    (self.0 & 1024) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transform_skip_enabled(self) -> bool {
+    (self.0 & 512) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transquant_bypass_enabled(self) -> bool {
+    (self.0 & 32768) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn weighted_bipred(self) -> bool {
+    (self.0 & 8192) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn weighted_pred(self) -> bool {
+    (self.0 & 4096) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn weighted_pred_no_table(self) -> bool {
+    (self.0 & 16384) != 0
   }
 }
 
@@ -5919,6 +9966,23 @@ impl core::fmt::Debug for VkVideoEncodeH265CtbSizeFlagBitsEXT {
       }
     }
     x.finish()
+  }
+}
+impl VkVideoEncodeH265CtbSizeFlagBitsEXT {
+  #[inline]
+  #[must_use]
+  pub const fn _16(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _32(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _64(self) -> bool {
+    (self.0 & 4) != 0
   }
 }
 
@@ -5950,6 +10014,28 @@ impl core::fmt::Debug for VkVideoEncodeH265TransformBlockSizeFlagBitsEXT {
       }
     }
     x.finish()
+  }
+}
+impl VkVideoEncodeH265TransformBlockSizeFlagBitsEXT {
+  #[inline]
+  #[must_use]
+  pub const fn _16(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _32(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _4(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn _8(self) -> bool {
+    (self.0 & 2) != 0
   }
 }
 
@@ -5986,12 +10072,29 @@ pub const VK_VIDEO_ENCODE_RATE_CONTROL_MODE_DEFAULT_KHR:
 impl core::fmt::Debug for VkVideoEncodeRateControlModeFlagBitsKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(2, "CBR"), (1, "DISABLED"), (4, "VBR")] {
+    for (bit_val, bit_name) in [(2, "cbr"), (1, "disabled"), (4, "vbr")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkVideoEncodeRateControlModeFlagBitsKHR {
+  #[inline]
+  #[must_use]
+  pub const fn cbr(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn disabled(self) -> bool {
+    (self.0 & 1) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn vbr(self) -> bool {
+    (self.0 & 4) != 0
   }
 }
 
@@ -6015,13 +10118,35 @@ impl core::fmt::Debug for VkVideoEncodeUsageFlagBitsKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
     for (bit_val, bit_name) in
-      [(8, "CONFERENCING"), (4, "RECORDING"), (2, "STREAMING"), (1, "TRANSCODING")]
+      [(8, "conferencing"), (4, "recording"), (2, "streaming"), (1, "transcoding")]
     {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkVideoEncodeUsageFlagBitsKHR {
+  #[inline]
+  #[must_use]
+  pub const fn conferencing(self) -> bool {
+    (self.0 & 8) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn recording(self) -> bool {
+    (self.0 & 4) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn streaming(self) -> bool {
+    (self.0 & 2) != 0
+  }
+  #[inline]
+  #[must_use]
+  pub const fn transcoding(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
@@ -6049,12 +10174,19 @@ pub const VK_VIDEO_SESSION_CREATE_PROTECTED_CONTENT_BIT_KHR:
 impl core::fmt::Debug for VkVideoSessionCreateFlagBitsKHR {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut x = f.debug_set();
-    for (bit_val, bit_name) in [(1, "PROTECTED_CONTENT")] {
+    for (bit_val, bit_name) in [(1, "protected_content")] {
       if (self.0 & bit_val) != 0 {
         x.entry(&bit_name);
       }
     }
     x.finish()
+  }
+}
+impl VkVideoSessionCreateFlagBitsKHR {
+  #[inline]
+  #[must_use]
+  pub const fn protected_content(self) -> bool {
+    (self.0 & 1) != 0
   }
 }
 
