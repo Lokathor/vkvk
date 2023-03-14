@@ -9,7 +9,7 @@ license = "Zlib OR Apache-2.0 OR MIT"
 [dependencies]
 raw_vulkan_handle = "0.1.1"
 bool32 = "0.1.1"
-zstring = "0.2.4"
+zstring = { version = "0.2.4", features = ["alloc"] }
 
 # this isn't used by the crate, but is used during docs.rs documentation
 # generation so that doc links to the crate's types can be used.

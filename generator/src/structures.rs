@@ -236,7 +236,9 @@ pub fn gather_structures(
         continue;
       }
       assert!(selection.is_none());
-      let ty = if *name == "VkLayerProperties" && member_name == "specVersion" {
+      let ty = if (*name == "VkLayerProperties" && member_name == "specVersion")
+        || (*name == "VkApplicationInfo" && member_name == "apiVersion")
+      {
         "VkVersion"
       } else {
         ty

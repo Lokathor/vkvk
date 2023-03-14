@@ -596,7 +596,7 @@ pub struct VkApplicationInfo {
   /// * Len: `null_terminated`
   pub engine_name: *const u8,
   pub engine_version: u32,
-  pub api_version: u32,
+  pub api_version: VkVersion,
 }
 impl Default for VkApplicationInfo {
   #[inline]

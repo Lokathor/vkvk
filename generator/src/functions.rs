@@ -200,7 +200,7 @@ impl Display for RustFnType {
       )?;
       writeln!(f, "/// Khronos: [{name}](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/{name}.html) (nullable)").unwrap();
       writeln!(f, "pub type PFN_{name} = Option<{name}_t>;")?;
-      writeln!(f, "const {name}_NAME:&str = \"{name}\\0\";")?;
+      writeln!(f, "pub const {name}_NAME:&str = \"{name}\\0\";")?;
     }
     Ok(())
   }
@@ -328,7 +328,7 @@ pub fn write_out_fn_types<P: AsRef<Path>>(
   }
   writeln!(f, "/// pointers for {} fns.", instance_entries.len()).unwrap();
   writeln!(f, "#[allow(dead_code)]").unwrap();
-  writeln!(f, "#[derive(Clone, Copy)]").unwrap();
+  writeln!(f, "#[derive(Clone, Copy, Default)]").unwrap();
   writeln!(f, "#[repr(C)]").unwrap();
   writeln!(f, "pub(crate) struct InstanceFns {{").unwrap();
   for instance_entry in instance_entries.iter() {
@@ -360,7 +360,7 @@ pub fn write_out_fn_types<P: AsRef<Path>>(
   }
   writeln!(f, "/// pointers for {} fns.", device_entries.len()).unwrap();
   writeln!(f, "#[allow(dead_code)]").unwrap();
-  writeln!(f, "#[derive(Clone, Copy)]").unwrap();
+  writeln!(f, "#[derive(Clone, Copy, Default)]").unwrap();
   writeln!(f, "#[repr(C)]").unwrap();
   writeln!(f, "pub(crate) struct DeviceFns {{").unwrap();
   for device_entry in device_entries.iter() {

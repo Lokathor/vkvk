@@ -1,4 +1,3 @@
-#![no_std]
 #![warn(missing_docs)]
 #![cfg_attr(docs_rs, feature(doc_cfg))]
 
@@ -27,11 +26,6 @@
 //! ```
 //! use vkvk::prelude::*;
 //! ```
-
-extern crate alloc;
-
-#[cfg(debug_assertions)]
-extern crate std;
 
 #[macro_use]
 mod macros;

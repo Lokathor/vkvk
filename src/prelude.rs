@@ -9,15 +9,6 @@
 
 #![allow(nonstandard_style)] // for the PFN definitions.
 
-pub use alloc::{boxed::Box, string::String, vec::Vec};
-pub use core::{
-  ffi::{c_double, c_float, c_int, c_void},
-  num::{NonZeroI32, NonZeroU32},
-  ptr::{null, null_mut},
-};
-pub use raw_vulkan_handle::*;
-
-pub(crate) use crate::generated::fn_types::*;
 pub use crate::{
   api_constants::*,
   base_types::*,
@@ -25,6 +16,17 @@ pub use crate::{
   generated::{aliases::*, bitmasks::*, enumerations::*, structures::*, unions::*},
   instance::*,
 };
+pub use core::{
+  ffi::{c_double, c_float, c_int, c_void},
+  mem::ManuallyDrop,
+  num::{NonZeroI32, NonZeroU32},
+  ptr::{null, null_mut},
+};
+pub use raw_vulkan_handle::*;
+pub use zstring::*;
+
+pub(crate) use crate::generated::fn_types::*;
+pub(crate) use std::sync::Arc;
 
 // TODO: these type aliases need a better home. They are written by hand so they
 // don't go in the `generated` code files, but they also require the generated

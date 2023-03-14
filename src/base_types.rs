@@ -222,3 +222,10 @@ const fn u32_region_mask(low: u32, high: u32) -> u32 {
   assert!(low < high);
   (<u32>::MAX >> ((<u32>::BITS - 1) - (high - low))) << low
 }
+
+pub(crate) struct AbortOnDrop(pub(crate) ());
+impl Drop for AbortOnDrop {
+  fn drop(&mut self) {
+    std::process::abort()
+  }
+}

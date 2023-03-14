@@ -5,5 +5,6 @@ use crate::prelude::*;
 
 /// ?
 pub struct Instance {
-  // TODO
+  pub(crate) vk_instance: VkInstance,
+  pub(crate) fns: Arc<InstanceFns>,
 }

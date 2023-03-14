@@ -81,3 +81,26 @@ macro_rules! define_bitmask {
     }
   };
 }
+
+/// This "fakes" a `&mut Vec<_>` by packing up the fields into a
+/// `ManuallyDrop<Vec<_>>`, calling the closure, and then unpacking the fields
+/// back into place.
+macro_rules! fake_ptr_len_cap {
+  ($ptr:expr, $len:expr, $cap:expr, $op:expr) => {{
+    let mut v: ManuallyDrop<Vec<_>> = ManuallyDrop::new(unsafe {
+      Vec::from_raw_parts($ptr, $len.try_into().unwrap(), $cap.try_into().unwrap())
+    });
+    {
+      // Making the fake vec can put the vec data into a bad state where
+      // dropping the container will go wrong. So we need to be unwind safe, but
+      // we can't mix `ManuallyDrop` and `catch_unwind`, so we'll just go hard
+      // and abort if the code tries to unwind out of here.
+      let abort_on_drop = AbortOnDrop(());
+      $op(&mut v);
+      core::mem::forget(abort_on_drop);
+    }
+    $cap = v.capacity().try_into().unwrap();
+    $len = v.len().try_into().unwrap();
+    $ptr = v.as_mut_ptr();
+  }};
+}

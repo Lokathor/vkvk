@@ -34,6 +34,15 @@ fn main() {
 
     let instance_extensions: Vec<ZString> = win.get_instance_extensions().unwrap();
     println!("instance_extensions: {instance_extensions:?}");
+
+    let mut application_info = Box::<ApplicationInfo>::default();
+    application_info.api_version = VkVersion::API_1_1;
+    let mut create_info = InstanceCreateInfo::default();
+    create_info.application_info = Some(application_info);
+    create_info.layers_mut(|v| v.extend(instance_layers.into_iter()));
+    create_info.extensions_mut(|v| v.extend(instance_extensions.into_iter()));
+
+    entry.create_instance(&create_info).unwrap();
   };
 
   'the_main_loop: loop {
