@@ -13,7 +13,9 @@ pub use crate::{
   api_constants::*,
   base_types::*,
   entry::*,
-  generated::{aliases::*, bitmasks::*, enumerations::*, structures::*, unions::*},
+  generated::{
+    aliases::*, bitmasks::*, enumerations::*, ext_consts::*, structures::*, unions::*,
+  },
   instance::*,
   physical_device::*,
 };
