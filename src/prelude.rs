@@ -12,6 +12,7 @@
 pub use crate::{
   api_constants::*,
   base_types::*,
+  device::*,
   entry::*,
   generated::{
     aliases::*, bitmasks::*, enumerations::*, ext_consts::*, structures::*, unions::*,

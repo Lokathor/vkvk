@@ -42,112 +42,138 @@ impl PhysicalDevice {
     unsafe { buf.set_len(count.try_into().unwrap()) };
     buf
   }
-}
 
-#[derive(Clone, Debug)]
-#[repr(C)]
-pub struct DeviceCreateInfo {
-  struct_ty: VkStructureType,
-  next: *const c_void,
-  flags: VkDeviceCreateFlags,
-  queue_create_info_count: u32,
-  queue_create_infos: *mut VkDeviceQueueCreateInfo,
-  _enabled_layer_count: u32,
-  _enabled_layer_names: *const *const u8,
-  enabled_extension_count: u32,
-  enabled_extension_names: *mut ZString,
-  pub enabled_features: Option<Box<VkPhysicalDeviceFeatures>>,
-  //
-  queue_create_info_capacity: u32,
-  enabled_extension_capacity: u32,
-}
-impl Drop for DeviceCreateInfo {
+  /// Gets the possible extensions for Devices created from this Physical
+  /// Device.
   #[inline]
-  fn drop(&mut self) {
-    drop(unsafe {
-      Vec::from_raw_parts(
-        self.queue_create_infos,
-        self.queue_create_info_count.try_into().unwrap(),
-        self.queue_create_info_capacity.try_into().unwrap(),
-      )
-    });
-    drop(unsafe {
-      Vec::from_raw_parts(
-        self.enabled_extension_names,
-        self.enabled_extension_count.try_into().unwrap(),
-        self.enabled_extension_capacity.try_into().unwrap(),
-      )
-    });
-  }
-}
-impl Default for DeviceCreateInfo {
-  #[inline]
-  #[must_use]
-  fn default() -> Self {
-    let mut queue_create_info = ManuallyDrop::new(Vec::new());
-    let mut enabled_extension = ManuallyDrop::new(Vec::new());
-    Self {
-      struct_ty: VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO,
-      next: core::ptr::null(),
-      flags: Default::default(),
-      queue_create_info_count: queue_create_info.len().try_into().unwrap(),
-      _enabled_layer_count: Default::default(),
-      _enabled_layer_names: core::ptr::null(),
-      enabled_extension_count: enabled_extension.len().try_into().unwrap(),
-      enabled_features: None,
-      queue_create_info_capacity: queue_create_info.capacity().try_into().unwrap(),
-      enabled_extension_capacity: enabled_extension.capacity().try_into().unwrap(),
-      queue_create_infos: queue_create_info.as_mut_ptr(),
-      enabled_extension_names: enabled_extension.as_mut_ptr(),
+  pub fn enumerate_device_extension_properties(
+    &self,
+  ) -> Result<Vec<VkExtensionProperties>, VkError> {
+    let Some(vkEnumerateDeviceExtensionProperties) = self.parent.fns.EnumerateDeviceExtensionProperties else {
+      return Err(VkError::new(VK_ERROR_UNKNOWN.0).unwrap());
+    };
+    let physical_device = self.vk_physical_device;
+    let layer_name: *const u8 = null(); // device layers are deprecated
+    'gather: loop {
+      let mut count = 0_u32;
+      let r = unsafe {
+        vkEnumerateDeviceExtensionProperties(
+          physical_device,
+          layer_name,
+          &mut count,
+          null_mut(),
+        )
+      };
+      match r {
+        VK_SUCCESS => (),
+        other => return Err(VkError::new(other.0).unwrap()),
+      }
+      let mut buf: Vec<VkExtensionProperties> =
+        Vec::with_capacity(count.try_into().unwrap());
+      let r = unsafe {
+        vkEnumerateDeviceExtensionProperties(
+          physical_device,
+          layer_name,
+          &mut count,
+          buf.as_mut_ptr(),
+        )
+      };
+      match r {
+        VK_SUCCESS => {
+          unsafe { buf.set_len(count.try_into().unwrap()) };
+          return Ok(buf);
+        }
+        VK_INCOMPLETE => continue 'gather,
+        other => return Err(VkError::new(other.0).unwrap()),
+      }
     }
   }
-}
-impl DeviceCreateInfo {
-  /// Runs a closure using the queue_create list.
-  #[inline]
-  pub fn queue_create_mut<F: FnOnce(&mut Vec<VkDeviceQueueCreateInfo>)>(
-    &mut self, op: F,
-  ) {
-    fake_ptr_len_cap!(
-      self.queue_create_infos,
-      self.queue_create_info_count,
-      self.queue_create_info_capacity,
-      op
-    );
-  }
 
-  /// Runs a closure using the extensions list.
+  /// Obtains the features available with this physical device.
+  ///
+  /// Physical device features that you wish to use with a Device must be
+  /// enabled during that device's creation.
+  ///
+  /// * Khronos Fn: [vkGetPhysicalDeviceFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceFeatures.html)
+  /// * Khronos Struct: [VkPhysicalDeviceFeatures](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkPhysicalDeviceFeatures.html)
   #[inline]
-  pub fn extensions_mut<F: FnOnce(&mut Vec<ZString>)>(&mut self, op: F) {
-    fake_ptr_len_cap!(
-      self.enabled_extension_names,
-      self.enabled_extension_count,
-      self.enabled_extension_capacity,
-      op
-    );
-  }
-
-  /// View the names of the layers to use
-  #[inline]
-  #[must_use]
-  pub fn layers(&self) -> &[VkDeviceQueueCreateInfo] {
+  pub fn get_features(&self) -> VkPhysicalDeviceFeatures {
+    let mut physical_device_features = VkPhysicalDeviceFeatures::default();
+    let Some(vkGetPhysicalDeviceFeatures) = self.parent.fns.GetPhysicalDeviceFeatures else {
+      return physical_device_features;
+    };
+    let physical_device = self.vk_physical_device;
     unsafe {
-      core::slice::from_raw_parts(
-        self.queue_create_infos,
-        self.queue_create_info_count.try_into().unwrap(),
-      )
-    }
+      vkGetPhysicalDeviceFeatures(physical_device, &mut physical_device_features)
+    };
+    physical_device_features
   }
 
-  /// View the names of the extensions to use
+  /// Creates a [Device] from this Physical Device.
+  ///
+  /// This automatically determines the queue family to use. When
+  /// `needs_graphics` is set a graphical queue family will be selected. The
+  /// number of queues in that family will be based on the number of
+  /// `queue_priorities` you pass. If no queue family can satisfy your requested
+  /// combination this method will return `VK_ERROR_UNKNOWN` without actually
+  /// attempting device creation.
+  ///
+  /// ## Panics
+  /// * All `queue_priorities` values must be within `0.0` to `1.0` (inclusive).
   #[inline]
-  #[must_use]
-  pub fn extensions(&self) -> &[ZString] {
-    unsafe {
-      core::slice::from_raw_parts(
-        self.enabled_extension_names,
-        self.enabled_extension_count.try_into().unwrap(),
-      )
+  #[allow(clippy::field_reassign_with_default)]
+  pub fn create_device(
+    &self, extensions: &[ZStr<'_>], features: Option<&VkPhysicalDeviceFeatures>,
+    needs_graphics: bool, queue_priorities: &[f32],
+  ) -> Result<Device, VkError> {
+    queue_priorities.iter().for_each(|f| assert!((0.0..=1.0).contains(f)));
+    //
+    let Some(vkCreateDevice) = self.parent.fns.CreateDevice else {
+      return Err(NonZeroI32::new(VK_ERROR_UNKNOWN.0).unwrap());
+    };
+    let Some(vkGetDeviceProcAddr) = self.parent.fns.GetInstanceProcAddr
+      .and_then(|f|unsafe {f(self.parent.vk_instance, vkGetDeviceProcAddr_NAME.as_ptr())})
+      .map(|f|unsafe {core::mem::transmute::<_,vkGetDeviceProcAddr_t>(f)}) else {
+      return Err(NonZeroI32::new(VK_ERROR_UNKNOWN.0).unwrap());
+    };
+    let queue_family_index: u32 = self
+      .get_queue_family_properties()
+      .iter()
+      .position(|p| {
+        (needs_graphics && p.queue_flags.graphics())
+          && p.queue_count >= queue_priorities.len().try_into().unwrap()
+      })
+      .ok_or(NonZeroI32::new(VK_ERROR_UNKNOWN.0).unwrap())?
+      .try_into()
+      .unwrap();
+    let mut device_queue_create_info = VkDeviceQueueCreateInfo::default();
+    device_queue_create_info.queue_family_index = queue_family_index;
+    device_queue_create_info.queue_count = queue_priorities.len().try_into().unwrap();
+    device_queue_create_info.queue_priorities = queue_priorities.as_ptr();
+    //
+    let mut vk_device_create_info = VkDeviceCreateInfo::default();
+    vk_device_create_info.enabled_extension_count = extensions.len().try_into().unwrap();
+    vk_device_create_info.enabled_extension_names = extensions.as_ptr().cast();
+    if let Some(features_ref) = features {
+      vk_device_create_info.enabled_features = features_ref;
     }
+    vk_device_create_info.queue_create_info_count = 1;
+    vk_device_create_info.queue_create_infos = &device_queue_create_info;
+    //
+    let vk_physical_device = self.vk_physical_device;
+    let mut vk_device = VkDevice::NULL;
+    let r = unsafe {
+      vkCreateDevice(vk_physical_device, &vk_device_create_info, null(), &mut vk_device)
+    };
+    if let Some(err_code) = NonZeroI32::new(r.0) {
+      return Err(err_code);
+    }
+    let mut device_fns = DeviceFns::default();
+    unsafe { device_fns.load(vk_device, vkGetDeviceProcAddr) };
+    Ok(Device(Arc::new(DestroyDeviceOnDrop {
+      vk_device,
+      fns: Arc::new(device_fns),
+      _parent: self.parent.clone(),
+    })))
   }
 }

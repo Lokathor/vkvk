@@ -47,19 +47,51 @@ fn main() {
     create_info.application_info = Some(application_info);
     create_info.layers_mut(|v| v.extend(instance_layers.into_iter()));
     create_info.extensions_mut(|v| v.extend(instance_extensions.into_iter()));
+    if cfg!(target_os = "macos") {
+      create_info.enable_portability();
+    }
 
     entry.create_instance(&create_info).unwrap()
+  };
+  let surface: Surface = unsafe {
+    // It's unsafe to create the surface (we have to pass a valid instance handle)
+    let vk_surface_khr = win.create_surface(instance.vk_instance()).unwrap();
+    // It's unsafe to mark a raw surface as a child of our instance (it has to have
+    // *really* been made from our instance).
+    instance.make_raw_surface_a_child_of_this(vk_surface_khr)
   };
   let physical_device: PhysicalDevice = {
     let mut physical_devices = instance.enumerate_physical_devices().unwrap();
     println!("physical_devices: {physical_devices:?}");
     physical_devices.retain(|pd| {
-      let x = pd.get_queue_family_properties();
-      x.iter().any(|qfp| qfp.queue_flags.graphics())
+      let ext_props = pd.enumerate_device_extension_properties().unwrap_or_default();
+      let supports_swapchain =
+        ext_props.iter().any(|p| p.extension_name == VK_KHR_SWAPCHAIN_EXTENSION_NAME);
+      supports_swapchain
     });
     physical_devices.into_iter().next().expect("No valid physical devices!")
   };
-  println!("{physical_device:?}");
+  let device: Device = {
+    let device_extensions = vec![
+      ZString::from(VK_KHR_SWAPCHAIN_EXTENSION_NAME),
+      #[cfg(target_os = "macos")]
+      ZString::from(VK_KHR_PORTABILITY_SUBSET_EXTENSION_NAME),
+    ];
+    let features = None;
+    let needs_graphics = true;
+    let queue_priorities = &[1.0];
+    physical_device
+      .create_device(
+        zstrings_as_zstrs(&device_extensions),
+        features,
+        needs_graphics,
+        queue_priorities,
+      )
+      .unwrap()
+  };
+  let swapchain: () = {
+    // TODO
+  };
 
   'the_main_loop: loop {
     // Process pending events.

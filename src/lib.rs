@@ -33,6 +33,7 @@ mod macros;
 
 pub mod api_constants;
 pub mod base_types;
+pub mod device;
 pub mod entry;
 pub mod instance;
 pub mod physical_device;

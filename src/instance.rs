@@ -14,6 +14,7 @@ pub(crate) struct DestroyInstanceOnDrop {
   pub(crate) fns: Arc<InstanceFns>,
 }
 impl Drop for DestroyInstanceOnDrop {
+  #[inline]
   fn drop(&mut self) {
     if let Some(f) = self.fns.DestroyInstance {
       unsafe { f(self.vk_instance, null()) }
@@ -21,6 +22,29 @@ impl Drop for DestroyInstanceOnDrop {
   }
 }
 
+pub(crate) struct DestroySurfaceOnDrop {
+  pub(crate) vk_surface_khr: VkSurfaceKHR,
+  pub(crate) parent: Arc<DestroyInstanceOnDrop>,
+}
+impl Drop for DestroySurfaceOnDrop {
+  #[inline]
+  fn drop(&mut self) {
+    if let Some(f) = self.parent.fns.DestroySurfaceKHR {
+      unsafe { f(self.parent.vk_instance, self.vk_surface_khr, null()) }
+    }
+  }
+}
+
+/// A Surface is the backing data for Vulkan to support a particular window.
+pub struct Surface(pub(crate) Arc<DestroySurfaceOnDrop>);
+
+/// Reprisents an open connection to a Vulkan API with a particular set of
+/// layers and extensions enabled.
+///
+/// This doesn't do much itself. Generally, you call
+/// [`enumerate_physical_devices`](Self::enumerate_physical_devices) and then
+/// you can go through the physical devices for more information on what's
+/// available on this system.
 pub struct Instance(pub(crate) Arc<DestroyInstanceOnDrop>);
 impl core::fmt::Debug for Instance {
   #[inline]
@@ -29,6 +53,29 @@ impl core::fmt::Debug for Instance {
   }
 }
 impl Instance {
+  /// Gets the [VkInstance] that this is wrapping.
+  ///
+  /// This is of use if you want to make `vkvk` interact with other libraries
+  /// that also use Vulkan. The `vkvk` crate expects to be the one that
+  /// destroys the instance, so you should not destroy the instance yourself.
+  #[inline]
+  #[must_use]
+  pub fn vk_instance(&self) -> VkInstance {
+    self.0.vk_instance
+  }
+
+  /// Makes a raw surface handle be wrapped as a child of this instance.
+  ///
+  /// ## Safety
+  /// * The surface must have been made off of this instance and with no
+  ///   allocation callback.
+  #[inline]
+  pub unsafe fn make_raw_surface_a_child_of_this(
+    &self, vk_surface_khr: VkSurfaceKHR,
+  ) -> Surface {
+    Surface(Arc::new(DestroySurfaceOnDrop { vk_surface_khr, parent: self.0.clone() }))
+  }
+
   /// Get handles for all available [PhysicalDevice] values.
   #[inline]
   pub fn enumerate_physical_devices(&self) -> Result<Vec<PhysicalDevice>, VkError> {
