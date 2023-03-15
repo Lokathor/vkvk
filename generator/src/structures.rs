@@ -236,10 +236,15 @@ pub fn gather_structures(
         continue;
       }
       assert!(selection.is_none());
+      // Magically alter the type of various struct fields based on non-XML info on
+      // how the fields are supposed to work. Uses the raw field names, not the
+      // snake_case names.
       let ty = if (*name == "VkLayerProperties" && member_name == "specVersion")
         || (*name == "VkApplicationInfo" && member_name == "apiVersion")
       {
         "VkVersion"
+      } else if *name == "VkSurfaceCapabilitiesKHR" && member_name == "maxImageCount" {
+        "Option<NonZeroU32>"
       } else {
         ty
       };

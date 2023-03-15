@@ -52,27 +52,26 @@ impl PhysicalDevice {
     let Some(vkEnumerateDeviceExtensionProperties) = self.parent.fns.EnumerateDeviceExtensionProperties else {
       return Err(VkError::new(VK_ERROR_UNKNOWN.0).unwrap());
     };
-    let physical_device = self.vk_physical_device;
+    let vk_physical_device = self.vk_physical_device;
     let layer_name: *const u8 = null(); // device layers are deprecated
     'gather: loop {
       let mut count = 0_u32;
       let r = unsafe {
         vkEnumerateDeviceExtensionProperties(
-          physical_device,
+          vk_physical_device,
           layer_name,
           &mut count,
           null_mut(),
         )
       };
-      match r {
-        VK_SUCCESS => (),
-        other => return Err(VkError::new(other.0).unwrap()),
+      if r != VK_SUCCESS {
+        return Err(NonZeroI32::new(r.0).unwrap());
       }
       let mut buf: Vec<VkExtensionProperties> =
         Vec::with_capacity(count.try_into().unwrap());
       let r = unsafe {
         vkEnumerateDeviceExtensionProperties(
-          physical_device,
+          vk_physical_device,
           layer_name,
           &mut count,
           buf.as_mut_ptr(),
@@ -121,7 +120,6 @@ impl PhysicalDevice {
   /// ## Panics
   /// * All `queue_priorities` values must be within `0.0` to `1.0` (inclusive).
   #[inline]
-  #[allow(clippy::field_reassign_with_default)]
   pub fn create_device(
     &self, extensions: &[ZStr<'_>], features: Option<&VkPhysicalDeviceFeatures>,
     needs_graphics: bool, queue_priorities: &[f32],
@@ -146,19 +144,20 @@ impl PhysicalDevice {
       .ok_or(NonZeroI32::new(VK_ERROR_UNKNOWN.0).unwrap())?
       .try_into()
       .unwrap();
-    let mut device_queue_create_info = VkDeviceQueueCreateInfo::default();
-    device_queue_create_info.queue_family_index = queue_family_index;
-    device_queue_create_info.queue_count = queue_priorities.len().try_into().unwrap();
-    device_queue_create_info.queue_priorities = queue_priorities.as_ptr();
-    //
-    let mut vk_device_create_info = VkDeviceCreateInfo::default();
-    vk_device_create_info.enabled_extension_count = extensions.len().try_into().unwrap();
-    vk_device_create_info.enabled_extension_names = extensions.as_ptr().cast();
-    if let Some(features_ref) = features {
-      vk_device_create_info.enabled_features = features_ref;
-    }
-    vk_device_create_info.queue_create_info_count = 1;
-    vk_device_create_info.queue_create_infos = &device_queue_create_info;
+    let device_queue_create_info = VkDeviceQueueCreateInfo {
+      queue_family_index,
+      queue_count: queue_priorities.len().try_into().unwrap(),
+      queue_priorities: queue_priorities.as_ptr(),
+      ..Default::default()
+    };
+    let vk_device_create_info = VkDeviceCreateInfo {
+      enabled_extension_count: extensions.len().try_into().unwrap(),
+      enabled_extension_names: extensions.as_ptr().cast(),
+      enabled_features: features.map(|f| f as *const _).unwrap_or(null()),
+      queue_create_info_count: 1,
+      queue_create_infos: &device_queue_create_info,
+      ..Default::default()
+    };
     //
     let vk_physical_device = self.vk_physical_device;
     let mut vk_device = VkDevice::NULL;
@@ -175,5 +174,160 @@ impl PhysicalDevice {
       fns: Arc::new(device_fns),
       _parent: self.parent.clone(),
     })))
+  }
+
+  /// Gets surface formats
+  ///
+  /// ## Panics
+  /// * The surface and the physical device must have the same parent instance.
+  #[inline]
+  pub fn get_surface_formats_khr(
+    &self, surface: &Surface,
+  ) -> Result<Vec<VkSurfaceFormatKHR>, VkError> {
+    assert_eq!(surface.0.parent.vk_instance, self.parent.vk_instance);
+    //
+    let Some(vkGetPhysicalDeviceSurfaceFormatsKHR) = self.parent.fns.GetPhysicalDeviceSurfaceFormatsKHR else {
+      return Err(VkError::new(VK_ERROR_EXTENSION_NOT_PRESENT.0).unwrap());
+    };
+    let vk_physical_device = self.vk_physical_device;
+    let vk_surface_khr = surface.0.vk_surface_khr;
+    'gather: loop {
+      let mut count = 0_u32;
+      let r = unsafe {
+        vkGetPhysicalDeviceSurfaceFormatsKHR(
+          vk_physical_device,
+          vk_surface_khr,
+          &mut count,
+          null_mut(),
+        )
+      };
+      if r != VK_SUCCESS {
+        return Err(NonZeroI32::new(r.0).unwrap());
+      }
+      let mut buf: Vec<VkSurfaceFormatKHR> =
+        Vec::with_capacity(count.try_into().unwrap());
+      let r = unsafe {
+        vkGetPhysicalDeviceSurfaceFormatsKHR(
+          vk_physical_device,
+          vk_surface_khr,
+          &mut count,
+          buf.as_mut_ptr(),
+        )
+      };
+      match r {
+        VK_SUCCESS => {
+          unsafe { buf.set_len(count.try_into().unwrap()) };
+          return Ok(buf);
+        }
+        VK_INCOMPLETE => continue 'gather,
+        other => return Err(VkError::new(other.0).unwrap()),
+      }
+    }
+  }
+
+  /// ## Panics
+  /// * The surface and the physical device must have the same parent instance.
+  #[inline]
+  pub fn get_surface_present_modes_khr(
+    &self, surface: &Surface,
+  ) -> Result<Vec<VkPresentModeKHR>, VkError> {
+    assert_eq!(surface.0.parent.vk_instance, self.parent.vk_instance);
+    //
+    let Some(vkGetPhysicalDeviceSurfacePresentModesKHR) = self.parent.fns.GetPhysicalDeviceSurfacePresentModesKHR else {
+      return Err(VkError::new(VK_ERROR_EXTENSION_NOT_PRESENT.0).unwrap());
+    };
+    let vk_physical_device = self.vk_physical_device;
+    let vk_surface_khr = surface.0.vk_surface_khr;
+    'gather: loop {
+      let mut count = 0_u32;
+      let r = unsafe {
+        vkGetPhysicalDeviceSurfacePresentModesKHR(
+          vk_physical_device,
+          vk_surface_khr,
+          &mut count,
+          null_mut(),
+        )
+      };
+      if r != VK_SUCCESS {
+        return Err(NonZeroI32::new(r.0).unwrap());
+      }
+      let mut buf: Vec<VkPresentModeKHR> = Vec::with_capacity(count.try_into().unwrap());
+      let r = unsafe {
+        vkGetPhysicalDeviceSurfacePresentModesKHR(
+          vk_physical_device,
+          vk_surface_khr,
+          &mut count,
+          buf.as_mut_ptr(),
+        )
+      };
+      match r {
+        VK_SUCCESS => {
+          unsafe { buf.set_len(count.try_into().unwrap()) };
+          return Ok(buf);
+        }
+        VK_INCOMPLETE => continue 'gather,
+        other => return Err(VkError::new(other.0).unwrap()),
+      }
+    }
+  }
+
+  /// ## Panics
+  /// * The surface and the physical device must have the same parent instance.
+  #[inline]
+  pub fn get_surface_capabilities_khr(
+    &self, surface: &Surface,
+  ) -> Result<VkSurfaceCapabilitiesKHR, VkError> {
+    assert_eq!(surface.0.parent.vk_instance, self.parent.vk_instance);
+    //
+    let Some(vkGetPhysicalDeviceSurfaceCapabilitiesKHR) = self.parent.fns.GetPhysicalDeviceSurfaceCapabilitiesKHR else {
+      return Err(VkError::new(VK_ERROR_EXTENSION_NOT_PRESENT.0).unwrap());
+    };
+    let vk_physical_device = self.vk_physical_device;
+    let vk_surface_khr = surface.0.vk_surface_khr;
+    let mut surface_capabilities_khr = VkSurfaceCapabilitiesKHR::default();
+    let r = unsafe {
+      vkGetPhysicalDeviceSurfaceCapabilitiesKHR(
+        vk_physical_device,
+        vk_surface_khr,
+        &mut surface_capabilities_khr,
+      )
+    };
+    if r != VK_SUCCESS {
+      Err(NonZeroI32::new(r.0).unwrap())
+    } else {
+      Ok(surface_capabilities_khr)
+    }
+  }
+
+  /// Gets the image format properties, given the other constraints.
+  ///
+  /// If the given combination of constraints isn't supported then this will
+  /// return an error.
+  #[inline]
+  pub fn get_image_format_properties(
+    &self, format: VkFormat, ty: VkImageType, tiling: VkImageTiling,
+    usage: VkImageUsageFlags, flags: VkImageCreateFlags,
+  ) -> Result<VkImageFormatProperties, VkError> {
+    let Some(vkGetPhysicalDeviceImageFormatProperties) = self.parent.fns.GetPhysicalDeviceImageFormatProperties else {
+      return Err(VkError::new(VK_ERROR_EXTENSION_NOT_PRESENT.0).unwrap());
+    };
+    let vk_physical_device = self.vk_physical_device;
+    let mut image_format_properties = VkImageFormatProperties::default();
+    let r = unsafe {
+      vkGetPhysicalDeviceImageFormatProperties(
+        vk_physical_device,
+        format,
+        ty,
+        tiling,
+        usage,
+        flags,
+        &mut image_format_properties,
+      )
+    };
+    if r != VK_SUCCESS {
+      Err(NonZeroI32::new(r.0).unwrap())
+    } else {
+      Ok(image_format_properties)
+    }
   }
 }

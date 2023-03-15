@@ -87,9 +87,8 @@ impl Instance {
     'gather: loop {
       let mut count = 0_u32;
       let r = unsafe { vkEnumeratePhysicalDevices(instance, &mut count, null_mut()) };
-      match r {
-        VK_SUCCESS => (),
-        other => return Err(VkError::new(other.0).unwrap()),
+      if r != VK_SUCCESS {
+        return Err(NonZeroI32::new(r.0).unwrap());
       }
       let mut buf: Vec<VkPhysicalDevice> = Vec::with_capacity(count.try_into().unwrap());
       let r =
