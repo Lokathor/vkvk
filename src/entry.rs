@@ -313,7 +313,7 @@ impl InstanceCreateInfo {
   #[inline]
   pub fn enable_portability(&mut self) {
     self.flags |= VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR;
-    self.layers_mut(|v| {
+    self.extensions_mut(|v| {
       let already_listed =
         v.iter().any(|z| *z == VK_KHR_PORTABILITY_ENUMERATION_EXTENSION_NAME);
       if !already_listed {
