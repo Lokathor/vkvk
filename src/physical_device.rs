@@ -2,6 +2,8 @@
 
 //! Provides the [PhysicalDevice] type, and related helper types.
 
+use std::sync::RwLock;
+
 use crate::prelude::*;
 
 /// A physical device can potentially be opened as a `Device`.
@@ -164,13 +166,25 @@ impl PhysicalDevice {
     if let Some(err_code) = NonZeroI32::new(r.0) {
       return Err(err_code);
     }
+    // Now that the device handle is "live" we must set it for self-cleanup before
+    // we do any more early return shenanigans.
     let mut device_fns = DeviceFns::default();
     unsafe { device_fns.load(vk_device, vkGetDeviceProcAddr) };
-    Ok(Device(Arc::new(DestroyDeviceOnDrop {
-      vk_device,
+    let device = Device(Arc::new(DestroyDeviceOnDrop {
+      vk_device: RwLock::new(vk_device),
+      vk_queue: RwLock::new(VkQueue::NULL),
       fns: Arc::new(device_fns),
       _parent: self.parent.clone(),
-    })))
+    }));
+    let Some(vkGetDeviceQueue) = device.0.fns.GetDeviceQueue else {
+      return Err(NonZeroI32::new(VK_ERROR_UNKNOWN.0).unwrap());
+    };
+    let d_guard = device.0.vk_device.read().unwrap();
+    let mut q_guard = device.0.vk_queue.write().unwrap();
+    unsafe { vkGetDeviceQueue(*d_guard, queue_family_index, 0, &mut *q_guard) };
+    drop(q_guard);
+    drop(d_guard);
+    Ok(device)
   }
 
   /// Gets surface formats

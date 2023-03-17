@@ -83,8 +83,6 @@ fn main() {
     physical_device.create_device(extensions, features, needs_graphics).unwrap()
   };
 
-  // TODO: get the queues
-
   // TODO: make the swapchain
 
   // TODO: get the images
