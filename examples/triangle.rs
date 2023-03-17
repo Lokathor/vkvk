@@ -53,7 +53,7 @@ fn main() {
 
     entry.create_instance(&create_info).unwrap()
   };
-  let surface: Surface = unsafe {
+  let _surface: Surface = unsafe {
     // It's unsafe to create the surface (we have to pass a valid instance handle)
     let vk_surface_khr = win.create_surface(instance.vk_instance()).unwrap();
     // It's unsafe to mark a raw surface as a child of our instance (it has to have
@@ -71,69 +71,25 @@ fn main() {
     });
     physical_devices.into_iter().next().expect("No valid physical devices!")
   };
-  let device: Device = {
+  let _device: Device = {
     let device_extensions = vec![
       ZString::from(VK_KHR_SWAPCHAIN_EXTENSION_NAME),
       #[cfg(target_os = "macos")]
       ZString::from(VK_KHR_PORTABILITY_SUBSET_EXTENSION_NAME),
     ];
+    let extensions = zstrings_as_zstrs(&device_extensions);
     let features = None;
     let needs_graphics = true;
-    let queue_priorities = &[1.0];
-    physical_device
-      .create_device(
-        zstrings_as_zstrs(&device_extensions),
-        features,
-        needs_graphics,
-        queue_priorities,
-      )
-      .unwrap()
+    physical_device.create_device(extensions, features, needs_graphics).unwrap()
   };
-  // TODO: get the queues
-  let swapchain: Swapchain = {
-    let image_usage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
-    let surface_format = physical_device
-      .get_surface_formats_khr(&surface)
-      .unwrap()
-      .into_iter()
-      .find(|sf| {
-        sf.color_space == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR
-          && [VK_FORMAT_R8G8B8A8_SRGB, VK_FORMAT_B8G8R8A8_SRGB].contains(&sf.format)
-      })
-      .unwrap();
-    let surface_capabilities =
-      physical_device.get_surface_capabilities_khr(&surface).unwrap();
-    let image_extent = surface_capabilities.current_extent;
-    let (present_mode, min_image_count) = {
-      let surface_present_modes =
-        physical_device.get_surface_present_modes_khr(&surface).unwrap();
-      if surface_present_modes.contains(&VK_PRESENT_MODE_MAILBOX_KHR) {
-        let min = surface_capabilities.min_image_count;
-        let max =
-          surface_capabilities.max_image_count.map(NonZeroU32::get).unwrap_or(u32::MAX);
-        let count = min.clamp(3, max);
-        (VK_PRESENT_MODE_MAILBOX_KHR, count)
-      } else if let Some(mode) = surface_present_modes.get(0).copied() {
-        (mode, surface_capabilities.min_image_count)
-      } else {
-        panic!("No presentation modes available!");
-      }
-    };
-    device
-      .create_swapchain_khr(
-        &surface,
-        surface_format,
-        min_image_count,
-        image_extent,
-        image_usage,
-        present_mode,
-      )
-      .unwrap()
-  };
-  let _image_views: Vec<SwapchainImageView> =
-    swapchain.get_images_khr_and_make_views().unwrap();
 
-  // TODO: image views
+  // TODO: get the queues
+
+  // TODO: make the swapchain
+
+  // TODO: get the images
+
+  // TODO: get the image views
 
   // TODO: shader modules
 
@@ -159,8 +115,6 @@ fn main() {
       }
     }
   }
-  core::mem::forget(_image_views);
-  core::mem::forget(swapchain);
 }
 
 // TODO: === post-triangle goals ===

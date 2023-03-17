@@ -122,10 +122,8 @@ impl PhysicalDevice {
   #[inline]
   pub fn create_device(
     &self, extensions: &[ZStr<'_>], features: Option<&VkPhysicalDeviceFeatures>,
-    needs_graphics: bool, queue_priorities: &[f32],
+    needs_graphics: bool,
   ) -> Result<Device, VkError> {
-    queue_priorities.iter().for_each(|f| assert!((0.0..=1.0).contains(f)));
-    //
     let Some(vkCreateDevice) = self.parent.fns.CreateDevice else {
       return Err(NonZeroI32::new(VK_ERROR_UNKNOWN.0).unwrap());
     };
@@ -137,13 +135,12 @@ impl PhysicalDevice {
     let queue_family_index: u32 = self
       .get_queue_family_properties()
       .iter()
-      .position(|p| {
-        (needs_graphics && p.queue_flags.graphics())
-          && p.queue_count >= queue_priorities.len().try_into().unwrap()
-      })
+      .position(|p| (needs_graphics && p.queue_flags.graphics()))
       .ok_or(NonZeroI32::new(VK_ERROR_UNKNOWN.0).unwrap())?
       .try_into()
       .unwrap();
+    // we only ever make one queue.
+    let queue_priorities: &[f32] = &[1.0];
     let device_queue_create_info = VkDeviceQueueCreateInfo {
       queue_family_index,
       queue_count: queue_priorities.len().try_into().unwrap(),
