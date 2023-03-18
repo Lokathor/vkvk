@@ -53,7 +53,7 @@ fn main() {
 
     entry.create_instance(&create_info).unwrap()
   };
-  let _surface: Surface = unsafe {
+  let surface: Surface = unsafe {
     // It's unsafe to create the surface (we have to pass a valid instance handle)
     let vk_surface_khr = win.create_surface(instance.vk_instance()).unwrap();
     // It's unsafe to mark a raw surface as a child of our instance (it has to have
@@ -79,8 +79,8 @@ fn main() {
     ];
     let extensions = zstrings_as_zstrs(&device_extensions);
     let features = None;
-    let needs_graphics = true;
-    physical_device.create_device(extensions, features, needs_graphics).unwrap()
+    let target_surface = Some(&surface);
+    physical_device.create_device(extensions, features, target_surface).unwrap()
   };
 
   // TODO: make the swapchain

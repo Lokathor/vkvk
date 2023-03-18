@@ -110,6 +110,29 @@ impl PhysicalDevice {
     physical_device_features
   }
 
+  /// ## Safety
+  /// * `queue_family_index` must be in bounds of the number of
+  ///   `queue_family_properties` entries.
+  unsafe fn get_surface_support_khr(
+    &self, queue_family_index: u32, surface: &Surface,
+  ) -> Result<VkBool32, VkError> {
+    let Some(vkGetPhysicalDeviceSurfaceSupportKHR) = self.parent.fns.GetPhysicalDeviceSurfaceSupportKHR else {
+      return Err(NonZeroI32::new(VK_ERROR_EXTENSION_NOT_PRESENT.0).unwrap());
+    };
+    let mut supported = VkBool32::FALSE;
+    let r = vkGetPhysicalDeviceSurfaceSupportKHR(
+      self.vk_physical_device,
+      queue_family_index,
+      surface.0.vk_surface_khr,
+      &mut supported,
+    );
+    if r != VK_SUCCESS {
+      Err(NonZeroI32::new(r.0).unwrap())
+    } else {
+      Ok(supported)
+    }
+  }
+
   /// Creates a [Device] from this Physical Device.
   ///
   /// This automatically determines the queue family to use. When
@@ -124,7 +147,7 @@ impl PhysicalDevice {
   #[inline]
   pub fn create_device(
     &self, extensions: &[ZStr<'_>], features: Option<&VkPhysicalDeviceFeatures>,
-    needs_graphics: bool,
+    target_surface: Option<&Surface>,
   ) -> Result<Device, VkError> {
     let Some(vkCreateDevice) = self.parent.fns.CreateDevice else {
       return Err(NonZeroI32::new(VK_ERROR_UNKNOWN.0).unwrap());
@@ -134,11 +157,28 @@ impl PhysicalDevice {
       .map(|f|unsafe {core::mem::transmute::<_,vkGetDeviceProcAddr_t>(f)}) else {
       return Err(NonZeroI32::new(VK_ERROR_UNKNOWN.0).unwrap());
     };
-    let queue_family_index: u32 = self
-      .get_queue_family_properties()
+    //
+    let queue_family_properties = self.get_queue_family_properties();
+    let queue_family_index: u32 = queue_family_properties
       .iter()
-      .position(|p| (needs_graphics && p.queue_flags.graphics()))
+      .enumerate()
+      .find(|&(i, props)| {
+        // If the caller passes a surface to be compatible with we need a graphical
+        // queue and it needs to support the specific surface given. Otherwise, we
+        // assume that the caller just wants compute (we still want to avoid
+        // transfer-only queue families).
+        if let Some(surface) = target_surface {
+          props.queue_flags.compute()
+            && props.queue_flags.graphics()
+            && unsafe { self.get_surface_support_khr(i.try_into().unwrap(), surface) }
+              .map(bool::from)
+              .unwrap_or(false)
+        } else {
+          props.queue_flags.compute()
+        }
+      })
       .ok_or(NonZeroI32::new(VK_ERROR_UNKNOWN.0).unwrap())?
+      .0
       .try_into()
       .unwrap();
     // we only ever make one queue.
