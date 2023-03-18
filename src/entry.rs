@@ -7,6 +7,7 @@ use crate::prelude::*;
 
 #[cfg_attr(windows, link(name = "vulkan-1"))]
 #[cfg_attr(not(windows), link(name = "vulkan"))]
+#[cfg(FALSE)]
 extern "system" {
   fn vkGetInstanceProcAddr(instance: VkInstance, name: *const u8) -> PFN_vkVoidFunction;
 }
@@ -20,6 +21,7 @@ extern "system" {
 #[derive(Clone, Copy)]
 #[repr(transparent)]
 pub struct Entry(vkGetInstanceProcAddr_t);
+#[cfg(FALSE)]
 impl Default for Entry {
   /// Gives [`Entry::LINKED`]
   #[inline]
@@ -33,6 +35,7 @@ impl Entry {
   ///
   /// This is generally fine to use, but you way wish to dynamically load an
   /// alternate Vulkan entry.
+  #[cfg(FALSE)]
   pub const LINKED: Self = Self(vkGetInstanceProcAddr);
 
   /// Wraps the function pointer as a Vulkan entry point.
