@@ -35,6 +35,7 @@ pub mod api_constants;
 pub mod base_types;
 pub mod device;
 pub mod entry;
+pub mod graphics_pipeline;
 pub mod instance;
 pub mod physical_device;
 pub mod prelude;

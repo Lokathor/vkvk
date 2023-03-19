@@ -2,6 +2,7 @@
 
 //! Provides the [Device] type, and related helper types.
 
+use core::mem::size_of;
 use std::sync::{RwLock, RwLockWriteGuard};
 
 use crate::prelude::*;
@@ -219,6 +220,29 @@ impl Device {
       device: self.0.clone(),
     })))
   }
+
+  /// Creates a new shader module holding the SPIRV code given.
+  #[inline]
+  pub fn create_shader_module(&self, code: &[u32]) -> Result<ShaderModule, VkError> {
+    let Some(vkCreateShaderModule) = self.0.fns.CreateShaderModule else {
+      return Err(VkError::new(VK_ERROR_UNKNOWN.0).unwrap());
+    };
+    let crate_info = VkShaderModuleCreateInfo {
+      code_size: code.len().checked_mul(size_of::<u32>()).unwrap(),
+      code: code.as_ptr(),
+      ..Default::default()
+    };
+    let vk_device = self.0.vk_device.read().unwrap();
+    let mut vk_shader_module = VkShaderModule::NULL;
+    let r = unsafe {
+      vkCreateShaderModule(*vk_device, &crate_info, null(), &mut vk_shader_module)
+    };
+    if r == VK_SUCCESS {
+      Ok(ShaderModule { vk_shader_module, device: self.0.clone() })
+    } else {
+      Err(VkError::new(r.0).unwrap())
+    }
+  }
 }
 
 pub(crate) struct DestroySwapchainOnDrop {
@@ -279,5 +303,23 @@ impl Swapchain {
   #[inline]
   pub fn min_image_count(&self) -> u32 {
     self.0.min_image_count
+  }
+}
+
+/// Handle to a shader module.
+///
+/// A shader module **can** be dropped while pipelines created using its shaders
+/// are still in use.
+pub struct ShaderModule {
+  pub(crate) vk_shader_module: VkShaderModule,
+  pub(crate) device: Arc<DestroyDeviceOnDrop>,
+}
+impl Drop for ShaderModule {
+  #[inline]
+  fn drop(&mut self) {
+    if let Some(vkDestroyShaderModule) = self.device.fns.DestroyShaderModule {
+      let vk_device = self.device.vk_device.read().unwrap();
+      unsafe { vkDestroyShaderModule(*vk_device, self.vk_shader_module, null()) }
+    }
   }
 }

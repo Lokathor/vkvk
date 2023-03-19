@@ -17,6 +17,7 @@ pub use crate::{
   generated::{
     aliases::*, bitmasks::*, enumerations::*, ext_consts::*, structures::*, unions::*,
   },
+  graphics_pipeline::*,
   instance::*,
   physical_device::*,
 };

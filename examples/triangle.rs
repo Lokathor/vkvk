@@ -1,12 +1,15 @@
 #![allow(clippy::let_unit_value)]
 
 use beryllium::{events::Event, init::InitFlags, video::CreateWinArgs, Sdl};
+use bytemuck::pod_collect_to_vec;
 use vkvk::prelude::*;
 use zstring::ZString;
 
 fn main() {
-  let _vert_bytes = std::fs::read("target/shader1.vert.spv").unwrap();
-  let _frag_bytes = std::fs::read("target/shader1.frag.spv").unwrap();
+  let vert_bytes: Vec<u32> =
+    pod_collect_to_vec(&std::fs::read("target/shader1.vert.spv").unwrap());
+  let frag_bytes: Vec<u32> =
+    pod_collect_to_vec(&std::fs::read("target/shader1.frag.spv").unwrap());
   //
   let sdl = Sdl::init(InitFlags::VIDEO);
   let win = sdl
@@ -87,12 +90,14 @@ fn main() {
   };
   let swapchain: Swapchain = device.create_swapchain_khr(&surface).unwrap();
   println!(
-    "Swapchain: min images {}, extent {:?}, format {:?}, presentation {:?}",
+    "Swapchain: min images {}, {:?}, {:?}, {:?}",
     swapchain.min_image_count(),
     swapchain.image_extent(),
     swapchain.surface_format(),
     swapchain.present_mode()
   );
+  let vert_shader_module = device.create_shader_module(&vert_bytes).unwrap();
+  let frag_shader_module = device.create_shader_module(&frag_bytes).unwrap();
 
   // TODO: shader modules
 
