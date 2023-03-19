@@ -48,6 +48,10 @@ pub struct Surface(pub(crate) Arc<DestroySurfaceOnDrop>);
 /// [`enumerate_physical_devices`](Self::enumerate_physical_devices) and then
 /// you can go through the physical devices for more information on what's
 /// available on this system.
+///
+/// Note: this type impls Clone, but performs an arc-style clone (the clone
+/// points to the same instance handle).
+#[derive(Clone)]
 pub struct Instance(pub(crate) Arc<DestroyInstanceOnDrop>);
 impl core::fmt::Debug for Instance {
   #[inline]
@@ -107,7 +111,7 @@ impl Instance {
               .into_iter()
               .map(|vk_physical_device| PhysicalDevice {
                 vk_physical_device,
-                parent: self.0.clone(),
+                parent: self.clone(),
               })
               .collect(),
           );

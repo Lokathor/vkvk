@@ -15,7 +15,8 @@ pub(crate) struct DestroyDeviceOnDrop {
   pub(crate) vk_device: RwLock<VkDevice>,
   pub(crate) vk_queue: RwLock<VkQueue>,
   pub(crate) fns: Arc<DeviceFns>,
-  pub(crate) _parent: Arc<DestroyInstanceOnDrop>,
+  pub(crate) physical_device: PhysicalDevice,
+  pub(crate) _instance: Instance,
 }
 impl Drop for DestroyDeviceOnDrop {
   #[inline]
@@ -41,11 +42,7 @@ pub struct Device(pub(crate) Arc<DestroyDeviceOnDrop>);
 impl Device {
   /// Creates a new [Swapchain].
   #[inline]
-  pub fn create_swapchain_khr(
-    &self, surface: &Surface, surface_format: VkSurfaceFormatKHR, min_image_count: u32,
-    image_extent: VkExtent2D, image_usage: VkImageUsageFlags,
-    present_mode: VkPresentModeKHR,
-  ) -> Result<Swapchain, VkError> {
+  pub fn create_swapchain_khr(&self, surface: &Surface) -> Result<Swapchain, VkError> {
     let Some(vkCreateImageView) = self.0.fns.CreateImageView else {
       return Err(VkError::new(VK_ERROR_UNKNOWN.0).unwrap());
     };
@@ -56,8 +53,38 @@ impl Device {
       return Err(VkError::new(VK_ERROR_EXTENSION_NOT_PRESENT.0).unwrap());
     };
     //
-    let vk_surface_khr = surface.0.vk_surface_khr.write().unwrap();
+    let image_usage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
+    let surface_format = self
+      .0
+      .physical_device
+      .get_surface_formats_khr(surface)
+      .unwrap()
+      .into_iter()
+      .find(|sf| {
+        sf.color_space == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR
+          && [VK_FORMAT_R8G8B8A8_SRGB, VK_FORMAT_B8G8R8A8_SRGB].contains(&sf.format)
+      })
+      .ok_or(VkError::new(VK_ERROR_INITIALIZATION_FAILED.0).unwrap())?;
+    let surface_capabilities =
+      self.0.physical_device.get_surface_capabilities_khr(surface).unwrap();
+    let image_extent = surface_capabilities.current_extent;
     let image_format = surface_format.format;
+    let (present_mode, min_image_count) = {
+      let surface_present_modes =
+        self.0.physical_device.get_surface_present_modes_khr(surface).unwrap();
+      if surface_present_modes.contains(&VK_PRESENT_MODE_MAILBOX_KHR) {
+        let min = surface_capabilities.min_image_count;
+        let max =
+          surface_capabilities.max_image_count.map(NonZeroU32::get).unwrap_or(u32::MAX);
+        let count = 3_u32.clamp(min, max);
+        (VK_PRESENT_MODE_MAILBOX_KHR, count)
+      } else if let Some(mode) = surface_present_modes.get(0).copied() {
+        (mode, surface_capabilities.min_image_count)
+      } else {
+        return Err(VkError::new(VK_ERROR_INITIALIZATION_FAILED.0).unwrap());
+      }
+    };
+    let vk_surface_khr = surface.0.vk_surface_khr.write().unwrap();
     let swapchain_create_info_khr = VkSwapchainCreateInfoKHR {
       surface: *vk_surface_khr,
       min_image_count,
@@ -68,7 +95,7 @@ impl Device {
       image_usage,
       image_sharing_mode: VK_SHARING_MODE_EXCLUSIVE,
       present_mode,
-      pre_transform: VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR,
+      pre_transform: surface_capabilities.current_transform,
       composite_alpha: VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR,
       ..Default::default()
     };
@@ -95,14 +122,17 @@ impl Device {
         vkGetSwapchainImagesKHR(*vk_device, vk_swapchain_khr, &mut count, null_mut())
       };
       if r != VK_SUCCESS {
-        drop(Swapchain(Arc::new(DestroySwapchainOnDrop {
+        drop(DestroySwapchainOnDrop {
           vk_swapchain_khr,
-          _surface_format: surface_format,
+          surface_format,
+          image_extent,
           _images: images,
           image_views,
+          min_image_count,
+          present_mode,
           _surface: surface.0.clone(),
           device: self.0.clone(),
-        })));
+        });
         return Err(NonZeroI32::new(r.0).unwrap());
       }
       images = Vec::with_capacity(count.try_into().unwrap());
@@ -121,14 +151,17 @@ impl Device {
         }
         VK_INCOMPLETE => continue 'gather_images,
         other => {
-          drop(Swapchain(Arc::new(DestroySwapchainOnDrop {
+          drop(DestroySwapchainOnDrop {
             vk_swapchain_khr,
-            _surface_format: surface_format,
+            surface_format,
+            image_extent,
             _images: images,
             image_views,
+            min_image_count,
+            present_mode,
             _surface: surface.0.clone(),
             device: self.0.clone(),
-          })));
+          });
           return Err(VkError::new(other.0).unwrap());
         }
       }
@@ -157,14 +190,17 @@ impl Device {
       let mut vk_image_view = VkImageView::NULL;
       let r = unsafe { vkCreateImageView(*vk_device, &info, null(), &mut vk_image_view) };
       if r != VK_SUCCESS {
-        drop(Swapchain(Arc::new(DestroySwapchainOnDrop {
+        drop(DestroySwapchainOnDrop {
           vk_swapchain_khr,
-          _surface_format: surface_format,
+          surface_format,
           _images: images,
+          image_extent,
           image_views,
+          min_image_count,
+          present_mode,
           _surface: surface.0.clone(),
           device: self.0.clone(),
-        })));
+        });
         return Err(VkError::new(r.0).unwrap());
       } else {
         image_views.push(vk_image_view);
@@ -173,9 +209,12 @@ impl Device {
 
     Ok(Swapchain(Arc::new(DestroySwapchainOnDrop {
       vk_swapchain_khr,
-      _surface_format: surface_format,
+      surface_format,
       _images: images,
+      image_extent,
       image_views,
+      min_image_count,
+      present_mode,
       _surface: surface.0.clone(),
       device: self.0.clone(),
     })))
@@ -184,7 +223,10 @@ impl Device {
 
 pub(crate) struct DestroySwapchainOnDrop {
   pub(crate) vk_swapchain_khr: VkSwapchainKHR,
-  pub(crate) _surface_format: VkSurfaceFormatKHR,
+  pub(crate) surface_format: VkSurfaceFormatKHR,
+  pub(crate) image_extent: VkExtent2D,
+  pub(crate) present_mode: VkPresentModeKHR,
+  pub(crate) min_image_count: u32,
   pub(crate) _images: Vec<VkImage>,
   pub(crate) image_views: Vec<VkImageView>,
   //
@@ -217,3 +259,25 @@ impl Drop for DestroySwapchainOnDrop {
 /// A swapchain connects the GPU to a particular surface so that images can be
 /// presented.
 pub struct Swapchain(pub(crate) Arc<DestroySwapchainOnDrop>);
+impl Swapchain {
+  /// The surface format used for this swapchain.
+  #[inline]
+  pub fn surface_format(&self) -> VkSurfaceFormatKHR {
+    self.0.surface_format
+  }
+  /// The image extent of this swapchain's images.
+  #[inline]
+  pub fn image_extent(&self) -> VkExtent2D {
+    self.0.image_extent
+  }
+  /// The swapchain's presentation mode.
+  #[inline]
+  pub fn present_mode(&self) -> VkPresentModeKHR {
+    self.0.present_mode
+  }
+  /// The swapchain's minimum image count (it could have more).
+  #[inline]
+  pub fn min_image_count(&self) -> u32 {
+    self.0.min_image_count
+  }
+}

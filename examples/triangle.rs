@@ -5,8 +5,8 @@ use vkvk::prelude::*;
 use zstring::ZString;
 
 fn main() {
-  let vert_bytes = std::fs::read("target/shader1.vert.spv").unwrap();
-  let frag_bytes = std::fs::read("target/shader1.frag.spv").unwrap();
+  let _vert_bytes = std::fs::read("target/shader1.vert.spv").unwrap();
+  let _frag_bytes = std::fs::read("target/shader1.frag.spv").unwrap();
   //
   let sdl = Sdl::init(InitFlags::VIDEO);
   let win = sdl
@@ -85,46 +85,14 @@ fn main() {
     let target_surface = Some(&surface);
     physical_device.create_device(extensions, features, target_surface).unwrap()
   };
-  let _swapchain: Swapchain = {
-    let image_usage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
-    let surface_format = physical_device
-      .get_surface_formats_khr(&surface)
-      .unwrap()
-      .into_iter()
-      .find(|sf| {
-        sf.color_space == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR
-          && [VK_FORMAT_R8G8B8A8_SRGB, VK_FORMAT_B8G8R8A8_SRGB].contains(&sf.format)
-      })
-      .unwrap();
-    let surface_capabilities =
-      physical_device.get_surface_capabilities_khr(&surface).unwrap();
-    let image_extent = surface_capabilities.current_extent;
-    let (present_mode, min_image_count) = {
-      let surface_present_modes =
-        physical_device.get_surface_present_modes_khr(&surface).unwrap();
-      if surface_present_modes.contains(&VK_PRESENT_MODE_MAILBOX_KHR) {
-        let min = surface_capabilities.min_image_count;
-        let max =
-          surface_capabilities.max_image_count.map(NonZeroU32::get).unwrap_or(u32::MAX);
-        let count = min.clamp(3, max);
-        (VK_PRESENT_MODE_MAILBOX_KHR, count)
-      } else if let Some(mode) = surface_present_modes.get(0).copied() {
-        (mode, surface_capabilities.min_image_count)
-      } else {
-        panic!("No presentation modes available!");
-      }
-    };
-    device
-      .create_swapchain_khr(
-        &surface,
-        surface_format,
-        min_image_count,
-        image_extent,
-        image_usage,
-        present_mode,
-      )
-      .unwrap()
-  };
+  let swapchain: Swapchain = device.create_swapchain_khr(&surface).unwrap();
+  println!(
+    "Swapchain: min images {}, extent {:?}, format {:?}, presentation {:?}",
+    swapchain.min_image_count(),
+    swapchain.image_extent(),
+    swapchain.surface_format(),
+    swapchain.present_mode()
+  );
 
   // TODO: shader modules
 

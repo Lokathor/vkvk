@@ -8,11 +8,12 @@ use crate::prelude::*;
 
 /// A physical device can potentially be opened as a `Device`.
 ///
-/// The physical device has to outlive its parent instance. This is done
+/// The physical device has to outlive its parent [Instance]. This is managed
 /// automatically via interior `Arc` values.
+#[derive(Clone)]
 pub struct PhysicalDevice {
   pub(crate) vk_physical_device: VkPhysicalDevice,
-  pub(crate) parent: Arc<DestroyInstanceOnDrop>,
+  pub(crate) parent: Instance,
 }
 impl core::fmt::Debug for PhysicalDevice {
   #[inline]
@@ -24,7 +25,7 @@ impl PhysicalDevice {
   /// Gets the properties of the queue families in this physical device.
   #[inline]
   pub fn get_queue_family_properties(&self) -> Vec<VkQueueFamilyProperties> {
-    let Some(vkGetPhysicalDeviceQueueFamilyProperties) = self.parent.fns.GetPhysicalDeviceQueueFamilyProperties else {
+    let Some(vkGetPhysicalDeviceQueueFamilyProperties) = self.parent.0.fns.GetPhysicalDeviceQueueFamilyProperties else {
       return Vec::new();
     };
     let physical_device = self.vk_physical_device;
@@ -51,7 +52,7 @@ impl PhysicalDevice {
   pub fn enumerate_device_extension_properties(
     &self,
   ) -> Result<Vec<VkExtensionProperties>, VkError> {
-    let Some(vkEnumerateDeviceExtensionProperties) = self.parent.fns.EnumerateDeviceExtensionProperties else {
+    let Some(vkEnumerateDeviceExtensionProperties) = self.parent.0.fns.EnumerateDeviceExtensionProperties else {
       return Err(VkError::new(VK_ERROR_UNKNOWN.0).unwrap());
     };
     let vk_physical_device = self.vk_physical_device;
@@ -100,7 +101,7 @@ impl PhysicalDevice {
   #[inline]
   pub fn get_features(&self) -> VkPhysicalDeviceFeatures {
     let mut physical_device_features = VkPhysicalDeviceFeatures::default();
-    let Some(vkGetPhysicalDeviceFeatures) = self.parent.fns.GetPhysicalDeviceFeatures else {
+    let Some(vkGetPhysicalDeviceFeatures) = self.parent.0.fns.GetPhysicalDeviceFeatures else {
       return physical_device_features;
     };
     let physical_device = self.vk_physical_device;
@@ -116,7 +117,7 @@ impl PhysicalDevice {
   unsafe fn get_surface_support_khr(
     &self, queue_family_index: u32, surface: &Surface,
   ) -> Result<VkBool32, VkError> {
-    let Some(vkGetPhysicalDeviceSurfaceSupportKHR) = self.parent.fns.GetPhysicalDeviceSurfaceSupportKHR else {
+    let Some(vkGetPhysicalDeviceSurfaceSupportKHR) = self.parent.0.fns.GetPhysicalDeviceSurfaceSupportKHR else {
       return Err(NonZeroI32::new(VK_ERROR_EXTENSION_NOT_PRESENT.0).unwrap());
     };
     let mut supported = VkBool32::FALSE;
@@ -149,11 +150,11 @@ impl PhysicalDevice {
     &self, extensions: &[ZStr<'_>], features: Option<&VkPhysicalDeviceFeatures>,
     target_surface: Option<&Surface>,
   ) -> Result<Device, VkError> {
-    let Some(vkCreateDevice) = self.parent.fns.CreateDevice else {
+    let Some(vkCreateDevice) = self.parent.0.fns.CreateDevice else {
       return Err(NonZeroI32::new(VK_ERROR_UNKNOWN.0).unwrap());
     };
-    let Some(vkGetDeviceProcAddr) = self.parent.fns.GetInstanceProcAddr
-      .and_then(|f|unsafe {f(self.parent.vk_instance, vkGetDeviceProcAddr_NAME.as_ptr())})
+    let Some(vkGetDeviceProcAddr) = self.parent.0.fns.GetInstanceProcAddr
+      .and_then(|f|unsafe {f(self.parent.0.vk_instance, vkGetDeviceProcAddr_NAME.as_ptr())})
       .map(|f|unsafe {core::mem::transmute::<_,vkGetDeviceProcAddr_t>(f)}) else {
       return Err(NonZeroI32::new(VK_ERROR_UNKNOWN.0).unwrap());
     };
@@ -214,7 +215,8 @@ impl PhysicalDevice {
       vk_device: RwLock::new(vk_device),
       vk_queue: RwLock::new(VkQueue::NULL),
       fns: Arc::new(device_fns),
-      _parent: self.parent.clone(),
+      physical_device: self.clone(),
+      _instance: self.parent.clone(),
     }));
     let Some(vkGetDeviceQueue) = device.0.fns.GetDeviceQueue else {
       return Err(NonZeroI32::new(VK_ERROR_UNKNOWN.0).unwrap());
@@ -235,9 +237,9 @@ impl PhysicalDevice {
   pub fn get_surface_formats_khr(
     &self, surface: &Surface,
   ) -> Result<Vec<VkSurfaceFormatKHR>, VkError> {
-    assert_eq!(surface.0.parent.vk_instance, self.parent.vk_instance);
+    assert_eq!(surface.0.parent.vk_instance, self.parent.0.vk_instance);
     //
-    let Some(vkGetPhysicalDeviceSurfaceFormatsKHR) = self.parent.fns.GetPhysicalDeviceSurfaceFormatsKHR else {
+    let Some(vkGetPhysicalDeviceSurfaceFormatsKHR) = self.parent.0.fns.GetPhysicalDeviceSurfaceFormatsKHR else {
       return Err(VkError::new(VK_ERROR_EXTENSION_NOT_PRESENT.0).unwrap());
     };
     let vk_physical_device = self.vk_physical_device;
@@ -282,9 +284,9 @@ impl PhysicalDevice {
   pub fn get_surface_present_modes_khr(
     &self, surface: &Surface,
   ) -> Result<Vec<VkPresentModeKHR>, VkError> {
-    assert_eq!(surface.0.parent.vk_instance, self.parent.vk_instance);
+    assert_eq!(surface.0.parent.vk_instance, self.parent.0.vk_instance);
     //
-    let Some(vkGetPhysicalDeviceSurfacePresentModesKHR) = self.parent.fns.GetPhysicalDeviceSurfacePresentModesKHR else {
+    let Some(vkGetPhysicalDeviceSurfacePresentModesKHR) = self.parent.0.fns.GetPhysicalDeviceSurfacePresentModesKHR else {
       return Err(VkError::new(VK_ERROR_EXTENSION_NOT_PRESENT.0).unwrap());
     };
     let vk_physical_device = self.vk_physical_device;
@@ -328,9 +330,9 @@ impl PhysicalDevice {
   pub fn get_surface_capabilities_khr(
     &self, surface: &Surface,
   ) -> Result<VkSurfaceCapabilitiesKHR, VkError> {
-    assert_eq!(surface.0.parent.vk_instance, self.parent.vk_instance);
+    assert_eq!(surface.0.parent.vk_instance, self.parent.0.vk_instance);
     //
-    let Some(vkGetPhysicalDeviceSurfaceCapabilitiesKHR) = self.parent.fns.GetPhysicalDeviceSurfaceCapabilitiesKHR else {
+    let Some(vkGetPhysicalDeviceSurfaceCapabilitiesKHR) = self.parent.0.fns.GetPhysicalDeviceSurfaceCapabilitiesKHR else {
       return Err(VkError::new(VK_ERROR_EXTENSION_NOT_PRESENT.0).unwrap());
     };
     let vk_physical_device = self.vk_physical_device;
@@ -359,7 +361,7 @@ impl PhysicalDevice {
     &self, format: VkFormat, ty: VkImageType, tiling: VkImageTiling,
     usage: VkImageUsageFlags, flags: VkImageCreateFlags,
   ) -> Result<VkImageFormatProperties, VkError> {
-    let Some(vkGetPhysicalDeviceImageFormatProperties) = self.parent.fns.GetPhysicalDeviceImageFormatProperties else {
+    let Some(vkGetPhysicalDeviceImageFormatProperties) = self.parent.0.fns.GetPhysicalDeviceImageFormatProperties else {
       return Err(VkError::new(VK_ERROR_EXTENSION_NOT_PRESENT.0).unwrap());
     };
     let vk_physical_device = self.vk_physical_device;
