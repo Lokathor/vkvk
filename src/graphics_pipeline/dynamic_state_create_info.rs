@@ -17,10 +17,10 @@ pub struct PipelineDynamicStateCreateInfo {
   // EXTRA
   dynamic_state_capacity: u32,
 }
-impl From<HashSet<VkDynamicState>> for PipelineDynamicStateCreateInfo {
+impl PipelineDynamicStateCreateInfo {
   /// Taking a hashset as input ensures that all entries are unique.
   #[inline]
-  fn from(set: HashSet<VkDynamicState>) -> Self {
+  pub fn from_hash_set(set: HashSet<VkDynamicState>) -> Self {
     let mut dynamic_states: ManuallyDrop<Vec<_>> =
       ManuallyDrop::new(set.into_iter().collect());
     Self {

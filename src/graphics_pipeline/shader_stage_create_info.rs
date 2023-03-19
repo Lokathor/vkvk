@@ -23,13 +23,13 @@ pub struct PipelineShaderStageCreateInfo<'m> {
 impl<'m> PipelineShaderStageCreateInfo<'m> {
   /// Makes a new value from the provided data.
   #[inline]
-  pub fn new(stage: ShaderStage, module: &'m VkShaderModule, name: ZString) -> Self {
+  pub fn new(stage: ShaderStage, module: &'m ShaderModule, name: ZString) -> Self {
     Self {
       struct_ty: VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO,
       next: core::ptr::null(),
       flags: Default::default(),
       stage: stage.into(),
-      module: *module,
+      module: module.vk_shader_module,
       name: Some(name),
       specialization_info: None,
       life: PhantomData,

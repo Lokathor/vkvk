@@ -96,14 +96,90 @@ fn main() {
     swapchain.surface_format(),
     swapchain.present_mode()
   );
-  let _vert_shader_module = device.create_shader_module(&vert_bytes).unwrap();
-  let _frag_shader_module = device.create_shader_module(&frag_bytes).unwrap();
-
-  // TODO: shader modules
-
-  // TODO: render passes
-
-  // TODO: graphics pipeline
+  let (graphics_pipeline, graphics_pipeline_layout, render_pass) = {
+    let vert_shader_module = device.create_shader_module(&vert_bytes).unwrap();
+    let frag_shader_module = device.create_shader_module(&frag_bytes).unwrap();
+    let shader_stage_create_info = [
+      PipelineShaderStageCreateInfo::new(
+        ShaderStage::Vertex,
+        &vert_shader_module,
+        ZString::try_from("main").unwrap(),
+      ),
+      PipelineShaderStageCreateInfo::new(
+        ShaderStage::Fragment,
+        &frag_shader_module,
+        ZString::try_from("main").unwrap(),
+      ),
+    ];
+    let mut create_info =
+      GraphicsPipelineCreateInfo::from_shader_stage_info_slice(&shader_stage_create_info);
+    create_info.dynamic_state =
+      Some(Box::new(PipelineDynamicStateCreateInfo::from_hash_set(
+        vec![VK_DYNAMIC_STATE_VIEWPORT, VK_DYNAMIC_STATE_SCISSOR].into_iter().collect(),
+      )));
+    create_info.vertex_input_state = Some(Box::default());
+    create_info.input_assembly_state =
+      Some(Box::new(PipelineInputAssemblyStateCreateInfo::new(
+        VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
+        false,
+      )));
+    create_info.viewport_state =
+      Some(Box::new(PipelineViewportStateCreateInfo::new_dynamic(1, 1)));
+    create_info.rasterization_state = Some({
+      let mut b = Box::<PipelineRasterizationStateCreateInfo>::default();
+      b.polygon_mode = VK_POLYGON_MODE_FILL;
+      b.line_width = 1.0;
+      b.cull_mode = VK_CULL_MODE_BACK_BIT;
+      b.front_face = VK_FRONT_FACE_CLOCKWISE;
+      b
+    });
+    create_info.multisample_state = Some(Box::default());
+    create_info.color_blend_state = Some(Box::default());
+    create_info.layout = unsafe {
+      let descriptor_set_layouts = &[];
+      let push_constant_ranges = &[];
+      device
+        .vk_create_pipeline_layout(&VkPipelineLayoutCreateInfo {
+          set_layout_count: descriptor_set_layouts.len().try_into().unwrap(),
+          set_layouts: descriptor_set_layouts.as_ptr(),
+          push_constant_range_count: push_constant_ranges.len().try_into().unwrap(),
+          push_constant_ranges: push_constant_ranges.as_ptr(),
+          ..Default::default()
+        })
+        .unwrap()
+    };
+    create_info.render_pass = unsafe {
+      let attachments = &[VkAttachmentDescription {
+        format: swapchain.surface_format().format,
+        samples: VK_SAMPLE_COUNT_1_BIT,
+        load_op: VK_ATTACHMENT_LOAD_OP_CLEAR,
+        store_op: VK_ATTACHMENT_STORE_OP_STORE,
+        stencil_load_op: VK_ATTACHMENT_LOAD_OP_DONT_CARE,
+        stencil_store_op: VK_ATTACHMENT_STORE_OP_DONT_CARE,
+        initial_layout: VK_IMAGE_LAYOUT_UNDEFINED,
+        final_layout: VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,
+        ..Default::default()
+      }];
+      let attachment_ref = VkAttachmentReference {
+        attachment: 0,
+        layout: VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL,
+      };
+      let subpasses = &[VkSubpassDescription {
+        pipeline_bind_point: VK_PIPELINE_BIND_POINT_GRAPHICS,
+        color_attachment_count: 1,
+        color_attachments: &attachment_ref,
+        ..Default::default()
+      }];
+      let dependencies = &[];
+      device.vk_create_render_pass(attachments, subpasses, dependencies).unwrap()
+    };
+    create_info.subpass = 0; // ??
+    (
+      unsafe { device.create_graphics_pipeline(&create_info) }.unwrap(),
+      create_info.layout,
+      create_info.render_pass,
+    )
+  };
 
   // TODO: framebuffers
 
@@ -122,6 +198,12 @@ fn main() {
         _ => (),
       }
     }
+  }
+
+  unsafe {
+    device.vk_destroy_render_pass(render_pass);
+    device.vk_destroy_pipeline_layout(graphics_pipeline_layout);
+    device.vk_destroy_pipeline(graphics_pipeline);
   }
 }
 
