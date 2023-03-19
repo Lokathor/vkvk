@@ -2,6 +2,8 @@
 
 #![allow(non_snake_case)]
 
+use std::sync::RwLock;
+
 use crate::prelude::*;
 
 /// This destroys the held VkInstance when dropped.
@@ -23,14 +25,15 @@ impl Drop for DestroyInstanceOnDrop {
 }
 
 pub(crate) struct DestroySurfaceOnDrop {
-  pub(crate) vk_surface_khr: VkSurfaceKHR,
+  pub(crate) vk_surface_khr: RwLock<VkSurfaceKHR>,
   pub(crate) parent: Arc<DestroyInstanceOnDrop>,
 }
 impl Drop for DestroySurfaceOnDrop {
   #[inline]
   fn drop(&mut self) {
     if let Some(f) = self.parent.fns.DestroySurfaceKHR {
-      unsafe { f(self.parent.vk_instance, self.vk_surface_khr, null()) }
+      let vk_surface_khr = self.vk_surface_khr.write().unwrap();
+      unsafe { f(self.parent.vk_instance, *vk_surface_khr, null()) }
     }
   }
 }
@@ -73,7 +76,10 @@ impl Instance {
   pub unsafe fn make_raw_surface_a_child_of_this(
     &self, vk_surface_khr: VkSurfaceKHR,
   ) -> Surface {
-    Surface(Arc::new(DestroySurfaceOnDrop { vk_surface_khr, parent: self.0.clone() }))
+    Surface(Arc::new(DestroySurfaceOnDrop {
+      vk_surface_khr: RwLock::new(vk_surface_khr),
+      parent: self.0.clone(),
+    }))
   }
 
   /// Get handles for all available [PhysicalDevice] values.

@@ -123,7 +123,7 @@ impl PhysicalDevice {
     let r = vkGetPhysicalDeviceSurfaceSupportKHR(
       self.vk_physical_device,
       queue_family_index,
-      surface.0.vk_surface_khr,
+      *surface.0.vk_surface_khr.read().unwrap(),
       &mut supported,
     );
     if r != VK_SUCCESS {
@@ -241,13 +241,13 @@ impl PhysicalDevice {
       return Err(VkError::new(VK_ERROR_EXTENSION_NOT_PRESENT.0).unwrap());
     };
     let vk_physical_device = self.vk_physical_device;
-    let vk_surface_khr = surface.0.vk_surface_khr;
+    let vk_surface_khr = surface.0.vk_surface_khr.read().unwrap();
     'gather: loop {
       let mut count = 0_u32;
       let r = unsafe {
         vkGetPhysicalDeviceSurfaceFormatsKHR(
           vk_physical_device,
-          vk_surface_khr,
+          *vk_surface_khr,
           &mut count,
           null_mut(),
         )
@@ -260,7 +260,7 @@ impl PhysicalDevice {
       let r = unsafe {
         vkGetPhysicalDeviceSurfaceFormatsKHR(
           vk_physical_device,
-          vk_surface_khr,
+          *vk_surface_khr,
           &mut count,
           buf.as_mut_ptr(),
         )
@@ -288,13 +288,13 @@ impl PhysicalDevice {
       return Err(VkError::new(VK_ERROR_EXTENSION_NOT_PRESENT.0).unwrap());
     };
     let vk_physical_device = self.vk_physical_device;
-    let vk_surface_khr = surface.0.vk_surface_khr;
+    let vk_surface_khr = surface.0.vk_surface_khr.read().unwrap();
     'gather: loop {
       let mut count = 0_u32;
       let r = unsafe {
         vkGetPhysicalDeviceSurfacePresentModesKHR(
           vk_physical_device,
-          vk_surface_khr,
+          *vk_surface_khr,
           &mut count,
           null_mut(),
         )
@@ -306,7 +306,7 @@ impl PhysicalDevice {
       let r = unsafe {
         vkGetPhysicalDeviceSurfacePresentModesKHR(
           vk_physical_device,
-          vk_surface_khr,
+          *vk_surface_khr,
           &mut count,
           buf.as_mut_ptr(),
         )
@@ -334,12 +334,12 @@ impl PhysicalDevice {
       return Err(VkError::new(VK_ERROR_EXTENSION_NOT_PRESENT.0).unwrap());
     };
     let vk_physical_device = self.vk_physical_device;
-    let vk_surface_khr = surface.0.vk_surface_khr;
+    let vk_surface_khr = surface.0.vk_surface_khr.read().unwrap();
     let mut surface_capabilities_khr = VkSurfaceCapabilitiesKHR::default();
     let r = unsafe {
       vkGetPhysicalDeviceSurfaceCapabilitiesKHR(
         vk_physical_device,
-        vk_surface_khr,
+        *vk_surface_khr,
         &mut surface_capabilities_khr,
       )
     };
