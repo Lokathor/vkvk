@@ -5,6 +5,9 @@ use vkvk::prelude::*;
 use zstring::ZString;
 
 fn main() {
+  let vert_bytes = std::fs::read("target/shader1.vert.spv").unwrap();
+  let frag_bytes = std::fs::read("target/shader1.frag.spv").unwrap();
+  //
   let sdl = Sdl::init(InitFlags::VIDEO);
   let win = sdl
     .create_vk_window(CreateWinArgs { title: "VkVk Example", ..Default::default() })
@@ -122,10 +125,6 @@ fn main() {
       )
       .unwrap()
   };
-
-  // TODO: get the images
-
-  // TODO: get the image views
 
   // TODO: shader modules
 
