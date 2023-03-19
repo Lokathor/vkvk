@@ -1,5 +1,7 @@
 //! Structures to create and work with a graphics pipeline.
 
+use core::marker::PhantomData;
+
 use crate::prelude::*;
 
 mod pipeline_shader_stage_create_info;
@@ -8,12 +10,15 @@ pub use pipeline_shader_stage_create_info::*;
 mod pipeline_dynamic_state_create_info;
 pub use pipeline_dynamic_state_create_info::*;
 
-// TODO: handle VkPipelineShaderStageCreateInfo
-
 /// Rusty version of [VkGraphicsPipelineCreateInfo]
+///
+/// This is used as part of an array within a larger fn call, so we must have
+/// the *exact* same size and layout as the raw type, which unfortunately means
+/// that we need to throw a PhantomData lifetime into the mix (on top of the
+/// lifetimes that the contained fields already have).
 #[derive(Clone, Debug)]
 #[repr(C)]
-pub struct GraphicsPipelineCreateInfo<'m> {
+pub struct GraphicsPipelineCreateInfo<'m, 'si> {
   struct_ty: VkStructureType,
   next: *const c_void,
   flags: VkPipelineCreateFlags,
@@ -33,17 +38,21 @@ pub struct GraphicsPipelineCreateInfo<'m> {
   subpass: u32,
   base_pipeline_handle: VkPipeline,
   base_pipeline_index: i32,
+  //
+  life: PhantomData<&'si [PipelineShaderStageCreateInfo<'m>]>,
 }
-impl<'m> Default for GraphicsPipelineCreateInfo<'m> {
+impl<'m, 'si> GraphicsPipelineCreateInfo<'m, 'si> {
+  /// Makes a value over the provided shader stages slice, other fields default.
   #[inline]
-  #[must_use]
-  fn default() -> Self {
+  pub fn from_shader_module_info_slice(
+    stages: &'si [PipelineShaderStageCreateInfo<'m>],
+  ) -> Self {
     Self {
       struct_ty: VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO,
       next: core::ptr::null(),
       flags: Default::default(),
-      stage_count: Default::default(),
-      stages: core::ptr::null(),
+      stage_count: stages.len().try_into().unwrap(),
+      stages: stages.as_ptr(),
       vertex_input_state: None,
       input_assembly_state: None,
       tessellation_state: None,
@@ -58,6 +67,7 @@ impl<'m> Default for GraphicsPipelineCreateInfo<'m> {
       subpass: Default::default(),
       base_pipeline_handle: Default::default(),
       base_pipeline_index: Default::default(),
+      life: PhantomData,
     }
   }
 }

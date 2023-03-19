@@ -96,8 +96,8 @@ fn main() {
     swapchain.surface_format(),
     swapchain.present_mode()
   );
-  let vert_shader_module = device.create_shader_module(&vert_bytes).unwrap();
-  let frag_shader_module = device.create_shader_module(&frag_bytes).unwrap();
+  let _vert_shader_module = device.create_shader_module(&vert_bytes).unwrap();
+  let _frag_shader_module = device.create_shader_module(&frag_bytes).unwrap();
 
   // TODO: shader modules
 

@@ -2,6 +2,11 @@ use core::marker::PhantomData;
 
 use super::*;
 
+/// Rusty version of [VkPipelineShaderStageCreateInfo].
+///
+/// This is used as part of an array within a larger struct, so we must have the
+/// *exact* same size and layout as the raw type, which unfortunately means that
+/// we need to throw a PhantomData lifetime into the mix.
 #[derive(Clone, Debug)]
 #[repr(C)]
 pub struct PipelineShaderStageCreateInfo<'m> {
@@ -12,10 +17,12 @@ pub struct PipelineShaderStageCreateInfo<'m> {
   module: VkShaderModule,
   name: Option<ZString>,
   specialization_info: Option<Box<VkSpecializationInfo>>,
-  //
+  // WE MUST NOT CHANGE THE STRUCT SIZE
   life: PhantomData<&'m VkShaderModule>,
 }
 impl<'m> PipelineShaderStageCreateInfo<'m> {
+  /// Makes a new value from the provided data.
+  #[inline]
   pub fn new(stage: ShaderStage, module: &'m VkShaderModule, name: ZString) -> Self {
     Self {
       struct_ty: VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO,
