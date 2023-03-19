@@ -32,16 +32,26 @@ pub use viewport_state_create_info::*;
 
 impl Device {
   #[inline]
-  pub unsafe fn vk_create_pipeline_layout(
-    &self, info: &VkPipelineLayoutCreateInfo,
+  pub unsafe fn create_pipeline_layout(
+    &self, flags: VkPipelineLayoutCreateFlags,
+    descriptor_set_layouts: &[VkDescriptorSetLayout],
+    push_constant_ranges: &[VkPushConstantRange],
   ) -> Result<VkPipelineLayout, VkError> {
     let Some(vkCreatePipelineLayout) = self.0.fns.CreatePipelineLayout else {
       return Err(VkError::new(VK_ERROR_UNKNOWN.0).unwrap());
     };
+    let info = VkPipelineLayoutCreateInfo {
+      flags,
+      set_layout_count: descriptor_set_layouts.len().try_into().unwrap(),
+      set_layouts: descriptor_set_layouts.as_ptr(),
+      push_constant_range_count: push_constant_ranges.len().try_into().unwrap(),
+      push_constant_ranges: push_constant_ranges.as_ptr(),
+      ..Default::default()
+    };
     let mut vk_pipeline_layout = VkPipelineLayout::NULL;
     let r = vkCreatePipelineLayout(
       *self.0.vk_device.read().unwrap(),
-      info,
+      &info,
       null(),
       &mut vk_pipeline_layout,
     );

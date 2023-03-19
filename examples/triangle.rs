@@ -136,16 +136,11 @@ fn main() {
     create_info.multisample_state = Some(Box::default());
     create_info.color_blend_state = Some(Box::default());
     create_info.layout = unsafe {
+      let flags = VkPipelineLayoutCreateFlags::default();
       let descriptor_set_layouts = &[];
       let push_constant_ranges = &[];
       device
-        .vk_create_pipeline_layout(&VkPipelineLayoutCreateInfo {
-          set_layout_count: descriptor_set_layouts.len().try_into().unwrap(),
-          set_layouts: descriptor_set_layouts.as_ptr(),
-          push_constant_range_count: push_constant_ranges.len().try_into().unwrap(),
-          push_constant_ranges: push_constant_ranges.as_ptr(),
-          ..Default::default()
-        })
+        .create_pipeline_layout(flags, descriptor_set_layouts, push_constant_ranges)
         .unwrap()
     };
     create_info.render_pass = unsafe {
