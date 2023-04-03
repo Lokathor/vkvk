@@ -13,6 +13,8 @@ pub struct PipelineViewportStateCreateInfo {
   scissors: *const VkRect2D,
 }
 impl PipelineViewportStateCreateInfo {
+  #[inline]
+  #[must_use]
   pub const fn new_dynamic(viewport_count: u32, scissor_count: u32) -> Self {
     Self {
       struct_ty: VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO,

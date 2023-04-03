@@ -1,3 +1,6 @@
+#![allow(nonstandard_style)] // for the PFN definitions.
+#![allow(ambiguous_glob_reexports)]
+
 //! This module re-exports all the stuff from the crate.
 //!
 //! In case you want to just pull in the whole crate with one import:
@@ -6,8 +9,6 @@
 //! // unleash the power of a glob import
 //! use vkvk::prelude::*;
 //! ```
-
-#![allow(nonstandard_style)] // for the PFN definitions.
 
 pub use crate::{
   api_constants::*,
