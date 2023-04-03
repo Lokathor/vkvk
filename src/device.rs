@@ -304,6 +304,11 @@ impl Swapchain {
   pub fn min_image_count(&self) -> u32 {
     self.0.min_image_count
   }
+  /// The image views in this swapchain.
+  #[inline]
+  pub fn image_views(&self) -> &[VkImageView] {
+    &self.0.image_views
+  }
 }
 
 /// Handle to a shader module.
