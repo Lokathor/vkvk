@@ -243,6 +243,41 @@ impl Device {
       Err(VkError::new(r.0).unwrap())
     }
   }
+
+  #[inline]
+  pub fn create_framebuffer(
+    &self, render_pass: &VkRenderPass, image_view: &VkImageView, extent: VkExtent2D,
+  ) -> Result<VkFramebuffer, VkError> {
+    let Some(vkCreateFramebuffer) = self.0.fns.CreateFramebuffer else {
+      return Err(VkError::new(VK_ERROR_UNKNOWN.0).unwrap());
+    };
+    let info = VkFramebufferCreateInfo {
+      render_pass: *render_pass,
+      attachments: image_view,
+      attachment_count: 1,
+      width: extent.width,
+      height: extent.height,
+      layers: 1,
+      ..VkFramebufferCreateInfo::default()
+    };
+    let vk_device = self.0.vk_device.read().unwrap();
+    let mut framebuffer = VkFramebuffer::NULL;
+    let r = unsafe { vkCreateFramebuffer(*vk_device, &info, null(), &mut framebuffer) };
+    if r == VK_SUCCESS {
+      Ok(framebuffer)
+    } else {
+      Err(VkError::new(r.0).unwrap())
+    }
+  }
+  /// Extern Sync: `framebuffer`
+  #[inline]
+  pub unsafe fn destroy_framebuffer(&self, framebuffer: VkFramebuffer) {
+    let Some(vkDestroyFramebuffer) = self.0.fns.DestroyFramebuffer else {
+      return;
+    };
+    let vk_device = self.0.vk_device.read().unwrap();
+    vkDestroyFramebuffer(*vk_device, framebuffer, null())
+  }
 }
 
 pub(crate) struct DestroySwapchainOnDrop {

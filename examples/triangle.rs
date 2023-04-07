@@ -176,13 +176,16 @@ fn main() {
     )
   };
 
-  // TODO: framebuffers
+  let mut framebuffers = Vec::new();
+  for image_view in swapchain.image_views() {
+    let extent = swapchain.image_extent();
+    framebuffers
+      .push(device.create_framebuffer(&render_pass, image_view, extent).unwrap());
+  }
 
   // TODO: command pool
 
   // TODO: command buffer
-
-  // TODO: presentation
 
   'the_main_loop: loop {
     // Process pending events.
@@ -193,9 +196,14 @@ fn main() {
         _ => (),
       }
     }
+
+    // TODO: draw + presentation
   }
 
   unsafe {
+    for framebuffer in framebuffers.drain(..) {
+      device.destroy_framebuffer(framebuffer);
+    }
     device.vk_destroy_render_pass(render_pass);
     device.vk_destroy_pipeline_layout(graphics_pipeline_layout);
     device.vk_destroy_pipeline(graphics_pipeline);
